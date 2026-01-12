@@ -1,0 +1,117 @@
+.eskari-edukiontzia {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.eskari-txartela {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.eskari-goiburua {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.eskari-izenburua {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.eskari-egoera-etiketa {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.egoera-Osatua {
+  background-color: #d4edda;
+  color: #155724;
+}
+.egoera-Bidalita {
+  background-color: #cce5ff;
+  color: #004085;
+}
+.egoera-Prestatzen {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.egoera-Ezabatua {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.eskari-gorputza {
+  padding: 1rem;
+}
+.lerro-taula {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.lerro-taula th,
+.lerro-taula td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+.lerro-taula th {
+  font-size: 0.9rem;
+  color: #666;
+}
+.testu-apala {
+  color: #6c757d;
+}
+.guztira-lerroa {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+.atzera-botoia {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.ezabatu-eskaria-botoia {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.ezabatu-eskaria-botoia:hover {
+  background-color: #c82333;
+}
+
+.faktura-deskargatu-botoia {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.faktura-deskargatu-botoia:hover {
+  background-color: #0056b3;
+}
+
+.ezabatu-lerroa-botoia {
+  color: #dc3545;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.ezabatu-lerroa-botoia:hover {
+  color: #a71d2a;
+}

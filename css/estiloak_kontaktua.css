@@ -1,0 +1,298 @@
+/* --- BIRTEK - KONTAKTUA --- */
+
+.kontaktu-edukiontzia {
+  margin: 0 auto;  /*zentratua agertzeko*/
+  text-align: center;  
+  max-width: 1280px;
+  padding-left: 1rem;  /*ertzetatik pixka bat banatzeko*/
+  padding-right: 1rem;
+}
+
+.kontaktu-sareta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .kontaktu-sareta {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.inprimaki-kutxa {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.inprimaki-titulua {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: #166534;
+  font-family: "Outfit", sans-serif;
+}
+
+.kontaktu-inprimaki-diseinua {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inprimaki-sarrera,
+.inprimaki-hautatu {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  outline: none;
+  background-color: #f9fafb;
+  transition: border-color 0.2s;
+}
+
+.inprimaki-sarrera:focus {
+  border-color: #166534;
+}
+
+.sozial-kutxa {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .sozial-kutxa {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+}
+
+.sozial-azpititulua {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #374151;
+  font-family: "Outfit", sans-serif;
+}
+
+.footer-wa-botoia {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: #25d366;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.footer-wa-botoia:hover {
+  transform: scale(1.02);
+}
+
+.sozial-ikono-lerroa {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 2rem;
+}
+
+.fb-kolorea {
+  color: #1877f2;
+}
+.ig-kolorea {
+  color: #e4405f;
+}
+.tw-kolorea {
+  color: #000000; /* X (Twitter) beltza */
+}
+.tik-kolorea {
+  color: #000000;
+}
+.tg-kolorea {
+  color: #0088cc;
+}
+
+.mapa-edukiontzia {
+  height: 100%;
+  min-height: 400px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .mapa-edukiontzia {
+    grid-column: 2/3;
+    grid-row: 1/3;
+  }
+}
+
+.mapa-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.kontaktua-titulua {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  text-transform: uppercase;
+  color: #166534;
+  word-wrap: break-word; /*hitz bateko letrak filaz ez aldatzeko*/
+}
+
+.botoia {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.botoi-nagusia {
+  background-color: #166534;
+  color: white;
+}
+
+.botoi-nagusia:hover {
+  background-color: #14532d;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   Langileak Orriko Estiloak
+   ========================================= */
+.langileak-edukiontzia {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.birtek-java-ap-botoia-kanpo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.birtek-java-ap-botoia {
+  background-color: #2563eb; /* Urdina */
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 1.5rem 3rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+  font-family: "Outfit", sans-serif;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.birtek-java-ap-botoia:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+  background-color: #1d4ed8;
+}
+
+/* =========================================
+   Erabilgarritasun Klaseak (Utility Classes)
+   ========================================= */
+.testua-zentratuta {
+  text-align: center;
+}
+
+.tartea-behean-2 {
+  margin-bottom: 2rem;
+}
+
+.tartea-behean-1-5 {
+  margin-bottom: 1.5rem;
+}
+
+.testua-grisa {
+  color: #6b7280;
+}
+
+.sareta-2-zutabe {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.zabalera-osoa {
+  width: 100%;
+}
+
+.tartea-goian-1 {
+  margin-top: 1rem;
+}
+
+.botoia-tartea-goian {
+    margin-top: 1rem;
+}
+
+.input-padding {
+  padding: 10px;
+}
+
+.pasahitza-ahaztu-esteka {
+  color: #166534;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.esteka-berdea-osoa {
+  background: #bbf7d0;
+  color: #14532d;
+  border-color: #14532d;
+}
+
+.label-input-fitxategia {
+    font-weight: 500; 
+    margin-bottom: 0.5rem; 
+    display: block; 
+    color: #374151;
+}
+
+/* Mugikorrerako egokitzapenak */
+@media (max-width: 640px) {
+    .sareta-2-zutabe {
+        grid-template-columns: 1fr;
+    }
+    
+    .birtek-ap-botoia {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
+        font-size: 1.25rem;
+    }
+}
+
+.testua-txikia {
+  font-size: 0.75rem;
+}
+.tartea-goian-txikia {
+  margin-top: 0.25rem;
+}
+

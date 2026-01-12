@@ -1,0 +1,180 @@
+/* Xehetasunak orrirako estiloak */
+.xehetasunak-edukiontzia {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .xehetasunak-edukiontzia {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.xehetasunak-irudia-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.xehetasunak-irudia {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+.xehetasunak-info {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.produktu-izenburua {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+}
+.produktu-meta {
+  display: flex;
+  gap: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+.meta-etiketa {
+  background: #f3f4f6;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+.produktu-prezioa {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 1rem 0;
+}
+.produktu-deskribapena {
+  line-height: 1.6;
+  color: #4b5563;
+}
+.stock-info {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.stock-bai {
+  color: #166534;
+}
+.stock-ez {
+  color: #dc2626;
+}
+
+.ekintza-eremua {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.produktu-kantitatea-aldatu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.kantitate-input {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1.1rem;
+  text-align: center;
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.kantitate-input::-webkit-outer-spin-button,
+.kantitate-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.kantitate-btn {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+.kantitate-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Hasieran inline ziren estiloak */
+.xehetasunak-errorea {
+  text-align: center;
+  padding: 4rem;
+}
+.botoia-itzuli-xehetasunak {
+  margin-top: 1rem;
+  display: inline-block;
+}
+.saskiratu-xehetasunak-botoia {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+.xehetasunak-agortuta-botoia {
+  background: #9ca3af;
+  cursor: not-allowed;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Teknika xehetasunak kutxa */
+.xehetasun-teknikoak-kutxa {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.xehetasun-teknikoak-izenburua {
+  margin-top: 0;
+}
+
+.xehetasun-teknikoak-zerrenda {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.xehetasun-teknikoak-item {
+  margin-bottom: 4px;
+}
+
+.prezioa-eskaintza {
+  font-size: 1rem;
+  color: #dc2626;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.kantitate-label {
+  margin-right: 0.5rem;
+}

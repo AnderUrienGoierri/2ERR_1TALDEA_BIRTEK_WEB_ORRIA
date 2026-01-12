@@ -1,0 +1,207 @@
+var produktuGuztiak = []; // Produktu guztiak gordetzeko (filtratzeko)
+
+// PRODUKTU SAREA OSATU:
+$(document).ready(function () {
+  // Begiratu ea zerbitzaritik (PHP) datuak jada badatozen (hasierakoProduktuak)
+  if (
+    typeof hasierakoProduktuak !== "undefined" &&
+    Array.isArray(hasierakoProduktuak)
+  ) {
+    // Datuak jada hemen daude: ez egin ajax deirik.
+    // Gorde aldagai globalean iragazkientzat
+    produktuGuztiak = hasierakoProduktuak;
+    console.log("Produktuak PHPtik kargatuta.", produktuGuztiak.length);
+  } else {
+    console.error(
+      "Errorea: Produktuak ez dira kargatu. 'hasierakoProduktuak' ez dago definituta."
+    );
+    $(".produktu-sarea").html(
+      "<p>Errorea: Ezin izan dira produktuak kargatu.</p>"
+    );
+  }
+
+  // Iragazkietan aldaketak detektatu
+  $(
+    "#filtro-bilatu, #filtro-egoera, #filtro-kategoria, #filtro-mota, #filtro-ordenatu, #prezioa-min, #prezioa-max"
+  ).on("input change", function () {
+    produktuakFiltratu();
+  });
+
+  // "FILTROAK GARBITU" botoia
+  $(".iragazkiak-berrezarri").on("click", function () {
+    $("#filtro-bilatu").val("");
+    $("#filtro-egoera").val("");
+    $("#filtro-kategoria").val("");
+    $("#filtro-mota").val("");
+    $("#filtro-ordenatu").val("default");
+    $("#prezioa-min").val("");
+    $("#prezioa-max").val("");
+    produktuakFiltratu(); // Berrezarri ondoren filtratu (denak erakusteko)
+  });
+});
+
+function produktuakBistaratu(produktuak) {
+  var $sarea = $(".produktu-sarea");
+  $sarea.empty();
+
+  if (produktuak.length === 0) {
+    $sarea.html("<p>Ez da produkturik aurkitu irizpide hauekin.</p>");
+    return;
+  }
+
+  $.each(produktuak, function (index, produktua) {
+    var stockKlasea =
+      produktua.stock > 0 ? "txartel-stock" : "txartel-stock-agortuta";
+    // Kategoria ID bada zenbaki bat, agian izena berreskuratu beharko litzateke,
+    // baina `api_produktuak.php`-k jada `id_kategoria` izenarekin bidaltzen du (testua).
+
+    var txartelaHtml = `
+      <div class="produktu-txartela">
+        <div class="txartel-irudia" onclick="window.location.href='produktua_xehetasunak.php?id=${
+          produktua.id_produktua
+        }'" style="cursor: pointer;">
+          <img
+            src="${produktua.irudia_url}"
+            alt="${produktua.izena}"
+            class="txartel-irudia"
+            onerror="this.src='../irudiak/birtek1.jpeg'" 
+          />
+          <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
+        </div>
+        <div class="txartel-edukia">
+          <h3 class="txartel-izenburua" onclick="window.location.href='produktua_xehetasunak.php?id=${
+            produktua.id_produktua
+          }'" style="cursor: pointer;">${produktua.izena}</h3>
+          <div class="txartel-info-lerroa">
+            <span class="txartel-marka">${produktua.marka} | ${
+      produktua.egoera
+    }</span>
+            <span class="${stockKlasea}">Stock: ${produktua.stock}</span>
+          </div>
+          <p class="txartel-azalpena">
+            ${produktua.deskribapena || ""}
+          </p>
+
+          <div class="txartel-oina">
+            <span class="txartel-prezioa">${produktua.prezioa.toFixed(
+              2
+            )} €</span>
+            <button class="produktua-saskiratu-botoia" data-stock="${
+              produktua.stock
+            }" ${
+      produktua.stock === 0
+        ? 'disabled style="opacity:0.5; cursor:not-allowed;"'
+        : ""
+    }>
+              Saskiratu
+            </button>
+            <button class="produktua-ikusi-botoia" onclick="window.location.href='produktua_xehetasunak.php?id=${
+              produktua.id_produktua
+            }'">Ikusi</button>
+          </div>
+        </div>
+      </div>
+    `;
+    $sarea.append(txartelaHtml);
+  });
+}
+
+function produktuakFiltratu() {
+  var bilatuTestua = $("#filtro-bilatu").val().toLowerCase();
+  var egoera = $("#filtro-egoera").val();
+  var kategoria = $("#filtro-kategoria").val();
+  var mota = $("#filtro-mota").val();
+  var ordenatu = $("#filtro-ordenatu").val();
+  var prezioaMin = parseFloat($("#prezioa-min").val());
+  var prezioaMax = parseFloat($("#prezioa-max").val());
+
+  var emaitzak = produktuGuztiak.filter(function (p) {
+    // Stock-a egiaztatu (0 bada ez erakutsi)
+    if (p.stock <= 0) return false;
+
+    // Bilatu (Izena edo Marka)
+    var matchBilatu =
+      !bilatuTestua ||
+      p.izena.toLowerCase().includes(bilatuTestua) ||
+      p.marka.toLowerCase().includes(bilatuTestua);
+
+    // Egoera
+    var matchEgoera = !egoera || p.egoera === egoera;
+
+    // Kategoria (id_kategoria gisa stringa dator API-tik momentuz)
+    var matchKategoria = !kategoria || p.id_kategoria === kategoria;
+
+    // Mota
+    var matchMota = !mota || p.mota === mota;
+
+    // Prezioa
+    var matchPrezioaMin = isNaN(prezioaMin) || p.prezioa >= prezioaMin;
+    var matchPrezioaMax = isNaN(prezioaMax) || p.prezioa <= prezioaMax;
+
+    return (
+      matchBilatu &&
+      matchEgoera &&
+      matchKategoria &&
+      matchMota &&
+      matchPrezioaMin &&
+      matchPrezioaMax
+    );
+  });
+
+  // Ordenatu
+  if (ordenatu !== "default") {
+    emaitzak.sort(function (a, b) {
+      if (ordenatu === "prezioa-asc") return a.prezioa - b.prezioa;
+      if (ordenatu === "prezioa-desc") return b.prezioa - a.prezioa;
+      if (ordenatu === "izena-asc") return a.izena.localeCompare(b.izena);
+      if (ordenatu === "izena-desc") return b.izena.localeCompare(a.izena);
+      if (ordenatu === "stock-asc") return a.stock - b.stock;
+      if (ordenatu === "stock-desc") return b.stock - a.stock;
+      return 0;
+    });
+  }
+
+  produktuakBistaratu(emaitzak);
+}
+
+// ==========================================================
+// SASKIAREN LOGIKA (GEHITU BAKARRIK - Globala)
+// ==========================================================
+$(document).ready(function () {
+  // 1. PRODUKTUA GEHITU (Saskiratu botoia)
+  $(document).on("click", ".produktua-saskiratu-botoia", function () {
+    var $botoia = $(this);
+    var $txartela = $botoia.closest(".produktu-txartela");
+
+    // Datuak jaso
+    var izena = $txartela.find(".txartel-izenburua").text();
+    var prezioaTestua = $txartela
+      .find(".txartel-prezioa")
+      .text()
+      .replace(" €", "");
+    var prezioa = parseFloat(prezioaTestua);
+    var stock = parseInt($botoia.data("stock")) || 0;
+
+    // Bilatu produktua array globalean ID lortzeko
+    var produktuaObj = produktuGuztiak.find((p) => p.izena === izena);
+    // Fallback: IDrik ezean izena erabili (baina PHPtik beti IDa etorri beharko litzateke)
+    var id = produktuaObj ? produktuaObj.id_produktua : izena;
+
+    // Globala.js-ko funtzioa deitu
+    if (typeof window.saskiaGehitu === "function") {
+      window.saskiaGehitu(id, izena, prezioa, stock, $botoia);
+
+      // Saskia irekita badago, eguneratu ikuspegia
+      if (
+        $("#saski-modala").is(":visible") &&
+        typeof window.saskiaErakutsi === "function"
+      ) {
+        window.saskiaErakutsi();
+      }
+    } else {
+      console.error(
+        "Errorea: window.saskiaGehitu ez dago definituta globala.js-n"
+      );
+    }
+  });
+});
