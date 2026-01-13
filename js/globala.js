@@ -23,23 +23,23 @@ $(document).ready(function () {
     var isSubDir =
       currentPath.includes("/html/") || currentPath.includes("/php/");
 
-    if (targetType === "php") {
-      if (isSubDir && currentPath.includes("/php/")) return targetFile; // PHP-n gaude
-      if (isSubDir && currentPath.includes("/html/"))
-        return "../php/" + targetFile; // HTML-n gaude
-      return "php/" + targetFile; // Erroan gaude
-    } else if (targetType === "html") {
-      if (isSubDir && currentPath.includes("/html/")) return targetFile; // HTML-n gaude
-      if (isSubDir && currentPath.includes("/php/"))
-        return "../html/" + targetFile; // PHP-n gaude
-      return "html/" + targetFile; // Erroan gaude
+    if (targetType === "php" || targetType === "html") {
+      // Guztia php karpetan dagoela suposatzen dugu orain
+      var file = targetFile;
+      if (targetType === "html" && file.endsWith(".html")) {
+        file = file.replace(".html", ".php");
+      }
+
+      if (isSubDir && currentPath.includes("/php/")) return file;
+      if (isSubDir && currentPath.includes("/html/")) return "../php/" + file;
+      return "php/" + file;
     }
     return targetFile;
   }
 
   // --- SESSION CHECK LOGIKA ---
   function checkSession() {
-    var checkUrl = resolveUrl("php", "get_session_status.php");
+    var checkUrl = resolveUrl("php", "get_saio_egoera.php");
 
     $.ajax({
       url: checkUrl,
@@ -48,7 +48,10 @@ $(document).ready(function () {
       success: function (data) {
         if (data.logged_in) {
           updateHeaderForLoggedInUser(data.izena);
-          $(document).trigger("session:valid", [data.izena]);
+          $(document).trigger("session:valid", [data.izena, data.type]);
+
+          // Check for session conflict on login pages
+          checkLoginConflict(data.type);
         }
       },
       error: function (xhr, status, error) {
@@ -57,12 +60,36 @@ $(document).ready(function () {
     });
   }
 
+  function checkLoginConflict(currentType) {
+    // Determine if we are on a login page
+    var path = window.location.pathname;
+
+    // Logic: If I am logged in as 'bezeroa', I cannot log in as 'hornitzailea' without logout
+    // If I am logged in as 'hornitzailea', I cannot log in as 'bezeroa' without logout
+
+    // Detect page context
+    var isHornitzaileLogin = path.includes("hornitzaile_saioa_hasi.php");
+    var isBezeroLogin = path.includes("bezero_saioa_hasi.php");
+
+    if (
+      (isHornitzaileLogin && currentType === "bezeroa") ||
+      (isBezeroLogin && currentType === "hornitzailea")
+    ) {
+      // Disable forms and show alert on interaction
+      $("form").on("submit", function (e) {
+        e.preventDefault();
+        alert("Beste Saioa Itxi Behar duzu");
+      });
+
+      // Also potentially alert immediately or visually indicate
+      console.warn(
+        "Session conflict: " + currentType + " on opposite login page."
+      );
+    }
+  }
+
   function updateHeaderForLoggedInUser(izena) {
     var profileUrl = resolveUrl("php", "bezero_menua.php");
-
-    // User wants JUST the name to appear where "Saioa Hasi" was, and click to go to menu.
-    // We can also add a logout icon or small text, but the request emphasized clicking the name opens the menu.
-    // To match the "Saioa Hasi" button style but show name:
 
     const logoutBtnHtml = `
       <div class="saio-info-edukiontzia">
@@ -75,23 +102,34 @@ $(document).ready(function () {
       </div>
     `;
 
-    // Eguneratu mahaigaineko bertsioa (IDa edo klasea erabiliz)
-    $(
-      ".nab-ekintzak .saioa-hasi-botoia, .nab-ekintzak #saioa-hasi-botoia"
-    ).replaceWith(logoutBtnHtml);
+    // Eguneratu mahaigaineko bertsioa
+    // Target both the login button and the existing container if any
+    var $desktopInfo = $(".nab-ekintzak .saio-info-edukiontzia");
+    if ($desktopInfo.length > 0) {
+      $desktopInfo.replaceWith(logoutBtnHtml);
+    } else {
+      $(".nab-ekintzak .saioa-hasi-botoia").replaceWith(logoutBtnHtml);
+    }
 
     // Eguneratu mugikorreko bertsioa
-    // Mugikorrean "Langileak" azpian edo antzeko lekuan.
-    $("#mugikor-menua .saioa-hasi-botoia").replaceWith(
-      `<div class="mugikor-user-container">
+    var $mugikorUser = $("#mugikor-menua .mugikor-user-container");
+    const mugikorHtml = `
+      <div class="mugikor-user-container">
          <a href="${profileUrl}" class="nab-botoia mugikor-user-link">
-            <i class="fas fa-user"></i> ${izena} (Nire Menua)
+            <i class="fas fa-user"></i> ${izena}
          </a>
-         <button id="saioa-itxi-botoia-mugikor" class="nab-botoia" style="color:red;">
+         <button id="saioa-itxi-botoia-mugikor" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border: 1px solid #f87171; border-radius: 8px; width: calc(100% - 3rem); margin: 0.5rem 1.5rem; text-align: left;">
             <i class="fas fa-sign-out-alt"></i> Saioa Itxi
          </button>
-       </div>`
-    );
+       </div>
+    `;
+
+    if ($mugikorUser.length > 0) {
+      $mugikorUser.replaceWith(mugikorHtml);
+    } else {
+      $("#mugikor-menua .saioa-hasi-botoia").remove();
+      $("#mugikor-menua").append(mugikorHtml);
+    }
   }
 
   // --- SASKI MODALA LOGIKA ---
@@ -138,7 +176,7 @@ $(document).ready(function () {
 
   // BOTOIA INJEKZIOA: Saski botoia ez badago, gehitu
   if ($(".saski-botoia").length === 0) {
-    console.log("Saski botoia injektatzen...")
+    console.log("Saski botoia injektatzen...");
 
     var botoiHtml = `
             <button class="saski-botoia" id="saski-botoia-injektatua">
@@ -424,8 +462,8 @@ $(document).ready(function () {
       return;
     }
 
-    var checkUrl = resolveUrl("php", "get_session_status.php");
-    var loginUrl = resolveUrl("html", "bezeroa_saioa_hasi.html");
+    var checkUrl = resolveUrl("php", "get_saio_egoera.php");
+    var loginUrl = resolveUrl("php", "bezero_saioa_hasi.php");
     var checkoutUrl = resolveUrl("php", "ordainketa_pasarela.php");
 
     $.ajax({
@@ -453,7 +491,7 @@ $(document).ready(function () {
     function (e) {
       e.preventDefault();
       var logoutUrl = resolveUrl("php", "logout_bezeroa.php");
-      var loginUrl = resolveUrl("html", "bezeroa_saioa_hasi.html");
+      var loginUrl = resolveUrl("php", "bezero_saioa_hasi.php");
 
       $.ajax({
         url: logoutUrl,

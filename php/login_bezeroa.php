@@ -30,14 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Error handling - redirect back with query param
-            header("Location: ../html/bezeroa_saioa_hasi.html?error=1");
+            header("Location: bezero_saioa_hasi.php?error=1");
             exit();
         }
     } catch (PDOException $e) {
         die("Errorea: " . $e->getMessage());
     }
 } else {
-    header("Location: ../html/bezeroa_saioa_hasi.html");
+    header("Location: bezero_saioa_hasi.php");
 }
 ?>
 

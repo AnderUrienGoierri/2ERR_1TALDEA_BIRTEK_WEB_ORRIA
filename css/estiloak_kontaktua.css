@@ -1,16 +1,19 @@
 /* --- BIRTEK - KONTAKTUA --- */
 
 .kontaktu-edukiontzia {
-  margin: 0 auto;  /*zentratua agertzeko*/
-  text-align: center;  
+  margin: 0 auto; /*zentratua agertzeko*/
+  text-align: center;
   max-width: 1280px;
-  padding-left: 1rem;  /*ertzetatik pixka bat banatzeko*/
+  padding-left: 1rem; /*ertzetatik pixka bat banatzeko*/
   padding-right: 1rem;
 }
 
 .kontaktu-sareta {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(
+    0,
+    1fr
+  ); /* CRITICAL: Allows grid tracks to shrink below content size */
   gap: 3rem;
   align-items: start;
 }
@@ -23,10 +26,20 @@
 
 .inprimaki-kutxa {
   background-color: white;
-  padding: 2.5rem;
+  padding: 1rem; /* Optimized for ultra-small screens like 250px */
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
+  width: 92%; /* Narrower feel on small mobile */
+  max-width: 500px; /* Constrained on tablet/desktop */
+  margin: 0 auto; /* Centered */
+  min-width: 0; /* CRITICAL: Allows grid item to shrink below content size */
+}
+
+@media (min-width: 480px) {
+  .inprimaki-kutxa {
+    padding: 2.5rem;
+  }
 }
 
 .inprimaki-titulua {
@@ -41,6 +54,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%; /* Force full width */
+  min-width: 0; /* Allow flex container to shrink */
 }
 
 .inprimaki-sarrera,
@@ -52,6 +67,9 @@
   outline: none;
   background-color: #f9fafb;
   transition: border-color 0.2s;
+  min-width: 0; /* Ensures inputs can shrink instead of overflowing */
+  box-sizing: border-box; /* Explicitly ensure padding is included in width */
+  max-width: 100%; /* Prevent overflowing parent */
 }
 
 .inprimaki-sarrera:focus {
@@ -60,11 +78,33 @@
 
 .sozial-kutxa {
   background-color: white;
-  padding: 2.5rem;
+  padding: 1rem; /* Reduced for 250px */
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
   text-align: center;
+  width: 92%;
+  max-width: 500px;
+  margin: 0 auto;
+  min-width: 0;
+}
+
+@media (min-width: 480px) {
+  .sozial-kutxa {
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .sozial-kutxa {
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .sozial-kutxa {
+    padding: 2.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -105,8 +145,9 @@
 .sozial-ikono-lerroa {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  font-size: 2rem;
+  gap: 1rem; /* Reduced from 2rem to fit in 250px */
+  font-size: 1.75rem; /* Slightly reduced */
+  flex-wrap: wrap; /* Allow wrapping on tiny screens */
 }
 
 .fb-kolorea {
@@ -131,6 +172,9 @@
   border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 92%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -147,14 +191,21 @@
 }
 
 .kontaktua-titulua {
-  font-size: 2.25rem;
+  font-size: 1.75rem; /* Reduced for 320px */
   font-weight: 800;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
   font-family: "Outfit", sans-serif;
   text-transform: uppercase;
   color: #166534;
-  word-wrap: break-word; /*hitz bateko letrak filaz ez aldatzeko*/
+  word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  .kontaktua-titulua {
+    font-size: 2.25rem;
+    margin-bottom: 3rem;
+  }
 }
 
 .botoia {
@@ -249,7 +300,7 @@
 }
 
 .botoia-tartea-goian {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .input-padding {
@@ -269,24 +320,24 @@
 }
 
 .label-input-fitxategia {
-    font-weight: 500; 
-    margin-bottom: 0.5rem; 
-    display: block; 
-    color: #374151;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #374151;
 }
 
 /* Mugikorrerako egokitzapenak */
 @media (max-width: 640px) {
-    .sareta-2-zutabe {
-        grid-template-columns: 1fr;
-    }
-    
-    .birtek-ap-botoia {
-        width: 100%;
-        justify-content: center;
-        padding: 1rem;
-        font-size: 1.25rem;
-    }
+  .sareta-2-zutabe {
+    grid-template-columns: 1fr;
+  }
+
+  .birtek-ap-botoia {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.25rem;
+  }
 }
 
 .testua-txikia {
@@ -295,4 +346,3 @@
 .tartea-goian-txikia {
   margin-top: 0.25rem;
 }
-

@@ -53,7 +53,7 @@ $izena = $_SESSION['izena'];
             </p>
             <div class="botoi-container" style="display: flex; gap: 10px; justify-content: center;">
                 <a href="bezero_eskaerak.php" class="botoia" style="background-color: #4b5563;">Erosketak Kudeatu</a>
-                <a href="../html/hasiera.html" class="botoia botoi-nagusia">Itzuli Hasierara</a>
+                <a href="hasiera.php" class="botoia botoi-nagusia">Itzuli Hasierara</a>
             </div>
         </div>
       <?php else: ?>

@@ -2,14 +2,20 @@
 
 /* PRODUKTU ORRIAKO ELEMENTUAK */
 .produktuak-titulua {
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin-bottom: 3rem;
+  font-size: 2.25rem; /* Mobile first */
+  margin-bottom: 2rem;
   text-align: center;
   color: #166534;
   font-family: "Outfit", sans-serif;
   text-transform: uppercase;
-  word-wrap: break-word; /*hitz bateko letrak filaz ez aldatzeko*/
+  word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  .produktuak-titulua {
+    font-size: 1.75rem;
+    margin-bottom: 3rem;
+  }
 }
 
 .produktuak-orria {
@@ -44,12 +50,18 @@
 
 .iragazki-kaxa {
   background: white;
-  padding: 2rem;
+  padding: 1.25rem; /* Reduced for 320px */
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 10rem;
+}
+
+@media (min-width: 375px) {
+  .iragazki-kaxa {
+    padding: 2rem;
+  }
 }
 
 .iragazki-izenburua {
@@ -156,10 +168,16 @@
 }
 
 .txartel-edukia {
-  padding: 1.5rem;
+  padding: 1rem; /* Reduced for 320px */
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+@media (min-width: 375px) {
+  .txartel-edukia {
+    padding: 1.5rem;
+  }
 }
 
 .txartel-izenburua {
@@ -184,8 +202,8 @@
 }
 
 .txartel-prezioa {
-  font-size: 0.5rem;
-  font-weight: 500;
+  font-size: 1.25rem; /* Fixed: was 0.5rem */
+  font-weight: 700;
   color: #166534;
 }
 

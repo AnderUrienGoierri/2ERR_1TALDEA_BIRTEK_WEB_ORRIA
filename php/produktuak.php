@@ -1,4 +1,5 @@
 <?php
+session_start();
 // DB konexioa
 //include_once 'DB_konexioa.php'
 require_once 'DB_konexioa.php';
@@ -81,49 +82,79 @@ try {
           </button>
 
           <!-- logoa -->
-          <a href="../html/hasiera.html" class="logo-edukiontzia">
+          <a href="hasiera.php" class="logo-edukiontzia">
             <span class="logoa">BIRTEK</span>
           </a>
 
           <div class="nab-menu-mahaigaina">
-            <a href="../html/hasiera.html" class="nab-botoia">Hasiera</a>
+            <a href="hasiera.php" class="nab-botoia">Hasiera</a>
             <a href="produktuak.php" class="nab-botoia aktibo">Produktuak</a>
-            <a href="../html/berriak.html" class="nab-botoia">Berriak</a>
-            <a href="../html/kontaktua.html" class="nab-botoia">Kontaktua</a>
-            <a href="../html/hornitzailea_saioa_hasi.html" class="nab-botoia">Birziklatu</a>
-            <a href="../html/langileak_menua.html" class="nab-botoia">Langileak</a>
+            <a href="berriak.php" class="nab-botoia">Berriak</a>
+            <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
+            <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? 'hornitzailea-aktibo' : '' ?>">Birziklatu</a>
+            <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
           </div>
 
-          <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
-            <a href="../html/hasiera.html" class="nab-botoia">Hasiera</a>
-            <a href="produktuak.php" class="nab-botoia aktibo">Produktuak</a>
-            <a href="../html/berriak.html" class="nab-botoia">Berriak</a>
-            <a href="../html/kontaktua.html" class="nab-botoia">Kontaktua</a>
-            <a href="../html/hornitzailea_saioa_hasi.html" class="nab-botoia">Birziklatu</a>
-            <a href="../html/langileak_menua.html" class="nab-botoia">Langileak</a>
-        </div>
-
-          <div class="nab-ekintzak" style="position: relative">
-            <!-- saioa hasi botoia -->
-            <a href="../html/bezeroa_saioa_hasi.html" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
-            <!-- saskia botoia -->
+          <div class="nab-ekintzak">
+            <?php if (isset($_SESSION['id_bezeroa'])): ?>
+                <div class="saio-info-edukiontzia">
+                    <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
+                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
+                    </a>
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
+                <div class="saio-info-edukiontzia">
+                    <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
+                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
+                    </a>
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            <?php else: ?>
+                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
+            <?php endif; ?>
+            
             <button class="saski-botoia" id="saski-botoia-toggle">
-              <!-- karrito ikonoa -->
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <!-- Hemen saski kontagailua hasten da (0 balioarekin adibidez) -->
               <span class="saski-kontagailu-txapa">0</span>
             </button>
           </div>
         </div>
 
         <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
-          <a href="../html/hasiera.html" class="nab-botoia">Hasiera</a>
+          <a href="hasiera.php" class="nab-botoia">Hasiera</a>
           <a href="produktuak.php" class="nab-botoia aktibo">Produktuak</a>
-          <a href="../html/berriak.html" class="nab-botoia">Berriak</a>
-          <a href="../html/kontaktua.html" class="nab-botoia">Kontaktua</a>
-          <a href="../html/hornitzailea_saioa_hasi.html" class="nab-botoia">Birziklatu</a>
-          <a href="../html/langileak_menua.html" class="nab-botoia">Langileak</a>
+          <a href="berriak.php" class="nab-botoia">Berriak</a>
+          <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
+          <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? 'hornitzailea-aktibo' : '' ?>">Birziklatu</a>
+          <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
+
+          <?php if (isset($_SESSION['id_bezeroa'])): ?>
+              <div class="mugikor-user-container">
+                  <a href="bezero_menua.php" class="nab-botoia mugikor-user-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
+                  </a>
+                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </a>
+              </div>
+          <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
+              <div class="mugikor-user-container">
+                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-user-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
+                  </a>
+                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </a>
+              </div>
+          <?php else: ?>
+              <a href="bezero_saioa_hasi.php" class="nab-botoia">Saioa Hasi</a>
+          <?php endif; ?>
         </div>
       </nav>
     </header>
@@ -132,6 +163,7 @@ try {
       <!-- PRODUKTUAK ORRIA -->
       <section>
         <h2 class="produktuak-titulua">Gure Produktuak</h2>
+        
         <div class="produktuak-orria">
           <div class="alboko-barra">
             <!-- Iragazkiak -->
@@ -318,12 +350,12 @@ try {
           <!-- Lotura azkarrak -->
           <h4 class="oin-goiburua">Lotura Azkarrak</h4>
           <ul class="oin-nab-zerrenda">
-            <li><a href="../html/hasiera.html" class="oin-lotura">Hasiera</a></li>
+            <li><a href="hasiera.php" class="oin-lotura">Hasiera</a></li>
             <li><a href="produktuak.php" class="oin-lotura">Produktuak</a></li>
-            <li><a href="../html/berriak.html" class="oin-lotura">Berriak</a></li>
-            <li><a href="../html/kontaktua.html" class="oin-lotura">Kontaktua</a></li>
-            <li><a href="../html/hornitzailea_saioa_hasi.html" class="oin-lotura">Birziklatu</a></li>
-            <li><a href="../html/langileak_menua.html" class="oin-lotura">Langileak</a></li>
+            <li><a href="berriak.php" class="oin-lotura">Berriak</a></li>
+            <li><a href="kontaktua.php" class="oin-lotura">Kontaktua</a></li>
+            <li><a href="hornitzaile_saioa_hasi.php" class="oin-lotura">Birziklatu</a></li>
+            <li><a href="langileak_menua.php" class="oin-lotura">Langileak</a></li>
           </ul>
         </div>
       </div>

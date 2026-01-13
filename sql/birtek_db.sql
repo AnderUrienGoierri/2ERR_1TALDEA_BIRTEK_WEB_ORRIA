@@ -183,118 +183,118 @@ CREATE TABLE IF NOT EXISTS produktuak (
     CONSTRAINT fk_produktua_biltegia FOREIGN KEY (biltegi_id) REFERENCES biltegiak(id_biltegia)
 );
 
-    -- ========================================================
-    -- SUBKLASEAK - PRODUKTUAK (HERENTZIA)
-            -- Filtroak aplikatzeko produktuen kategoria ezberdinei. Mo
-    -- ========================================================
+		-- ========================================================
+		-- SUBKLASEAK - PRODUKTUAK (HERENTZIA)
+				-- Filtroak aplikatzeko produktuen kategoria ezberdinei.
+		-- ========================================================
 
-    -- 1. Eramangarriak (Portátiles)
-    CREATE TABLE IF NOT EXISTS eramangarriak (
-        id_produktua INT UNSIGNED PRIMARY KEY,  -- PK eta FK batera
-        prozesadorea VARCHAR(100), -- CPU
-        ram_gb INT,
-        diskoa_gb INT,
-        pantaila_tamaina DECIMAL(4,1), -- Pulgadas
-        bateria_wh INT,
-        sistema_eragilea VARCHAR(50),
-        pisua_kg DECIMAL(4,2),
-        CONSTRAINT fk_eramangarria_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 1. Eramangarriak (Portátiles)
+		CREATE TABLE IF NOT EXISTS eramangarriak (
+			id_produktua INT UNSIGNED PRIMARY KEY,  -- PK eta FK batera
+			prozesadorea VARCHAR(100), -- CPU
+			ram_gb INT,
+			diskoa_gb INT,
+			pantaila_tamaina DECIMAL(4,1), -- Pulgadas
+			bateria_wh INT,
+			sistema_eragilea VARCHAR(50),
+			pisua_kg DECIMAL(4,2),
+			CONSTRAINT fk_eramangarria_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 2. Mahai-gainekoak (PC Sobremesa)
-    CREATE TABLE IF NOT EXISTS mahai_gainekoak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        prozesadorea VARCHAR(100),
-        plaka_basea VARCHAR(100),
-        ram_gb INT,
-        diskoa_gb INT,
-        txartel_grafikoa VARCHAR(100),
-        elikatze_iturria_w INT, -- Watts
-        kaxa_formatua ENUM('ATX', 'Micro-ATX', 'Mini-ITX', 'E-ATX'),
-        CONSTRAINT fk_mahaigainekoa_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 2. Mahai-gainekoak (PC Sobremesa)
+		CREATE TABLE IF NOT EXISTS mahai_gainekoak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			prozesadorea VARCHAR(100),
+			plaka_basea VARCHAR(100),
+			ram_gb INT,
+			diskoa_gb INT,
+			txartel_grafikoa VARCHAR(100),
+			elikatze_iturria_w INT, -- Watts
+			kaxa_formatua ENUM('ATX', 'Micro-ATX', 'Mini-ITX', 'E-ATX'),
+			CONSTRAINT fk_mahaigainekoa_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 3. Mugikorrak (Smartphones)
-    CREATE TABLE IF NOT EXISTS mugikorrak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        pantaila_teknologia VARCHAR(50), -- OLED, IPS...
-        pantaila_hazbeteak DECIMAL(3,1),
-        biltegiratzea_gb INT,
-        ram_gb INT,
-        kamera_nagusa_mp INT,
-        bateria_mah INT,
-        sistema_eragilea VARCHAR(50), -- Android, iOS
-        sareak ENUM('4G', '5G'),
-        CONSTRAINT fk_mugikorra_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 3. Mugikorrak (Smartphones)
+		CREATE TABLE IF NOT EXISTS mugikorrak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			pantaila_teknologia VARCHAR(50), -- OLED, IPS...
+			pantaila_hazbeteak DECIMAL(3,1),
+			biltegiratzea_gb INT,
+			ram_gb INT,
+			kamera_nagusa_mp INT,
+			bateria_mah INT,
+			sistema_eragilea VARCHAR(50), -- Android, iOS
+			sareak ENUM('4G', '5G'),
+			CONSTRAINT fk_mugikorra_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 4. Tabletak (Tablets)
-    CREATE TABLE IF NOT EXISTS tabletak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        pantaila_hazbeteak DECIMAL(4,1),
-        biltegiratzea_gb INT,
-        konektibitatea ENUM('WiFi', 'WiFi + Cellular'),
-        sistema_eragilea VARCHAR(50), -- iPadOS, Android
-        bateria_mah INT,
-        arkatzarekin_bateragarria BOOLEAN DEFAULT FALSE,
-        CONSTRAINT fk_tableta_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 4. Tabletak (Tablets)
+		CREATE TABLE IF NOT EXISTS tabletak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			pantaila_hazbeteak DECIMAL(4,1),
+			biltegiratzea_gb INT,
+			konektibitatea ENUM('WiFi', 'WiFi + Cellular'),
+			sistema_eragilea VARCHAR(50), -- iPadOS, Android
+			bateria_mah INT,
+			arkatzarekin_bateragarria BOOLEAN DEFAULT FALSE,
+			CONSTRAINT fk_tableta_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 5. Zerbitzariak (Servidores)
-    CREATE TABLE IF NOT EXISTS zerbitzariak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        prozesadore_nukleoak INT,
-        ram_mota ENUM('DDR4', 'DDR5', 'ECC'),
-        disko_badiak INT, -- Número de bahías para discos
-        rack_unitateak INT, -- 1U, 2U, 4U...
-        elikatze_iturri_erredundantea BOOLEAN DEFAULT TRUE,
-        raid_kontroladora VARCHAR(50),
-        CONSTRAINT fk_zerbitzaria_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 5. Zerbitzariak (Servidores)
+		CREATE TABLE IF NOT EXISTS zerbitzariak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			prozesadore_nukleoak INT,
+			ram_mota ENUM('DDR4', 'DDR5', 'ECC'),
+			disko_badiak INT, -- Número de bahías para discos
+			rack_unitateak INT, -- 1U, 2U, 4U...
+			elikatze_iturri_erredundantea BOOLEAN DEFAULT TRUE,
+			raid_kontroladora VARCHAR(50),
+			CONSTRAINT fk_zerbitzaria_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 6. Pantailak (Monitoreak)
-    CREATE TABLE IF NOT EXISTS pantailak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        hazbeteak DECIMAL(4,1),
-        bereizmena VARCHAR(20), -- 1920x1080, 4K...
-        panel_mota ENUM('IPS', 'VA', 'TN', 'OLED'),
-        freskatze_tasa_hz INT, -- 60Hz, 144Hz...
-        konexioak VARCHAR(150), -- HDMI, DisplayPort...
-        kurbatura VARCHAR(10), -- 1500R, Flat
-        CONSTRAINT fk_pantaila_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 6. Pantailak (Monitores)
+		CREATE TABLE IF NOT EXISTS pantailak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			hazbeteak DECIMAL(4,1),
+			bereizmena VARCHAR(20), -- 1920x1080, 4K...
+			panel_mota ENUM('IPS', 'VA', 'TN', 'OLED'),
+			freskatze_tasa_hz INT, -- 60Hz, 144Hz...
+			konexioak VARCHAR(150), -- HDMI, DisplayPort...
+			kurbatura VARCHAR(10), -- 1500R, Flat
+			CONSTRAINT fk_pantaila_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 7. Softwareak
-    CREATE TABLE IF NOT EXISTS softwareak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        software_mota ENUM('Sistema Eragilea', 'Ofimatika', 'Antibirusa', 'Bestelakoak') NOT NULL,
-        lizentzia_mota ENUM('OEM', 'Retail', 'Harpidetza', 'OpenSource') DEFAULT 'Retail',
-        bertsioa VARCHAR(50), -- Adib: "Windows 11 Pro", "Office 2021"
-        garatzailea VARCHAR(100), -- Microsoft, Adobe, etab.
-        
-        CONSTRAINT fk_softwarea_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 7. Softwareak
+		CREATE TABLE IF NOT EXISTS softwareak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			software_mota ENUM('Sistema Eragilea', 'Ofimatika', 'Antibirusa', 'Bestelakoak') NOT NULL,
+			lizentzia_mota ENUM('OEM', 'Retail', 'Harpidetza', 'OpenSource') DEFAULT 'Retail',
+			bertsioa VARCHAR(50), -- Adib: "Windows 11 Pro", "Office 2021"
+			garatzailea VARCHAR(100), -- Microsoft, Adobe, etab.
+			
+			CONSTRAINT fk_softwarea_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 8. Periferikoak 
-    CREATE TABLE IF NOT EXISTS periferikoak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        periferiko_mota ENUM('Teklatua', 'Sagua', 'Aurikularrak', 'Bozgorailuak', 'Webkamera', 'Inprimagailua', 'Eskanerra', 'Bestelakoak') NOT NULL,
-        konexioa VARCHAR(50), -- USB-C, Bluetooth, Haririk gabea...
-        ezaugarriak TEXT, -- "Mekanikoa, RGB...", "16000 DPI..."
-        argiztapena BOOLEAN DEFAULT FALSE, -- RGB edo argiztapena duen
-        CONSTRAINT fk_periferikoak_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 8. Periferikoak (BERRIA)
+		CREATE TABLE IF NOT EXISTS periferikoak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			periferiko_mota ENUM('Teklatua', 'Sagua', 'Aurikularrak', 'Bozgorailuak', 'Webkamera', 'Inprimagailua', 'Eskanerra', 'Bestelakoak') NOT NULL,
+			konexioa VARCHAR(50), -- USB-C, Bluetooth, Haririk gabea...
+			ezaugarriak TEXT, -- "Mekanikoa, RGB...", "16000 DPI..."
+			argiztapena BOOLEAN DEFAULT FALSE, -- RGB edo argiztapena duen
+			CONSTRAINT fk_periferikoak_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
-    -- 9. Kableak 
-    CREATE TABLE IF NOT EXISTS kableak (
-        id_produktua INT UNSIGNED PRIMARY KEY,
-        kable_mota ENUM('Bideoa', 'Datuak', 'Sarea', 'Audioa', 'Korrontea', 'Egokitzailea', 'Barnekoak', 'Bestelakoak') NOT NULL,
-        luzera_m DECIMAL(4,2), -- 1.50, 3.00
-        konektore_a VARCHAR(50), -- Adib: HDMI Arra
-        konektore_b VARCHAR(50), -- Adib: HDMI Arra
-        bertsioa VARCHAR(50), -- HDMI 2.1, CAT6, USB 3.0
-        CONSTRAINT fk_kableak_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
-    );
+		-- 9. Kableak (BERRIA)
+		CREATE TABLE IF NOT EXISTS kableak (
+			id_produktua INT UNSIGNED PRIMARY KEY,
+			kable_mota ENUM('Bideoa', 'Datuak', 'Sarea', 'Audioa', 'Korrontea', 'Egokitzailea', 'Barnekoak', 'Bestelakoak') NOT NULL,
+			luzera_m DECIMAL(4,2), -- 1.50, 3.00
+			konektore_a VARCHAR(50), -- Adib: HDMI Arra
+			konektore_b VARCHAR(50), -- Adib: HDMI Arra
+			bertsioa VARCHAR(50), -- HDMI 2.1, CAT6, USB 3.0
+			CONSTRAINT fk_kableak_produktua FOREIGN KEY (id_produktua) REFERENCES produktuak(id_produktua) ON DELETE CASCADE
+		);
 
 -- ========================================================
 -- 4.1. TAILERRA ETA KONPONKETAK
@@ -322,19 +322,7 @@ CREATE TABLE IF NOT EXISTS konponketak (
     CONSTRAINT fk_konponketa_produktua FOREIGN KEY (produktua_id) REFERENCES produktuak(id_produktua),
     CONSTRAINT fk_konponketa_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
-
-/*
--- Konponketa baten xehetasunak (Pausoz pauso edo akats zehatzak)
-CREATE TABLE IF NOT EXISTS konponketa_lerroak (
-    id_konponketa_lerroa INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    konponketa_id INT UNSIGNED NOT NULL,
-    akatsa_id INT UNSIGNED NOT NULL, -- Katalogoarekin lotura
-    konponbidea TEXT, -- Nola konpondu den edo zer egin den
-    
-    CONSTRAINT fk_kl_konponketa FOREIGN KEY (konponketa_id) REFERENCES konponketak(id_konponketa),
-    CONSTRAINT fk_kl_akatsa FOREIGN KEY (akatsa_id) REFERENCES akatsak(id_akatsa)
-);
-*/            
+     
 
 -- ========================================================
 -- 5. LOGISTIKA (Sarrerak)
@@ -912,37 +900,37 @@ INSERT INTO akatsak (id_akatsa, izena, deskribapena) VALUES
 (29, 'Sentsoreak ez dabiltza', 'Giro, hurbiltasun sentsoreak...'),
 (30, 'Mantentze orokorra', 'Garbiketa eta pasta termikoa aldatzea.');
 
-INSERT INTO konponketak (id_konponketa, produktua_id, langilea_id, hasiera_data, konponketa_egoera, akatsa_id, oharrak) VALUES
-(1, 1, 8, '2023-01-10 09:00:00', 'Konponduta', 1, 'Pantaila berria jarri da.'),
-(2, 5, 9, '2023-01-12 10:30:00', 'Prozesuan', 8, 'Pasta termikoa aldatu behar da.'),
-(3, 12, 10, '2023-01-15 11:00:00', 'Prozesuan', 4, 'Diskoa formatu behar da.'),
-(4, 22, 11, '2023-02-01 16:00:00', 'Konponduta', 2, 'Bateria aldatu da.'),
-(5, 30, 8, '2023-02-05 09:15:00', 'Konponezina', 6, 'Plaka basea herdoilduta.'),
-(6, 45, 9, '2023-02-10 12:00:00', 'Prozesuan', 15, 'Soldadura berria behar du.'),
-(7, 55, 10, '2023-02-20 09:30:00', 'Konponduta', 11, 'Driver-ak eguneratu dira.'),
-(8, 3, 11, '2023-03-01 10:00:00', 'Konponduta', 30, 'Haizagailuak garbitu dira.'),
-(9, 8, 8, '2023-03-05 11:45:00', 'Prozesuan', 5, 'Teklatu osoa eskatu dugu.'),
-(10, 15, 9, '2023-03-10 15:30:00', 'Konponduta', 16, 'Malwarebytes pasata.'),
-(11, 25, 10, '2023-03-15 17:00:00', 'Prozesuan', 1, 'Aurrekontua bidali zaio bezeroari.'),
-(12, 33, 11, '2023-04-01 09:00:00', 'Konponduta', 20, 'Bateria originala jarri da.'),
-(13, 40, 8, '2023-04-05 10:30:00', 'Prozesuan', 7, 'Haizagailu berria bidean.'),
-(14, 60, 9, '2023-04-10 11:00:00', 'Konponduta', 19, 'Kable flexa ondo konektatu da.'),
-(15, 70, 10, '2023-04-15 14:00:00', 'Konponezina', 26, 'Grafikoa integratuta dago, plaka aldatu behar.'),
-(16, 2, 11, '2023-05-01 16:30:00', 'Konponduta', 17, 'Recuva erabili dugu datuak ateratzeko.'),
-(17, 6, 8, '2023-05-05 09:00:00', 'Prozesuan', 3, 'SSD berria probatu behar da.'),
-(18, 9, 9, '2023-05-10 10:00:00', 'Prozesuan', 4, 'Windows berrinstalatzen.'),
-(19, 18, 10, '2023-05-15 11:30:00', 'Konponduta', 14, 'USB plaka aldatu da.'),
-(20, 28, 11, '2023-06-01 15:00:00', 'Konponduta', 22, 'Bisagra estutu da.'),
-(21, 35, 8, '2023-06-05 16:00:00', 'Prozesuan', 23, 'Karkasa berria bilatzen.'),
-(22, 42, 9, '2023-06-10 09:30:00', 'Konponduta', 28, 'Botoiaren flexa aldatu da.'),
-(23, 50, 10, '2023-06-15 10:45:00', 'Konponduta', 12, 'Audio driverrak.'),
-(24, 65, 11, '2023-07-01 12:00:00', 'Prozesuan', 9, 'WiFi txartela aldatzen.'),
-(25, 75, 8, '2023-07-05 14:30:00', 'Konponduta', 29, 'Sentsorea kalibratu da.'),
-(26, 10, 9, '2023-07-10 16:00:00', 'Konponduta', 2, 'Kargagailua zen arazoa, berria saldu zaio.'),
-(27, 20, 10, '2023-07-15 09:00:00', 'Prozesuan', 1, 'Pantaila ez dago stock-ean.'),
-(28, 38, 11, '2023-08-01 11:00:00', 'Konponduta', 13, 'Mikrofonoaren iragazkia garbitu.'),
-(29, 48, 8, '2023-08-05 13:00:00', 'Konponduta', 25, 'RAM moduluak trukatu dira.'),
-(30, 58, 9, '2023-08-10 15:15:00', 'Prozesuan', 18, 'Pasahitza reset egiten.');
+INSERT INTO konponketak (produktua_id, langilea_id, hasiera_data, konponketa_egoera, akatsa_id, oharrak) VALUES
+(1, 8, '2023-01-10 09:00:00', 'Konponduta', 1, 'Pantaila berria jarri da.'),
+(5, 9, '2023-01-12 10:30:00', 'Prozesuan', 8, 'Pasta termikoa aldatu behar da.'),
+(12, 10, '2023-01-15 11:00:00', 'Prozesuan', 4, 'Diskoa formatu behar da.'),
+(22, 11, '2023-02-01 16:00:00', 'Konponduta', 2, 'Bateria aldatu da.'),
+(30, 8, '2023-02-05 09:15:00', 'Konponezina', 6, 'Plaka basea herdoilduta.'),
+(45, 9, '2023-02-10 12:00:00', 'Prozesuan', 15, 'Soldadura berria behar du.'),
+(55, 10, '2023-02-20 09:30:00', 'Konponduta', 11, 'Driver-ak eguneratu dira.'),
+(3, 11, '2023-03-01 10:00:00', 'Konponduta', 30, 'Haizagailuak garbitu dira.'),
+(8, 8, '2023-03-05 11:45:00', 'Prozesuan', 5, 'Teklatu osoa eskatu dugu.'),
+(15, 9, '2023-03-10 15:30:00', 'Konponduta', 16, 'Malwarebytes pasata.'),
+(25, 10, '2023-03-15 17:00:00', 'Prozesuan', 1, 'Aurrekontua bidali zaio bezeroari.'),
+(33, 11, '2023-04-01 09:00:00', 'Konponduta', 20, 'Bateria originala jarri da.'),
+(40, 8, '2023-04-05 10:30:00', 'Prozesuan', 7, 'Haizagailu berria bidean.'),
+(60, 9, '2023-04-10 11:00:00', 'Konponduta', 19, 'Kable flexa ondo konektatu da.'),
+(70, 10, '2023-04-15 14:00:00', 'Konponezina', 26, 'Grafikoa integratuta dago, plaka aldatu behar.'),
+(2, 11, '2023-05-01 16:30:00', 'Konponduta', 17, 'Recuva erabili dugu datuak ateratzeko.'),
+(6, 8, '2023-05-05 09:00:00', 'Prozesuan', 3, 'SSD berria probatu behar da.'),
+(9, 9, '2023-05-10 10:00:00', 'Prozesuan', 4, 'Windows berrinstalatzen.'),
+(18, 10, '2023-05-15 11:30:00', 'Konponduta', 14, 'USB plaka aldatu da.'),
+(28, 11, '2023-06-01 15:00:00', 'Konponduta', 22, 'Bisagra estutu da.'),
+(35, 8, '2023-06-05 16:00:00', 'Prozesuan', 23, 'Karkasa berria bilatzen.'),
+(42, 9, '2023-06-10 09:30:00', 'Konponduta', 28, 'Botoiaren flexa aldatu da.'),
+(50, 10, '2023-06-15 10:45:00', 'Konponduta', 12, 'Audio driverrak.'),
+(65, 11, '2023-07-01 12:00:00', 'Prozesuan', 9, 'WiFi txartela aldatzen.'),
+(75, 8, '2023-07-05 14:30:00', 'Konponduta', 29, 'Sentsorea kalibratu da.'),
+(10, 9, '2023-07-10 16:00:00', 'Konponduta', 2, 'Kargagailua zen arazoa, berria saldu zaio.'),
+(20, 10, '2023-07-15 09:00:00', 'Prozesuan', 1, 'Pantaila ez dago stock-ean.'),
+(38, 11, '2023-08-01 11:00:00', 'Konponduta', 13, 'Mikrofonoaren iragazkia garbitu.'),
+(48, 8, '2023-08-05 13:00:00', 'Konponduta', 25, 'RAM moduluak trukatu dira.'),
+(58, 9, '2023-08-10 15:15:00', 'Prozesuan', 18, 'Pasahitza reset egiten.');
 
 -- ============================================================
 -- 6. LOGISTIKA ETA SARRERAK (DATUAK)
@@ -1082,7 +1070,6 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
     data DATETIME DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     guztira_prezioa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    
     eskaera_egoera ENUM('Prestatzen', 'Osatua/Bidalita', "Ezabatua") NOT NULL DEFAULT 'Prestatzen',
     
     CONSTRAINT fk_eskaera_bezeroa FOREIGN KEY (bezeroa_id) REFERENCES bezeroak(id_bezeroa),
@@ -1127,11 +1114,7 @@ INSERT INTO eskaerak (id_eskaera, bezeroa_id, langilea_id, guztira_prezioa, eska
     produktua_id INT UNSIGNED NOT NULL, 
     kantitatea INT UNSIGNED NOT NULL, 
     unitate_prezioa DECIMAL(10, 2) NOT NULL, 
-    
-    
     eskaera_lerro_egoera ENUM('Prestatzen', 'Osatua/Bidalita', "Ezabatua") NOT NULL DEFAULT 'Prestatzen',
-    
-    
     
     CONSTRAINT fk_el_eskaera FOREIGN KEY (eskaera_id) REFERENCES eskaerak(id_eskaera),
     CONSTRAINT fk_el_produktua FOREIGN KEY (produktua_id) REFERENCES produktuak(id_produktua)
@@ -1219,16 +1202,16 @@ USE birtek_db;
 FLUSH PRIVILEGES;
 
 -- --------------------------------------------------------
--- 1. ZUZENDARITZA (SysAdmin) - Ander Urien, Lander Garmendia
+--  ZUZENDARITZA (SysAdmin) - Ander Urien, Lander Garmendia
 -- --------------------------------------------------------
-CREATE USER IF NOT EXISTS 'ander_sysadmin'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON *.* TO 'ander_sysadmin'@'localhost' WITH GRANT OPTION;
+CREATE USER IF NOT EXISTS 		'ander_sysadmin'@'localhost' 	IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON *.* TO 	'ander_sysadmin'@'localhost' 	WITH GRANT OPTION;
 
-CREATE USER IF NOT EXISTS 'lander_sysadmin'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON *.* TO 'lander_sysadmin'@'localhost' WITH GRANT OPTION;
+CREATE USER IF NOT EXISTS 		'lander_sysadmin'@'localhost' 	 IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON *.* TO 	'lander_sysadmin'@'localhost'	 WITH GRANT OPTION;
 
 -- --------------------------------------------------------
--- 2. ADMINISTRAZIOA - Ane Lasa, Mikel Otegi
+-- ADMINISTRAZIOA - Ane Lasa, Mikel Otegi
 -- --------------------------------------------------------
 CREATE USER IF NOT EXISTS 'ane_admin'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'mikel_admin'@'localhost' IDENTIFIED BY '1234';
@@ -1238,53 +1221,56 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.kontratu_motak TO     'ane_adm
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.langileak TO          'ane_admin'@'localhost', 'mikel_admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.langile_sailak TO     'ane_admin'@'localhost', 'mikel_admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.fitxaketak TO         'ane_admin'@'localhost', 'mikel_admin'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.bezero_fakturak TO            'ane_admin'@'localhost', 'mikel_admin'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezero_fakturak TO    'ane_admin'@'localhost', 'mikel_admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.hornitzaileak TO      'ane_admin'@'localhost', 'mikel_admin'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.herriak TO      		'ane_admin'@'localhost', 'mikel_admin'@'localhost';
 
 -- --------------------------------------------------------
--- 3. SALMENTAK - Leire, Iker, Amaia
+--  SALMENTAK - Leire, Iker, Amaia
 -- --------------------------------------------------------
 CREATE USER IF NOT EXISTS 'leire_sales'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'iker_sales'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'amaia_sales'@'localhost' IDENTIFIED BY '1234';
 
 -- Baimenak esleitu (Bezeroak, Produktuak Eskaerak, Eskaera Lerroak, fakturak)
-GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezeroak TO   'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-GRANT SELECT ON birtek_db.produktuak TO                         'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.eskaerak TO           'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.eskaera_lerroak TO    'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.bezero_fakturak TO    'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezeroak TO   		'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+-- Produktuk sortu eta ezabatu ezingo dute egin salmentakoek
+GRANT SELECT, UPDATE ON birtek_db.produktuak TO                         'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaerak TO           'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaera_lerroak TO    'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezero_fakturak TO    'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
 
 -- --------------------------------------------------------
--- 4. SAT (ZERBITZU TEKNIKOA) - Unai, Maite, Aitor, Nerea
+--  SAT (ZERBITZU TEKNIKOA) - Unai, Maite, Aitor, Nerea
 -- --------------------------------------------------------
-CREATE USER IF NOT EXISTS 'unai_sat'@'localhost' IDENTIFIED BY '1234';
-CREATE USER IF NOT EXISTS 'maite_sat'@'localhost' IDENTIFIED BY '1234';
-CREATE USER IF NOT EXISTS 'aitor_sat'@'localhost' IDENTIFIED BY '1234';
-CREATE USER IF NOT EXISTS 'nerea_sat'@'localhost' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'unai_sat'@'localhost'    IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'maite_sat'@'localhost'   IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'aitor_sat'@'localhost'   IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'nerea_sat'@'localhost'   IDENTIFIED BY '1234';
+
 
 -- Baimenak esleitu (Tailerra: Produktuak, Konponketak, Akatsak)
-GRANT SELECT, UPDATE ON birtek_db.produktuak TO                 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.konponketak TO        'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
--- GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.konponketa_lerroak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON birtek_db.akatsak TO            'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.produktuak TO    'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.konponketak TO   'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.akatsak TO       'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 
 
 -- --------------------------------------------------------
--- 5. LOGISTIKA / BILTEGIA - Gorka, Oihane, Xabier
+-- LOGISTIKA / BILTEGIA - Gorka, Oihane, Xabier
 -- --------------------------------------------------------
-CREATE USER IF NOT EXISTS 'gorka_biltegia'@'localhost' IDENTIFIED BY '1234';
-CREATE USER IF NOT EXISTS 'oihane_biltegia'@'localhost' IDENTIFIED BY '1234';
-CREATE USER IF NOT EXISTS 'xabier_biltegia'@'localhost' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'gorka_biltegia'@'localhost' 		IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'oihane_biltegia'@'localhost' 	IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'xabier_biltegia'@'localhost' 	IDENTIFIED BY '1234';
 
--- Baimenak esleitu (Sarrerak eta Stocka)
-GRANT SELECT, INSERT, UPDATE ON birtek_db.produktuak TO     'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
-GRANT SELECT ON birtek_db.biltegiak TO                      'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
-GRANT SELECT, UPDATE ON birtek_db.sarrera_lerroak TO        'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
-GRANT SELECT, UPDATE ON birtek_db.sarrerak TO               'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+-- Baimenak esleitu (Sarrerak, biltegiak, Stocka, eskaerak)
+-- Produktuak ezin dutuzte ezabatu biltegikoek
+GRANT SELECT, INSERT, UPDATE ON birtek_db.produktuak TO     			'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.biltegiak TO 			'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrera_lerroak TO    'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrerak TO           'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 
-
-GRANT SELECT, UPDATE ON birtek_db.eskaera_lerroak TO        'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+-- Erosketa dagoenean produktua irteera almazenera eramateko
+GRANT SELECT, UPDATE ON birtek_db.eskaera_lerroak TO        			'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 
 -- ========================================================
 -- 6. FITXAKETAK (Fitxaketak egiteko baimenak)

@@ -1,0 +1,287 @@
+<?php
+session_start();
+require_once 'DB_konexioa.php';
+
+if (!isset($_SESSION['id_hornitzailea'])) {
+    header("Location: hornitzaile_saioa_hasi.php");
+    exit();
+}
+
+$id_hornitzailea = $_SESSION['id_hornitzailea'];
+$mezua = "";
+
+// Herriak kargatu dropdown-erako
+$herriak = [];
+try {
+    $stmt_herriak = $konexioa->query("SELECT id_herria, izena FROM herriak ORDER BY izena");
+    $herriak = $stmt_herriak->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Ezin badira herriak kargatu
+}
+
+// Handle Update
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $izena_soziala = $_POST['izena_soziala'];
+    $ifz_nan = $_POST['ifz_nan'];
+    $kontaktu_pertsona = $_POST['kontaktu_pertsona'];
+    $helbidea = $_POST['helbidea'];
+    $herria_id = $_POST['herria_id'];
+    $posta_kodea = $_POST['posta_kodea'];
+    $telefonoa = $_POST['telefonoa'];
+    $emaila = $_POST['emaila'];
+    $hizkuntza = $_POST['hizkuntza'];
+    $pasahitza = $_POST['pasahitza'];
+    
+    try {
+        $sql = "UPDATE hornitzaileak SET 
+                izena_soziala = :izena, 
+                ifz_nan = :ifz_nan,
+                kontaktu_pertsona = :kontaktu,
+                helbidea = :helbidea, 
+                herria_id = :herria_id,
+                posta_kodea = :posta_kodea,
+                telefonoa = :telefonoa,
+                emaila = :emaila,
+                hizkuntza = :hizkuntza
+                WHERE id_hornitzailea = :id";
+        
+        $params = [
+            ':izena' => $izena_soziala,
+            ':ifz_nan' => $ifz_nan,
+            ':kontaktu' => $kontaktu_pertsona,
+            ':helbidea' => $helbidea,
+            ':herria_id' => $herria_id,
+            ':posta_kodea' => $posta_kodea,
+            ':telefonoa' => $telefonoa,
+            ':emaila' => $emaila,
+            ':hizkuntza' => $hizkuntza,
+            ':id' => $id_hornitzailea
+        ];
+
+        $stmt = $konexioa->prepare($sql);
+        $stmt->execute($params);
+
+        if (!empty($pasahitza)) {
+            $sql_pass = "UPDATE hornitzaileak SET pasahitza = :pasahitza WHERE id_hornitzailea = :id";
+            $stmt_pass = $konexioa->prepare($sql_pass);
+            $stmt_pass->execute([
+                ':pasahitza' => $pasahitza, 
+                ':id' => $id_hornitzailea
+            ]);
+        }
+        
+        $mezua = "Datuak ondo eguneratu dira!";
+        $_SESSION['izena_soziala'] = $izena_soziala; 
+    } catch (PDOException $e) {
+        $mezua = "Errorea: " . $e->getMessage();
+    }
+}
+
+// Fetch current data
+$stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE id_hornitzailea = :id");
+$stmt->execute([':id' => $id_hornitzailea]);
+$hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hornitzaile Datuak Aldatu - BIRTEK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/estiloak_globala.css">
+    <link rel="stylesheet" href="../css/estiloak_kontaktua.css">
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+        .form-section-title {
+            grid-column: 1 / -1;
+            border-bottom: 2px solid #e5e7eb;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 5px;
+            color: #166534;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="web-gorputza">
+    <header class="goiburu-nagusia">
+      <nav class="nab-edukiontzia">
+        <div class="goiburu-barnealdea">
+          <!-- Mugikorra Menu Botoia -->
+          <button id="mugikor-menu-botoia" class="mugikor-menu-botoia">
+            <i class="fas fa-bars burger-ikonoa"></i>
+          </button>
+          <!-- logoa -->
+          <a href="hasiera.php" class="logo-edukiontzia">
+            <span class="logoa">BIRTEK</span>
+          </a>
+          <div class="nab-menu-mahaigaina">
+            <a href="hasiera.php" class="nab-botoia">Hasiera</a>
+            <a href="produktuak.php" class="nab-botoia">Produktuak</a>
+            <a href="berriak.php" class="nab-botoia">Berriak</a>
+            <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
+            <a href="hornitzaile_menua.php" class="nab-botoia hornitzailea-aktibo">Birziklatu</a>
+            <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
+          </div>
+          <div class="nab-ekintzak">
+            <?php if (isset($_SESSION['id_bezeroa'])): ?>
+                <div class="saio-info-edukiontzia">
+                    <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
+                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
+                    </a>
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
+                <div class="saio-info-edukiontzia">
+                    <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
+                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala'] ?? 'Hornitzailea') ?></span>
+                    </a>
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            <?php else: ?>
+                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
+          <a href="hasiera.php" class="nab-botoia">Hasiera</a>
+          <a href="produktuak.php" class="nab-botoia">Produktuak</a>
+          <a href="berriak.php" class="nab-botoia">Berriak</a>
+          <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
+          <a href="hornitzaile_menua.php" class="nab-botoia hornitzailea-aktibo">Birziklatu</a>
+          <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
+
+          <?php if (isset($_SESSION['id_bezeroa'])): ?>
+              <div class="mugikor-user-container">
+                  <a href="bezero_menua.php" class="nab-botoia mugikor-user-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
+                  </a>
+                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </a>
+              </div>
+          <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
+              <div class="mugikor-user-container">
+                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-user-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
+                  </a>
+                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </a>
+              </div>
+          <?php else: ?>
+              <a href="bezero_saioa_hasi.php" class="nab-botoia">Saioa Hasi</a>
+          <?php endif; ?>
+        </div>
+      </nav>
+    </header>
+
+    <main class="eduki-nagusia">
+        <div class="kontaktu-edukiontzia">
+            <h2 class="kontaktua-titulua">Hornitzaile Datuak Aldatu</h2>
+            
+            <div class="kontaktu-sareta">
+                <div class="inprimaki-kutxa">
+                    <h3 class="inprimaki-titulua">Profila Eguneratu</h3>
+                    
+                    <?php if ($mezua): ?>
+                        <p class="success-msg" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1.5rem; text-align: center;"><?= $mezua ?></p>
+                    <?php endif; ?>
+
+                    <form class="kontaktu-inprimaki-diseinua" method="POST">
+                        <div class="form-grid">
+                            <h3 class="form-section-title">Enpresa edo Pertsona Informazioa</h3>
+                            
+                            <div class="form-group">
+                                <label>Izena edo Izen-Soziala:</label>
+                                <input type="text" name="izena_soziala" value="<?= htmlspecialchars($hornitzailea['izena_soziala']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+                            <div class="form-group">
+                                <label>IFZ / NAN:</label>
+                                <input type="text" name="ifz_nan" value="<?= htmlspecialchars($hornitzailea['ifz_nan']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Kontaktu Pertsona:</label>
+                                <input type="text" name="kontaktu_pertsona" value="<?= htmlspecialchars($hornitzailea['kontaktu_pertsona'] ?? '') ?>" class="inprimaki-sarrera">
+                            </div>
+                            <div class="form-group">
+                                <label>Hizkuntza:</label>
+                                <select name="hizkuntza" class="inprimaki-sarrera">
+                                    <option value="Euskara" <?= ($hornitzailea['hizkuntza'] == 'Euskara') ? 'selected' : '' ?>>Euskara</option>
+                                    <option value="Gaztelania" <?= ($hornitzailea['hizkuntza'] == 'Gaztelania') ? 'selected' : '' ?>>Gaztelania</option>
+                                    <option value="Frantsesa" <?= ($hornitzailea['hizkuntza'] == 'Frantsesa') ? 'selected' : '' ?>>Frantsesa</option>
+                                    <option value="Ingelesa" <?= ($hornitzailea['hizkuntza'] == 'Ingelesa') ? 'selected' : '' ?>>Ingelesa</option>
+                                </select>
+                            </div>
+
+                            <h3 class="form-section-title">Kontaktua eta Helbidea</h3>
+                            
+                            <div class="form-group">
+                                <label>Helbidea:</label>
+                                <input type="text" name="helbidea" value="<?= htmlspecialchars($hornitzailea['helbidea']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Herria:</label>
+                                <select name="herria_id" class="inprimaki-sarrera" required>
+                                    <?php foreach ($herriak as $herria): ?>
+                                        <option value="<?= $herria['id_herria'] ?>" <?= ($hornitzailea['herria_id'] == $herria['id_herria']) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($herria['izena']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Posta Kodea:</label>
+                                <input type="text" name="posta_kodea" value="<?= htmlspecialchars($hornitzailea['posta_kodea']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Telefonoa:</label>
+                                <input type="text" name="telefonoa" value="<?= htmlspecialchars($hornitzailea['telefonoa']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Emaila:</label>
+                                <input type="email" name="emaila" value="<?= htmlspecialchars($hornitzailea['emaila']) ?>" class="inprimaki-sarrera" required>
+                            </div>
+
+                            <h3 class="form-section-title">Segurtasuna</h3>
+                            
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Pasahitza Berria (Utzi hutsik ez aldatzeko):</label>
+                                <input type="password" name="pasahitza" class="inprimaki-sarrera" placeholder="Pasahitza berria...">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="botoia botoi-nagusia" style="margin-top:2rem;">Gorde Aldaketak</button>
+                    </form>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="hornitzaile_menua.php" class="back-link" style="color: #666; text-decoration: none;"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
+                    </div>
+                </div>
+
+                <div class="sozial-kutxa">
+                    <img src="../irudiak/birtek_konponketak.png" alt="Repairing" class="kontaktu-irudia" style="width: 100%; height: 200px; object-fit: cover; border-radius: 1rem; margin-bottom: 2rem;">
+                    <h3 class="sozial-azpititulua">Laguntza behar duzu?</h3>
+                    <p class="testua-grisa tartea-behean-1-5">Zure datuak aldatzeko arazorik baduzu, jarri gurekin harremanetan erraz:</p>
+                    <a href="https://wa.me/34600000000" target="_blank" class="footer-wa-botoia"><i class="fab fa-whatsapp"></i> WhatsApp Laguntza</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/globala.js"></script>
+</body>
+</html>

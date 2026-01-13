@@ -29,7 +29,7 @@ try {
 
     // 2. Lortu eskaera lerroak
     $sqlL = "
-        SELECT el.*, p.izena as produktu_izena
+        SELECT el.*, p.izena as produktu_izena, p.mota, p.marka
         FROM eskaera_lerroak el
         JOIN produktuak p ON el.produktua_id = p.id_produktua
         WHERE el.eskaera_id = :eid
@@ -42,6 +42,67 @@ try {
     die("Errorea: " . $e->getMessage());
 }
 
+// Funtzioa fitxategi teknikoak lortzeko (Helper)
+function lortuXehetasunTeknikoak($kont, $id, $mota) {
+    $taulak = [
+        'Eramangarria' => 'eramangarriak',
+        'Mahai-gainekoa' => 'mahai_gainekoak',
+        'Mugikorra' => 'mugikorrak',
+        'Tableta' => 'tabletak',
+        'Zerbitzaria' => 'zerbitzariak',
+        'Pantaila' => 'pantailak',
+        'Softwarea' => 'softwareak',
+        'Periferikoak' => 'periferikoak',
+        'Kableak' => 'kableak'
+    ];
+
+    if (!isset($taulak[$mota])) return "";
+
+    try {
+        $taula = $taulak[$mota];
+        $sqlT = "SELECT * FROM $taula WHERE id_produktua = :id";
+        $stmtT = $kont->prepare($sqlT);
+        $stmtT->execute([':id' => $id]);
+        $datuak = $stmtT->fetch(PDO::FETCH_ASSOC);
+
+        if (!$datuak) return "";
+
+        $gehigarriak = [];
+        unset($datuak['id_produktua']); // Ez dugu IDa erakutsi behar xehetasunetan
+
+        foreach ($datuak as $gakoa => $balioa) {
+            if ($balioa === null || $balioa === "") continue;
+            
+            // Formatua hobetu (gakoak euskarara edo label politak)
+            $label = str_replace('_', ' ', $gakoa);
+            $label = ucfirst($label);
+            
+            // Unitateak gehitu
+            if (strpos($gakoa, 'gb') !== false) $balioa .= " GB";
+            if (strpos($gakoa, 'kg') !== false) $balioa .= " kg";
+            if (strpos($gakoa, 'wh') !== false) $balioa .= " Wh";
+            if (strpos($gakoa, 'mah') !== false) $balioa .= " mAh";
+            if (strpos($gakoa, 'prezioa') !== false) $balioa .= " €";
+            if (strpos($gakoa, 'tamaina') !== false || strpos($gakoa, 'hazbeteak') !== false) $balioa .= "\"";
+            if (strpos($gakoa, '_w') !== false && strpos($gakoa, '_wh') === false) $balioa .= " W";
+            if (strpos($gakoa, 'hz') !== false) $balioa .= " Hz";
+            if (strpos($gakoa, 'mp') !== false) $balioa .= " MP";
+            if (strpos($gakoa, '_luzera_m') !== false) $balioa .= " m";
+
+            if (is_bool($balioa) || $balioa === "1" || $balioa === "0") {
+                $balioa = ($balioa == "1" || $balioa === true) ? "Bai" : "Ez";
+            }
+
+            $gehigarriak[] = "<strong>$label:</strong> $balioa";
+        }
+
+        return implode(" | ", $gehigarriak);
+
+    } catch (Exception $e) {
+        return "";
+    }
+}
+
 // Txartelaren amaierako 4 zenbakiak lortu segurtasunagatik (simulazioa)
 $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txartela'], -4);
 ?>
@@ -51,36 +112,8 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
     <meta charset="UTF-8">
     <title>FAKTURA #<?= $id_eskaera ?> - BIRTEK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 20px; background: #f4f4f4; }
-        .faktura-edukiontzia { max-width: 800px; margin: auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .faktura-goiburua { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
-        .logoa { font-size: 2rem; font-weight: bold; color: #007bff; }
-        .enpresa-datuak { text-align: right; font-size: 0.9rem; color: #666; }
-        
-        .faktura-info-taldea { display: flex; justify-content: space-between; margin-bottom: 30px; }
-        .info-blokea h3 { border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem; }
-        .info-blokea p { margin: 5px 0; font-size: 0.95rem; }
-        
-        .tab-faktura { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .tab-faktura th { background: #f8f9fa; text-align: left; padding: 12px; border-bottom: 2px solid #dee2e6; }
-        .tab-faktura td { padding: 12px; border-bottom: 1px solid #eee; }
-        
-        .guztira-atala { text-align: right; }
-        .guztira-balioa { font-size: 1.5rem; font-weight: bold; color: #007bff; }
-        
-        .oin-oharrak { margin-top: 50px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; pt: 20px; text-align: center; }
-        
-        .akzio-botoiak { display: flex; justify-content: center; }
-        .botoi-print { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        .botoi-print:hover { background: #218838; }
+    <link rel="stylesheet" href="../css/faktura.css">
 
-        @media print {
-            body { background: white; padding: 0; }
-            .faktura-edukiontzia { box-shadow: none; border: none; width: 100%; max-width: 100%; }
-            .akzio-botoiak { display: none; }
-        }
-    </style>
 </head>
 <body>
 
@@ -94,7 +127,7 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
     <div class="faktura-edukiontzia">
         <!-- 1. Enpresa Datuak -->
         <div class="faktura-goiburua">
-            <div class="logoa">BIRTEK</div>
+            <div class="logoa"><img src="../irudiak/birtek_logo_zuri_borobila.png" alt="BIRTEK Logo"></div>
             <div class="enpresa-datuak">
                 <strong>BIRTEK Teknologia</strong><br>
                 Goierri Eskola, Ordizia<br>
@@ -136,7 +169,12 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
             <tbody>
                 <?php foreach ($lerroak as $lerroa): ?>
                 <tr>
-                    <td><?= htmlspecialchars($lerroa['produktu_izena']) ?></td>
+                    <td>
+                        <strong><?= htmlspecialchars($lerroa['marka']) ?></strong> - <?= htmlspecialchars($lerroa['produktu_izena']) ?>
+                        <div class="tekniko-xehetasunak">
+                            <small><?= lortuXehetasunTeknikoak($konexioa, $lerroa['produktua_id'], $lerroa['mota']) ?></small>
+                        </div>
+                    </td>
                     <td style="text-align: center;"><?= $lerroa['kantitatea'] ?></td>
                     <td style="text-align: right;"><?= number_format($lerroa['unitate_prezioa'], 2) ?>€</td>
                     <td style="text-align: right;"><?= number_format($lerroa['kantitatea'] * $lerroa['unitate_prezioa'], 2) ?>€</td>

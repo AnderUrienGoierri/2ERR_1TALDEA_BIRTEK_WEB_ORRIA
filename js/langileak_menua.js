@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     // PHP script-a deitu
     $.ajax({
-      url: "../php/launch_java_app.php",
+      url: "../php/java_app_abiarazi.php",
       type: "GET",
       success: function (response) {
         console.log("Java App launch response: " + response);
