@@ -1,39 +1,41 @@
 /* --- BIRTEK - HASIERA ORRIA -- */
 
 /* HASIERA ORRIKO ELEMENTUAK */
-.hero-kaxa {
-  background-color: rgba(255, 255, 255, 0.8);
+.azal-kaxa {
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 2rem;
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.05);
-  padding: 2rem 1rem; /* Reduced for mobile */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: 3rem 1.5rem;
   position: relative;
   overflow: hidden;
   text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 @media (min-width: 768px) {
-  .hero-kaxa {
+  .azal-kaxa {
     padding: 3rem 1rem;
     margin-top: 2rem;
     margin-bottom: 4rem;
   }
 }
 
-.hero-izenburua {
+.azal-izenburua {
   font-size: 1.75rem; /* Reduced for 320px */
   font-weight: 800;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #166534;
-  font-family: "Outfit", sans-serif;
+  color: var(--kolore-nagusia);
+  font-family: var(--font-izenburua);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 @media (min-width: 768px) {
-  .hero-izenburua {
+  .azal-izenburua {
     font-size: 3rem;
     letter-spacing: 2px;
     margin-bottom: 2rem;
@@ -41,23 +43,23 @@
 }
 
 @media (min-width: 1024px) {
-  .hero-izenburua {
+  .azal-izenburua {
     font-size: 4rem;
   }
 }
 
-.hero-azpititulua {
-  color: #6b7280;
+.azal-azpititulua {
+  color: var(--testu-argia);
   font-size: 1.25rem;
   max-width: 800px;
   margin: 0 auto;
 }
 
-.hero-ekintza-botoia {
+.azal-ekintza-botoia {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: #166534;
+  background-color: var(--kolore-nagusia);
   color: white;
   font-size: 1.25rem;
   font-weight: 800;
@@ -67,25 +69,31 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: var(--trantsizioa);
 }
 
-.hero-ekintza-botoia:hover {
-  background-color: #14532d;
+.azal-ekintza-botoia:hover {
+  background-color: var(--kolore-nagusia-iluna);
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(22, 101, 52, 0.2);
 }
 
-.hasiera-hero-irudia {
+.hasiera-azal-irudia {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1000px;
   height: auto;
-  aspect-ratio: 16/9;
+  aspect-ratio: 21/9;
   object-fit: cover;
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  transition: transform 0.5s ease;
+  border: 4px solid white;
+}
+
+.hasiera-azal-irudia:hover {
+  transform: scale(1.02);
 }
 
 .hasiera-zerrenda-edukiontzia {
@@ -102,15 +110,15 @@
   background-color: white;
   padding: 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--itzala-md);
   border: 1px solid rgba(0, 0, 0, 0.05);
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--trantsizioa);
 }
 
 .hasiera-txartel-lerroa:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--itzala-lg);
 }
 
 @media (min-width: 768px) {
@@ -140,14 +148,14 @@
 .hasiera-txartel-izenburua {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #166534;
+  color: var(--kolore-nagusia);
   margin-bottom: 1rem;
-  font-family: "Outfit", sans-serif;
+  font-family: var(--font-izenburua);
 }
 
 .hasiera-txartel-testua {
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--testu-bigarren);
 }
 
 /* SLIDER */

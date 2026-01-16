@@ -2,11 +2,11 @@
 
 $(document).ready(function () {
   // --- KONFIGURAZIOA ---
-  function getRelativePath(filename) {
+  function lortuBideErlatiboa(filename) {
     // Uneko path-a aztertu eta fitxategira iristeko bide egokia itzuli
-    var path = window.location.pathname;
+    var bidea = window.location.pathname;
     // Berez PHP edo HTML karpetan gauden begiratu
-    if (path.includes("/html/") || path.includes("/php/")) {
+    if (bidea.includes("/html/") || bidea.includes("/php/")) {
       // Karpeta barruan bagaude, erroa lortzeko ".." behar dugu? Ez, karpeta berean badaude "filename" zuzenean.
       // Baina PHP eta HTML fitxategi batzuk karpeta desberdinetan daude.
       // Konbentzioa:
@@ -18,62 +18,63 @@ $(document).ready(function () {
     return filename;
   }
 
-  function resolveUrl(targetType, targetFile) {
-    var currentPath = window.location.pathname;
-    var isSubDir =
-      currentPath.includes("/html/") || currentPath.includes("/php/");
+  function ebatziUrl(helburuMota, helburuFitxategia) {
+    var unekoBidea = window.location.pathname;
+    var azpiKarpetaDa =
+      unekoBidea.includes("/html/") || unekoBidea.includes("/php/");
 
-    if (targetType === "php" || targetType === "html") {
+    if (helburuMota === "php" || helburuMota === "html") {
       // Guztia php karpetan dagoela suposatzen dugu orain
-      var file = targetFile;
-      if (targetType === "html" && file.endsWith(".html")) {
+      var file = helburuFitxategia;
+      if (helburuMota === "html" && file.endsWith(".html")) {
         file = file.replace(".html", ".php");
       }
 
-      if (isSubDir && currentPath.includes("/php/")) return file;
-      if (isSubDir && currentPath.includes("/html/")) return "../php/" + file;
+      if (azpiKarpetaDa && unekoBidea.includes("/php/")) return file;
+      if (azpiKarpetaDa && unekoBidea.includes("/html/"))
+        return "../php/" + file;
       return "php/" + file;
     }
-    return targetFile;
+    return helburuFitxategia;
   }
 
   // --- SESSION CHECK LOGIKA ---
-  function checkSession() {
-    var checkUrl = resolveUrl("php", "get_saio_egoera.php");
+  function egiaztatuSaioa() {
+    var egiaztatuUrl = ebatziUrl("php", "get_saio_egoera.php");
 
     $.ajax({
-      url: checkUrl,
+      url: egiaztatuUrl,
       method: "GET",
       dataType: "json",
       success: function (data) {
-        if (data.logged_in) {
-          updateHeaderForLoggedInUser(data.izena);
-          $(document).trigger("session:valid", [data.izena, data.type]);
+        if (data.saioa_hasita) {
+          eguneratuGoiburuaErabiltzailearentzat(data.izena);
+          $(document).trigger("saioa:baliozkoa", [data.izena, data.mota]);
 
           // Check for session conflict on login pages
-          checkLoginConflict(data.type);
+          egiaztatuSaioaGatazka(data.mota);
         }
       },
       error: function (xhr, status, error) {
-        console.error("Session check failed (" + checkUrl + "):", error);
+        console.error("Session check failed (" + egiaztatuUrl + "):", error);
       },
     });
   }
 
-  function checkLoginConflict(currentType) {
+  function egiaztatuSaioaGatazka(unekoMota) {
     // Determine if we are on a login page
-    var path = window.location.pathname;
+    var bidea = window.location.pathname;
 
     // Logic: If I am logged in as 'bezeroa', I cannot log in as 'hornitzailea' without logout
     // If I am logged in as 'hornitzailea', I cannot log in as 'bezeroa' without logout
 
     // Detect page context
-    var isHornitzaileLogin = path.includes("hornitzaile_saioa_hasi.php");
-    var isBezeroLogin = path.includes("bezero_saioa_hasi.php");
+    var hornitzaileSaioaHasiDa = bidea.includes("hornitzaile_saioa_hasi.php");
+    var bezeroSaioaHasiDa = bidea.includes("bezero_saioa_hasi.php");
 
     if (
-      (isHornitzaileLogin && currentType === "bezeroa") ||
-      (isBezeroLogin && currentType === "hornitzailea")
+      (hornitzaileSaioaHasiDa && unekoMota === "bezeroa") ||
+      (bezeroSaioaHasiDa && unekoMota === "hornitzailea")
     ) {
       // Disable forms and show alert on interaction
       $("form").on("submit", function (e) {
@@ -82,21 +83,21 @@ $(document).ready(function () {
       });
 
       // Also potentially alert immediately or visually indicate
-      console.warn(
-        "Session conflict: " + currentType + " on opposite login page."
+      console.log(
+        "Saio gatazka: " + unekoMota + " kontrako saioa hasteko orrian."
       );
     }
   }
 
-  function updateHeaderForLoggedInUser(izena) {
-    var profileUrl = resolveUrl("php", "bezero_menua.php");
+  function eguneratuGoiburuaErabiltzailearentzat(izena) {
+    var profilUrl = ebatziUrl("php", "bezero_menua.php");
 
-    const logoutBtnHtml = `
-      <div class="saio-info-edukiontzia">
-        <a href="${profileUrl}" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
+    const saioaItxiBotoiHtml = `
+      <div class="saio-informazio-edukiontzia">
+        <a href="${profilUrl}" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
             <i class="fas fa-user"></i> <span>${izena}</span>
         </a>
-        <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+        <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
             <i class="fas fa-sign-out-alt"></i>
         </button>
       </div>
@@ -104,28 +105,30 @@ $(document).ready(function () {
 
     // Eguneratu mahaigaineko bertsioa
     // Target both the login button and the existing container if any
-    var $desktopInfo = $(".nab-ekintzak .saio-info-edukiontzia");
-    if ($desktopInfo.length > 0) {
-      $desktopInfo.replaceWith(logoutBtnHtml);
+    var $desktopInformazioa = $(".nab-ekintzak .saio-informazio-edukiontzia");
+    if ($desktopInformazioa.length > 0) {
+      $desktopInformazioa.replaceWith(saioaItxiBotoiHtml);
     } else {
-      $(".nab-ekintzak .saioa-hasi-botoia").replaceWith(logoutBtnHtml);
+      $(".nab-ekintzak .saioa-hasi-botoia").replaceWith(saioaItxiBotoiHtml);
     }
 
     // Eguneratu mugikorreko bertsioa
-    var $mugikorUser = $("#mugikor-menua .mugikor-user-container");
+    var $mugikorErabiltzaile = $(
+      "#mugikor-menua .mugikor-erabiltzaile-edukiontzia"
+    );
     const mugikorHtml = `
-      <div class="mugikor-user-container">
-         <a href="${profileUrl}" class="nab-botoia mugikor-user-link">
+      <div class="mugikor-erabiltzaile-edukiontzia">
+         <a href="${profilUrl}" class="nab-botoia mugikor-erabiltzaile-link">
             <i class="fas fa-user"></i> ${izena}
          </a>
-         <button id="saioa-itxi-botoia-mugikor" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border: 1px solid #f87171; border-radius: 8px; width: calc(100% - 3rem); margin: 0.5rem 1.5rem; text-align: left;">
+         <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia" style="width: calc(100% - 3rem); margin: 0.5rem 1.5rem; text-align: left;">
             <i class="fas fa-sign-out-alt"></i> Saioa Itxi
          </button>
        </div>
     `;
 
-    if ($mugikorUser.length > 0) {
-      $mugikorUser.replaceWith(mugikorHtml);
+    if ($mugikorErabiltzaile.length > 0) {
+      $mugikorErabiltzaile.replaceWith(mugikorHtml);
     } else {
       $("#mugikor-menua .saioa-hasi-botoia").remove();
       $("#mugikor-menua").append(mugikorHtml);
@@ -139,19 +142,19 @@ $(document).ready(function () {
     console.log("Saski modala injektatzen...");
     var saskiHtml = `
     <!-- SASKI MODALA (JS bidez injektatua) -->
-    <div id="saski-modala" class="modal-geruza">
-      <div class="modal-edukiontzia">
-        <div class="modal-goiburua" style="position: relative; padding: 1rem; border-bottom: 1px solid #eee;">
+    <div id="saski-modala" class="modala-geruza">
+      <div class="modala-edukiontzia">
+        <div class="modala-goiburua" style="position: relative; padding: 1rem; border-bottom: 1px solid #eee;">
           <h3 style="margin:0;">Saskia</h3>
-          <button class="modal-itxi-botoia" id="modal-itxi-botoia-x">
+          <button class="modala-itxi-botoia" id="modal-itxi-botoia-x">
             &times;
           </button>
         </div>
 
-        <div id="saski-elementu-zerrenda" class="modal-edukia taula-scroll" style="padding: 1rem; flex: 1; overflow-y: auto;">
+        <div id="saski-elementu-zerrenda" class="modala-edukia taula-scroll" style="padding: 1rem; flex: 1; overflow-y: auto;">
           <!-- JS bidez beteko da -->
         </div>
-        <div class="saski-footer" style="padding: 1rem; border-top: 1px solid #eee;">
+        <div class="saski-oina" style="padding: 1rem; border-top: 1px solid #eee;">
           <div class="saski-guztira-lerroa" style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:bold;">
             <span>Guztira:</span><span id="saski-guztira">0.00 €</span>
           </div>
@@ -204,9 +207,9 @@ $(document).ready(function () {
   // Funtzio globalak definitu
   window.saskiKontagailuaEguneratu = function () {
     var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-    var totalCount = 0;
-    saskia.forEach((item) => (totalCount += item.kantitatea));
-    $(".saski-kontagailu-txapa").text(totalCount);
+    var kopuruGuztira = 0;
+    saskia.forEach((elementua) => (kopuruGuztira += elementua.kantitatea));
+    $(".saski-kontagailua").text(kopuruGuztira);
   };
 
   window.saskiaGorde = function (saskiaBerria) {
@@ -235,32 +238,34 @@ $(document).ready(function () {
         '<p style="text-align:center; padding:1rem;">Saskia hutsik dago.</p>'
       );
     } else {
-      saskia.forEach(function (item) {
-        var itemTotala = item.prezioa * item.kantitatea;
-        totala += itemTotala;
+      saskia.forEach(function (elementua) {
+        var elementuTotala = elementua.prezioa * elementua.kantitatea;
+        totala += elementuTotala;
 
         var html = `
-                  <div class="saski-item-lerroa">
-                      <div class="saski-item-info">
-                          <div class="saski-item-izena">${item.izena}</div>
-                          <div class="saski-item-xehetasun">
-                            ${item.prezioa.toFixed(2)} € x ${
-          item.kantitatea
-        } = <b>${itemTotala.toFixed(2)} €</b>
+                  <div class="saski-elementu-lerroa">
+                      <div class="saski-elementu-informazioa">
+                          <div class="saski-elementu-izena">${
+                            elementua.izena
+                          }</div>
+                          <div class="saski-elementu-xehetasun">
+                            ${elementua.prezioa.toFixed(2)} € x ${
+          elementua.kantitatea
+        } = <b>${elementuTotala.toFixed(2)} €</b>
                           </div>
                       </div>
                       <div class="kantitate-kontrola">
-                          <button class="saski-btn-qty" data-id="${
-                            item.id
-                          }" data-action="minus">-</button>
-                          <span>${item.kantitatea}</span>
-                          <button class="saski-btn-qty" data-id="${
-                            item.id
-                          }" data-action="plus">+</button>
+                          <button class="saski-botoi-kop" data-id="${
+                            elementua.id
+                          }" data-ekintza="minus">-</button>
+                          <span>${elementua.kantitatea}</span>
+                          <button class="saski-botoi-kop" data-id="${
+                            elementua.id
+                          }" data-ekintza="plus">+</button>
                       </div>
-                      <button class="saski-kendu-botoia saski-btn-qty" data-id="${
-                        item.id
-                      }" data-action="remove"><i class="fas fa-trash"></i></button>
+                      <button class="saski-kendu-botoia saski-botoi-kop" data-id="${
+                        elementua.id
+                      }" data-ekintza="remove"><i class="fas fa-trash"></i></button>
                   </div>
                 `;
         $zerrenda.append(html);
@@ -278,7 +283,7 @@ $(document).ready(function () {
     var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
     // Begiratu ea saskian dagoen jada
-    var badago = saskia.find((item) => item.id == id); // Loose equality id string vs number
+    var badago = saskia.find((elementua) => elementua.id == id); // Loose equality id string vs number
     var saskianDagoenKantitatea = badago ? badago.kantitatea : 0;
 
     if (saskianDagoenKantitatea + 1 > stock) {
@@ -310,7 +315,7 @@ $(document).ready(function () {
   };
 
   function saskiratuAnimazioaGlobala($botoia) {
-    var $txapa = $(".saski-kontagailu-txapa");
+    var $txapa = $(".saski-kontagailua");
 
     // --- BOTOIAREN ANIMAZIOA ---
     $botoia.stop(true, true);
@@ -418,34 +423,34 @@ $(document).ready(function () {
   );
 
   $(window).click(function (e) {
-    if ($(e.target).hasClass("modal-geruza")) {
+    if ($(e.target).hasClass("modala-geruza")) {
       itxiModala();
     }
   });
 
   // 3. KANTITATEA ALDATU (+/-) eta EZABATU
-  $(document).on("click", ".saski-btn-qty", function (e) {
+  $(document).on("click", ".saski-botoi-kop", function (e) {
     e.preventDefault(); // Stop default button behavior
     e.stopPropagation();
     var id = $(this).data("id");
-    var akzioa = $(this).data("action");
+    var ekintza = $(this).data("ekintza");
 
     saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
     // IDa string vs number izan daiteke, "==" erabiltzen dugu konparatzeko
-    var itemIndex = saskia.findIndex((i) => i.id == id);
+    var elementuIndizea = saskia.findIndex((i) => i.id == id);
 
-    if (itemIndex > -1) {
-      var item = saskia[itemIndex];
+    if (elementuIndizea > -1) {
+      var elementua = saskia[elementuIndizea];
 
-      if (akzioa === "plus") {
-        item.kantitatea++;
-      } else if (akzioa === "minus") {
-        item.kantitatea--;
-        if (item.kantitatea <= 0) {
-          saskia.splice(itemIndex, 1);
+      if (ekintza === "plus") {
+        elementua.kantitatea++;
+      } else if (ekintza === "minus") {
+        elementua.kantitatea--;
+        if (elementua.kantitatea <= 0) {
+          saskia.splice(elementuIndizea, 1);
         }
-      } else if (akzioa === "remove") {
-        saskia.splice(itemIndex, 1);
+      } else if (ekintza === "remove") {
+        saskia.splice(elementuIndizea, 1);
       }
 
       window.saskiaGorde(saskia);
@@ -456,30 +461,31 @@ $(document).ready(function () {
   // 4. EROSI / ORDAINDU BOTOIA (Checkout check)
   $(document).on("click", "#erosketa-burutu-botoia", function (e) {
     e.preventDefault();
-    var currentCart = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-    if (currentCart.length === 0) {
+    var unekoSaskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
+    if (unekoSaskia.length === 0) {
       alert("Saskia hutsik dago!");
       return;
     }
 
-    var checkUrl = resolveUrl("php", "get_saio_egoera.php");
-    var loginUrl = resolveUrl("php", "bezero_saioa_hasi.php");
-    var checkoutUrl = resolveUrl("php", "ordainketa_pasarela.php");
+    var egiaztatuUrl = ebatziUrl("php", "get_saio_egoera.php");
+    var saioaHasiUrl = ebatziUrl("php", "bezero_saioa_hasi.php");
+    // New Flow: Go to Review/Address page first
+    var erosketaBerretsiUrl = ebatziUrl("php", "bezero_erosketa.php");
 
     $.ajax({
-      url: checkUrl,
+      url: egiaztatuUrl,
       method: "GET",
       dataType: "json",
       success: function (data) {
-        if (!data.logged_in) {
-          window.location.href = loginUrl;
+        if (!data.saioa_hasita) {
+          window.location.href = saioaHasiUrl;
         } else {
-          window.location.href = checkoutUrl;
+          window.location.href = erosketaBerretsiUrl;
         }
       },
       error: function (xhr, status, error) {
         console.error("Errorea saioa egiaztatzean:", error);
-        window.location.href = loginUrl;
+        window.location.href = saioaHasiUrl;
       },
     });
   });
@@ -487,39 +493,73 @@ $(document).ready(function () {
   // --- SAIOA ITXI EVENT ---
   $(document).on(
     "click",
-    "#saioa-itxi-botoia, #saioa-itxi-botoia-mugikor",
+    "#saioa-itxi-botoia, #mugikor-saioa-itxi-botoia",
     function (e) {
       e.preventDefault();
-      var logoutUrl = resolveUrl("php", "logout_bezeroa.php");
-      var loginUrl = resolveUrl("php", "bezero_saioa_hasi.php");
+      var saioaItxiUrl = ebatziUrl("php", "logout_bezeroa.php");
+      var saioaHasiUrl = ebatziUrl("php", "bezero_saioa_hasi.php");
 
       $.ajax({
-        url: logoutUrl,
+        url: saioaItxiUrl,
         method: "POST",
         success: function () {
-          const path = window.location.pathname;
+          const bidea = window.location.pathname;
           if (
-            path.includes("bezero_menua") ||
-            path.includes("bezero_datuak") ||
-            path.includes("bezero_eskaerak") ||
-            path.includes("ordainketa_pasarela")
+            bidea.includes("bezero_menua") ||
+            bidea.includes("bezero_datuak") ||
+            bidea.includes("bezero_eskaerak") ||
+            bidea.includes("ordainketa_pasarela")
           ) {
-            window.location.href = loginUrl;
+            window.location.href = saioaHasiUrl;
           } else {
             location.reload();
           }
         },
         error: function () {
-          window.location.href = loginUrl;
+          window.location.href = saioaHasiUrl;
         },
       });
     }
   );
 
-  checkSession();
+  egiaztatuSaioa();
 
   // Menu mugikorraren logika zentralizatua
   $("#mugikor-menu-botoia").click(function () {
     $("#mugikor-menua").toggleClass("erakutsi");
   });
 });
+
+// Global function for City Toggle
+function toggleHerriaInput(mota) {
+  var hautatu = document.getElementById("herria_id_" + mota);
+  var edukiontzia = document.getElementById("herria_berria_container_" + mota);
+
+  if (hautatu && hautatu.value === "other") {
+    edukiontzia.style.display = "block";
+    var sarreraHerria = edukiontzia.querySelector(
+      'input[name="herria_berria"]'
+    );
+    var sarreraLurraldea = edukiontzia.querySelector(
+      'input[name="lurraldea_berria"]'
+    );
+    if (sarreraHerria) sarreraHerria.required = true;
+    if (sarreraLurraldea) sarreraLurraldea.required = true;
+  } else if (edukiontzia) {
+    edukiontzia.style.display = "none";
+    var sarreraHerria = edukiontzia.querySelector(
+      'input[name="herria_berria"]'
+    );
+    var sarreraLurraldea = edukiontzia.querySelector(
+      'input[name="lurraldea_berria"]'
+    );
+    if (sarreraHerria) {
+      sarreraHerria.required = false;
+      sarreraHerria.value = "";
+    }
+    if (sarreraLurraldea) {
+      sarreraLurraldea.required = false;
+      sarreraLurraldea.value = "";
+    }
+  }
+}

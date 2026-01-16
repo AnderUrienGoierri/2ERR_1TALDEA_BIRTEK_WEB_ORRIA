@@ -1,5 +1,15 @@
 <?php
 session_start();
+require_once 'DB_konexioa.php';
+
+// Herriak lortu
+try {
+    $stmt_h = $konexioa->prepare("SELECT id_herria, izena FROM herriak ORDER BY izena");
+    $stmt_h->execute();
+    $herriak = $stmt_h->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $herriak = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="eu">
@@ -49,31 +59,31 @@ session_start();
 
           <div class="nab-ekintzak">
             <?php if (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php elseif (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php else: ?>
-                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia saioa-hasi-botoia-nav" id="saioa-hasi-botoia">Saioa Hasi</a>
+                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia saioa-hasi-botoia-nab" id="saioa-hasi-botoia">Saioa Hasi</a>
             <?php endif; ?>
             
             <button class="saski-botoia" id="saski-botoia-toggle">
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <span class="saski-kontagailu-txapa">0</span>
+              <span class="saski-kontagailua">0</span>
             </button>
           </div>
         </div>
@@ -85,6 +95,26 @@ session_start();
           <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
           <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? 'hornitzailea-aktibo' : '' ?>">Birziklatu</a>
           <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
+
+          <?php if (isset($_SESSION['id_bezeroa'])): ?>
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="bezero_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
+                  </a>
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </button>
+              </div>
+          <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
+                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
+                  </a>
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
+                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
+                  </button>
+              </div>
+          <?php endif; ?>
         </div>
       </nav>
     </header>
@@ -124,7 +154,26 @@ session_start();
                 <input type="email" name="emaila_erregistroa" placeholder="Posta elektronikoa" class="inprimaki-sarrera" required />
               </div>
               <div>
+                <input type="text" name="nan" placeholder="NAN / IFZ" class="inprimaki-sarrera" required />
+              </div>
+              <div>
                 <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
+              </div>
+              <div>
+                <select name="herria_id" id="herria_id_bezeroa" class="inprimaki-hautatu" required onchange="toggleHerriaInput('bezeroa')">
+                    <option value="" disabled selected>Aukeratu Herria</option>
+                    <?php foreach ($herriak as $herria): ?>
+                        <option value="<?= $herria['id_herria'] ?>"><?= htmlspecialchars($herria['izena']) ?></option>
+                    <?php endforeach; ?>
+                    <option value="other">Beste bat... (Gehitu berria)</option>
+                </select>
+              </div>
+              <div id="herria_berria_container_bezeroa" class="ezkutuan">
+                <input type="text" name="herria_berria" placeholder="Herriaren izena" class="inprimaki-sarrera" />
+                <input type="text" name="lurraldea_berria" placeholder="Lurraldea (probintzia)" class="inprimaki-sarrera" />
+              </div>
+              <div>
+                <input type="text" name="posta_kodea" placeholder="Posta Kodea" class="inprimaki-sarrera" required pattern="[0-9]{5}" title="5 digituko posta kodea" />
               </div>
               <div>
                 <input type="password" name="pasahitza_erregistroa" placeholder="Pasahitza segurua" class="inprimaki-sarrera" required minlength="8" />
@@ -172,12 +221,14 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script>
-      $(document).on("session:valid", function (e, user) {
+      // saioa hasita badago:
+      $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
+        var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
         $(".kontaktu-sareta").html(
-          '<div class="testua-zentratuta" style="grid-column: 1 / -1; padding: 2rem;">' +
-            '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + user + "!</h2>" +
+          '<div class="testua-zentratuta ongietorri-kutxa">' +
+            '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
             '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
-            '<a href="bezero_menua.php" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
+            '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
           '</div>'
         );
       });

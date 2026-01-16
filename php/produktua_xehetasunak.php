@@ -100,7 +100,7 @@ if ($id > 0) {
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
@@ -109,7 +109,7 @@ if ($id > 0) {
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
@@ -120,7 +120,7 @@ if ($id > 0) {
             <button class="saski-botoia" id="saski-botoia-toggle">
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <span class="saski-kontagailu-txapa">0</span>
+              <span class="saski-kontagailua">0</span>
             </button>
           </div>
         </div>
@@ -148,7 +148,16 @@ if ($id > 0) {
             <div class="xehetasunak-edukiontzia">
                 <div class="xehetasunak-irudia-container">
                     <?php 
-                        $imgUrl = !empty($produktua['irudia_url']) ? $produktua['irudia_url'] : '../irudiak/birtek1.jpeg';
+                        $irudia = $produktua['irudia_url'];
+                        if (!empty($irudia)) {
+                            if (strpos($irudia, 'http') === 0) {
+                                $imgUrl = $irudia;
+                            } else {
+                                $imgUrl = '../irudiak/' . $irudia;
+                            }
+                        } else {
+                            $imgUrl = '../irudiak/birtek1.jpeg';
+                        }
                     ?>
                     <img src="<?php echo htmlspecialchars($imgUrl); ?>" 
                          alt="<?php echo htmlspecialchars($produktua['izena']); ?>" 

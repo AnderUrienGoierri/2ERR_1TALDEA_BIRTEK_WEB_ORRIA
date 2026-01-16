@@ -105,25 +105,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_kontaktua.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_datuak_aldatu.css">
-    <style>
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-        }
-        .form-section-title {
-            grid-column: 1 / -1;
-            border-bottom: 2px solid #ddd;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            padding-bottom: 5px;
-            color: #333;
-            font-size: 1.1rem;
-        }
-    </style>
+
 </head>
 <body class="web-gorputza">
     <header class="goiburu-nagusia">
@@ -151,31 +133,31 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
           <div class="nab-ekintzak">
             <?php if (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php else: ?>
-                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia">Saioa Hasi</a>
+                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
             <?php endif; ?>
             
             <button class="saski-botoia" id="saski-botoia-toggle">
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <span class="saski-kontagailu-txapa">0</span>
+              <span class="saski-kontagailua">0</span>
             </button>
           </div>
         </div>
@@ -189,22 +171,22 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
           <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
 
           <?php if (isset($_SESSION['id_bezeroa'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="bezero_menua.php" class="nab-botoia mugikor-user-link">
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="bezero_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
                       <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
                   </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
                       <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
+                  </button>
               </div>
           <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-user-link">
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
                       <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
                   </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
                       <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
+                  </button>
               </div>
           <?php else: ?>
               <a href="bezero_saioa_hasi.php" class="nab-botoia">Saioa Hasi</a>
@@ -214,34 +196,34 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     </header>
 
     <main class="eduki-nagusia">
-        <div class="form-container" style="max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div class="inprimaki-edukiontzia bazter-borobilduak itzala-arin" style="max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff;">
             <h2 class="inprimaki-titulua" style="text-align: center; margin-bottom: 2rem;">Datu Pertsonalak Aldatu</h2>
             
             <?php if ($mezua): ?>
-                <p class="success-msg" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1.5rem; text-align: center;"><?= $mezua ?></p>
+                <p class="arrakasta-mezua" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1.5rem; text-align: center;"><?= $mezua ?></p>
             <?php endif; ?>
             
             <form class="kontaktu-inprimaki-diseinua" method="POST">
-                <div class="form-grid">
-                    <h3 class="form-section-title">Oinarrizko Informazioa</h3>
+                <div class="inprimaki-sareta">
+                    <h3 class="inprimaki-atal-izenburua">Oinarrizko Informazioa</h3>
                     
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Izena edo Izen Soziala:</label>
                         <input type="text" name="izena_edo_soziala" value="<?= htmlspecialchars($bezeroa['izena_edo_soziala']) ?>" class="inprimaki-sarrera" required>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Abizena:</label>
                         <input type="text" name="abizena" value="<?= htmlspecialchars($bezeroa['abizena'] ?? '') ?>" class="inprimaki-sarrera">
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>IFZ / NAN:</label>
                         <input type="text" name="ifz_nan" value="<?= htmlspecialchars($bezeroa['ifz_nan']) ?>" class="inprimaki-sarrera" required>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Jaiotza Data:</label>
                         <input type="date" name="jaiotza_data" value="<?= htmlspecialchars($bezeroa['jaiotza_data'] ?? '') ?>" class="inprimaki-sarrera">
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Sexua:</label>
                         <select name="sexua" class="inprimaki-sarrera">
                             <option value="">Aukeratu...</option>
@@ -250,7 +232,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                             <option value="ez-binarioa" <?= ($bezeroa['sexua'] == 'ez-binarioa') ? 'selected' : '' ?>>Ez-binarioa</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Hizkuntza:</label>
                         <select name="hizkuntza" class="inprimaki-sarrera">
                             <option value="Euskara" <?= ($bezeroa['hizkuntza'] == 'Euskara') ? 'selected' : '' ?>>Euskara</option>
@@ -260,13 +242,13 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                         </select>
                     </div>
 
-                    <h3 class="form-section-title">Kontaktua eta Helbidea</h3>
+                    <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
                     
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Helbidea:</label>
                         <input type="text" name="helbidea" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>" class="inprimaki-sarrera" required>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Herria:</label>
                         <select name="herria_id" class="inprimaki-sarrera" required>
                             <?php foreach ($herriak as $herria): ?>
@@ -276,26 +258,26 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Posta Kodea:</label>
                         <input type="text" name="posta_kodea" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>" class="inprimaki-sarrera" required>
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Telefonoa:</label>
                         <input type="text" name="telefonoa" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>" class="inprimaki-sarrera" required>
                     </div>
-                    <div class="form-group" style="grid-column: 1 / -1;">
+                    <div class="inprimaki-taldea" style="grid-column: 1 / -1;">
                         <label>Emaila:</label>
                         <input type="email" name="emaila" value="<?= htmlspecialchars($bezeroa['emaila']) ?>" class="inprimaki-sarrera" required>
                     </div>
 
-                    <h3 class="form-section-title">Segurtasuna eta Ordainketa</h3>
+                    <h3 class="inprimaki-atal-izenburua">Segurtasuna eta Ordainketa</h3>
                     
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Ordainketa Txartela (Token):</label>
                         <input type="text" name="bezero_ordainketa_txartela" value="<?= htmlspecialchars($bezeroa['bezero_ordainketa_txartela'] ?? '') ?>" class="inprimaki-sarrera">
                     </div>
-                    <div class="form-group">
+                    <div class="inprimaki-taldea">
                         <label>Pasahitza Berria (Utzi hutsik ez aldatzeko):</label>
                         <input type="password" name="pasahitza" class="inprimaki-sarrera" placeholder="Pasahitza berria...">
                     </div>
@@ -305,7 +287,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
             </form>
             
             <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="bezero_menua.php" class="back-link" style="color: #666; text-decoration: none;"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
+                <a href="bezero_menua.php" class="atzerako-botoia"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
             </div>
         </div>
     </main>
