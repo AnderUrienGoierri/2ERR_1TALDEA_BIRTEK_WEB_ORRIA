@@ -22,22 +22,32 @@ $(document).ready(function () {
 
   // Iragazkietan aldaketak detektatu
   $(
-    "#filtro-bilatu, #filtro-egoera, #filtro-kategoria, #filtro-mota, #filtro-ordenatu, #prezioa-min, #prezioa-max"
+    "#iragazkia-bilatu, #iragazkia-egoera, #iragazkia-kategoria, #iragazkia-mota, #iragazkia-ordenatu, #prezioa-min, #prezioa-max"
   ).on("input change", function () {
     produktuakFiltratu();
   });
 
   // "FILTROAK GARBITU" botoia
   $(".iragazkiak-berrezarri").on("click", function () {
-    $("#filtro-bilatu").val("");
-    $("#filtro-egoera").val("");
-    $("#filtro-kategoria").val("");
-    $("#filtro-mota").val("");
-    $("#filtro-ordenatu").val("default");
+    $("#iragazkia-bilatu").val("");
+    $("#iragazkia-egoera").val("");
+    $("#iragazkia-kategoria").val("");
+    $("#iragazkia-mota").val("");
+    $("#iragazkia-ordenatu").val("default");
     $("#prezioa-min").val("");
     $("#prezioa-max").val("");
     produktuakFiltratu(); // Berrezarri ondoren filtratu (denak erakusteko)
   });
+
+  // MUGIKORRA ETA IDAZMAHAIA: Iragazkiak erakutsi/ezkutatu
+  $(".iragazki-goiburua").on("click", function () {
+    $(".iragazki-edukia").slideToggle();
+  });
+
+  // Leihoa aldatzean ez dugu ezer behartuko, erabiltzaileak erabaki dezala.
+  // Nahi izanez gero, hemen jarri daiteke logika bereziren bat, baina
+  // orokorrean hobe da 'slideToggle'-k jarritakoa errespetatzea edo
+  // CSS bidez kudeatzea hasierako egoera.
 });
 
 function produktuakBistaratu(produktuak) {
@@ -57,9 +67,9 @@ function produktuakBistaratu(produktuak) {
 
     var txartelaHtml = `
       <div class="produktu-txartela">
-        <div class="txartel-irudia" onclick="window.location.href='produktua_xehetasunak.php?id=${
+        <div class="txartel-irudia klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
           produktua.id_produktua
-        }'" style="cursor: pointer;">
+        }'">
           <img
             src="${produktua.irudia_url}"
             alt="${produktua.izena}"
@@ -69,10 +79,10 @@ function produktuakBistaratu(produktuak) {
           <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
         </div>
         <div class="txartel-edukia">
-          <h3 class="txartel-izenburua" onclick="window.location.href='produktua_xehetasunak.php?id=${
+          <h3 class="txartel-izenburua klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
             produktua.id_produktua
-          }'" style="cursor: pointer;">${produktua.izena}</h3>
-          <div class="txartel-info-lerroa">
+          }'">${produktua.izena}</h3>
+          <div class="txartel-informazio-lerroa">
             <span class="txartel-marka">${produktua.marka} | ${
       produktua.egoera
     }</span>
@@ -88,11 +98,7 @@ function produktuakBistaratu(produktuak) {
             )} €</span>
             <button class="produktua-saskiratu-botoia" data-stock="${
               produktua.stock
-            }" ${
-      produktua.stock === 0
-        ? 'disabled style="opacity:0.5; cursor:not-allowed;"'
-        : ""
-    }>
+            }" ${produktua.stock === 0 ? "disabled" : ""}>
               Saskiratu
             </button>
             <button class="produktua-ikusi-botoia" onclick="window.location.href='produktua_xehetasunak.php?id=${
@@ -107,11 +113,11 @@ function produktuakBistaratu(produktuak) {
 }
 
 function produktuakFiltratu() {
-  var bilatuTestua = $("#filtro-bilatu").val().toLowerCase();
-  var egoera = $("#filtro-egoera").val();
-  var kategoria = $("#filtro-kategoria").val();
-  var mota = $("#filtro-mota").val();
-  var ordenatu = $("#filtro-ordenatu").val();
+  var bilatuTestua = $("#iragazkia-bilatu").val().toLowerCase();
+  var egoera = $("#iragazkia-egoera").val();
+  var kategoria = $("#iragazkia-kategoria").val();
+  var mota = $("#iragazkia-mota").val();
+  var ordenatu = $("#iragazkia-ordenatu").val();
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 

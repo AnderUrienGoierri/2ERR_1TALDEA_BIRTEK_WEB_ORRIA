@@ -3,18 +3,18 @@ session_start();
 header('Content-Type: application/json');
 
 $response = [
-    'logged_in' => false,
+    'saioa_hasita' => false,
     'izena' => ''
 ];
 
 if (isset($_SESSION['id_bezeroa'])) {
-    $response['logged_in'] = true;
+    $response['saioa_hasita'] = true;
     $response['izena'] = $_SESSION['izena'] ?? 'Bezeroa';
-    $response['type'] = 'bezeroa';
+    $response['mota'] = 'bezeroa';
 } elseif (isset($_SESSION['id_hornitzailea'])) {
-    $response['logged_in'] = true;
+    $response['saioa_hasita'] = true;
     $response['izena'] = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
-    $response['type'] = 'hornitzailea';
+    $response['mota'] = 'hornitzailea';
 }
 
 echo json_encode($response);

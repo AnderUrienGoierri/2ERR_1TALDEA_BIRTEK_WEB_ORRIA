@@ -1,4 +1,4 @@
-.pasarela-container {
+.ordainketa-kutxa {
   max-width: 600px;
   margin: 50px auto;
   padding: 30px;
@@ -7,38 +7,38 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
-.pasarela-header {
+.ordainketa-goiburua {
   text-align: center;
   margin-bottom: 30px;
 }
-.pasarela-header i {
+.ordainketa-goiburua i {
   font-size: 3rem;
   color: var(--primarioa);
   margin-bottom: 10px;
 }
-.form-group {
+.inprimaki-taldea {
   margin-bottom: 20px;
 }
-.form-group label {
+.inprimaki-taldea label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
-.form-group input {
+.inprimaki-taldea input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
 }
-.erabiltzaile-info {
+.erabiltzaile-informazioa {
   background-color: #f8f9fa;
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 20px;
   border-left: 4px solid var(--primarioa);
 }
-.botoi-container {
+.botoi-edukiontzia {
   text-align: center;
   margin-top: 30px;
 }

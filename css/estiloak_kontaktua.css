@@ -30,9 +30,9 @@
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  width: 92%; /* Narrower feel on small mobile */
+  width: 80%; /* Narrower feel on small mobile */
   max-width: 500px; /* Constrained on tablet/desktop */
-  margin: 0 auto; /* Centered */
+  margin: 0 auto; /* zentratuta */
   min-width: 0; /* CRITICAL: Allows grid item to shrink below content size */
 }
 
@@ -343,6 +343,69 @@
 .testua-txikia {
   font-size: 0.75rem;
 }
-.tartea-goian-txikia {
-  margin-top: 0.25rem;
+
+/* ---  (Datuak Aldatu estiloetatik hartuta) --- */
+.inprimaki-sareta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+@media (max-width: 600px) {
+  .inprimaki-sareta {
+    grid-template-columns: 1fr;
+  }
+}
+.inprimaki-atal-izenburua {
+  grid-column: 1 / -1;
+  border-bottom: 2px solid #e5e7eb;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 5px;
+  color: #166534;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 320px) {
+  .kontaktu-edukiontzia {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .inprimaki-kutxa,
+  .sozial-kutxa,
+  .mapa-edukiontzia {
+    width: 100%;
+    padding: 1rem 0.5rem; /* Reduce padding to maximize space */
+    border-radius: 1rem;
+    max-width: 100%; /* Ensure it doesn't exceed screen */
+  }
+
+  /* Make map container height smaller on tiny screens */
+  .mapa-edukiontzia {
+    min-height: 250px;
+  }
+
+  .inprimaki-sarrera {
+    padding: 0.5rem;
+  }
+
+  .inprimaki-titulua,
+  .sozial-azpititulua {
+    font-size: 1.25rem;
+  }
+
+  .sozial-ikono-lerroa {
+    gap: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .footer-wa-botoia {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .kontaktua-titulua {
+    font-size: 1.5rem;
+  }
 }

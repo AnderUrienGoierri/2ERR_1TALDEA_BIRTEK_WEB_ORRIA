@@ -7,8 +7,10 @@ function kargatuSaskia() {
   var $edukiontzia = $("#saskia-xehetasunak");
 
   if (saskia.length === 0) {
-    $edukiontzia.html("<p>Saskia hutsik dago. <a href='produktuak.php'>Itzuli dendara</a></p>");
-    $(".botoi-container button").prop("disabled", true).css("opacity", "0.5");
+    $edukiontzia.html(
+      "<p>Saskia hutsik dago. <a href='produktuak.php'>Itzuli dendara</a></p>"
+    );
+    $(".botoi-edukiontzia button").prop("disabled", true).css("opacity", "0.5");
     return;
   }
 
@@ -18,11 +20,21 @@ function kargatuSaskia() {
   saskia.forEach(function (item) {
     var itemTotal = item.prezioa * item.kantitatea;
     totala += itemTotal;
-      html += "<li>" + item.kantitatea + "x " + item.izena + " - " + item.prezioa + "€/unit (" + itemTotal.toFixed(2) + "€)</li>";
+    html +=
+      "<li>" +
+      item.kantitatea +
+      "x " +
+      item.izena +
+      " - " +
+      item.prezioa +
+      "€/unit (" +
+      itemTotal.toFixed(2) +
+      "€)</li>";
   });
 
   html += "</ul>";
-  html += "<div class='saskia-totala'>Guztira: " + totala.toFixed(2) + " €</div>";
+  html +=
+    "<div class='saskia-totala'>Guztira: " + totala.toFixed(2) + " €</div>";
 
   $edukiontzia.html(html);
 }
@@ -37,7 +49,7 @@ function burutuErosketa() {
     return;
   }
 
-  var botoia = $(".botoi-container button");
+  var botoia = $(".botoi-edukiontzia button");
   botoia.html('<i class="fas fa-spinner fa-spin"></i> Prozesatzen...');
   botoia.prop("disabled", true);
 

@@ -1,24 +1,20 @@
 <?php
 // c:\xampp\htdocs\2ERR_1TALDEA_BIRTEK\php\launch_java_app.php
 
-// Define absolute paths for reliability
-$projectRoot = "c:\\xampp\\htdocs\\2ERR_1TALDEA_BIRTEK";
-$javaDir = $projectRoot . "\\java";
-$binDir = $javaDir . "\\bin";
-$libDir = $javaDir . "\\lib\\*"; // Wildcard for all jar dependencies
-
-// The main class to run
-$mainClass = "birtek_interfaze_grafikoa.LoginPanela";
+// Define absolute path to the executable
+$exePath = "c:\\xampp\\htdocs\\2ERR_1TALDEA_BIRTEK\\BirtekAPP\\BirtekAPP.exe";
+$workingDir = "c:\\xampp\\htdocs\\2ERR_1TALDEA_BIRTEK\\BirtekAPP";
 
 // Construct the command
-// 'start /B' runs it in the background on Windows
-// 'javaw' runs it without a persistent console window (optional, 'java' works too but keeps console)
-$command = "start /B javaw -cp \"$binDir;$libDir\" $mainClass";
+// cd /d changes drive and directory
+// start "" launches with a blank title (needed for start command syntax sometimes)
+// /B not used here to ensure it detaches properly, but if we want hidden console we might use it. 
+// However, BirtekAPP.exe likely handles its own window.
+$command = "cd /d \"$workingDir\" && start \"\" \"$exePath\"";
 
 // Execute the command
-// pclose(popen(...)) is a trick to spawn a process without waiting for it to finish in PHP
 pclose(popen($command, "r"));
 
-echo "Lanzando: " . $command;
+echo "Abiarazten: " . $command;
 ?>
 

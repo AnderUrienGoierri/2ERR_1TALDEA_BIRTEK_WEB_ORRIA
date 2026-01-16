@@ -11,13 +11,6 @@
   word-wrap: break-word;
 }
 
-@media (min-width: 768px) {
-  .produktuak-titulua {
-    font-size: 1.75rem;
-    margin-bottom: 3rem;
-  }
-}
-
 .produktuak-orria {
   display: flex;
   flex-direction: column;
@@ -26,21 +19,8 @@
   margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
-  .produktuak-orria {
-    flex-direction: row;
-  }
-}
-
 .alboko-barra {
   width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .alboko-barra {
-    width: 280px;
-    flex-shrink: 0;
-  }
 }
 
 .eduki-zutabea {
@@ -58,20 +38,33 @@
   top: 10rem;
 }
 
-@media (min-width: 375px) {
-  .iragazki-kaxa {
-    padding: 2rem;
-  }
-}
-
 .iragazki-izenburua {
   font-weight: 800;
   font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0; /* Changed from 1.5rem because header is now a flex row for toggle */
   font-family: "Outfit", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+/* Updated Header for Toggle */
+.iragazki-goiburua {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  cursor: pointer; /* Clickable on mobile */
+  user-select: none;
+}
+
+/* Filter Content Container (Hidden by default on mobile) */
+.iragazki-edukia {
+  display: none;
+}
+
+.iragazki-edukia.erakutsi {
+  display: block;
 }
 
 .iragazki-taldea {
@@ -107,13 +100,6 @@
   text-decoration: underline;
 }
 
-.iragazki-goiburua {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
 .iragazki-etiketa {
   font-size: 0.9rem;
   font-weight: 600;
@@ -122,22 +108,25 @@
   margin-bottom: 0.5rem;
 }
 
+/* Utility classes for filter layout */
+.prezio-iragazki-taldea {
+  display: flex;
+  gap: 5px;
+}
+
+.zabaler-erdi {
+  width: 50% !important;
+}
+
+.klikagarria {
+  cursor: pointer;
+}
+
 /* PRODUKTU SAREA */
 .produktu-sarea {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-}
-
-@media (min-width: 640px) {
-  .produktu-sarea {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1200px) {
-  .produktu-sarea {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .produktu-txartela {
@@ -172,12 +161,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
-
-@media (min-width: 375px) {
-  .txartel-edukia {
-    padding: 1.5rem;
-  }
 }
 
 .txartel-izenburua {
@@ -215,6 +198,11 @@
   border: none;
   cursor: pointer;
   font-weight: 600;
+}
+
+.produktua-saskiratu-botoia:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .produktua-ikusi-botoia {
@@ -281,4 +269,52 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   pointer-events: none; /* Ez molestatzeko */
+}
+
+/* ========================================================================= */
+/* --- MEDIA QUERIES (AT THE END) --- */
+/* ========================================================================= */
+
+@media (min-width: 375px) {
+  .iragazki-kaxa {
+    padding: 2rem;
+  }
+  .txartel-edukia {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .produktu-sarea {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .produktuak-titulua {
+    font-size: 1.75rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .produktuak-orria {
+    flex-direction: row;
+  }
+  .alboko-barra {
+    width: 280px;
+    flex-shrink: 0;
+  }
+  .iragazki-edukia {
+    display: block;
+  }
+  .iragazki-goiburua {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1200px) {
+  .produktu-sarea {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

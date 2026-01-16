@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pasahitza = trim($_POST['pasahitza_erregistroa']);
     
     // Default values
-    $ifz_nan = 'TEMP_' . time(); // Temporary generic ID until they update profile
-    $herria_id = 1; // Default to Donostia (or 1) until updated
-    $posta_kodea = '00000';
+    $ifz_nan = trim($_POST['nan']);
+    $herria_id = !empty($_POST['herria_id']) ? $_POST['herria_id'] : 1;
+    $posta_kodea = !empty($_POST['posta_kodea']) ? substr(trim($_POST['posta_kodea']), 0, 5) : '00000';
     $telefonoa = '000000000';
 
     try {
@@ -26,6 +26,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO hornitzaileak (izena_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo) 
                 VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)";
         
+        // Herria kudeatu (Berria bada, txertatu)
+        if ($herria_id == 'other' || (is_numeric($herria_id) && $herria_id == 0)) {
+            // Beste bat aukeratu da
+            $herria_izena = trim($_POST['herria_berria'] ?? '');
+            $lurraldea = trim($_POST['lurraldea_berria'] ?? '');
+            
+            if (empty($herria_izena) || empty($lurraldea)) {
+                die("Herria eta Lurraldea beharrezkoak dira berria sortzeko.");
+            }
+
+            // Begiratu ea existitzen den jada (izena berbera)
+            $checkHerria = $konexioa->prepare("SELECT id_herria FROM herriak WHERE izena = :izena LIMIT 1");
+            $checkHerria->execute([':izena' => $herria_izena]);
+            $existing = $checkHerria->fetch(PDO::FETCH_ASSOC);
+
+            if ($existing) {
+                $herria_id = $existing['id_herria'];
+            } else {
+                // Txertatu berria
+                $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, 'Euskal Herria')";
+                $stmtHerria = $konexioa->prepare($sqlHerria);
+                $stmtHerria->execute([':izena' => $herria_izena, ':lurraldea' => $lurraldea]);
+                $herria_id = $konexioa->lastInsertId();
+            }
+        }
+
         $stmt = $konexioa->prepare($sql);
         $stmt->execute([
             ':izena' => $izena,

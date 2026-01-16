@@ -1,6 +1,6 @@
 /* --- HORNITZAILE MENUA STYLE --- */
 
-.welcome-msg {
+.ongi-etorri-mezua {
   text-align: center;
   font-family: "Outfit", sans-serif;
   font-size: 2rem;
@@ -9,7 +9,7 @@
   margin-top: 2rem;
 }
 
-.menu-grid {
+.menu-sareta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
@@ -18,7 +18,7 @@
   padding: 0 1rem;
 }
 
-.menu-card {
+.menu-txartela {
   background: white;
   border-radius: 12px;
   padding: 2rem;
@@ -35,26 +35,26 @@
   gap: 1rem;
 }
 
-.menu-card:hover {
+.menu-txartela:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-color: #bbf7d0;
 }
 
-.menu-icon {
+.menu-ikonoa {
   font-size: 3rem;
   color: #166534;
   margin-bottom: 0.5rem;
 }
 
-.menu-title {
+.menu-izenburua {
   font-size: 1.25rem;
   font-weight: 600;
   font-family: "Outfit", sans-serif;
 }
 
-.logout-btn {
+.saioa-itxi-botoia-gorria {
   display: block;
   margin: 2rem auto;
   padding: 0.75rem 2rem;
@@ -69,6 +69,158 @@
   text-decoration: none;
 }
 
-.logout-btn:hover {
+.saioa-itxi-botoia-gorria:hover {
   background-color: #dc2626;
+}
+
+/* --- SARRERA EGIN PAGE STYLES --- */
+.inprimaki-trukatu {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.trukatu-botoia {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #f9f9f9;
+  transition: all 0.3s;
+}
+
+.trukatu-botoia.aktibo {
+  background: #166534;
+  color: white;
+  border-color: #166534;
+}
+
+.ezkutuan {
+  display: none;
+}
+
+.produktu-hautatzailea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #f9fafb;
+}
+
+.sarrera-edukiontzia {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Mobile First Grid */
+.sarrera-sareta-berria {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .sarrera-sareta-berria {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.inprimaki-bidali-botoia {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.atzera-esteka-edukiontzia {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.atzera-esteka-estiloa {
+  color: #666;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.atzera-esteka-estiloa:hover {
+  color: #166534;
+}
+
+/* Dynamic Messages */
+.mezu-kutxa {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mezu-errorea {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.mezu-arrakasta {
+  background: #d4edda;
+  color: #155724;
+}
+
+.sarrera-kopuru-edukiontzia {
+  margin-top: 1rem;
+}
+
+/* --- SARRERAK KUDEATU STYLES --- */
+.sarrera-taula {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sarrera-buru-tr {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.sarrera-th {
+  padding: 15px;
+  text-align: left;
+}
+
+.sarrera-th-zentratua {
+  padding: 15px;
+  text-align: center;
+}
+
+.sarrera-gorputz-tr {
+  border-bottom: 1px solid #eee;
+}
+
+.sarrera-td {
+  padding: 15px;
+}
+
+.sarrera-td-zentratua {
+  padding: 15px;
+  text-align: center;
+}
+
+.egoera-Bidean {
+  background-color: #ffeeba;
+  color: #856404;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.egoera-Jasota {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
 }

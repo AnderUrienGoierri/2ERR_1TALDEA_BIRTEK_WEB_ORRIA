@@ -43,12 +43,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> <!-- Reusing order list styles -->
-    <style>
-        .egoera-Bidean { background-color: #ffeeba; color: #856404; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .egoera-Jasota { background-color: #d4edda; color: #155724; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .produktu-esteka { color: #0056b3; text-decoration: underline; font-weight: 600; }
-        .produktu-esteka:hover { color: #003d80; }
-    </style>
+    <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
 </head>
 <body class="web-gorputza">
     <header class="goiburu-nagusia">
@@ -133,20 +128,20 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h2>Nire Sarrerak (Bidalketak)</h2>
 
             <?php if (count($sarrerak) > 0): ?>
-                <table class="lerro-taula" style="width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <table class="sarrera-taula">
                     <thead>
-                        <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
-                            <th style="padding: 15px; text-align: left;">Data</th>
-                            <th style="padding: 15px; text-align: left;">Produktua</th>
-                            <th style="padding: 15px; text-align: center;">Kantitatea</th>
-                            <th style="padding: 15px; text-align: center;">Bidalketa Egoera</th>
+                        <tr class="sarrera-buru-tr">
+                            <th class="sarrera-th">Data</th>
+                            <th class="sarrera-th">Produktua</th>
+                            <th class="sarrera-th-zentratua">Kantitatea</th>
+                            <th class="sarrera-th-zentratua">Bidalketa Egoera</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($sarrerak as $sarrera): ?>
-                            <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 15px;"><?= date('Y-m-d H:i', strtotime($sarrera['data'])) ?></td>
-                                <td style="padding: 15px;">
+                            <tr class="sarrera-gorputz-tr">
+                                <td class="sarrera-td"><?= date('Y-m-d H:i', strtotime($sarrera['data'])) ?></td>
+                                <td class="sarrera-td">
                                     <?php if ($sarrera['sarrera_lerro_egoera'] == 'Jasota'): ?>
                                         <a href="produktua_xehetasunak.php?id=<?= $sarrera['id_produktua'] ?>" class="produktu-esteka" target="_blank">
                                             <?= htmlspecialchars($sarrera['produktu_izena']) ?>
@@ -155,8 +150,8 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?= htmlspecialchars($sarrera['produktu_izena']) ?>
                                     <?php endif; ?>
                                 </td>
-                                <td style="padding: 15px; text-align: center;"><?= $sarrera['kantitatea'] ?></td>
-                                <td style="padding: 15px; text-align: center;">
+                                <td class="sarrera-td-zentratua"><?= $sarrera['kantitatea'] ?></td>
+                                <td class="sarrera-td-zentratua">
                                     <span class="egoera-<?= $sarrera['sarrera_lerro_egoera'] ?>">
                                         <?= $sarrera['sarrera_lerro_egoera'] ?>
                                     </span>

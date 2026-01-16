@@ -22,6 +22,19 @@ try {
 
     // Datuak formatu egokian prestatu (JS-ak espero duen bezala)
     foreach ($db_produktuak as $lerroa) {
+        $irudia = $lerroa['irudia_url'];
+        if (!empty($irudia)) {
+            // Begiratu ea URL osoa den (http...//) edo fitxategi izen soila
+            if (strpos($irudia, 'http') === 0) {
+                $final_url = $irudia;
+            } else {
+                // Irudiak karpetan badago fitxategia
+                $final_url = '../irudiak/' . $irudia;
+            }
+        } else {
+            $final_url = 'https://via.placeholder.com/300?text=Irudirik+Ez';
+        }
+
         $produktuak_lista[] = [
             'id_produktua' => (int)$lerroa['id_produktua'],
             'izena' => $lerroa['izena'],
@@ -33,7 +46,7 @@ try {
             'prezioa' => (float)$lerroa['salmenta_prezioa'],
             'stock' => (int)$lerroa['stock'],
             'salgai' => (bool)$lerroa['salgai'],
-            'irudia_url' => !empty($lerroa['irudia_url']) ? $lerroa['irudia_url'] : 'https://via.placeholder.com/300?text=Irudirik+Ez',
+            'irudia_url' => $final_url,
             'ezaugarriak_json' => [
                 'Egoera Oharra' => $lerroa['produktu_egoera_oharra'] ?? 'Informazio gehigarririk ez.',
                 'Mota' => $lerroa['mota']
@@ -97,20 +110,20 @@ try {
 
           <div class="nab-ekintzak">
             <?php if (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
@@ -121,7 +134,7 @@ try {
             <button class="saski-botoia" id="saski-botoia-toggle">
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <span class="saski-kontagailu-txapa">0</span>
+              <span class="saski-kontagailua">0</span>
             </button>
           </div>
         </div>
@@ -135,22 +148,22 @@ try {
           <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
 
           <?php if (isset($_SESSION['id_bezeroa'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="bezero_menua.php" class="nab-botoia mugikor-user-link">
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="bezero_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
                       <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
                   </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
                       <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
+                  </button>
               </div>
           <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-user-link">
+              <div class="mugikor-erabiltzaile-edukiontzia">
+                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-erabiltzaile-link">
                       <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
                   </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
+                  <button id="mugikor-saioa-itxi-botoia" class="nab-botoia mugikor-logout-botoia">
                       <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
+                  </button>
               </div>
           <?php else: ?>
               <a href="bezero_saioa_hasi.php" class="nab-botoia">Saioa Hasi</a>
@@ -174,97 +187,101 @@ try {
                   <!-- Iragazki filtro IKONOA -->
                   <i class="fas fa-filter"></i>Iragazkiak
                 </h3>
-                <!-- iragazkiak garbitu BOTOIA -->
-                <button class="iragazkiak-berrezarri">Garbitu</button>
               </div>
-              <!-- Iragazki Taldea: BILATU -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Bilatu</label>
-                <input
-                  type="search"
-                  placeholder="Produktua..."
-                  id="filtro-bilatu"
-                  class="inprimaki-sarrera"
-                />
-              </div>
-              <!-- Iragazki Taldea: PRODUKTU EGOERA -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Egoera</label>
-                <select id="filtro-egoera" class="inprimaki-hautatu">
-                  <option value="">Guztiak</option>
-                  <option value="Berria">Berria</option>
-                  <option value="Berritua A">Berritua A</option>
-                  <option value="Berritua B">Berritua B</option>
-                </select>
-              </div>
-              <!-- Iragazki Taldea: ORDENATU -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Ordenatu</label>
-                <select id="filtro-ordenatu" class="inprimaki-hautatu">
-                  <option value="default">Lehenetsia</option>
-                  <option value="prezioa-asc">Prezioa: Txikitik Handira</option>
-                  <option value="prezioa-desc">
-                    Prezioa: Handitik Txikira
-                  </option>
-                  <option value="izena-asc">Izena: A-Z</option>
-                  <option value="izena-desc">Izena: Z-A</option>
-                  <option value="stock-desc">Stock: Handienetik</option>
-                  <option value="stock-asc">Stock: Gutxienetik</option>
-                </select>
-              </div>
-              <!-- Iragazki Taldea: PREZIOA (NEW) -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Prezioa (€)</label>
-                <div style="display: flex; gap: 5px">
-                  <input
-                    type="number"
-                    id="prezioa-min"
-                    placeholder="Min"
-                    class="inprimaki-sarrera"
-                    style="width: 50%"
-                  />
-                  <input
-                    type="number"
-                    id="prezioa-max"
-                    placeholder="Max"
-                    class="inprimaki-sarrera"
-                    style="width: 50%"
-                  />
-                </div>
-              </div>
-
-              <!-- Iragazki Taldea: KATEGORIA (NEW - From DB Categories) -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Kategoria</label>
-                <select id="filtro-kategoria" class="inprimaki-hautatu">
-                  <option value="">Guztiak</option>
-                  <option value="Ordenagailuak">Ordenagailuak</option>
-                  <option value="Telefonia">Telefonia</option>
-                  <option value="Irudia">Irudia</option>
-                  <option value="Osagarriak">Osagarriak</option>
-                  <option value="Softwarea">Softwarea</option>
-                  <option value="Sareak eta Zerbitzariak">
-                    Sareak eta Zerbitzariak
-                  </option>
-                </select>
-              </div>
-
-              <!-- Iragazki Taldea: MOTA (Renamed from Kategoria) -->
-              <div class="iragazki-taldea">
-                <label class="iragazki-etiketa">Mota</label>
-                <select id="filtro-mota" class="inprimaki-hautatu">
-                  <option value="">Guztiak</option>
-                  <option value="Generikoa">Generikoa</option>
-                  <option value="Eramangarria">Eramangarria</option>
-                  <option value="Mahai-gainekoa">Mahai-gainekoa</option>
-                  <option value="Mugikorra">Mugikorra</option>
-                  <option value="Tableta">Tableta</option>
-                  <option value="Zerbitzaria">Zerbitzaria</option>
-                  <option value="Pantaila">Pantaila</option>
-                  <option value="Softwarea">Softwarea</option>
-                  <option value="Periferikoak">Periferikoak</option>
-                  <option value="Kableak">Kableak</option>
-                </select>
+              
+              <!-- Iragazki Edukia (Mobilean ezkutatzeko) -->
+              <div class="iragazki-edukia">
+                  <!-- Garbitu Botoia (Mobilean ezkutuan egoteko) -->
+                  <div class="testua-eskuinera tartea-behean-1">
+                      <button class="iragazkiak-berrezarri">Garbitu</button>
+                  </div>
+                  <!-- Iragazki Taldea: BILATU -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Bilatu</label>
+                    <input
+                      type="search"
+                      placeholder="Produktua..."
+                      id="iragazkia-bilatu"
+                      class="inprimaki-sarrera"
+                    />
+                  </div>
+                  <!-- Iragazki Taldea: PRODUKTU EGOERA -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Egoera</label>
+                    <select id="iragazkia-egoera" class="inprimaki-hautatu">
+                      <option value="">Guztiak</option>
+                      <option value="Berria">Berria</option>
+                      <option value="Berritua A">Berritua A</option>
+                      <option value="Berritua B">Berritua B</option>
+                    </select>
+                  </div>
+                  <!-- Iragazki Taldea: ORDENATU -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Ordenatu</label>
+                    <select id="iragazkia-ordenatu" class="inprimaki-hautatu">
+                      <option value="default">Lehenetsia</option>
+                      <option value="prezioa-asc">Prezioa: Txikitik Handira</option>
+                      <option value="prezioa-desc">
+                        Prezioa: Handitik Txikira
+                      </option>
+                      <option value="izena-asc">Izena: A-Z</option>
+                      <option value="izena-desc">Izena: Z-A</option>
+                      <option value="stock-desc">Stock: Handienetik</option>
+                      <option value="stock-asc">Stock: Gutxienetik</option>
+                    </select>
+                  </div>
+                  <!-- Iragazki Taldea: PREZIOA (NEW) -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Prezioa (€)</label>
+                    <div class="prezio-iragazki-taldea">
+                      <input
+                        type="number"
+                        id="prezioa-min"
+                        placeholder="Min"
+                        class="inprimaki-sarrera zabaler-erdi"
+                      />
+                      <input
+                        type="number"
+                        id="prezioa-max"
+                        placeholder="Max"
+                        class="inprimaki-sarrera zabaler-erdi"
+                      />
+                    </div>
+                  </div>
+    
+                  <!-- Iragazki Taldea: KATEGORIA (NEW - From DB Categories) -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Kategoria</label>
+                    <select id="iragazkia-kategoria" class="inprimaki-hautatu">
+                      <option value="">Guztiak</option>
+                      <option value="Ordenagailuak">Ordenagailuak</option>
+                      <option value="Telefonia">Telefonia</option>
+                      <option value="Irudia">Irudia</option>
+                      <option value="Osagarriak">Osagarriak</option>
+                      <option value="Softwarea">Softwarea</option>
+                      <option value="Sareak eta Zerbitzariak">
+                        Sareak eta Zerbitzariak
+                      </option>
+                    </select>
+                  </div>
+    
+                  <!-- Iragazki Taldea: MOTA (Renamed from Kategoria) -->
+                  <div class="iragazki-taldea">
+                    <label class="iragazki-etiketa">Mota</label>
+                    <select id="iragazkia-mota" class="inprimaki-hautatu">
+                      <option value="">Guztiak</option>
+                      <option value="Generikoa">Generikoa</option>
+                      <option value="Eramangarria">Eramangarria</option>
+                      <option value="Mahai-gainekoa">Mahai-gainekoa</option>
+                      <option value="Mugikorra">Mugikorra</option>
+                      <option value="Tableta">Tableta</option>
+                      <option value="Zerbitzaria">Zerbitzaria</option>
+                      <option value="Pantaila">Pantaila</option>
+                      <option value="Softwarea">Softwarea</option>
+                      <option value="Periferikoak">Periferikoak</option>
+                      <option value="Kableak">Kableak</option>
+                    </select>
+                  </div>
               </div>
             </div>
           </div>
@@ -294,7 +311,7 @@ try {
                     </div>
                     <div class="txartel-edukia">
                       <h3 class="txartel-izenburua"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
-                      <div class="txartel-info-lerroa">
+                      <div class="txartel-informazio-lerroa">
                         <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> | <?php echo htmlspecialchars($produktua['egoera']); ?></span>
                         <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?></span>
                       </div>
@@ -304,7 +321,7 @@ try {
 
                       <div class="txartel-oina">
                         <span class="txartel-prezioa"><?php echo $prezioaFix; ?> €</span>
-                        <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''; ?>>
+                        <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled' : ''; ?>>
                           Saskiratu
                         </button>
                         <button class="produktua-ikusi-botoia" onclick="window.location.href='produktua_xehetasunak.php?id=<?php echo $produktua['id_produktua']; ?>'">Ikusi</button>
