@@ -427,86 +427,86 @@ INSERT INTO bezeroak (izena_edo_soziala, abizena, ifz_nan, jaiotza_data, sexua, 
 
 -- 4. PRODUKTUAK ETA SUBKLASEAK (IRUDIEKIN EGUNERATUA)
 INSERT INTO produktuak (id_produktua, izena, deskribapena, hornitzaile_id, biltegi_id, kategoria_id, marka, mota, produktu_egoera, salmenta_prezioa, stock, salgai, irudia_url) VALUES
-(1, 'MacBook Pro 14', 'M3 txiparekin, potentzia handia diseinu trinkoan.', 1, 1, 1, 'Apple', 'Eramangarria', 'Berria', 2199.00, 15, TRUE, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=800&q=80'),
-(2, 'Dell XPS 13 Plus', 'Pantaila ia ertz gabea, Windows 11rako optimizatua.', 1, 1, 1, 'Dell', 'Eramangarria', 'Berria', 1499.00, 10, TRUE, 'https://images.unsplash.com/photo-1593642632823-8f78536788c6?w=800&q=80'),
-(3, 'Lenovo ThinkPad X1', 'Enpresentzako estandarra, karbono zuntzezko akaberarekin.', 2, 2, 1, 'Lenovo', 'Eramangarria', 'Berria', 1850.00, 20, TRUE, 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800&q=80'),
-(4, 'HP Spectre x360', 'Bihurgarria, tablet moduan erabil daiteke.', 1, 1, 1, 'HP', 'Eramangarria', 'Berritua A', 950.00, 5, TRUE, 'https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=800&q=80'),
-(5, 'Asus ROG Zephyrus', 'Gaming eramangarria, RTX 4070 grafikoarekin.', 1, 2, 1, 'Asus', 'Eramangarria', 'Berria', 2300.00, 8, TRUE, 'https://images.unsplash.com/photo-1626218174358-77b797576569?w=800&q=80'),
-(6, 'Acer Swift 5', 'Oso arina, bidaiatzeko aproposa.', 2, 1, 1, 'Acer', 'Eramangarria', 'Berria', 899.00, 12, TRUE, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80'),
-(7, 'Microsoft Surface Laptop 5', 'Ukimen-pantaila eta akabera metalikoa.', 1, 1, 1, 'Microsoft', 'Eramangarria', 'Berritua B', 750.00, 3, TRUE, 'https://images.unsplash.com/photo-1531297461136-82lw8279148?w=800&q=80'),
-(8, 'Razer Blade 15', 'Diseinu beltza, RGB teklatua eta potentzia gorena.', 1, 2, 1, 'Razer', 'Eramangarria', 'Berria', 2800.00, 4, TRUE, 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800&q=80'),
-(9, 'LG Gram 17', '17 hazbeteko pantaila baina pisu oso txikia.', 2, 1, 1, 'LG', 'Eramangarria', 'Berria', 1350.00, 7, TRUE, 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80'),
-(10, 'MacBook Air M2', 'Isila, haizagailurik gabea eta bateria luzea.', 1, 1, 1, 'Apple', 'Eramangarria', 'Berria', 1299.00, 25, TRUE, 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800&q=80'),
-(11, 'HP Omen 45L', 'Gaming dorre aurreratua hozte sistema bereziarekin.', 1, 2, 1, 'HP', 'Mahai-gainekoa', 'Berria', 2499.00, 5, TRUE, 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=800&q=80'),
-(12, 'Dell OptiPlex 7000', 'Bulegorako ordenagailu trinkoa eta fidagarria.', 2, 1, 1, 'Dell', 'Mahai-gainekoa', 'Berria', 650.00, 30, TRUE, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=800&q=80'),
-(13, 'Apple Mac Mini M2', 'Txikia baina matoia, mahaigain garbietarako.', 1, 1, 1, 'Apple', 'Mahai-gainekoa', 'Berria', 699.00, 15, TRUE, 'https://images.unsplash.com/photo-1527443195645-1133f7f28990?w=800&q=80'),
-(14, 'Lenovo Legion Tower', 'RGB argiak eta RTX grafikoa jokoetarako.', 1, 2, 1, 'Lenovo', 'Mahai-gainekoa', 'Berria', 1200.00, 8, TRUE, 'https://images.unsplash.com/photo-1605722243979-fe0be81929d9?w=800&q=80'),
-(15, 'Custom PC Creator', 'Eduki sortzaileentzako muntatutako ordenagailua.', 2, 1, 1, 'Custom', 'Mahai-gainekoa', 'Berritua A', 1100.00, 2, TRUE, 'https://images.unsplash.com/photo-1555618568-9b1689958e7b?w=800&q=80'),
-(16, 'Corsair One i300', 'Formatu oso txikia (Mini-ITX) baina oso potentea.', 1, 2, 1, 'Corsair', 'Mahai-gainekoa', 'Berria', 3500.00, 2, TRUE, 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=800&q=80'),
-(17, 'Acer Predator Orion', 'Diseinu futurista eta aireztapen bikaina.', 1, 2, 1, 'Acer', 'Mahai-gainekoa', 'Berria', 1800.00, 4, TRUE, 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80'),
-(18, 'HP All-in-One 27', 'Ordenagailua eta pantaila dena batean.', 2, 1, 1, 'HP', 'Mahai-gainekoa', 'Berria', 950.00, 10, TRUE, 'https://images.unsplash.com/photo-1542393545-10f5cde2c81d?w=800&q=80'),
-(19, 'MSI Trident 3', 'Kontsola itxurako PCa, egongelarako.', 1, 2, 1, 'MSI', 'Mahai-gainekoa', 'Berritua B', 800.00, 3, TRUE, 'https://images.unsplash.com/photo-1534030635237-77b5a8e0f5b9?w=800&q=80'),
-(20, 'Apple Mac Studio', 'Profesionalentzako errendimendu maximoa.', 1, 1, 1, 'Apple', 'Mahai-gainekoa', 'Berria', 2399.00, 6, TRUE, 'https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=800&q=80'),
-(21, 'iPhone 15 Pro', 'Titaniozko gorputza eta A17 Pro txipa.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berria', 1209.00, 50, TRUE, 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&q=80'),
-(22, 'Samsung Galaxy S24 Ultra', 'AI integratua eta S-Pen arkatza barne.', 2, 1, 2, 'Samsung', 'Mugikorra', 'Berria', 1459.00, 40, TRUE, 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800&q=80'),
-(23, 'Google Pixel 8 Pro', 'Kamera adimenduna eta Android garbia.', 1, 2, 2, 'Google', 'Mugikorra', 'Berria', 1099.00, 20, TRUE, 'https://images.unsplash.com/photo-1598327105666-5b89351aff23?w=800&q=80'),
-(24, 'Xiaomi 13T Pro', 'Leica kamerak eta karga ultra-azkarra.', 2, 2, 2, 'Xiaomi', 'Mugikorra', 'Berria', 799.00, 25, TRUE, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80'),
-(25, 'OnePlus 11', 'Errendimendu bikaina prezio lehiakorrean.', 2, 1, 2, 'OnePlus', 'Mugikorra', 'Berritua A', 550.00, 10, TRUE, 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&q=80'),
-(26, 'Sony Xperia 1 V', 'Zinemako pantaila formatua (21:9).', 1, 2, 2, 'Sony', 'Mugikorra', 'Berria', 1100.00, 5, TRUE, 'https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=800&q=80'),
-(27, 'Nothing Phone (2)', 'Atzealde gardena eta LED interfazea.', 2, 1, 2, 'Nothing', 'Mugikorra', 'Berria', 650.00, 15, TRUE, 'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&q=80'),
-(28, 'Samsung Galaxy Z Flip 5', 'Tolestagarria eta poltsikoan eramateko erosoa.', 2, 1, 2, 'Samsung', 'Mugikorra', 'Berria', 999.00, 12, TRUE, 'https://images.unsplash.com/photo-1603539286469-650630b42796?w=800&q=80'),
-(29, 'iPhone 13 Mini', 'Tamaina txikia, esku bakarrarekin erabiltzeko.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berritua B', 450.00, 8, TRUE, 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&q=80'),
-(30, 'Motorola Edge 40', 'Diseinu mehea eta pantaila kurbatua.', 2, 2, 2, 'Motorola', 'Mugikorra', 'Berria', 499.00, 20, TRUE, 'https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=800&q=80'),
-(31, 'Asus Zenfone 10', 'Trinkoa baina oso indartsua.', 1, 1, 2, 'Asus', 'Mugikorra', 'Berria', 750.00, 8, TRUE, 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&q=80'),
-(32, 'Realme GT 3', 'Munduko kargatze azkarrena (240W).', 2, 2, 2, 'Realme', 'Mugikorra', 'Berria', 600.00, 10, TRUE, 'https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=800&q=80'),
-(33, 'iPhone SE (2022)', 'Klasikoa TouchID botoiarekin.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berria', 429.00, 30, TRUE, 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=800&q=80'),
-(34, 'Honor Magic 5 Pro', 'Kamera sistema oso aurreratua.', 2, 2, 2, 'Honor', 'Mugikorra', 'Berria', 900.00, 7, TRUE, 'https://images.unsplash.com/photo-1560529178-85566d4291f7?w=800&q=80'),
-(35, 'Oppo Find X5', 'Diseinu futurista eta material premiumak.', 2, 1, 2, 'Oppo', 'Mugikorra', 'Berritua A', 400.00, 5, TRUE, 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=800&q=80'),
-(36, 'iPad Pro 12.9', 'M2 txipa eta Liquid Retina XDR pantaila.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 1449.00, 10, TRUE, 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&q=80'),
-(37, 'Samsung Galaxy Tab S9', 'Urarekiko erresistentzia eta pantaila bikaina.', 2, 1, 2, 'Samsung', 'Tableta', 'Berria', 899.00, 15, TRUE, 'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=800&q=80'),
-(38, 'iPad Air 5', 'M1 txipa, oreka perfektua potentzia eta prezioan.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 769.00, 20, TRUE, 'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80'),
-(39, 'Microsoft Surface Pro 9', 'Ordenagailua eta tableta gailu berean.', 1, 2, 2, 'Microsoft', 'Tableta', 'Berria', 1100.00, 8, TRUE, 'https://images.unsplash.com/photo-1542125565-d63654406393?w=800&q=80'),
-(40, 'Lenovo Tab P11 Pro', 'Multimedia kontsumorako aproposa.', 2, 2, 2, 'Lenovo', 'Tableta', 'Berritua A', 350.00, 12, TRUE, 'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=800&q=80'),
-(41, 'Xiaomi Pad 6', 'Kalitate/prezio erlazio ezin hobea.', 2, 2, 2, 'Xiaomi', 'Tableta', 'Berria', 399.00, 25, TRUE, 'https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?w=800&q=80'),
-(42, 'iPad Mini 6', 'Oso txikia, oharrak hartzeko perfektua.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 649.00, 10, TRUE, 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=800&q=80'),
-(43, 'Amazon Fire Max 11', 'Oinarrizko erabilerarako eta irakurketarako.', 2, 1, 2, 'Amazon', 'Tableta', 'Berria', 249.00, 30, TRUE, 'https://images.unsplash.com/photo-1594961556811-3e4b772913db?w=800&q=80'),
-(44, 'Huawei MatePad Pro', 'HarmonyOS sistema eragilearekin.', 2, 2, 2, 'Huawei', 'Tableta', 'Zehazteko', 500.00, 5, FALSE, 'https://images.unsplash.com/photo-1558564028-2b4700d93133?w=800&q=80'),
-(45, 'Google Pixel Tablet', 'Base bozgorailuarekin dator.', 1, 1, 2, 'Google', 'Tableta', 'Berria', 679.00, 7, TRUE, 'https://images.unsplash.com/photo-1629891404111-2b8109312948?w=800&q=80'),
-(46, 'Dell PowerEdge R750', 'Rack zerbitzaria datu zentroetarako.', 1, 2, 6, 'Dell', 'Zerbitzaria', 'Berria', 4500.00, 2, TRUE, 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80'),
-(47, 'HPE ProLiant DL380', 'Munduko zerbitzaririk salduena, fidagarria.', 1, 2, 6, 'HPE', 'Zerbitzaria', 'Berria', 3800.00, 3, TRUE, 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'),
-(48, 'Lenovo ThinkSystem SR650', 'Eskalagarria eta errendimendu altukoa.', 2, 2, 6, 'Lenovo', 'Zerbitzaria', 'Berritua A', 2200.00, 1, TRUE, 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=800&q=80'),
-(49, 'Synology RackStation', 'Biltegiratze masiborako NAS zerbitzaria.', 2, 1, 6, 'Synology', 'Zerbitzaria', 'Berria', 1500.00, 5, TRUE, 'https://images.unsplash.com/photo-1544197150-b99a580bbcbf?w=800&q=80'),
-(50, 'Cisco UCS C220', 'Birtualizaziorako optimizatua.', 1, 2, 6, 'Cisco', 'Zerbitzaria', 'Berritua B', 1200.00, 2, TRUE, 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?w=800&q=80'),
-(51, 'LG UltraGear 27', 'Gaming pantaila azkarra 144Hz-ekin.', 2, 1, 3, 'LG', 'Pantaila', 'Berria', 299.00, 20, TRUE, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80'),
-(52, 'Dell UltraSharp 32', '4K bereizmena diseinu grafikorako.', 1, 1, 3, 'Dell', 'Pantaila', 'Berria', 850.00, 5, TRUE, 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80'),
-(53, 'Samsung Odyssey G9', 'Pantaila ultra-zovala eta kurbatua.', 2, 2, 3, 'Samsung', 'Pantaila', 'Berria', 1200.00, 3, TRUE, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=800&q=80'),
-(54, 'BenQ PD2700U', 'Kolore zehatzak (sRGB 100%).', 2, 1, 3, 'BenQ', 'Pantaila', 'Berritua A', 350.00, 8, TRUE, 'https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=800&q=80'),
-(55, 'Asus ProArt', 'Argazkilari eta bideo editoreentzako.', 1, 1, 3, 'Asus', 'Pantaila', 'Berria', 500.00, 6, TRUE, 'https://images.unsplash.com/photo-1586210579191-3dbb7975f782?w=800&q=80'),
-(56, 'HP 24mh', 'Bulegorako oinarrizko pantaila ergonomikoa.', 2, 1, 3, 'HP', 'Pantaila', 'Berria', 149.00, 40, TRUE, 'https://images.unsplash.com/photo-1515630278258-407f66498911?w=800&q=80'),
-(57, 'MSI Optix MAG', 'Pantaila kurbatua murgiltze esperientziarako.', 1, 2, 3, 'MSI', 'Pantaila', 'Berria', 220.00, 15, TRUE, 'https://images.unsplash.com/photo-1586952518485-11b180e92764?w=800&q=80'),
-(58, 'Apple Studio Display', '5K bereizmena eta eraikuntza bikaina.', 1, 1, 3, 'Apple', 'Pantaila', 'Berria', 1779.00, 4, TRUE, 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=800&q=80'),
-(59, 'Philips Brilliance', 'Ultrawide formatua produktibitaterako.', 2, 1, 3, 'Philips', 'Pantaila', 'Berritua B', 400.00, 5, TRUE, 'https://images.unsplash.com/photo-1461151304267-38535e780c79?w=800&q=80'),
-(60, 'AOC 24G2', 'Prezio-kalitate erlazio onena jokoetarako.', 2, 2, 3, 'AOC', 'Pantaila', 'Berria', 179.00, 25, TRUE, 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800&q=80'),
-(61, 'ViewSonic Elite', 'Kolore biziak eta erantzun azkarra.', 1, 2, 3, 'ViewSonic', 'Pantaila', 'Berria', 550.00, 7, TRUE, 'https://images.unsplash.com/photo-1542393545-10f5cde2c81d?w=800&q=80'),
-(62, 'Lenovo ThinkVision', 'USB-C konexioa duen dock integratua.', 2, 1, 3, 'Lenovo', 'Pantaila', 'Berria', 320.00, 12, TRUE, 'https://images.unsplash.com/photo-1551636898-47668aa61de2?w=800&q=80'),
-(63, 'Gigabyte M27Q', 'KVM switch integratua.', 1, 2, 3, 'Gigabyte', 'Pantaila', 'Berria', 340.00, 9, TRUE, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80'),
-(64, 'Eizo ColorEdge', 'Profesionalentzako kalibrazio zehatza.', 2, 1, 3, 'Eizo', 'Pantaila', 'Zehazteko', 1200.00, 2, FALSE, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80'),
-(65, 'Huawei MateView', 'Formatu karratuagoa (3:2) kodetzeko.', 2, 2, 3, 'Huawei', 'Pantaila', 'Berria', 599.00, 6, TRUE, 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'),
-(66, 'Windows 11 Pro', 'Sistema eragile berriena profesionalentzat.', 3, 1, 5, 'Microsoft', 'Softwarea', 'Berria', 145.00, 100, TRUE, 'https://images.unsplash.com/photo-1662947036644-8898ae415b36?w=800&q=80'),
-(67, 'Office 2021 Home', 'Word, Excel eta PowerPoint bizitza osorako.', 3, 1, 5, 'Microsoft', 'Softwarea', 'Berria', 149.00, 50, TRUE, 'https://images.unsplash.com/photo-1631553127888-29007f354f3b?w=800&q=80'),
-(68, 'Adobe Photoshop CC', '1 urteko harpidetza diseinatzaileentzat.', 3, 2, 5, 'Adobe', 'Softwarea', 'Berria', 290.00, 100, TRUE, 'https://images.unsplash.com/photo-1626785774573-4b7993125486?w=800&q=80'),
-(69, 'Kaspersky Total Security', 'Antibirus aurreratua 3 gailurako.', 3, 1, 5, 'Kaspersky', 'Softwarea', 'Berria', 49.95, 200, TRUE, 'https://images.unsplash.com/photo-1614064641938-3e852943702d?w=800&q=80'),
-(70, 'Windows Server 2022', 'Zerbitzarietarako sistema estandarra.', 3, 2, 5, 'Microsoft', 'Softwarea', 'Berria', 800.00, 20, TRUE, 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80'),
-(71, 'NordVPN 1 Year', 'Nabigazio segurua eta pribatua.', 3, 1, 5, 'NordSec', 'Softwarea', 'Berria', 59.00, 150, TRUE, 'https://images.unsplash.com/photo-1563206767-5b1d972b9fb1?w=800&q=80'),
-(72, 'AutoCAD 2024', 'Ingeniaritza eta arkitektura diseinua.', 3, 2, 5, 'Autodesk', 'Softwarea', 'Berria', 1800.00, 5, TRUE, 'https://images.unsplash.com/photo-1581094794329-cd1361ddee2d?w=800&q=80'),
-(73, 'Norton 360 Deluxe', 'Segurtasuna eta VPN integratua.', 3, 1, 5, 'Norton', 'Softwarea', 'Berria', 39.99, 80, TRUE, 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80'),
-(74, 'Red Hat Enterprise Linux', 'Enpresen zerbitzarietarako Linux.', 3, 2, 5, 'Red Hat', 'Softwarea', 'Berria', 349.00, 10, TRUE, 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&q=80'),
-(75, 'VMware vSphere', 'Birtualizazio plataforma profesionala.', 3, 2, 5, 'VMware', 'Softwarea', 'Berria', 500.00, 8, TRUE, 'https://images.unsplash.com/photo-1551808525-51a94371425e?w=800&q=80'),
-(76, 'Ubuntu Desktop 24.04', 'Linux banaketa ezagunena eta erabilerraza.', 3, 1, 5, 'Canonical', 'Softwarea', 'Berria', 0.00, 999, TRUE, 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&q=80'),
-(77, 'LibreOffice', 'Ofimatika suite osoa eta kode irekikoa.', 3, 1, 5, 'The Document Foundation', 'Softwarea', 'Berria', 0.00, 999, TRUE, 'https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&q=80'),
-(78, 'Blender 4.0', '3D sorkuntza eta animaziorako suitea.', 3, 2, 5, 'Blender Foundation', 'Softwarea', 'Berria', 0.00, 999, TRUE, 'https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?w=800&q=80'),
-(79, 'GIMP', 'Irudiak editatzeko tresna profesionala.', 3, 1, 5, 'GIMP Team', 'Softwarea', 'Berria', 0.00, 999, TRUE, 'https://images.unsplash.com/photo-1626785774573-4b7993125486?w=800&q=80'),
-(80, 'VLC Media Player', 'Formatua ia guztiak irakurtzen dituen erreproduzigailua.', 3, 1, 5, 'VideoLAN', 'Softwarea', 'Berria', 0.00, 999, TRUE, 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80');
+(1, 'MacBook Air 11" (2014)', 'Eramangarri ultra-trinkoa, eguneroko lanetarako oraindik balekoa.', 1, 1, 1, 'Apple', 'Eramangarria', 'Berritua B', 350.00, 5, TRUE, 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&q=80'),
+(2, 'Dell XPS 13 Plus', 'Pantaila ia ertz gabea, Windows 11rako optimizatua.', 1, 1, 1, 'Dell', 'Eramangarria', 'Berria', 1499.00, 10, TRUE, '../produktuen_irudiak/2_Lenovo_ThinkPad_X230.jpg'),
+(3, 'Lenovo ThinkPad X1', 'Enpresentzako estandarra, karbono zuntzezko akaberarekin.', 2, 2, 1, 'Lenovo', 'Eramangarria', 'Berria', 1850.00, 20, TRUE, '../produktuen_irudiak/3_lenovo_thinkpad_x1.jpg'),
+(4, 'HP Spectre x360', 'Bihurgarria, tablet moduan erabil daiteke.', 1, 1, 1, 'HP', 'Eramangarria', 'Berritua A', 950.00, 5, TRUE, '../produktuen_irudiak/4_hp_spectre_x360.jpg'),
+(5, 'Asus ROG Zephyrus', 'Gaming eramangarria, RTX 4070 grafikoarekin.', 1, 2, 1, 'Asus', 'Eramangarria', 'Berria', 2300.00, 8, TRUE, '../produktuen_irudiak/5_Asus_ROG_Gaming_Beast.jpg'),
+(6, 'Acer Swift 5', 'Oso arina, bidaiatzeko aproposa.', 2, 1, 1, 'Acer', 'Eramangarria', 'Berria', 899.00, 12, TRUE, '../produktuen_irudiak/6_acer_swift_5.jpg'),
+(7, 'Microsoft Surface Laptop 5', 'Ukimen-pantaila eta akabera metalikoa.', 1, 1, 1, 'Microsoft', 'Eramangarria', 'Berritua B', 750.00, 3, TRUE, '../produktuen_irudiak/7_Acer_Aspire_One_Netbook.jpg'),
+(8, 'Razer Blade 15', 'Diseinu beltza, RGB teklatua eta potentzia gorena.', 1, 2, 1, 'Razer', 'Eramangarria', 'Berria', 2800.00, 4, TRUE, '../produktuen_irudiak/8_razer_blade_15.jpg'),
+(9, 'LG Gram 17', '17 hazbeteko pantaila baina pisu oso txikia.', 2, 1, 1, 'LG', 'Eramangarria', 'Berria', 1350.00, 7, TRUE, '../produktuen_irudiak/9_lg_gram_17.jpg'),
+(10, 'MacBook Air M2', 'Isila, haizagailurik gabea eta bateria luzea.', 1, 1, 1, 'Apple', 'Eramangarria', 'Berria', 1299.00, 25, TRUE, '../produktuen_irudiak/10_macbook_air_m2.jpg'),
+(11, 'HP Omen 45L', 'Gaming dorre aurreratua hozte sistema bereziarekin.', 1, 2, 1, 'HP', 'Mahai-gainekoa', 'Berria', 2499.00, 5, TRUE, '../produktuen_irudiak/11_hp_omen_45l.jpg'),
+(12, 'Dell OptiPlex 7000', 'Bulegorako ordenagailu trinkoa eta fidagarria.', 2, 1, 1, 'Dell', 'Mahai-gainekoa', 'Berria', 650.00, 30, TRUE, '../produktuen_irudiak/12_dell_optiplex_7000.jpg'),
+(13, 'Apple Mac Mini M2', 'Txikia baina matoia, mahaigain garbietarako.', 1, 1, 1, 'Apple', 'Mahai-gainekoa', 'Berria', 699.00, 15, TRUE, '../produktuen_irudiak/13_apple_mac_mini_m2.jpg'),
+(14, 'Lenovo Legion Tower', 'RGB argiak eta RTX grafikoa jokoetarako.', 1, 2, 1, 'Lenovo', 'Mahai-gainekoa', 'Berria', 1200.00, 8, TRUE, '../produktuen_irudiak/14_Alienware_Aurora_R15.jpg'),
+(15, 'Custom PC Creator', 'Eduki sortzaileentzako muntatutako ordenagailua.', 2, 1, 1, 'Custom', 'Mahai-gainekoa', 'Berritua A', 1100.00, 2, TRUE, '../produktuen_irudiak/15_PowerMac_G4_Retro.jpg'),
+(16, 'Corsair One i300', 'Formatu oso txikia (Mini-ITX) baina oso potentea.', 1, 2, 1, 'Corsair', 'Mahai-gainekoa', 'Berria', 3500.00, 2, TRUE, '../produktuen_irudiak/16_corsair_one_i300.jpg'),
+(17, 'Acer Predator Orion', 'Diseinu futurista eta aireztapen bikaina.', 1, 2, 1, 'Acer', 'Mahai-gainekoa', 'Berria', 1800.00, 4, TRUE, '../produktuen_irudiak/17_acer_predator_orion.jpg'),
+(18, 'HP All-in-One 27', 'Ordenagailua eta pantaila dena batean.', 2, 1, 1, 'HP', 'Mahai-gainekoa', 'Berria', 950.00, 10, TRUE, '../produktuen_irudiak/18_iMac_G5_Styled_Desktop.jpg'),
+(19, 'MSI Trident 3', 'Kontsola itxurako PCa, egongelarako.', 1, 2, 1, 'MSI', 'Mahai-gainekoa', 'Berritua B', 800.00, 3, TRUE, '../produktuen_irudiak/19_MSI_Infinite_X.jpg'),
+(20, 'Apple Mac Studio', 'Profesionalentzako errendimendu maximoa.', 1, 1, 1, 'Apple', 'Mahai-gainekoa', 'Berria', 2399.00, 6, TRUE, '../produktuen_irudiak/20_apple_mac_studio.jpg'),
+(21, 'iPhone 15 Pro', 'Titaniozko gorputza eta A17 Pro txipa.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berria', 1209.00, 50, TRUE, '../produktuen_irudiak/21_iphone_15_pro.jpg'),
+(22, 'Samsung Galaxy S24 Ultra', 'AI integratua eta S-Pen arkatza barne.', 2, 1, 2, 'Samsung', 'Mugikorra', 'Berria', 1459.00, 40, TRUE, '../produktuen_irudiak/22_samsung_galaxy_s24_ultra.jpg'),
+(23, 'Nexus 4 Classic', 'Android telefono klasikoa, bildumazaleentzat edo oinarrizko erabilerarako.', 1, 2, 2, 'Google', 'Mugikorra', 'Berritua B', 80.00, 3, TRUE, 'https://images.unsplash.com/photo-1510557880182-3d4d3cba3f21?w=800&q=80'),
+(24, 'Xiaomi 13T Pro', 'Leica kamerak eta karga ultra-azkarra.', 2, 2, 2, 'Xiaomi', 'Mugikorra', 'Berria', 799.00, 25, TRUE, '../produktuen_irudiak/24_xiaomi_13t_pro.jpg'),
+(25, 'OnePlus 11', 'Errendimendu bikaina prezio lehiakorrean.', 2, 1, 2, 'OnePlus', 'Mugikorra', 'Berritua A', 550.00, 10, TRUE, '../produktuen_irudiak/25_oneplus_11.jpg'),
+(26, 'Sony Xperia 1 V', 'Zinemako pantaila formatua (21:9).', 1, 2, 2, 'Sony', 'Mugikorra', 'Berria', 1100.00, 5, TRUE, '../produktuen_irudiak/26_sony_xperia_1_v.jpg'),
+(27, 'Nothing Phone (2)', 'Atzealde gardena eta LED interfazea.', 2, 1, 2, 'Nothing', 'Mugikorra', 'Berria', 650.00, 15, TRUE, '../produktuen_irudiak/27_nothing_phone_2.jpg'),
+(28, 'Samsung Galaxy Z Flip 5', 'Tolestagarria eta poltsikoan eramateko erosoa.', 2, 1, 2, 'Samsung', 'Mugikorra', 'Berria', 999.00, 12, TRUE, '../produktuen_irudiak/28_Galaxy_Z_Fold_5.jpg'),
+(29, 'iPhone 13 Mini', 'Tamaina txikia, esku bakarrarekin erabiltzeko.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berritua B', 450.00, 8, TRUE, '../produktuen_irudiak/29_iphone_13_mini.jpg'),
+(30, 'Motorola Edge 40', 'Diseinu mehea eta pantaila kurbatua.', 2, 2, 2, 'Motorola', 'Mugikorra', 'Berria', 499.00, 20, TRUE, '../produktuen_irudiak/30_motorola_edge_40.jpg'),
+(31, 'Asus Zenfone 10', 'Trinkoa baina oso indartsua.', 1, 1, 2, 'Asus', 'Mugikorra', 'Berria', 750.00, 8, TRUE, '../produktuen_irudiak/31_asus_zenfone_10.jpg'),
+(32, 'Realme GT 3', 'Munduko kargatze azkarrena (240W).', 2, 2, 2, 'Realme', 'Mugikorra', 'Berria', 600.00, 10, TRUE, '../produktuen_irudiak/32_realme_gt_3.jpg'),
+(33, 'iPhone SE (2022)', 'Klasikoa TouchID botoiarekin.', 1, 1, 2, 'Apple', 'Mugikorra', 'Berria', 429.00, 30, TRUE, '../produktuen_irudiak/33_iphone_se_2022.jpg'),
+(34, 'Honor Magic 5 Pro', 'Kamera sistema oso aurreratua.', 2, 2, 2, 'Honor', 'Mugikorra', 'Berria', 900.00, 7, TRUE, '../produktuen_irudiak/34_Huawei_Mate_60_Pro.jpg'),
+(35, 'Oppo Find X5', 'Diseinu futurista eta material premiumak.', 2, 1, 2, 'Oppo', 'Mugikorra', 'Berritua A', 400.00, 5, TRUE, '../produktuen_irudiak/35_oppo_find_x5.jpg'),
+(36, 'iPad Pro 12.9', 'M2 txipa eta Liquid Retina XDR pantaila.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 1449.00, 10, TRUE, '../produktuen_irudiak/36_ipad_pro_129.jpg'),
+(37, 'Samsung Galaxy Tab S9', 'Urarekiko erresistentzia eta pantaila bikaina.', 2, 1, 2, 'Samsung', 'Tableta', 'Berria', 899.00, 15, TRUE, '../produktuen_irudiak/37_samsung_galaxy_tab_s9.jpg'),
+(38, 'iPad Air 5', 'M1 txipa, oreka perfektua potentzia eta prezioan.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 769.00, 20, TRUE, '../produktuen_irudiak/38_ipad_air_5.jpg'),
+(39, 'Microsoft Surface Pro 9', 'Ordenagailua eta tableta gailu berean.', 1, 2, 2, 'Microsoft', 'Tableta', 'Berria', 1100.00, 8, TRUE, '../produktuen_irudiak/39_Surface_Pro_X.jpg'),
+(40, 'Lenovo Tab P11 Pro', 'Multimedia kontsumorako aproposa.', 2, 2, 2, 'Lenovo', 'Tableta', 'Berritua A', 350.00, 12, TRUE, '../produktuen_irudiak/40_lenovo_tab_p11_pro.jpg'),
+(41, 'Xiaomi Pad 6', 'Kalitate/prezio erlazio ezin hobea.', 2, 2, 2, 'Xiaomi', 'Tableta', 'Berria', 399.00, 25, TRUE, '../produktuen_irudiak/41_xiaomi_pad_6.jpg'),
+(42, 'iPad Mini 6', 'Oso txikia, oharrak hartzeko perfektua.', 1, 1, 2, 'Apple', 'Tableta', 'Berria', 649.00, 10, TRUE, '../produktuen_irudiak/42_ipad_mini_6.jpg'),
+(43, 'Amazon Fire Max 11', 'Oinarrizko erabilerarako eta irakurketarako.', 2, 1, 2, 'Amazon', 'Tableta', 'Berria', 249.00, 30, TRUE, '../produktuen_irudiak/43_iPad_Mini_1st_Gen.jpg'),
+(44, 'Huawei MatePad Pro', 'HarmonyOS sistema eragilearekin.', 2, 2, 2, 'Huawei', 'Tableta', 'Zehazteko', 500.00, 5, FALSE, '../produktuen_irudiak/44_Galaxy_Tab_101_Old.jpg'),
+(45, 'Google Pixel Tablet', 'Base bozgorailuarekin dator.', 1, 1, 2, 'Google', 'Tableta', 'Berria', 679.00, 7, TRUE, '../produktuen_irudiak/45_Nexus_7_Tablet.jpg'),
+(46, 'Dell PowerEdge R750', 'Rack zerbitzaria datu zentroetarako.', 1, 2, 6, 'Dell', 'Zerbitzaria', 'Berria', 4500.00, 2, TRUE, '../produktuen_irudiak/46_dell_poweredge_r750.jpg'),
+(47, 'HPE ProLiant DL380', 'Munduko zerbitzaririk salduena, fidagarria.', 1, 2, 6, 'HPE', 'Zerbitzaria', 'Berria', 3800.00, 3, TRUE, '../produktuen_irudiak/47_hpe_proliant_dl380.jpg'),
+(48, 'Lenovo ThinkSystem SR650', 'Eskalagarria eta errendimendu altukoa.', 2, 2, 6, 'Lenovo', 'Zerbitzaria', 'Berritua A', 2200.00, 1, TRUE, '../produktuen_irudiak/48_lenovo_thinksystem_sr650.jpg'),
+(49, 'Synology RackStation', 'Biltegiratze masiborako NAS zerbitzaria.', 2, 1, 6, 'Synology', 'Zerbitzaria', 'Berria', 1500.00, 5, TRUE, '../produktuen_irudiak/49_Synology_NAS_Pro.jpg'),
+(50, 'Cisco UCS C220', 'Birtualizaziorako optimizatua.', 1, 2, 6, 'Cisco', 'Zerbitzaria', 'Berritua B', 1200.00, 2, TRUE, '../produktuen_irudiak/50_cisco_ucs_c220.jpg'),
+(51, 'LG UltraGear 27', 'Gaming pantaila azkarra 144Hz-ekin.', 2, 1, 3, 'LG', 'Pantaila', 'Berria', 299.00, 20, TRUE, '../produktuen_irudiak/51_lg_ultragear_27.jpg'),
+(52, 'Dell UltraSharp 32', '4K bereizmena diseinu grafikorako.', 1, 1, 3, 'Dell', 'Pantaila', 'Berria', 850.00, 5, TRUE, '../produktuen_irudiak/52_dell_ultrasharp_32.jpg'),
+(53, 'Samsung Odyssey G9', 'Pantaila ultra-zovala eta kurbatua.', 2, 2, 3, 'Samsung', 'Pantaila', 'Berria', 1200.00, 3, TRUE, '../produktuen_irudiak/53_samsung_odyssey_g9.jpg'),
+(54, 'BenQ PD2700U', 'Kolore zehatzak (sRGB 100%).', 2, 1, 3, 'BenQ', 'Pantaila', 'Berritua A', 350.00, 8, TRUE, '../produktuen_irudiak/54_benq_pd2700u.jpg'),
+(55, 'Asus ProArt', 'Argazkilari eta bideo editoreentzako.', 1, 1, 3, 'Asus', 'Pantaila', 'Berria', 500.00, 6, TRUE, '../produktuen_irudiak/55_Samsung_Odyssey_OLED_G8.jpg'),
+(56, 'HP 24mh', 'Bulegorako oinarrizko pantaila ergonomikoa.', 2, 1, 3, 'HP', 'Pantaila', 'Berria', 149.00, 40, TRUE, '../produktuen_irudiak/56_hp_24mh.jpg'),
+(57, 'MSI Optix MAG', 'Pantaila kurbatua murgiltze esperientziarako.', 1, 2, 3, 'MSI', 'Pantaila', 'Berria', 220.00, 15, TRUE, '../produktuen_irudiak/57_msi_optix_mag.jpg'),
+(58, 'Apple Studio Display', '5K bereizmena eta eraikuntza bikaina.', 1, 1, 3, 'Apple', 'Pantaila', 'Berria', 1779.00, 4, TRUE, '../produktuen_irudiak/58_apple_studio_display.jpg'),
+(59, 'Philips Brilliance', 'Ultrawide formatua produktibitaterako.', 2, 1, 3, 'Philips', 'Pantaila', 'Berritua B', 400.00, 5, TRUE, '../produktuen_irudiak/59_philips_brilliance.jpg'),
+(60, 'AOC 24G2', 'Prezio-kalitate erlazio onena jokoetarako.', 2, 2, 3, 'AOC', 'Pantaila', 'Berria', 179.00, 25, TRUE, '../produktuen_irudiak/60_aoc_24g2.jpg'),
+(61, 'ViewSonic Elite', 'Kolore biziak eta erantzun azkarra.', 1, 2, 3, 'ViewSonic', 'Pantaila', 'Berria', 550.00, 7, TRUE, '../produktuen_irudiak/61_BenQ_DesignVue_4K.jpg'),
+(62, 'Lenovo ThinkVision', 'USB-C konexioa duen dock integratua.', 2, 1, 3, 'Lenovo', 'Pantaila', 'Berria', 320.00, 12, TRUE, '../produktuen_irudiak/62_lenovo_thinkvision.jpg'),
+(63, 'Gigabyte M27Q', 'KVM switch integratua.', 1, 2, 3, 'Gigabyte', 'Pantaila', 'Berria', 340.00, 9, TRUE, '../produktuen_irudiak/63_gigabyte_m27q.jpg'),
+(64, 'Eizo ColorEdge', 'Profesionalentzako kalibrazio zehatza.', 2, 1, 3, 'Eizo', 'Pantaila', 'Zehazteko', 1200.00, 2, FALSE, '../produktuen_irudiak/64_eizo_coloredge.jpg'),
+(65, 'Huawei MateView', 'Formatu karratuagoa (3:2) kodetzeko.', 2, 2, 3, 'Huawei', 'Pantaila', 'Berria', 599.00, 6, TRUE, '../produktuen_irudiak/65_huawei_mateview.jpg'),
+(66, 'Windows 7 Professional', 'Egonkortasunagatik ezaguna den sistema zaharra.', 3, 1, 5, 'Microsoft', 'Softwarea', 'Berritua B', 25.00, 10, TRUE, 'https://images.unsplash.com/photo-1633419461186-7d40a38105ec?w=800&q=80'),
+(67, 'Office 2010 Student', 'Bertsio klasikoa, harpidetzarik gabea.', 3, 1, 5, 'Microsoft', 'Softwarea', 'Berritua B', 45.00, 15, TRUE, 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80'),
+(68, 'Adobe Photoshop CC', '1 urteko harpidetza diseinatzaileentzat.', 3, 2, 5, 'Adobe', 'Softwarea', 'Berria', 290.00, 100, TRUE, '../produktuen_irudiak/68_VMware_Workstation_Pro.jpg'),
+(69, 'Norton Antivirus 2012', 'Segurtasun pakete klasikoa sistema zaharrentzat.', 3, 1, 5, 'Kaspersky', 'Softwarea', 'Berritua B', 15.00, 20, TRUE, 'https://images.unsplash.com/photo-1563206767-5b18f218e7de?w=800&q=80'),
+(70, 'Windows Server 2022', 'Zerbitzarietarako sistema estandarra.', 3, 2, 5, 'Microsoft', 'Softwarea', 'Berria', 800.00, 20, TRUE, '../produktuen_irudiak/70_windows_server_2022.jpg'),
+(71, 'NordVPN 1 Year', 'Nabigazio segurua eta pribatua.', 3, 1, 5, 'NordSec', 'Softwarea', 'Berria', 59.00, 150, TRUE, '../produktuen_irudiak/71_Cisco_AnyConnect_30.jpg'),
+(72, 'AutoCAD 2007 Classic', 'Diseinu industrialerako bertsio historikoa.', 3, 2, 5, 'Autodesk', 'Softwarea', 'Berritua B', 350.00, 2, TRUE, 'https://images.unsplash.com/photo-1512756783936-39796f72e7d3?w=800&q=80'),
+(73, 'Norton 360 Deluxe', 'Segurtasuna eta VPN integratua.', 3, 1, 5, 'Norton', 'Softwarea', 'Berria', 39.99, 80, TRUE, '../produktuen_irudiak/73_norton_360_deluxe.jpg'),
+(74, 'Red Hat Enterprise Linux', 'Enpresen zerbitzarietarako Linux.', 3, 2, 5, 'Red Hat', 'Softwarea', 'Berria', 349.00, 10, TRUE, '../produktuen_irudiak/74_red_hat_enterprise_linux.jpg'),
+(75, 'VMware vSphere', 'Birtualizazio plataforma profesionala.', 3, 2, 5, 'VMware', 'Softwarea', 'Berria', 500.00, 8, TRUE, '../produktuen_irudiak/75_Docker_Desktop_Pro.jpg'),
+(76, 'Ubuntu Desktop 24.04', 'Linux banaketa ezagunena eta erabilerraza.', 3, 1, 5, 'Canonical', 'Softwarea', 'Berria', 0.00, 999, TRUE, '../produktuen_irudiak/76_ubuntu_desktop_2404.jpg'),
+(77, 'LibreOffice', 'Ofimatika suite osoa eta kode irekikoa.', 3, 1, 5, 'The Document Foundation', 'Softwarea', 'Berria', 0.00, 999, TRUE, '../produktuen_irudiak/77_libreoffice.jpg'),
+(78, 'Blender 4.0', '3D sorkuntza eta animaziorako suitea.', 3, 2, 5, 'Blender Foundation', 'Softwarea', 'Berria', 0.00, 999, TRUE, '../produktuen_irudiak/78_blender_40.jpg'),
+(79, 'GIMP', 'Irudiak editatzeko tresna profesionala.', 3, 1, 5, 'GIMP Team', 'Softwarea', 'Berria', 0.00, 999, TRUE, '../produktuen_irudiak/79_Pro_Tools_Audio_Studio.jpg'),
+(80, 'VLC Media Player', 'Formatua ia guztiak irakurtzen dituen erreproduzigailua.', 3, 1, 5, 'VideoLAN', 'Softwarea', 'Berria', 0.00, 999, TRUE, '../produktuen_irudiak/80_vlc_media_player.jpg');
 
 INSERT INTO eramangarriak (id_produktua, prozesadorea, ram_gb, diskoa_gb, pantaila_tamaina, bateria_wh, sistema_eragilea, pisua_kg) VALUES
 (1, 'Apple M3 Pro', 18, 512, 14.2, 70, 'macOS', 1.6),
@@ -739,10 +739,10 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (16, 13, 70, 15, 'Bidean'),
 (17, 14, 75, 4, 'Jasota'),
 (18, 15, 80, 10, 'Jasota'),
-(19, 16, 60, 8, 'Jasota'), -- Zuzenduta: 85 -> 60 (AOC Monitor)
-(20, 17, 55, 50, 'Jasota'), -- Zuzenduta: 90 -> 55 (Asus ProArt)
-(21, 18, 5, 100, 'Bidean'), -- Zuzenduta: 91 -> 5 (Asus ROG)
-(22, 19, 25, 20, 'Ezabatua'), -- Zuzenduta: 95 -> 25 (OnePlus)
+(19, 16, 60, 8, 'Jasota'), 
+(20, 17, 55, 50, 'Jasota'), 
+(21, 18, 5, 100, 'Bidean'), 
+(22, 19, 25, 20, 'Ezabatua'), 
 (23, 20, 5, 10, 'Jasota'),
 (24, 21, 15, 5, 'Jasota'),
 (25, 22, 25, 8, 'Jasota'),
@@ -751,8 +751,8 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (28, 25, 55, 6, 'Jasota'),
 (29, 26, 65, 5, 'Jasota'),
 (30, 27, 75, 4, 'Jasota'),
-(31, 28, 60, 8, 'Jasota'), -- Zuzenduta: 85 -> 60
-(32, 29, 25, 20, 'Bidean'), -- Zuzenduta: 95 -> 25
+(31, 28, 60, 8, 'Jasota'), 
+(32, 29, 25, 20, 'Bidean'), 
 (33, 30, 5, 10, 'Jasota');
 
 -- 7. ESKAERAK ETA FAKTURAK
@@ -878,7 +878,7 @@ GRANT SELECT, UPDATE ON birtek_db.produktuak TO 'leire_sales'@'localhost', 'iker
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaerak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaera_lerroak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezero_fakturak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-
+GRANT SELECT, INSERT ON birtek_db.herriak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
 -- SAT
 CREATE USER IF NOT EXISTS 'unai_sat'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'maite_sat'@'localhost' IDENTIFIED BY '1234';
@@ -888,6 +888,7 @@ CREATE USER IF NOT EXISTS 'nerea_sat'@'localhost' IDENTIFIED BY '1234';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.produktuak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.konponketak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.akatsak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
+GRANT SELECT, INSERT ON birtek_db.herriak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 
 -- LOGISTIKA
 CREATE USER IF NOT EXISTS 'gorka_biltegia'@'localhost' IDENTIFIED BY '1234';
@@ -899,8 +900,9 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.biltegiak TO 'gorka_biltegia'@
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrera_lerroak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrerak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, UPDATE ON birtek_db.eskaera_lerroak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT ON birtek_db.herriak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 
--- FITXAKETAK (Denak)
+-- FITXAKETAK (Langile guztieenak)
 GRANT SELECT, INSERT ON birtek_db.fitxaketak TO 
     'leire_sales'@'localhost', 
     'iker_sales'@'localhost', 

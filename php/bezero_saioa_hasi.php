@@ -168,7 +168,7 @@ try {
                     <option value="other">Beste bat... (Gehitu berria)</option>
                 </select>
               </div>
-              <div id="herria_berria_container_bezeroa" class="ezkutuan">
+              <div id="herria_berria_container_bezeroa" style="display: none;">
                 <input type="text" name="herria_berria" placeholder="Herriaren izena" class="inprimaki-sarrera" />
                 <input type="text" name="lurraldea_berria" placeholder="Lurraldea (probintzia)" class="inprimaki-sarrera" />
               </div>

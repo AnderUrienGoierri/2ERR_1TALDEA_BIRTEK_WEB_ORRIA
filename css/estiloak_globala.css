@@ -9,27 +9,29 @@
   --kolore-nagusia-oso-argia: #f0fdf4;
   --kolore-nagusia-argia: #dcfce7;
   --kolore-nagusia-tainua: #bbf7d0;
-  
+
   --testu-nagusia: #1f2937;
   --testu-bigarren: #374151;
   --testu-argia: #6b7280;
-  
+
   --kolore-gorria: #dc2626;
   --kolore-gorria-iluna: #991b1b;
   --kolore-gorria-argia: #fee2e2;
-  
+
   --kolore-urdina: #2563eb;
   --kolore-urdina-iluna: #1d4ed8;
-  
+
   /* Letra-tipoak */
   --font-testua: "Inter", sans-serif;
   --font-izenburua: "Outfit", sans-serif;
-  
+
   /* Itzalak */
   --itzala-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --itzala-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --itzala-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
+  --itzala-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --itzala-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
   /* Besteak */
   --erradioa: 0.5rem;
   --trantsizioa: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -187,7 +189,7 @@ body {
 
 .nab-ekintzak {
   display: flex;
-  flex-direction: column-reverse; 
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   gap: 0.1rem;
@@ -201,7 +203,7 @@ body {
   border-radius: 0.75rem;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.85rem; 
+  font-size: 0.85rem;
   font-family: var(--font-testua);
   color: var(--testu-bigarren);
   transition: var(--trantsizioa);
@@ -262,13 +264,12 @@ body {
 .saski-kontagailua {
   position: absolute;
   top: -10px;
-  right: -5px;
+  right: -5px; /*kontagailua beti Saskiaren gainean eskubitan*/
   background-color: var(--kolore-gorria);
   color: white;
   font-size: 0.5rem;
   font-weight: 700;
   padding: 2px 6px;
-  border-radius: 9999px;
   min-width: 18px;
   min-height: 18px;
   display: flex;
@@ -571,7 +572,10 @@ body {
 }
 
 @keyframes modalSartu {
-  to { transform: scale(1); opacity: 1; }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modala-goiburua {
@@ -701,7 +705,8 @@ body {
   transition: var(--trantsizioa);
   text-decoration: none;
 }
-.azal-cta-botoia { /* Fix: Class name was inconsistent in original CSS (azal-ekintza vs azal-cta) */
+.azal-cta-botoia {
+  /* Fix: Class name was inconsistent in original CSS (azal-ekintza vs azal-cta) */
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -840,7 +845,7 @@ body {
 }
 
 .ezkutuan {
-  display: none !important;
+  display: none;
 }
 
 .testua-eskuinera {
