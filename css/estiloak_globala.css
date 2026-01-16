@@ -265,19 +265,15 @@ body {
     position: absolute;
     top: -10px;
     right: 6px;
-    background-color: var(--kolore-gorria);
+    background-color: red;
     color: white;
     font-size: 0.5rem;
     /* font-weight: 700; */
     /* padding: 1px 3px; */
     /* border-radius: 9999px; */
-    min-width: 18px;
-    min-height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid white;
-    /* box-shadow: var(--itzala-sm); */
+    min-width: 16px;
+    min-height: 14px;
+    border: solid white;
     z-index: 10;
 }
 
@@ -1029,6 +1025,7 @@ body {
   }
 }
 
+/* 768px tik gora zabaltzen denean */
 @media (min-width: 768px) {
   .eduki-nagusia {
     margin-top: 7rem;

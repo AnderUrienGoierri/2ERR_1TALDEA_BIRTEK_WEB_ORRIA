@@ -107,9 +107,9 @@ $izena = $_SESSION['izena'];
     </header>
 
     <main class="eduki-nagusia">
-        <h2 class="ongietorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
+        <h2 class="ongi-etorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
         
-        <div class="menu-grid">
+        <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
             <a href="bezero_datuak_aldatu.php" class="menu-card">
                 <i class="fas fa-user-edit menu-icon"></i>

@@ -107,7 +107,7 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Ongi etorri, <?= htmlspecialchars($izena) ?>!</h2>
         
-        <div class="menu-sareta">
+        <div class="menu-hornitzailea">
             <!-- 1. Aukera: Datuak Aldatu -->
             <a href="hornitzaile_datuak_aldatu.php" class="menu-txartela">
                 <i class="fas fa-user-edit menu-ikonoa"></i>

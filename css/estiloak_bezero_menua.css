@@ -1,48 +1,70 @@
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 0 1rem;
+.ongi-etorri-mezua {
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 2rem;
+  color: #166534;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
+
+.menu-bezeroa {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 3rem auto;
+  }
+}
+
+
 .menu-card {
   background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .menu-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+  border-color: var(--kolore-nagusia-tainua);
 }
+
 .menu-icon {
-  font-size: 3rem;
-  color: #007bff; /* Birtek blue approx */
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  color: var(--kolore-nagusia);
+  margin-bottom: 1.5rem;
 }
+
 .menu-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #333;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--testu-nagusia);
+  font-family: var(--font-izenburua);
 }
-.welcome-msg {
-  text-align: center;
-  margin-top: 2rem;
-  color: #444;
-}
+
 .logout-btn {
   display: block;
   width: fit-content;
   margin: 2rem auto;
-  
+
   text-decoration: none;
   font-weight: bold;
 }
