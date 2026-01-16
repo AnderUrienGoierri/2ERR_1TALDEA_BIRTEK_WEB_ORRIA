@@ -59,20 +59,20 @@ try {
 
           <div class="nab-ekintzak">
             <?php if (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php elseif (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>

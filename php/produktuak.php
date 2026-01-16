@@ -278,8 +278,6 @@ try {
                       <option value="Zerbitzaria">Zerbitzaria</option>
                       <option value="Pantaila">Pantaila</option>
                       <option value="Softwarea">Softwarea</option>
-                      <option value="Periferikoak">Periferikoak</option>
-                      <option value="Kableak">Kableak</option>
                     </select>
                   </div>
               </div>

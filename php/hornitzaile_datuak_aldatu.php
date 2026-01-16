@@ -33,6 +33,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pasahitza = $_POST['pasahitza'];
     
     try {
+        // Herri berria bada, txertatu lehenago
+        if ($herria_id === 'berria' && !empty($_POST['herria_berria'])) {
+            $herria_izena = $_POST['herria_berria'];
+            $lurraldea = $_POST['lurraldea_berria'] ?? '';
+            $nazioa = $_POST['nazioa_berria'] ?? '';
+
+            $sql_herria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, :nazioa)";
+            $stmt_herria = $konexioa->prepare($sql_herria);
+            $stmt_herria->execute([
+                ':izena' => $herria_izena,
+                ':lurraldea' => $lurraldea,
+                ':nazioa' => $nazioa
+            ]);
+            $herria_id = $konexioa->lastInsertId();
+        }
+
         $sql = "UPDATE hornitzaileak SET 
                 izena_soziala = :izena, 
                 ifz_nan = :ifz_nan,
@@ -72,6 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $mezua = "Datuak ondo eguneratu dira!";
         $_SESSION['izena_soziala'] = $izena_soziala; 
+        
+        // Eguneratu herriak zerrenda berria ager dadin
+        $stmt_herriak = $konexioa->query("SELECT id_herria, izena FROM herriak ORDER BY izena");
+        $herriak = $stmt_herriak->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         $mezua = "Errorea: " . $e->getMessage();
     }
@@ -216,13 +236,32 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
                             </div>
                             <div class="inprimaki-taldea">
                                 <label>Herria:</label>
-                                <select name="herria_id" class="inprimaki-sarrera" required>
+                                <select name="herria_id" id="herria_id" class="inprimaki-sarrera" required>
                                     <?php foreach ($herriak as $herria): ?>
                                         <option value="<?= $herria['id_herria'] ?>" <?= ($hornitzailea['herria_id'] == $herria['id_herria']) ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($herria['izena']) ?>
                                         </option>
                                     <?php endforeach; ?>
+                                    <option value="berria">-- Aukeratu Beste Bat --</option>
                                 </select>
+                            </div>
+
+                            <div id="herri_berria_atala" style="display: none; grid-column: 1 / -1; background: rgba(0,0,0,0.05); padding: 1.5rem; border-radius: 0.5rem; margin-top: 0.5rem;">
+                                <h4 style="margin-bottom: 1rem; color: var(--kolore-primarioa);">Herri Berriaren Datuak</h4>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                    <div class="inprimaki-taldea">
+                                        <label>Herriaren Izena:</label>
+                                        <input type="text" name="herria_berria" id="herria_berria" class="inprimaki-sarrera" placeholder="Adib: Tolosa">
+                                    </div>
+                                    <div class="inprimaki-taldea">
+                                        <label>Lurraldea:</label>
+                                        <input type="text" name="lurraldea_berria" id="lurraldea_berria" class="inprimaki-sarrera" placeholder="Adib: Gipuzkoa">
+                                    </div>
+                                    <div class="inprimaki-taldea">
+                                        <label>Nazioa:</label>
+                                        <input type="text" name="nazioa_berria" id="nazioa_berria" class="inprimaki-sarrera" placeholder="Adib: Euskal Herria">
+                                    </div>
+                                </div>
                             </div>
                             <div class="inprimaki-taldea">
                                 <label>Posta Kodea:</label>
@@ -264,5 +303,22 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#herria_id').on('change', function() {
+                if ($(this).val() === 'berria') {
+                    $('#herri_berria_atala').slideDown();
+                    $('#herria_berria').attr('required', true);
+                    $('#lurraldea_berria').attr('required', true);
+                    $('#nazioa_berria').attr('required', true);
+                } else {
+                    $('#herri_berria_atala').slideUp();
+                    $('#herria_berria').removeAttr('required');
+                    $('#lurraldea_berria').removeAttr('required');
+                    $('#nazioa_berria').removeAttr('required');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

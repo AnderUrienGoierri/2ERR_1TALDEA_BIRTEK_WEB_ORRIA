@@ -96,7 +96,7 @@ if ($id > 0) {
 
           <div class="nab-ekintzak">
             <?php if (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
@@ -105,7 +105,7 @@ if ($id > 0) {
                     </button>
                 </div>
             <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
+                <div class="saio-informazio-edukiontzia">
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
