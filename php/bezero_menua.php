@@ -111,15 +111,15 @@ $izena = $_SESSION['izena'];
         
         <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
-            <a href="bezero_datuak_aldatu.php" class="menu-card">
-                <i class="fas fa-user-edit menu-icon"></i>
-                <span class="menu-title">Datu-Pertsonalak aldatu</span>
+            <a href="bezero_datuak_aldatu.php" class="menu-txartela">
+                <i class="fas fa-user-edit menu-ikonoa"></i>
+                <span class="menu-izenburua">Datu-Pertsonalak aldatu</span>
             </a>
 
             <!-- Button 2: Erosketak Kudeatu -->
-            <a href="bezero_eskaerak.php" class="menu-card">
-                <i class="fas fa-shopping-bag menu-icon"></i>
-                <span class="menu-title">Erosketak Kudeatu</span>
+            <a href="bezero_eskaerak.php" class="menu-txartela">
+                <i class="fas fa-shopping-bag menu-ikonoa"></i>
+                <span class="menu-izenburua">Erosketak Kudeatu</span>
             </a>
         </div>
 
@@ -128,9 +128,7 @@ $izena = $_SESSION['izena'];
         </button>
     </main>
 
-    <footer class="oin-nagusia">
-        <div class="oin-copyright">© 2025 BIRTEK</div>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

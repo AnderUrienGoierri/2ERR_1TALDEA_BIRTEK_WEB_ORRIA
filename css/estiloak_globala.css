@@ -27,10 +27,10 @@
 
   /* Itzalak */
   --itzala-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --itzala-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --itzala-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --itzala-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --itzala-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   /* Besteak */
   --erradioa: 0.5rem;
@@ -56,10 +56,8 @@ body {
 }
 
 .web-gorputza {
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.7)
-    ),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
     url("../irudiak/birtek1.jpeg");
   background-attachment: fixed;
   background-size: cover;
@@ -197,7 +195,7 @@ body {
 }
 
 .saioa-hasi-botoia {
-  padding: 0.3rem 0.6rem;
+  padding: 0.1rem 0.4rem;
   border: 1px solid #d1d5db;
   background: white;
   border-radius: 0.75rem;
@@ -217,7 +215,7 @@ body {
 }
 
 .saioa-hasi-botoia span {
-  display: none; /* Hidden by default on smallest mobile */
+  display: none; /* Mobile first: pantaila txikian ezkutuan hasten da */
   white-space: normal;
   word-wrap: break-word;
   text-align: left;
@@ -262,19 +260,19 @@ body {
 }
 
 .saski-kontagailua {
-    position: absolute;
-    top: -10px;
-    right: 6px;
-    background-color: red;
-    color: white;
-    font-size: 0.5rem;
-    /* font-weight: 700; */
-    /* padding: 1px 3px; */
-    /* border-radius: 9999px; */
-    min-width: 16px;
-    min-height: 14px;
-    border: solid white;
-    z-index: 10;
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  background-color: #ff0000; /* Vibrant Red */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 9999px; /* Rounded pill look */
+  min-width: 18px;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 /* --- OINA (FOOTER) --- */
@@ -955,7 +953,9 @@ body {
 }
 
 .itzala-arin {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .ez-klikagarria {
@@ -1076,4 +1076,75 @@ body {
   .erosketa-sareta {
     grid-template-columns: 3fr 2fr;
   }
+}
+
+/* --- EROSKETA ARRAKASTA MEZUA --- */
+.arrakasta-edukiontzia {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: var(--erradioa);
+  box-shadow: var(--itzala-lg);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.arrakasta-ikonoa {
+  font-size: 5rem;
+  color: #10b981; /* Success Green */
+  margin-bottom: 1.5rem;
+  animation: arrakastaSartu 0.5s ease-out;
+}
+
+@keyframes arrakastaSartu {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.arrakasta-titulua {
+  font-family: var(--font-izenburua);
+  font-size: 2rem;
+  color: var(--kolore-nagusia-iluna);
+  margin-bottom: 1rem;
+}
+
+.arrakasta-testua {
+  font-size: 1.1rem;
+  color: var(--testu-bigarren);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.arrakasta-ekintzak {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.arrakasta-ekintzak .botoia {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--trantsizioa);
+}
+
+.botoi-sekundarioa {
+  background-color: #4b5563;
+  color: white;
+}
+
+.botoi-sekundarioa:hover {
+  background-color: #374151;
+  transform: translateY(-2px);
 }

@@ -8,7 +8,7 @@ function kargatuSaskia() {
 
   if (saskia.length === 0) {
     $edukiontzia.html(
-      "<p>Saskia hutsik dago. <a href='produktuak.php'>Itzuli dendara</a></p>"
+      "<p>Saskia hutsik dago. <a href='produktuak.php'>Itzuli dendara</a></p>",
     );
     $(".botoi-edukiontzia button").prop("disabled", true).css("opacity", "0.5");
     return;
@@ -17,18 +17,18 @@ function kargatuSaskia() {
   var html = "<h4>Erosketaren Laburpena:</h4><ul>";
   var totala = 0;
 
-  saskia.forEach(function (item) {
-    var itemTotal = item.prezioa * item.kantitatea;
-    totala += itemTotal;
+  saskia.forEach(function (prezioa) {
+    var prezioTotala = prezioa.prezioa * prezioa.kantitatea;
+    totala += prezioTotala;
     html +=
       "<li>" +
-      item.kantitatea +
+      prezioa.kantitatea +
       "x " +
-      item.izena +
+      prezioa.izena +
       " - " +
-      item.prezioa +
+      prezioa.prezioa +
       "€/unit (" +
-      itemTotal.toFixed(2) +
+      prezioTotala.toFixed(2) +
       "€)</li>";
   });
 
@@ -55,6 +55,7 @@ function burutuErosketa() {
 
   var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
+  /* AJAX **/
   $.ajax({
     url: "prozesatu_erosketa.php",
     type: "POST",
@@ -66,10 +67,35 @@ function burutuErosketa() {
         localStorage.removeItem("birtek_saskia");
         localStorage.removeItem("birtek_saski_kopurua");
 
-        window.location.href = "ordainketa_pasarela.php?success=1";
+        // Eguneratu saski kontagailua (globala.js-ko funtzioa)
+        if (typeof window.saskiKontagailuaEguneratu === "function") {
+          window.saskiKontagailuaEguneratu();
+        }
+
+        $(".ordainketa-kutxa").fadeOut(300, function () {
+          $(this)
+            .html(
+              `
+            <div class="arrakasta-edukiontzia">
+                <div class="arrakasta-ikonoa">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="arrakasta-titulua">Erosketa Burutu da!</h2>
+                <p class="arrakasta-testua">
+                    Eskerrik asko zure erosketagatik. Zure eskaera ondo erregistratu da eta prozesatzen ari gara.
+                </p>
+                <div class="arrakasta-ekintzak">
+                    <a href="bezero_eskaerak.php" class="botoia botoi-sekundarioa">Erosketak Kudeatu</a>
+                    <a href="hasiera.php" class="botoia botoi-nagusia">Itzuli Hasierara</a>
+                </div>
+            </div>
+          `,
+            )
+            .fadeIn(300);
+        });
       } else {
         alert(
-          "Errorea erosketa burutzean: " + (response.message || "Ezezaguna")
+          "Errorea erosketa burutzean: " + (response.message || "Ezezaguna"),
         );
         botoia.html("Ordaindu eta Erosketa Burutu");
         botoia.prop("disabled", false);

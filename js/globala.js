@@ -84,7 +84,7 @@ $(document).ready(function () {
 
       // Also potentially alert immediately or visually indicate
       console.log(
-        "Saio gatazka: " + unekoMota + " kontrako saioa hasteko orrian."
+        "Saio gatazka: " + unekoMota + " kontrako saioa hasteko orrian.",
       );
     }
   }
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
     // Eguneratu mugikorreko bertsioa
     var $mugikorErabiltzaile = $(
-      "#mugikor-menua .mugikor-erabiltzaile-edukiontzia"
+      "#mugikor-menua .mugikor-erabiltzaile-edukiontzia",
     );
     const mugikorHtml = `
       <div class="mugikor-erabiltzaile-edukiontzia">
@@ -185,7 +185,7 @@ $(document).ready(function () {
             <button class="saski-botoia" id="saski-botoia-injektatua">
               <i class="fas fa-shopping-cart"></i>
               <span>Saskia</span>
-              <span class="saski-kontagailu-txapa">0</span>
+              <span class="saski-kontagailua">0</span>
             </button>
       `;
     $(".nab-ekintzak").append(botoiHtml);
@@ -225,7 +225,7 @@ $(document).ready(function () {
 
     if ($zerrenda.length === 0) {
       console.error(
-        "#saski-elementu-zerrenda elementua ez da aurkitu DOM-ean. Injekzioak huts egin du?"
+        "#saski-elementu-zerrenda elementua ez da aurkitu DOM-ean. Injekzioak huts egin du?",
       );
       return;
     }
@@ -235,7 +235,7 @@ $(document).ready(function () {
 
     if (saskia.length === 0) {
       $zerrenda.html(
-        '<p style="text-align:center; padding:1rem;">Saskia hutsik dago.</p>'
+        '<p style="text-align:center; padding:1rem;">Saskia hutsik dago.</p>',
       );
     } else {
       saskia.forEach(function (elementua) {
@@ -250,8 +250,8 @@ $(document).ready(function () {
                           }</div>
                           <div class="saski-elementu-xehetasun">
                             ${elementua.prezioa.toFixed(2)} € x ${
-          elementua.kantitatea
-        } = <b>${elementuTotala.toFixed(2)} €</b>
+                              elementua.kantitatea
+                            } = <b>${elementuTotala.toFixed(2)} €</b>
                           </div>
                       </div>
                       <div class="kantitate-kontrola">
@@ -336,10 +336,10 @@ $(document).ready(function () {
               step: function (now) {
                 $botoia.css({ transform: "scale(" + now + ")" });
               },
-            }
+            },
           );
         },
-      }
+      },
     );
 
     // --- TXAPAREN ANIMAZIOA ---
@@ -361,10 +361,10 @@ $(document).ready(function () {
               step: function (now) {
                 $txapa.css({ transform: "scale(" + now + ")" });
               },
-            }
+            },
           );
         },
-      }
+      },
     );
 
     // --- MEZUA ---
@@ -373,11 +373,11 @@ $(document).ready(function () {
       if ($(".nab-ekintzak").length === 0) {
         // Fallback: body-ri gehitu absolute positioning-ekin
         $("body").append(
-          '<div class="saskiratze-mezua" style="position:fixed; top:20px; right:20px; z-index:9999;">Produktua saskira gehitu da</div>'
+          '<div class="saskiratze-mezua" style="position:fixed; top:20px; right:20px; z-index:9999;">Produktua saskira gehitu da</div>',
         );
       } else {
         $(".nab-ekintzak").append(
-          '<div class="saskiratze-mezua">Produktua saskira gehitu da</div>'
+          '<div class="saskiratze-mezua">Produktua saskira gehitu da</div>',
         );
       }
     }
@@ -397,7 +397,7 @@ $(document).ready(function () {
     // Ziurtatu modala sortuta dagoela
     if ($("#saski-modala").length === 0) {
       console.warn(
-        "Saski modala ez da aurkitu, orria birkargatu beharko litzateke edo JS berrabiarazi."
+        "Saski modala ez da aurkitu, orria birkargatu beharko litzateke edo JS berrabiarazi.",
       );
       location.reload(); // Simple error recovery
       return;
@@ -419,7 +419,7 @@ $(document).ready(function () {
     function (e) {
       e.preventDefault();
       itxiModala();
-    }
+    },
   );
 
   $(window).click(function (e) {
@@ -519,7 +519,7 @@ $(document).ready(function () {
           window.location.href = saioaHasiUrl;
         },
       });
-    }
+    },
   );
 
   egiaztatuSaioa();
@@ -538,20 +538,20 @@ function toggleHerriaInput(mota) {
   if (hautatu && hautatu.value === "other") {
     edukiontzia.style.display = "block";
     var sarreraHerria = edukiontzia.querySelector(
-      'input[name="herria_berria"]'
+      'input[name="herria_berria"]',
     );
     var sarreraLurraldea = edukiontzia.querySelector(
-      'input[name="lurraldea_berria"]'
+      'input[name="lurraldea_berria"]',
     );
     if (sarreraHerria) sarreraHerria.required = true;
     if (sarreraLurraldea) sarreraLurraldea.required = true;
   } else if (edukiontzia) {
     edukiontzia.style.display = "none";
     var sarreraHerria = edukiontzia.querySelector(
-      'input[name="herria_berria"]'
+      'input[name="herria_berria"]',
     );
     var sarreraLurraldea = edukiontzia.querySelector(
-      'input[name="lurraldea_berria"]'
+      'input[name="lurraldea_berria"]',
     );
     if (sarreraHerria) {
       sarreraHerria.required = false;

@@ -14,10 +14,10 @@ try {
     $konexioa->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Log mezua konektatu dela adierazteko (nabigatzaileko kontsolan ikusteko)
-    echo "<script>console.log('Datu-Basera ondo konektatu da');</script>";
+
 } catch (PDOException $e) {
     // Log mezua errorea egon dela adierazteko (nabigatzaileko kontsolan ikusteko)
-    echo "<script>console.error('Datu-Basera EZ da konektatu');</script>";
+    // echo "<script>console.error('Datu-Basera EZ da konektatu');</script>";
 
     //  'application/json' goiburua kenduta, bestela nabigatzaileak 
     // script-ak testu arrunt bezala erakusten ditu eta ez ditu exekutatzen.

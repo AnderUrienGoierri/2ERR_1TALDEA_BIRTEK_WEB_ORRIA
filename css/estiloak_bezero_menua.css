@@ -11,52 +11,55 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 800px;
-  margin: 2rem auto;
+  max-width: 1000px;
+  margin: 1.5rem auto 3rem auto;
   padding: 0 1.5rem;
 }
 
 @media (min-width: 640px) {
-  .menu-grid {
+  .menu-bezeroa {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    margin: 3rem auto;
   }
 }
 
+@media (min-width: 1024px) {
+  .menu-bezeroa {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-.menu-card {
+.menu-txartela {
   background: white;
-  padding: 2.5rem 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem 2rem;
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
-  color: inherit;
+  color: var(--testu-nagusia);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  gap: 1.5rem;
 }
 
-.menu-card:hover {
+.menu-txartela:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
   border-color: var(--kolore-nagusia-tainua);
 }
 
-.menu-icon {
+.menu-ikonoa {
   font-size: 3.5rem;
   color: var(--kolore-nagusia);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
-.menu-title {
+.menu-izenburua {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--testu-nagusia);
   font-family: var(--font-izenburua);
 }
 
@@ -64,7 +67,6 @@
   display: block;
   width: fit-content;
   margin: 2rem auto;
-
   text-decoration: none;
   font-weight: bold;
 }

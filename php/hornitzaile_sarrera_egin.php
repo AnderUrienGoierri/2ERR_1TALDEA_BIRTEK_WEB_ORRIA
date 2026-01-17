@@ -245,7 +245,7 @@ try {
                     <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
@@ -254,13 +254,19 @@ try {
                     <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
                         <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                     </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
+                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             <?php else: ?>
                 <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
             <?php endif; ?>
+
+            <button class="saski-botoia" id="saski-botoia-toggle">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Saskia</span>
+              <span class="saski-kontagailua">0</span>
+            </button>
           </div>
         </div>
         <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
@@ -522,6 +528,7 @@ try {
             </div>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script>

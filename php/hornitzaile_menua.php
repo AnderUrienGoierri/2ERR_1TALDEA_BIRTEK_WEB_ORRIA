@@ -122,7 +122,7 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
 
             <!-- 3. Aukera: Sarrerak Kudeatu -->
             <a href="hornitzaile_sarrerak_kudeatu.php" class="menu-txartela">
-                <i class="fas fa-clipboard-list menu-icon"></i>
+                <i class="fas fa-clipboard-list menu-ikonoa"></i>
                 <span class="menu-izenburua">Sarrerak Kudeatu</span>
             </a>
         </div>
@@ -132,9 +132,7 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
         </button>
     </main>
 
-    <footer class="oin-nagusia">
-        <div class="oin-copyright">© 2025 BIRTEK</div>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>

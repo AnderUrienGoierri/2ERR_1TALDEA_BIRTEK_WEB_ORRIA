@@ -30,7 +30,7 @@
 
 .iragazki-kaxa {
   background: white;
-  padding: 1.25rem; /* Reduced for 320px */
+  padding: 1rem;
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -275,14 +275,6 @@
 /* --- MEDIA QUERIES (AT THE END) --- */
 /* ========================================================================= */
 
-@media (min-width: 375px) {
-  .iragazki-kaxa {
-    padding: 2rem;
-  }
-  .txartel-edukia {
-    padding: 1.5rem;
-  }
-}
 
 @media (min-width: 640px) {
   .produktu-sarea {

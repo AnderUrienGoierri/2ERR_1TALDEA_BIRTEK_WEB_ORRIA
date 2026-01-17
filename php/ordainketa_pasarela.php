@@ -176,6 +176,7 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
       <?php endif; ?>
     </main>
 
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script src="../js/ordainketa.js"></script>

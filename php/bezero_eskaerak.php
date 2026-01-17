@@ -275,6 +275,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
             <?php endif; ?>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
 </body>

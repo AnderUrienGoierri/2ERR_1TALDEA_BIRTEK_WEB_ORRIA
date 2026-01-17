@@ -155,6 +155,12 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
             <?php endif; ?>
+
+            <button class="saski-botoia" id="saski-botoia-toggle">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Saskia</span>
+              <span class="saski-kontagailua">0</span>
+            </button>
           </div>
         </div>
         <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
@@ -301,6 +307,7 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script>

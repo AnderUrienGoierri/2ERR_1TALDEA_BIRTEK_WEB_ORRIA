@@ -2,6 +2,21 @@ var produktuGuztiak = []; // Produktu guztiak gordetzeko (filtratzeko)
 
 // PRODUKTU SAREA OSATU:
 $(document).ready(function () {
+  // Produktu kopuru info estiloak (jQuery-rekin)
+  $("#produktu-kopuru-info").css({
+    "text-align": "center",
+    "margin-bottom": "2rem",
+    "font-size": "1.1rem",
+    color: "#4b5563",
+    "font-weight": "500",
+  });
+
+  $("#kopurua-txapa").css({
+    color: "#166534",
+    "font-weight": "800",
+    "font-size": "1.25rem",
+  });
+
   // Begiratu ea zerbitzaritik (PHP) datuak jada badatozen (hasierakoProduktuak)
   if (
     typeof hasierakoProduktuak !== "undefined" &&
@@ -13,16 +28,16 @@ $(document).ready(function () {
     console.log("Produktuak PHPtik kargatuta.", produktuGuztiak.length);
   } else {
     console.error(
-      "Errorea: Produktuak ez dira kargatu. 'hasierakoProduktuak' ez dago definituta."
+      "Errorea: Produktuak ez dira kargatu. 'hasierakoProduktuak' ez dago definituta.",
     );
     $(".produktu-sarea").html(
-      "<p>Errorea: Ezin izan dira produktuak kargatu.</p>"
+      "<p>Errorea: Ezin izan dira produktuak kargatu.</p>",
     );
   }
 
   // Iragazkietan aldaketak detektatu
   $(
-    "#iragazkia-bilatu, #iragazkia-egoera, #iragazkia-kategoria, #iragazkia-mota, #iragazkia-ordenatu, #prezioa-min, #prezioa-max"
+    "#iragazkia-bilatu, #iragazkia-egoera, #iragazkia-kategoria, #iragazkia-mota, #iragazkia-ordenatu, #prezioa-min, #prezioa-max",
   ).on("input change", function () {
     produktuakFiltratu();
   });
@@ -84,8 +99,8 @@ function produktuakBistaratu(produktuak) {
           }'">${produktua.izena}</h3>
           <div class="txartel-informazio-lerroa">
             <span class="txartel-marka">${produktua.marka} | ${
-      produktua.egoera
-    }</span>
+              produktua.egoera
+            }</span>
             <span class="${stockKlasea}">Stock: ${produktua.stock}</span>
           </div>
           <p class="txartel-azalpena">
@@ -94,7 +109,7 @@ function produktuakBistaratu(produktuak) {
 
           <div class="txartel-oina">
             <span class="txartel-prezioa">${produktua.prezioa.toFixed(
-              2
+              2,
             )} €</span>
             <button class="produktua-saskiratu-botoia" data-stock="${
               produktua.stock
@@ -206,7 +221,7 @@ $(document).ready(function () {
       }
     } else {
       console.error(
-        "Errorea: window.saskiaGehitu ez dago definituta globala.js-n"
+        "Errorea: window.saskiaGehitu ez dago definituta globala.js-n",
       );
     }
   });
