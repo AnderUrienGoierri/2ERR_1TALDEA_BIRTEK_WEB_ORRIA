@@ -104,7 +104,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_kontaktua.css">
-    <link rel="stylesheet" href="../css/estiloak_bezero_datuak_aldatu.css">
+    <link rel="stylesheet" href="../css/estiloak_datu_pertsonalak_aldatu.css">
 
 </head>
 <body class="web-gorputza">
@@ -115,7 +115,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
             <h2 class="inprimaki-titulua" style="text-align: center; margin-bottom: 2rem;">Datu Pertsonalak Aldatu</h2>
             
             <?php if ($mezua): ?>
-                <p class="arrakasta-mezua" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1.5rem; text-align: center;"><?= $mezua ?></p>
+                <p class="arrakasta-mezua"><?= $mezua ?></p>
             <?php endif; ?>
             
             <form class="kontaktu-inprimaki-diseinua" method="POST">

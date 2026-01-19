@@ -111,6 +111,7 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_kontaktua.css">
+    <link rel="stylesheet" href="../css/estiloak_datu_pertsonalak_aldatu.css">
 
 </head>
 <body class="web-gorputza">
