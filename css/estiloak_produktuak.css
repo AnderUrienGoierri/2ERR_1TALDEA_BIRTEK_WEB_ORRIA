@@ -19,6 +19,20 @@
   margin: 0 auto;
 }
 
+.produktu-kopuru-info {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.kopurua-txapa {
+  color: #166534;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
 .alboko-barra {
   width: 100%;
 }
@@ -136,7 +150,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .produktu-txartela:hover {
@@ -274,7 +290,6 @@
 /* ========================================================================= */
 /* --- MEDIA QUERIES (AT THE END) --- */
 /* ========================================================================= */
-
 
 @media (min-width: 640px) {
   .produktu-sarea {

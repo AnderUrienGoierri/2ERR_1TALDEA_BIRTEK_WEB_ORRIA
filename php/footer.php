@@ -2,6 +2,7 @@
   <div class="oin-sarea">
     <div class="testua-erdian md:text-left">
       <h3 class="oin-izenburua">BIRTEK</h3>
+      <img src="../irudiak/birtek_logo_berde_karratua.png" alt="BIRTEK Logo Karratua" class="oin-logo-irudia">
       <p class="oin-testua">Teknologia berreskuratzen, etorkizuna eraikitzen. Goierri Eskolan kokatuta.</p>
     </div>
     <div class="testua-erdian">

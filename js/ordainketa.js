@@ -10,14 +10,16 @@ function kargatuSaskia() {
     $edukiontzia.html(
       "<p>Saskia hutsik dago. <a href='produktuak.php'>Itzuli dendara</a></p>",
     );
-    $(".botoi-edukiontzia button").prop("disabled", true).css("opacity", "0.5");
+    $(".botoi-edukiontzia button")
+      .prop("disabled", true)
+      .addClass("botoi-desgaitua");
     return;
   }
 
   var html = "<h4>Erosketaren Laburpena:</h4><ul>";
   var totala = 0;
 
-  saskia.forEach(function (prezioa) {
+  $.each(saskia, function (index, prezioa) {
     var prezioTotala = prezioa.prezioa * prezioa.kantitatea;
     totala += prezioTotala;
     html +=

@@ -38,8 +38,8 @@ $izena = $_SESSION['izena'];
             </a>
         </div>
 
-        <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria" style="margin: 2rem auto; display: flex;">
-            <i class="fas fa-sign-out-alt"></i> Saioa itxi
+        <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">
+            <i class="fas fa-sign-out-alt"></i>Saioa Itxi
         </button>
     </main>
 

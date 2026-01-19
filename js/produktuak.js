@@ -3,19 +3,9 @@ var produktuGuztiak = []; // Produktu guztiak gordetzeko (filtratzeko)
 // PRODUKTU SAREA OSATU:
 $(document).ready(function () {
   // Produktu kopuru info estiloak (jQuery-rekin)
-  $("#produktu-kopuru-info").css({
-    "text-align": "center",
-    "margin-bottom": "2rem",
-    "font-size": "1.1rem",
-    color: "#4b5563",
-    "font-weight": "500",
-  });
+  $("#produktu-kopuru-info").addClass("produktu-kopuru-info");
 
-  $("#kopurua-txapa").css({
-    color: "#166534",
-    "font-weight": "800",
-    "font-size": "1.25rem",
-  });
+  $("#kopurua-txapa").addClass("kopurua-txapa");
 
   // Begiratu ea zerbitzaritik (PHP) datuak jada badatozen (hasierakoProduktuak)
   if (
@@ -77,14 +67,10 @@ function produktuakBistaratu(produktuak) {
   $.each(produktuak, function (index, produktua) {
     var stockKlasea =
       produktua.stock > 0 ? "txartel-stock" : "txartel-stock-agortuta";
-    // Kategoria ID bada zenbaki bat, agian izena berreskuratu beharko litzateke,
-    // baina `api_produktuak.php`-k jada `id_kategoria` izenarekin bidaltzen du (testua).
 
     var txartelaHtml = `
-      <div class="produktu-txartela">
-        <div class="txartel-irudia klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
-          produktua.id_produktua
-        }'">
+      <div class="produktu-txartela" data-id="${produktua.id_produktua}">
+        <div class="txartel-irudia klikagarria-joan">
           <img
             src="${produktua.irudia_url}"
             alt="${produktua.izena}"
@@ -94,9 +80,7 @@ function produktuakBistaratu(produktuak) {
           <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
         </div>
         <div class="txartel-edukia">
-          <h3 class="txartel-izenburua klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
-            produktua.id_produktua
-          }'">${produktua.izena}</h3>
+          <h3 class="txartel-izenburua klikagarria-joan">${produktua.izena}</h3>
           <div class="txartel-informazio-lerroa">
             <span class="txartel-marka">${produktua.marka} | ${
               produktua.egoera
@@ -116,9 +100,7 @@ function produktuakBistaratu(produktuak) {
             }" ${produktua.stock === 0 ? "disabled" : ""}>
               Saskiratu
             </button>
-            <button class="produktua-ikusi-botoia" onclick="window.location.href='produktua_xehetasunak.php?id=${
-              produktua.id_produktua
-            }'">Ikusi</button>
+            <button class="produktua-ikusi-botoia klikagarria-joan">Ikusi</button>
           </div>
         </div>
       </div>
@@ -126,6 +108,14 @@ function produktuakBistaratu(produktuak) {
     $sarea.append(txartelaHtml);
   });
 }
+
+// Delegation for clicks on products
+$(document).on("click", ".klikagarria-joan", function (e) {
+  var id = $(this).closest(".produktu-txartela").data("id");
+  if (id) {
+    window.location.href = "produktua_xehetasunak.php?id=" + id;
+  }
+});
 
 function produktuakFiltratu() {
   var bilatuTestua = $("#iragazkia-bilatu").val().toLowerCase();

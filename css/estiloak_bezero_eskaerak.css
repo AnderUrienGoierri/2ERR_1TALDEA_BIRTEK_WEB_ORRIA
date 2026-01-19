@@ -5,23 +5,25 @@
 }
 .eskari-txartela {
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 1.5rem;
   margin-bottom: 2rem;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 .eskari-goiburua {
-  background: #f8f9fa;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .eskari-izenburua {
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #166534;
 }
 .eskari-egoera-etiketa {
   padding: 0.25rem 0.5rem;
@@ -114,4 +116,82 @@
 }
 .ezabatu-lerroa-botoia:hover {
   color: #a71d2a;
+}
+
+/* Checkout Table Additional Styles */
+.saskia-hutsik-mezua {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.taula-edukiontzia-scroll {
+  overflow-x: auto;
+}
+
+.lerro-taula-izenburua {
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.lerro-taula td {
+  padding: 1rem;
+}
+
+.kopuru-kontrola-lerroa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.kopuru-kontrola-balioa {
+  font-weight: bold;
+  width: 30px;
+  text-align: center;
+}
+
+.kopuru-btn {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.prezio-nabarmena {
+  font-weight: bold;
+  color: #166534;
+}
+
+.ezabatu-btn-gorria {
+  cursor: pointer;
+  background-color: #fee2e2;
+  border: none;
+  color: #991b1b;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.ezabatu-btn-gorria:hover {
+  background-color: #fecaca;
+}
+
+.saski-oina-guztira {
+  padding: 1rem;
+  text-align: right;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.inprimaki-taldea {
+  margin-bottom: 1rem;
+}
+
+.extra-behean-2 {
+  margin-bottom: 2rem;
+}
+
+.handia {
+  font-size: 1.1rem;
+  padding: 1rem;
 }

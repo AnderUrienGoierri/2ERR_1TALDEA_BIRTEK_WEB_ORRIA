@@ -16,6 +16,8 @@ $mezua = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['action'])) {
         try {
+            $konexioa->beginTransaction();
+
             if ($_POST['action'] === 'delete_order' && isset($_POST['id_eskaera'])) {
                 // Verify order belongs to user and is in 'Prestatzen' state
                 $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = :id AND bezeroa_id = :uid");
@@ -23,13 +25,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($order && strpos($order['eskaera_egoera'], 'Prestatzen') !== false) {
-                    // Update to 'Ezabatua' instead of HARD delete to keep history or just delete?
-                    // User said "Ezabatu eskaera" (Delete order). Usually "Ezabatua" state is safer.
-                    // But "Ezabatu" implies removal. Let's check DB schema. 'Ezabatua' is an enum value.
-                    // So we should update status to 'Ezabatua'.
+                    // 1. Restore Stock for all items in the order
+                    $linesStmt = $konexioa->prepare("SELECT produktua_id, kantitatea FROM eskaera_lerroak WHERE eskaera_id = :id");
+                    $linesStmt->execute([':id' => $_POST['id_eskaera']]);
+                    $lines = $linesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($lines as $line) {
+                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
+                        $updateStock->execute([':qty' => $line['kantitatea'], ':pid' => $line['produktua_id']]);
+                    }
+
+                    // 2. Mark order as 'Ezabatua'
                     $updateStmt = $konexioa->prepare("UPDATE eskaerak SET eskaera_egoera = 'Ezabatua' WHERE id_eskaera = :id");
                     $updateStmt->execute([':id' => $_POST['id_eskaera']]);
-                    $mezua = "Eskaera ezabatu da (Egoera: Ezabatua).";
+
+                    $konexioa->commit();
+                    $mezua = "Eskaera ezabatu da eta stock-a berreskuratu da.";
+                } else {
+                    $konexioa->rollBack();
                 }
             } elseif ($_POST['action'] === 'delete_line' && isset($_POST['id_eskaera_lerroa']) && isset($_POST['id_eskaera'])) {
                  // Check order status first
@@ -38,26 +51,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($order && strpos($order['eskaera_egoera'], 'Prestatzen') !== false) {
-                    // Remove line
-                    // First get price to update total
-                    $lineStmt = $konexioa->prepare("SELECT unitate_prezioa, kantitatea FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
+                    // 1. Get line info to restore stock and update total
+                    $lineStmt = $konexioa->prepare("SELECT produktua_id, unitate_prezioa, kantitatea FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
                     $lineStmt->execute([':id' => $_POST['id_eskaera_lerroa']]);
                     $line = $lineStmt->fetch(PDO::FETCH_ASSOC);
 
                     if ($line) {
+                        // 2. Restore Stock
+                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
+                        $updateStock->execute([':qty' => $line['kantitatea'], ':pid' => $line['produktua_id']]);
+
+                        // 3. Remove line
                         $deleteStmt = $konexioa->prepare("DELETE FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
                         $deleteStmt->execute([':id' => $_POST['id_eskaera_lerroa']]);
                         
-                        // Update Order Total
+                        // 4. Update Order Total
                         $deduction = $line['unitate_prezioa'] * $line['kantitatea'];
                         $updateTotal = $konexioa->prepare("UPDATE eskaerak SET guztira_prezioa = guztira_prezioa - :val WHERE id_eskaera = :id");
                         $updateTotal->execute([':val' => $deduction, ':id' => $_POST['id_eskaera']]);
                         
-                        $mezua = "Produktua ezabatu da eskaeratik.";
+                        $konexioa->commit();
+                        $mezua = "Produktua ezabatu da eta stock-a berreskuratu da.";
+                    } else {
+                        $konexioa->rollBack();
                     }
+                } else {
+                    $konexioa->rollBack();
                 }
+            } else {
+                $konexioa->rollBack();
             }
         } catch (PDOException $e) {
+            if ($konexioa->inTransaction()) {
+                $konexioa->rollBack();
+            }
             $mezua = "Errorea: " . $e->getMessage();
         }
     }

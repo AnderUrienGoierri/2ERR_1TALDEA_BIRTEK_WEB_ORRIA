@@ -8,6 +8,7 @@
 
       <!-- logoa -->
       <a href="hasiera.php" class="logo-edukiontzia">
+        <img src="../irudiak/birtek_logo_zuri_borobila.png" alt="BIRTEK Logo" class="goiburu-logo-irudia">
         <span class="logoa">BIRTEK</span>
       </a>
 
@@ -26,7 +27,7 @@
                 <a href="bezero_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_menua.php') ? 'aktibo' : ''; ?>" id="saioa-hasi-botoia" title="Joan Nire Menura">
                     <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
                 </a>
-                <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
+                <button class="saioa-hasi-botoia botoi-gorria">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
@@ -35,7 +36,7 @@
                 <a href="hornitzaile_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php') ? 'aktibo' : ''; ?>" id="saioa-hasi-botoia" title="Joan Nire Menura">
                     <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span>
                 </a>
-                <button id="saioa-itxi-botoia" class="saioa-hasi-botoia botoi-gorria">
+                <button class="saioa-hasi-botoia botoi-gorria">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
@@ -48,6 +49,7 @@
           <span>Saskia</span>
           <span class="saski-kontagailua">0</span>
         </button>
+        <div id="saski-mezua" class="saski-mezua"></div>
       </div>
     </div>
 

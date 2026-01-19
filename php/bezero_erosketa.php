@@ -46,12 +46,12 @@ try {
     <main class="eduki-nagusia">
       <div class="eskari-edukiontzia">
         <!-- Breadcrumb or Title -->
-        <a href="produktuak.php" class="atzera-botoia" style="margin-bottom: 1rem; display:inline-block;"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
-        <h2 style="margin-bottom: 2rem;">Erosketa Berretsi</h2>
+        <a href="produktuak.php" class="atzera-botoia tartea-behean-1"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
+        <h2 class="tartea-behean-2">Erosketa Berretsi</h2>
         
         <div class="erosketa-sareta"> 
             <!-- 1. SASKIAREN EDUKIA (Eskari Txartela estiloa) -->
-            <div class="eskari-txartela" style="height: fit-content;">
+            <div class="eskari-txartela">
                 <div class="eskari-goiburua">
                     <div>
                         <div class="eskari-izenburua"><i class="fas fa-shopping-cart"></i> Zure Saskia</div>
@@ -63,13 +63,13 @@ try {
                     <p>Saskia kargatzen...</p>
                 </div>
                 <!-- Guztira lerroa txartelaren barruan edo azpian -->
-                <div style="padding: 1rem; text-align: right; background: #f9fafb; border-top: 1px solid #e5e7eb; font-weight: bold; font-size: 1.2rem;">
-                    Guztira: <span id="erosketa-guztira" style="color: #166534;">0.00 €</span>
+                <div class="saski-oina-guztira">
+                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €</span>
                 </div>
             </div>
 
             <!-- 2. BIDALKETA DATUAK (Eskari Txartela estiloa) -->
-            <div class="eskari-txartela" style="height: fit-content;">
+            <div class="eskari-txartela">
                 <div class="eskari-goiburua">
                     <div>
                         <div class="eskari-izenburua"><i class="fas fa-truck"></i> Bidalketa Datuak</div>
@@ -77,20 +77,20 @@ try {
                     </div>
                 </div>
                 <div class="eskari-gorputza">
-                    <p style="margin-bottom: 1.5rem; color: #666;">Datu hauek erabiliko dira bidalketa egiteko.</p>
+                    <p class="tartea-behean-1-5 testua-grisa">Datu hauek erabiliko dira bidalketa egiteko.</p>
                     
                     <form action="ordainketa_pasarela.php" method="POST" id="bidalketa-form">
-                        <div class="form-group" style="margin-bottom: 1rem;">
+                        <div class="inprimaki-taldea">
                             <label>Izena eta Abizenak</label>
-                            <input type="text" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['izena_edo_soziala'] . ' ' . $bezeroa['abizena']) ?>" disabled style="background: #e5e7eb; cursor: not-allowed; color: #666;">
+                            <input type="text" class="inprimaki-sarrera ez-klikagarria" value="<?= htmlspecialchars($bezeroa['izena_edo_soziala'] . ' ' . $bezeroa['abizena']) ?>" disabled>
                         </div>
 
-                        <div class="form-group" style="margin-bottom: 1rem;">
+                        <div class="inprimaki-taldea">
                             <label for="helbidea">Helbidea</label>
                             <input type="text" id="helbidea" name="helbidea" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>" required>
                         </div>
 
-                        <div class="form-group" style="margin-bottom: 1rem;">
+                        <div class="inprimaki-taldea">
                             <label for="herria_id">Herria</label>
                             <select id="herria_id" name="herria_id" class="inprimaki-hautatu" required>
                                 <?php foreach ($herriak as $herria): ?>
@@ -101,17 +101,17 @@ try {
                             </select>
                         </div>
 
-                        <div class="form-group" style="margin-bottom: 1rem;">
+                        <div class="inprimaki-taldea">
                             <label for="posta_kodea">Posta Kodea</label>
                             <input type="text" id="posta_kodea" name="posta_kodea" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>" required>
                         </div>
 
-                        <div class="form-group" style="margin-bottom: 2rem;">
+                        <div class="inprimaki-taldea extra-behean-2">
                             <label for="telefonoa">Telefonoa</label>
                             <input type="tel" id="telefonoa" name="telefonoa" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>" required>
                         </div>
 
-                        <button type="submit" class="botoia botoi-nagusia" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 1rem;">
+                        <button type="submit" class="botoia botoi-nagusia zabalera-osoa handia">
                             Ordainketara Joan <i class="fas fa-arrow-right"></i>
                         </button>
                     </form>
