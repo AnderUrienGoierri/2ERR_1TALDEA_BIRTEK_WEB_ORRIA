@@ -26,22 +26,22 @@ try {
     $guztira = 0;
     
     // 1. Pase bat stock-a eta prezioak egiaztatzeko
-    foreach ($saskia as &$item) {
+    foreach ($saskia as &$elementua) {
         $stmtP = $konexioa->prepare("SELECT salmenta_prezioa, stock FROM produktuak WHERE id_produktua = ?");
-        $stmtP->execute([$item['id']]);
+        $stmtP->execute([$elementua['id']]);
         $prod = $stmtP->fetch(PDO::FETCH_ASSOC);
         
         if (!$prod) {
-            throw new Exception("Produktua ez da aurkitu: " . $item['izena']);
+            throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
         }
         
-        if ($prod['stock'] < $item['kantitatea']) {
-            throw new Exception("Ez dago stock nahikorik: " . $item['izena'] . " (" . $prod['stock'] . " ale geratzen dira)");
+        if ($prod['stock'] < $elementua['kantitatea']) {
+            throw new Exception("Ez dago stock nahikorik: " . $elementua['izena'] . " (" . $prod['stock'] . " ale geratzen dira)");
         }
         
         // Kalkulatu guztira DBko prezioekin (segurtasuna)
-        $guztira += $prod['salmenta_prezioa'] * $item['kantitatea'];
-        $item['db_prezioa'] = $prod['salmenta_prezioa'];
+        $guztira += $prod['salmenta_prezioa'] * $elementua['kantitatea'];
+        $elementua['db_prezioa'] = $prod['salmenta_prezioa'];
     }
 
     // 2. Sortu eskaera nagusia
@@ -53,9 +53,9 @@ try {
     $stmtL = $konexioa->prepare("INSERT INTO eskaera_lerroak (eskaera_id, produktua_id, kantitatea, unitate_prezioa, eskaera_lerro_egoera) VALUES (?, ?, ?, ?, 'Prestatzen')");
     $stmtS = $konexioa->prepare("UPDATE produktuak SET stock = stock - ? WHERE id_produktua = ?");
 
-    foreach ($saskia as $item) {
-        $stmtL->execute([$eskaera_id, $item['id'], $item['kantitatea'], $item['db_prezioa']]);
-        $stmtS->execute([$item['kantitatea'], $item['id']]);
+    foreach ($saskia as $elementua) {
+        $stmtL->execute([$eskaera_id, $elementua['id'], $elementua['kantitatea'], $elementua['db_prezioa']]);
+        $stmtS->execute([$elementua['kantitatea'], $elementua['id']]);
     }
 
     $konexioa->commit();
