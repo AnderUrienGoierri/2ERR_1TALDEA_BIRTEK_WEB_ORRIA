@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        $sql = "INSERT INTO hornitzaileak (izena_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo) 
-                VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)";
+        $sql = "INSERT INTO hornitzaileak (izena_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, kontaktu_pertsona, hizkuntza, aktibo) 
+                VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, :kontaktu, 'Euskara', 1)";
         
         // Herria kudeatu (Berria bada, txertatu)
         if ($herria_id == 'other' || (is_numeric($herria_id) && $herria_id == 0)) {
@@ -61,7 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':ifz' => $ifz_nan,
             ':herria' => $herria_id,
             ':pk' => $posta_kodea,
-            ':tel' => $telefonoa
+            ':tel' => $telefonoa,
+            ':kontaktu' => $izena // Default to company name
         ]);
 
         // Auto login

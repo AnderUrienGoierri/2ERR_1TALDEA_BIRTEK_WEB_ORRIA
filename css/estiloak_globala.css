@@ -136,6 +136,7 @@ body {
   color: var(--testu-bigarren);
   text-decoration: none;
   transition: var(--trantsizioa);
+  line-height: 1.5rem;
   font-weight: 500;
 }
 
@@ -645,9 +646,6 @@ body {
   color: var(--kolore-gorria-iluna);
   transform: translateY(-50%) scale(1.1);
 }
-.modala-edukia {
-  padding: 1.5rem;
-}
 
 /* Saskia Modal barnekoak */
 .saski-elementu-lerroa {
@@ -1008,17 +1006,8 @@ body {
   border-radius: 1rem;
 }
 
-.tartea-goian-2 {
-  margin-top: 2rem;
-}
 
-.tartea-behean-2 {
-  margin-bottom: 2rem;
-}
 
-.tartea-behean-1 {
-  margin-bottom: 1rem;
-}
 
 .zabalera-osoa {
   width: 100%;
@@ -1062,13 +1051,7 @@ body {
   color: #6b7280;
 }
 
-.tartea-behean-1-5 {
-  margin-bottom: 1.5rem;
-}
 
-.tartea-goian-txikia {
-  margin-top: 0.5rem;
-}
 
 .flex-gap-1 {
   display: flex;
@@ -1111,18 +1094,7 @@ body {
   color: #166534;
 }
 
-/* Alignment Utilities */
-.testua-ezkerrean {
-  text-align: left !important;
-}
 
-.testua-zentratuta {
-  text-align: center !important;
-}
-
-.testua-eskuinera {
-  text-align: right !important;
-}
 
 /* ========================================================================= */
 /* --- MEDIA QUERIES (AT THE END) --- */
@@ -1154,6 +1126,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-height: 4.7rem; /* (Padding 0.3*2 + Line-height 1.5) * 2 + Gap 0.5 */
+    overflow: hidden;
   }
   .nab-botoia {
     padding: 0.3rem 0.5rem;
@@ -1306,6 +1280,8 @@ body {
   height: auto;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: var(--itzala-sm);
+  background-color: white; /* Barruan txuria mantentzeko */
+  border-radius: 12px; /* Kanpoko ertza biribiltzeko eta "fusionatzeko" */
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

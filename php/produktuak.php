@@ -25,6 +25,21 @@ try {
     $stmt->execute();
     $db_produktuak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Kategoriak lortu filtrorako
+    $stmt_kategoriak = $konexioa->prepare("SELECT izena FROM produktu_kategoriak ORDER BY izena");
+    $stmt_kategoriak->execute();
+    $kategoriak_filtro = $stmt_kategoriak->fetchAll(PDO::FETCH_COLUMN);
+
+    // Egoerak lortu filtrorako (salgai dauden produktuetatik)
+    $stmt_egoerak = $konexioa->prepare("SELECT DISTINCT produktu_egoera FROM produktuak WHERE salgai = 1 AND stock > 0 ORDER BY produktu_egoera");
+    $stmt_egoerak->execute();
+    $egoerak_filtro = $stmt_egoerak->fetchAll(PDO::FETCH_COLUMN);
+
+    // Motak lortu filtrorako (salgai dauden produktuetatik)
+    $stmt_motak = $konexioa->prepare("SELECT DISTINCT mota FROM produktuak WHERE salgai = 1 AND stock > 0 ORDER BY mota");
+    $stmt_motak->execute();
+    $motak_filtro = $stmt_motak->fetchAll(PDO::FETCH_COLUMN);
+
     // Datuak formatu egokian prestatu (JS-ak espero duen bezala)
     foreach ($db_produktuak as $lerroa) {
         $irudia = $lerroa['irudia_url'];
@@ -134,9 +149,9 @@ try {
                     <label class="iragazki-etiketa">Egoera</label>
                     <select id="iragazkia-egoera" class="inprimaki-hautatu">
                       <option value="">Guztiak</option>
-                      <option value="Berria">Berria</option>
-                      <option value="Berritua A">Berritua A</option>
-                      <option value="Berritua B">Berritua B</option>
+                      <?php foreach ($egoerak_filtro as $egoera): ?>
+                        <option value="<?php echo htmlspecialchars($egoera); ?>"><?php echo htmlspecialchars($egoera); ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
                   <!-- Iragazki Taldea: ORDENATU -->
@@ -154,7 +169,7 @@ try {
                       <option value="stock-asc">Stock: Gutxienetik</option>
                     </select>
                   </div>
-                  <!-- Iragazki Taldea: PREZIOA (NEW) -->
+                  <!-- Iragazki Taldea: PREZIOA  -->
                   <div class="iragazki-taldea">
                     <label class="iragazki-etiketa">Prezioa (€)</label>
                     <div class="prezio-iragazki-taldea">
@@ -173,35 +188,25 @@ try {
                     </div>
                   </div>
     
-                  <!-- Iragazki Taldea: KATEGORIA (NEW - From DB Categories) -->
+                  <!-- Iragazki Taldea: KATEGORIA -->
                   <div class="iragazki-taldea">
                     <label class="iragazki-etiketa">Kategoria</label>
                     <select id="iragazkia-kategoria" class="inprimaki-hautatu">
                       <option value="">Guztiak</option>
-                      <option value="Ordenagailuak">Ordenagailuak</option>
-                      <option value="Telefonia">Telefonia</option>
-                      <option value="Irudia">Irudia</option>
-                      <option value="Osagarriak">Osagarriak</option>
-                      <option value="Softwarea">Softwarea</option>
-                      <option value="Sareak eta Zerbitzariak">
-                        Sareak eta Zerbitzariak
-                      </option>
+                      <?php foreach ($kategoriak_filtro as $kategoria): ?>
+                        <option value="<?php echo htmlspecialchars($kategoria); ?>"><?php echo htmlspecialchars($kategoria); ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
     
-                  <!-- Iragazki Taldea: MOTA (Renamed from Kategoria) -->
+                  <!-- Iragazki Taldea: MOTA  -->
                   <div class="iragazki-taldea">
                     <label class="iragazki-etiketa">Mota</label>
                     <select id="iragazkia-mota" class="inprimaki-hautatu">
                       <option value="">Guztiak</option>
-                      <option value="Generikoa">Generikoa</option>
-                      <option value="Eramangarria">Eramangarria</option>
-                      <option value="Mahai-gainekoa">Mahai-gainekoa</option>
-                      <option value="Mugikorra">Mugikorra</option>
-                      <option value="Tableta">Tableta</option>
-                      <option value="Zerbitzaria">Zerbitzaria</option>
-                      <option value="Pantaila">Pantaila</option>
-                      <option value="Softwarea">Softwarea</option>
+                      <?php foreach ($motak_filtro as $mota): ?>
+                        <option value="<?php echo htmlspecialchars($mota); ?>"><?php echo htmlspecialchars($mota); ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
               </div>
@@ -223,8 +228,12 @@ try {
                   ?>
                   <div class="produktu-txartela">
                     <div class="txartel-irudia">
+                <!-- $p = $produktuak['irudia_url']-->
+                <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
+                <!-- <img src ="$rutaAbs . $p"-->
                       <img
-                        src="<?php echo htmlspecialchars($produktua['irudia_url']); ?>"
+                      
+                        src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
                         alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
                         class="txartel-irudia"
                         onerror="this.src='../irudiak/birtek1.jpeg'"

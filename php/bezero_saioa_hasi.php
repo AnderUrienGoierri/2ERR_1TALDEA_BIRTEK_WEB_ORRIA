@@ -78,7 +78,7 @@ try {
                 <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
               </div>
               <div>
-                <select name="herria_id" id="herria_id_bezeroa" class="inprimaki-hautatu" required onchange="toggleHerriaInput('bezeroa')">
+                <select name="herria_id" id="herria_id_bezeroa" class="inprimaki-hautatu" required>
                     <option value="" disabled selected>Aukeratu Herria</option>
                     <?php foreach ($herriak as $herria): ?>
                         <option value="<?= $herria['id_herria'] ?>"><?= htmlspecialchars($herria['izena']) ?></option>

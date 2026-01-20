@@ -1,8 +1,9 @@
 .eskari-edukiontzia {
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 1rem auto;
   padding: 1rem;
 }
+
 .eskari-txartela {
   background: white;
   border-radius: 1.5rem;
@@ -11,26 +12,30 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .eskari-goiburua {
   background: #f9fafb;
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Mobile first: stacked */
+  gap: 1rem;
 }
+
 .eskari-izenburua {
   font-family: "Outfit", sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   color: #166534;
 }
+
 .eskari-egoera-etiketa {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
   font-weight: bold;
 }
+
 .egoera-Osatua {
   background-color: #d4edda;
   color: #155724;
@@ -49,63 +54,95 @@
 }
 
 .eskari-gorputza {
-  padding: 1rem;
+  padding: 0.5rem; /* Less padding on mobile */
 }
+
+/* Scrollable container for tables on small screens */
+.taula-scroll-edukiontzia {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 .lerro-taula {
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
+  min-width: 500px; /* Force scroll on very small screens */
 }
+
 .lerro-taula th,
 .lerro-taula td {
   text-align: left;
-  padding: 0.5rem;
+  padding: 0.75rem 0.5rem;
   border-bottom: 1px solid #eee;
 }
+
 .lerro-taula th {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
+
 .testu-apala {
   color: #6c757d;
 }
+
 .guztira-lerroa {
   text-align: right;
   font-weight: bold;
   margin-top: 1rem;
   font-size: 1.1rem;
+  padding: 1rem;
 }
+
 .atzera-botoia {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #007bff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.atzera-botoia:hover {
+  color: #166534;
+}
+
+.ezabatu-eskaria-botoia,
+.faktura-deskargatu-botoia {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%; /* Full width on mobile buttons inside grid/flex */
 }
 
 .ezabatu-eskaria-botoia {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #fee2e2;
+  color: #991b1b;
 }
+
 .ezabatu-eskaria-botoia:hover {
-  background-color: #c82333;
+  background-color: #fecaca;
 }
 
 .faktura-deskargatu-botoia {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: var(--kolore-nagusia-argia, #dcfce7);
+  color: var(--kolore-nagusia-iluna, #166534);
 }
+
 .faktura-deskargatu-botoia:hover {
-  background-color: #0056b3;
+  background-color: #bbf7d0;
 }
 
 .ezabatu-lerroa-botoia {
@@ -113,85 +150,30 @@
   background: none;
   border: none;
   cursor: pointer;
-}
-.ezabatu-lerroa-botoia:hover {
-  color: #a71d2a;
-}
-
-/* Checkout Table Additional Styles */
-.saskia-hutsik-mezua {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
-
-.taula-edukiontzia-scroll {
-  overflow-x: auto;
-}
-
-.lerro-taula-izenburua {
-  background: #f9fafb;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.lerro-taula td {
-  padding: 1rem;
-}
-
-.kopuru-kontrola-lerroa {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-
-.kopuru-kontrola-balioa {
-  font-weight: bold;
-  width: 30px;
-  text-align: center;
-}
-
-.kopuru-btn {
-  padding: 2px 8px;
-  cursor: pointer;
-}
-
-.prezio-nabarmena {
-  font-weight: bold;
-  color: #166534;
-}
-
-.ezabatu-btn-gorria {
-  cursor: pointer;
-  background-color: #fee2e2;
-  border: none;
-  color: #991b1b;
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.ezabatu-btn-gorria:hover {
-  background-color: #fecaca;
-}
-
-.saski-oina-guztira {
-  padding: 1rem;
-  text-align: right;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.inprimaki-taldea {
-  margin-bottom: 1rem;
-}
-
-.extra-behean-2 {
-  margin-bottom: 2rem;
-}
-
-.handia {
   font-size: 1.1rem;
-  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .eskari-edukiontzia {
+    margin: 3rem auto;
+  }
+
+  .eskari-goiburua {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .eskari-gorputza {
+    padding: 1.5rem;
+  }
+
+  .ezabatu-eskaria-botoia,
+  .faktura-deskargatu-botoia {
+    width: auto;
+  }
+
+  .lerro-taula th {
+    font-size: 0.9rem;
+  }
 }

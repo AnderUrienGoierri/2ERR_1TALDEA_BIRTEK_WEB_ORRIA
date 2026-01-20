@@ -116,6 +116,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
 <html lang="eu">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erosketak Kudeatu - BIRTEK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
@@ -171,41 +172,43 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
                             </div>
                         </div>
                         <div class="eskari-gorputza">
-                            <table class="lerro-taula">
-                                <thead>
-                                    <tr>
-                                        <th>Produktua</th>
-                                        <th>Kantitatea</th>
-                                        <th>Prezioa</th>
-                                        <th>Guztira</th>
-                                        <th>Ekintzak</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($lerroak as $lerroa): ?>
-                                    <tr>
-                                        <td>
-                                            <a href="produktua_xehetasunak.php?id=<?= $lerroa['produktua_id'] ?>" class="produktu-esteka">
-                                                <?= htmlspecialchars($lerroa['izena']) ?>
-                                            </a>
-                                        </td>
-                                        <td><?= $lerroa['kantitatea'] ?></td>
-                                        <td><?= $lerroa['unitate_prezioa'] ?>€</td>
-                                        <td><?= $lerroa['kantitatea'] * $lerroa['unitate_prezioa'] ?>€</td>
-                                        <td>
-                                            <?php if ($isPrestatzen): ?>
-                                                <form method="POST" onsubmit="return confirmDelete()" style="margin:0;">
-                                                    <input type="hidden" name="action" value="delete_line">
-                                                    <input type="hidden" name="id_eskaera" value="<?= $eskaera['id_eskaera'] ?>">
-                                                    <input type="hidden" name="id_eskaera_lerroa" value="<?= $lerroa['id_eskaera_lerroa'] ?>">
-                                                    <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
-                                                </form>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                            <div class="taula-scroll-edukiontzia">
+                                <table class="lerro-taula">
+                                    <thead>
+                                        <tr>
+                                            <th>Produktua</th>
+                                            <th>Kantitatea</th>
+                                            <th>Prezioa</th>
+                                            <th>Guztira</th>
+                                            <th>Ekintzak</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($lerroak as $lerroa): ?>
+                                        <tr>
+                                            <td>
+                                                <a href="produktua_xehetasunak.php?id=<?= $lerroa['produktua_id'] ?>" class="produktu-esteka">
+                                                    <?= htmlspecialchars($lerroa['izena']) ?>
+                                                </a>
+                                            </td>
+                                            <td><?= $lerroa['kantitatea'] ?></td>
+                                            <td><?= $lerroa['unitate_prezioa'] ?>€</td>
+                                            <td><?= $lerroa['kantitatea'] * $lerroa['unitate_prezioa'] ?>€</td>
+                                            <td>
+                                                <?php if ($isPrestatzen): ?>
+                                                    <form method="POST" onsubmit="return confirmDelete()" style="margin:0;">
+                                                        <input type="hidden" name="action" value="delete_line">
+                                                        <input type="hidden" name="id_eskaera" value="<?= $eskaera['id_eskaera'] ?>">
+                                                        <input type="hidden" name="id_eskaera_lerroa" value="<?= $lerroa['id_eskaera_lerroa'] ?>">
+                                                        <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="guztira-lerroa">
                                 Guztira Ordainduta: <?= number_format($eskaera['guztira_prezioa'], 2) ?>€
                             </div>
