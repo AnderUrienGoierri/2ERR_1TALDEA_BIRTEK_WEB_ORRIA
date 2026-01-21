@@ -8,6 +8,7 @@ $izena = $_SESSION['izena'];
 ?>
 <!DOCTYPE html>
 <html lang="eu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +19,17 @@ $izena = $_SESSION['izena'];
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_menua.css">
 </head>
+
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> lander
         <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
             <a href="bezero_datuak_aldatu.php" class="menu-txartela">
@@ -35,6 +41,15 @@ $izena = $_SESSION['izena'];
             <a href="bezero_eskaerak.php" class="menu-txartela">
                 <i class="fas fa-shopping-bag menu-ikonoa"></i>
                 <span class="menu-izenburua">Erosketak Kudeatu</span>
+<<<<<<< HEAD
+=======
+            </a>
+
+            <!-- Button 3: Produktuak Ikusi -->
+            <a href="produktuak.php" class="menu-txartela">
+                <i class="fas fa-store menu-ikonoa"></i>
+                <span class="menu-izenburua">Produktuak Ikusi</span>
+>>>>>>> lander
             </a>
         </div>
 
@@ -49,5 +64,5 @@ $izena = $_SESSION['izena'];
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
 </body>
-</html>
 
+</html>
