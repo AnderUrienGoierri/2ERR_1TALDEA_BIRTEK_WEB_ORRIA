@@ -270,8 +270,6 @@ try {
     <!-- OINA - FOOTER -->
     <?php include 'footer.php'; ?>
 
-
-
     <!-- ================================================================================================= -->
     <!-- SCRIPT ZATIA -->
     <!-- JQUERY LIBURUTEGIA IMPORTATU -->

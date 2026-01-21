@@ -335,14 +335,12 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
   font-family: var(--font-izenburua);
 }
 .oin-goiburua {
   font-size: 1.125rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
   font-family: var(--font-izenburua);
 }
 .oin-testua {
