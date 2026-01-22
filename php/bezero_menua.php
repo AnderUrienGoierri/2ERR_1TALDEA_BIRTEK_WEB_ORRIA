@@ -38,6 +38,12 @@ $izena = $_SESSION['izena'];
                 <i class="fas fa-shopping-bag menu-ikonoa"></i>
                 <span class="menu-izenburua">Erosketak Kudeatu</span>
             </a>
+            
+             <!-- Button 3: Produktuak Ikusi -->
+            <a href="produktuak.php" class="menu-txartela">
+                <i class="fas fa-store menu-ikonoa"></i>
+                <span class="menu-izenburua">Produktuak Ikusi</span>
+            </a>
         </div>
 
         <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">

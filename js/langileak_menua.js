@@ -10,7 +10,9 @@ $(document).ready(function () {
     botoia.html('<i class="fas fa-cog fa-spin"></i> Abiarazten...');
     botoia.prop("disabled", true);
 
+    
     // PHP script-a deitu
+    /*
     $.ajax({
       url: "../php/java_app_abiarazi.php",
       type: "GET",
@@ -35,5 +37,6 @@ $(document).ready(function () {
         botoia.prop("disabled", false);
       },
     });
+    */
   });
 });

@@ -32,8 +32,17 @@ $(document).ready(function () {
     produktuakFiltratu();
   });
 
+  // Radio buttons aldaketak detektatu (Prezioa ordenatu)
+  $("input[name='prezio-ordenatu']").on("change", function () {
+      var balioa = $(this).val();
+      window.location.href = "produktuak.php?prezio-ordenatu=" + balioa;
+  });
+
   // "FILTROAK GARBITU" botoia
   $(".iragazkiak-berrezarri").on("click", function () {
+    // URL garbitu
+    window.location.href = "produktuak.php";
+    /*
     $("#iragazkia-bilatu").val("");
     $("#iragazkia-egoera").val("");
     $("#iragazkia-kategoria").val("");
@@ -41,7 +50,9 @@ $(document).ready(function () {
     $("#iragazkia-ordenatu").val("default");
     $("#prezioa-min").val("");
     $("#prezioa-max").val("");
+    $("input[name='prezio-ordenatu']").prop("checked", false);
     produktuakFiltratu(); // Berrezarri ondoren filtratu (denak erakusteko)
+    */
   });
 
   // MUGIKORRA ETA IDAZMAHAIA: Iragazkiak erakutsi/ezkutatu
@@ -123,6 +134,10 @@ function produktuakFiltratu() {
   var kategoria = $("#iragazkia-kategoria").val();
   var mota = $("#iragazkia-mota").val();
   var ordenatu = $("#iragazkia-ordenatu").val();
+  var prezioOrdenatu = $("input[name='prezio-ordenatu']:checked").val();
+  if (prezioOrdenatu) {
+    ordenatu = prezioOrdenatu;
+  }
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 

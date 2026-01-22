@@ -81,9 +81,6 @@
   display: block;
 }
 
-.iragazki-taldea {
-  margin-bottom: 0.2rem;
-}
 
 .inprimaki-sarrera,
 .inprimaki-hautatu {
@@ -119,7 +116,6 @@
   font-weight: 600;
   color: #374151;
   display: block;
-  margin-bottom: 0.5rem;
 }
 
 /* Utility classes for filter layout */
@@ -129,7 +125,34 @@
 }
 
 .zabaler-erdi {
-  width: 50% !important;
+  width: 50%;
+}
+
+/* Radio buttons para ordenamiento de precio */
+.prezio-ordenatu-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.radio-etiketa {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-etiketa input[type="radio"] {
+  cursor: pointer;
+  accent-color: #166534;
+}
+
+.radio-etiketa:hover {
+  color: #166534;
 }
 
 .klikagarria {
