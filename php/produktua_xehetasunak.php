@@ -63,7 +63,7 @@ if ($id > 0) {
     <!-- Produktuaren izena hartu datu basetik -->
     <title><?php echo $produktua ? htmlspecialchars($produktua['izena']) . " - BIRTEK" : "Produktua ez da aurkitu"; ?></title>
      <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css"/>
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"/>
     <link rel="stylesheet" href="../css/estiloak_globala.css">

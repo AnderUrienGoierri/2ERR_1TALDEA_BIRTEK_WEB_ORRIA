@@ -4,122 +4,122 @@ require_once 'DB_konexioa.php';
 
 // Herriak lortu
 try {
-    $stmt_h = $konexioa->prepare("SELECT id_herria, izena FROM herriak ORDER BY izena");
-    $stmt_h->execute();
-    $herriak = $stmt_h->fetchAll(PDO::FETCH_ASSOC);
+  $stmt_h = $konexioa->prepare("SELECT id_herria, izena FROM herriak ORDER BY izena");
+  $stmt_h->execute();
+  $herriak = $stmt_h->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    $herriak = [];
+  $herriak = [];
 }
 ?>
 <!DOCTYPE html>
 <html lang="eu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BIRTEK - Saioa Hasi / Erregistratu</title>
 
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <!-- Google Fonts -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIRTEK - Saioa Hasi / Erregistratu</title>
 
-    <!-- gure css artxiboak -->
-    <link rel="stylesheet" href="../css/estiloak_globala.css" />
-    <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
-  </head>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <body class="web-gorputza">
-    <?php include_once 'goiburua.php'; ?>
+  <!-- gure css artxiboak -->
+  <link rel="stylesheet" href="../css/estiloak_globala.css" />
+  <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
+</head>
 
-    <main class="eduki-nagusia">
-      <section class="kontaktu-edukiontzia">
-        <h2 class="kontaktua-titulua">Bezeroaren Gunea</h2>
+<body class="web-gorputza">
+  <?php include_once 'goiburua.php'; ?>
 
-        <div class="kontaktu-sareta">
-          <!-- SAIOA HASI -->
-          <div class="inprimaki-kutxa">
-            <h3 class="inprimaki-titulua">Saioa Hasi</h3>
-            <p class="tartea-behean-1-5 testua-grisa">Dagoeneko kontua baduzu, sartu hemen:</p>
-            <form class="kontaktu-inprimaki-diseinua" action="login_bezeroa.php" method="POST">
-              <div>
-                <input type="email" name="emaila" placeholder="Posta elektronikoa" class="inprimaki-sarrera" required />
-              </div>
-              <div>
-                <input type="password" name="pasahitza" placeholder="Pasahitza" class="inprimaki-sarrera" required />
-              </div>
-              <button type="submit" class="botoia botoi-nagusia zabalera-osoa" id="saioa-hasi-submit-botoia">Sartu</button>
-              <div class="testua-zentratuta tartea-goian-1">
-                <a href="#" class="pasahitza-ahaztu-esteka">Pasahitza ahaztu duzu?</a>
-              </div>
-            </form>
-          </div>
+  <main class="eduki-nagusia">
+    <section class="kontaktu-edukiontzia">
+      <h2 class="kontaktua-titulua">Bezeroaren Gunea</h2>
 
-          <!-- ERREGISTRATU -->
-          <div class="inprimaki-kutxa">
-            <h3 class="inprimaki-titulua">Erregistratu</h3>
-            <p class="tartea-behean-1-5 testua-grisa">Berria zara? Sortu kontu bat erraz:</p>
-            <form class="kontaktu-inprimaki-diseinua" action="erregistratu_bezeroa.php" method="POST">
-              <div>
-                <input type="text" name="izena" placeholder="Izena eta Abizenak" class="inprimaki-sarrera" required />
-              </div>
-              <div>
-                <input type="email" name="emaila_erregistroa" placeholder="Posta elektronikoa" class="inprimaki-sarrera" required />
-              </div>
-              <div>
-                <input type="text" name="nan" placeholder="NAN / IFZ" class="inprimaki-sarrera" required />
-              </div>
-              <div>
-                <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
-              </div>
-              <div>
-                <select name="herria_id" id="herria_id_bezeroa" class="inprimaki-hautatu" required>
-                    <option value="" disabled selected>Aukeratu Herria</option>
-                    <?php foreach ($herriak as $herria): ?>
-                        <option value="<?= $herria['id_herria'] ?>"><?= htmlspecialchars($herria['izena']) ?></option>
-                    <?php endforeach; ?>
-                    <option value="other">Beste bat... (Gehitu berria)</option>
-                </select>
-              </div>
-              <div id="herria_berria_container_bezeroa" style="display: none;">
-                <input type="text" name="herria_berria" placeholder="Herriaren izena" class="inprimaki-sarrera" />
-                <input type="text" name="lurraldea_berria" placeholder="Lurraldea (probintzia)" class="inprimaki-sarrera" />
-              </div>
-              <div>
-                <input type="text" name="posta_kodea" placeholder="Posta Kodea" class="inprimaki-sarrera" required pattern="[0-9]{5}" title="5 digituko posta kodea" />
-              </div>
-              <div>
-                <input type="password" name="pasahitza_erregistroa" placeholder="Pasahitza segurua" class="inprimaki-sarrera" required minlength="8" />
-                <p class="testua-txikia testua-grisa tartea-goian-txikia">Gutxienez 8 karaktere.</p>
-              </div>
-              <button type="submit" class="botoia botoi-nagusia">Sortu Kontua</button>
-            </form>
-          </div>
+      <div class="kontaktu-sareta">
+        <!-- SAIOA HASI -->
+        <div class="inprimaki-kutxa">
+          <h3 class="inprimaki-titulua">Saioa Hasi</h3>
+          <p class="tartea-behean-1-5 testua-grisa">Dagoeneko kontua baduzu, sartu hemen:</p>
+          <form class="kontaktu-inprimaki-diseinua" action="login_bezeroa.php" method="POST">
+            <div>
+              <input type="email" name="emaila" placeholder="Posta elektronikoa" class="inprimaki-sarrera" required />
+            </div>
+            <div>
+              <input type="password" name="pasahitza" placeholder="Pasahitza" class="inprimaki-sarrera" required />
+            </div>
+            <button type="submit" class="botoia botoi-nagusia zabalera-osoa"
+              id="saioa-hasi-submit-botoia">Sartu</button>
+            <div class="testua-zentratuta tartea-goian-1">
+              <a href="#" class="pasahitza-ahaztu-esteka">Pasahitza ahaztu duzu?</a>
+            </div>
+          </form>
         </div>
-      </section>
-    </main>
 
-    <?php include 'footer.php'; ?>
+        <!-- ERREGISTRATU -->
+        <div class="inprimaki-kutxa">
+          <h3 class="inprimaki-titulua">Erregistratu</h3>
+          <p class="tartea-behean-1-5 testua-grisa">Berria zara? Sortu kontu bat erraz:</p>
+          <form class="kontaktu-inprimaki-diseinua" action="erregistratu_bezeroa.php" method="POST">
+            <div>
+              <input type="text" name="izena" placeholder="Izena eta Abizenak" class="inprimaki-sarrera" required />
+            </div>
+            <div>
+              <input type="email" name="emaila_erregistroa" placeholder="Posta elektronikoa" class="inprimaki-sarrera"
+                required />
+            </div>
+            <div>
+              <input type="text" name="nan" placeholder="NAN / IFZ" class="inprimaki-sarrera" required />
+            </div>
+            <div>
+              <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
+            </div>
+            <div>
+              <input type="text" name="herria_izena" list="herriak_zerrenda" placeholder="Herria"
+                class="inprimaki-sarrera" required />
+              <datalist id="herriak_zerrenda">
+                <?php foreach ($herriak as $herria): ?>
+                  <option value="<?= htmlspecialchars($herria['izena']) ?>"></option>
+                <?php endforeach; ?>
+              </datalist>
+            </div>
+            <div>
+              <input type="text" name="lurraldea" placeholder="Lurraldea (Probintzia) - Beharrezkoa berria bada"
+                class="inprimaki-sarrera" />
+            </div>
+            <div>
+              <input type="text" name="posta_kodea" placeholder="Posta Kodea" class="inprimaki-sarrera" required
+                pattern="[0-9]{5}" title="5 digituko posta kodea" />
+            </div>
+            <div>
+              <input type="password" name="pasahitza_erregistroa" placeholder="Pasahitza segurua"
+                class="inprimaki-sarrera" required minlength="8" />
+              <p class="testua-txikia testua-grisa tartea-goian-txikia">Gutxienez 8 karaktere.</p>
+            </div>
+            <button type="submit" class="botoia botoi-nagusia">Sortu Kontua</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="../js/globala.js"></script>
-    <script>
-      // saioa hasita badago:
-      $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
-        var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
-        $(".kontaktu-sareta").html(
-          '<div class="testua-zentratuta ongietorri-kutxa">' +
-            '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
-            '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
-            '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
-          '</div>'
-        );
-      });
-    </script>
-  </body>
+  <?php include 'footer.php'; ?>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/globala.js"></script>
+  <script>
+    // saioa hasita badago:
+    $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
+      var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
+      $(".kontaktu-sareta").html(
+        '<div class="testua-zentratuta ongietorri-kutxa">' +
+        '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
+        '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
+        '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
+        '</div>'
+      );
+    });
+  </script>
+</body>
+
 </html>

@@ -5,8 +5,6 @@ session_start();
 require_once 'DB_konexioa.php';
 
 
-//include 'DB_konexioa.php'
-
 // produktu kopuru totala lortu
 $stmt_total = $konexioa->prepare("SELECT COUNT(*) FROM produktuak WHERE salgai = 1 AND stock > 0");
 $stmt_total->execute();
@@ -20,8 +18,18 @@ try {
             FROM produktuak p 
             LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
             WHERE p.salgai = 1 AND p.stock > 0";
+  
+  $params = []; // Parametroak gordetzeko arraya
 
-  // ORDENAZIOA GEHITU
+  // BILAKETA LOGIKA (PHP)
+  $bilatu_hitza = "";
+  if (isset($_GET['bilatu']) && !empty(trim($_GET['bilatu']))) {
+      $bilatu_hitza = trim($_GET['bilatu']);
+      $sql .= " AND (p.izena LIKE :bilatu OR p.deskribapena LIKE :bilatu OR p.marka LIKE :bilatu)";
+      $params[':bilatu'] = "%" . $bilatu_hitza . "%";
+  }
+
+  // PREZIOAREN ARABERA ordenatu produktuak php bidez 
   if (isset($_GET['prezio-ordenatu'])) {
     $ordena = $_GET['prezio-ordenatu'];
     if ($ordena === 'prezioa-asc') {
@@ -32,7 +40,7 @@ try {
   }
 
   $stmt = $konexioa->prepare($sql);
-  $stmt->execute();
+  $stmt->execute($params);
   $db_produktuak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   // Kategoriak lortu filtrorako
@@ -99,7 +107,7 @@ try {
   <title>BIRTEK - Produktuak</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
@@ -137,13 +145,18 @@ try {
             <!-- Iragazki Edukia (Mobilean ezkutatzeko) -->
             <div class="iragazki-edukia">
               <!-- Garbitu Botoia (Mobilean ezkutuan egoteko) -->
-              <div>
-                <button class="iragazkiak-berrezarri">Garbitu</button>
+              <div class="berrezarri-botoia">
+                <button class="berrezarri-testua">Garbitu</button>
               </div>
-              <!-- Iragazki Taldea: BILATU -->
+              <!-- Iragazki Taldea: BILATZAILEA -->
               <div>
-                <label class="iragazki-etiketa">Bilatu</label>
-                <input type="search" placeholder="Produktua..." id="iragazkia-bilatu" class="inprimaki-sarrera" />
+                <form action="produktuak.php" method="GET">
+                  <label class="iragazki-etiketa">Bilatu</label>
+                  <input type="search" name="bilatu" placeholder="Produktua..." id="iragazkia-bilatu" class="inprimaki-sarrera" value="<?php echo htmlspecialchars($bilatu_hitza); ?>" />
+                  <?php if (isset($_GET['prezio-ordenatu'])): ?>
+                      <input type="hidden" name="prezio-ordenatu" value="<?php echo htmlspecialchars($_GET['prezio-ordenatu']); ?>">
+                  <?php endif; ?>
+                </form>
               </div>
               <!-- Iragazki Taldea: PRODUKTU EGOERA -->
               <div>
@@ -172,13 +185,15 @@ try {
                 <label class="iragazki-etiketa">Prezioa</label>
                 <div class="prezio-ordenatu-radio">
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc" <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-asc')
-                      echo 'checked'; ?>>
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc" 
+                      <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-asc')
+                        echo 'checked'; ?>>
                     Txikitik Handira
                   </label>
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc" <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-desc')
-                      echo 'checked'; ?>>
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc" 
+                      <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-desc')
+                        echo 'checked'; ?>>
                     Handitik Txikira
                   </label>
                 </div>
@@ -231,35 +246,37 @@ try {
                 $stockKlasea = $produktua['stock'] > 0 ? "txartel-stock" : "txartel-stock-agortuta";
                 $prezioaFix = number_format($produktua['prezioa'], 2, '.', '');
                 ?>
-                <div class="produktu-txartela">
-                  <div class="txartel-irudia">
-                    <!-- $p = $produktuak['irudia_url']-->
-                    <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
-                    <!-- <img src ="$rutaAbs . $p"-->
-                    <img src="<?php echo htmlspecialchars('../produktuen_irudiak/' . $produktua['irudia_url']); ?>"
-                      alt="<?php echo htmlspecialchars($produktua['izena']); ?>" class="txartel-irudia"
-                      onerror="this.src='../irudiak/birtek1.jpeg'" />
-                    <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div>
-                  </div>
-                  <div class="txartel-edukia">
-                    <h3 class="txartel-izenburua"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
-                    <div class="txartel-informazio-lerroa">
-                      <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> |
-                        <?php echo htmlspecialchars($produktua['egoera']); ?></span>
-                      <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?></span>
+                  <div class="produktu-txartela" data-id="<?php echo $produktua['id_produktua']; ?>">
+                    <div class="txartel-irudia klikagarria-joan">
+                <!-- $p = $produktuak['irudia_url']-->
+                <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
+                <!-- <img src ="$rutaAbs . $p"-->
+                      <img
+                      
+                        src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
+                        alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
+                        class="txartel-irudia"
+                        onerror="this.src='../irudiak/birtek1.jpeg'"
+                      />
+                      <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div> 
                     </div>
-                    <p class="txartel-azalpena">
-                      <?php echo htmlspecialchars($produktua['deskribapena'] ?? ""); ?>
-                    </p>
+                    <div class="txartel-edukia">
+                      <h3 class="txartel-izenburua klikagarria-joan"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
+                      <div class="txartel-informazio-lerroa">
+                        <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> | <?php echo htmlspecialchars($produktua['egoera']); ?></span>
+                        <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?></span>
+                      </div>
+                      <p class="txartel-azalpena">
+                        <?php echo htmlspecialchars($produktua['deskribapena'] ?? ""); ?>
+                      </p>
 
-                    <div class="txartel-oina">
-                      <span class="txartel-prezioa"><?php echo $prezioaFix; ?> €</span>
-                      <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled' : ''; ?>>
-                        Saskiratu
-                      </button>
-                      <button class="produktua-ikusi-botoia"
-                        onclick="window.location.href='produktua_xehetasunak.php?id=<?php echo $produktua['id_produktua']; ?>'">Ikusi</button>
-                    </div>
+                      <div class="txartel-oina">
+                        <span class="txartel-prezioa"><?php echo $prezioaFix; ?> €</span>
+                        <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled' : ''; ?>>
+                          Saskiratu
+                        </button>
+                        <button class="produktua-ikusi-botoia klikagarria-joan">Ikusi</button>
+                      </div>
                   </div>
                 </div>
               <?php endforeach; ?>

@@ -39,4 +39,38 @@ $(document).ready(function () {
     });
     */
   });
+  // Eskaera inprimakiaren bidalketa (AJAX)
+  $(".kontaktu-inprimaki-diseinua").on("submit", function (e) {
+    e.preventDefault();
+    var $form = $(this);
+    var formData = new FormData(this);
+    var $submitBtn = $form.find('button[type="submit"]');
+
+    // Desgaitu botoia
+    $submitBtn.prop("disabled", true).text("Bidaltzen...");
+
+    $.ajax({
+      url: "../php/gorde_eskaera_langilea.php",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        // Formularioa garbitu eta mezua erakutsi
+        $(".inprimaki-kutxa").html(
+          '<div class="testua-zentratuta" style="padding: 2rem;">' +
+            '<i class="fas fa-check-circle fa-4x" style="color: #28a745; margin-bottom: 1rem;"></i>' +
+            '<h3 style="color: #333;">Eskaera bidalita, eskerrikasko!</h3>' +
+            '<p class="testua-grisa tartea-goian-1">Laster jarriko gara zurekin harremanetan.</p>' +
+            '<button class="botoia botoi-nagusia tartea-goian-2" onclick="location.reload()">Itzuli</button>' +
+            "</div>"
+        );
+      },
+      error: function (xhr, status, error) {
+        console.error("Errorea:", error);
+        alert("Errorea gertatu da eskaera bidaltzean. Mesedez, saiatu berriro.");
+        $submitBtn.prop("disabled", false).text("Eskaera Bidali");
+      },
+    });
+  });
 });

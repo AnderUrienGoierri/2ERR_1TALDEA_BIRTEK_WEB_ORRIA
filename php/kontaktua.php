@@ -11,7 +11,7 @@ session_start();
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="../css/fontawesome/css/all.min.css"
     />
     <!-- Google Fonts -->
     <link

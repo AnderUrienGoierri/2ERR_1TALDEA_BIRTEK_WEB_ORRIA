@@ -586,7 +586,6 @@ body {
   align-items: center; /* Zentroan agertzeko */
   justify-content: center;
   padding: 1rem;
-  backdrop-filter: blur(4px);
 }
 .modala-geruza.erakutsi {
   display: flex;
@@ -603,15 +602,8 @@ body {
   padding: 0;
   box-shadow: var(--itzala-lg);
   transform: scale(0.95);
-  animation: modalSartu 0.3s forwards;
 }
 
-@keyframes modalSartu {
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
 .modala-goiburua {
   padding: 1rem;

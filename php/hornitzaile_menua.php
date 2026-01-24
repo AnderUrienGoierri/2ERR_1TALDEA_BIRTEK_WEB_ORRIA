@@ -12,7 +12,7 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hornitzailearen Menua - BIRTEK</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">

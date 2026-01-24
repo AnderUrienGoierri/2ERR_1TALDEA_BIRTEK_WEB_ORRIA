@@ -111,7 +111,7 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
 <head>
     <meta charset="UTF-8">
     <title>FAKTURA #<?= $id_eskaera ?> - BIRTEK</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_faktura.css">
 
 </head>

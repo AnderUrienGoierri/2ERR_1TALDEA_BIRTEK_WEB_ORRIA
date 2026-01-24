@@ -216,7 +216,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarrera Egin - BIRTEK</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_kontaktua.css">
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">

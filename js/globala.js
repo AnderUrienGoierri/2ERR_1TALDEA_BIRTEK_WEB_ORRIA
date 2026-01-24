@@ -21,7 +21,6 @@ $(document).ready(function () {
     return helburuFitxategia;
   }
 
-  // ... (Session functions remain the same as they use jQuery) ...
 
   // --- SASKI MODALA INJEKZIOA ---
   if ($("#saski-modala").length === 0) {
@@ -53,25 +52,7 @@ $(document).ready(function () {
     $("body").append(saskiHtml);
   }
 
-  // Toggle Herria Input (jQuery version)
-  $(document).on("change", "select[id^='herria_id_']", function () {
-    var mota = this.id.split("_").pop();
-    var $edukiontzia = $("#herria_berria_container_" + mota);
-    var $hautatua = $(this);
 
-    if ($hautatua.val() === "other") {
-      $edukiontzia.addClass("erakutsi-block");
-      $edukiontzia
-        .find('input[name="herria_berria"], input[name="lurraldea_berria"]')
-        .prop("required", true);
-    } else {
-      $edukiontzia.removeClass("erakutsi-block");
-      $edukiontzia
-        .find('input[name="herria_berria"], input[name="lurraldea_berria"]')
-        .prop("required", false)
-        .val("");
-    }
-  });
 
   // --- SASKIAREN LOGIKA (GLOBAL) ---
 
@@ -155,18 +136,12 @@ $(document).ready(function () {
           <tr>
             <td>${item.izena}</td>
             <td class="kopuru-kontrola-td">
-              <button class="kop-mod-btn minus" onclick="window.saskiaAldatuKantitatea(${
-                item.id
-              }, -1)">-</button>
+              <button class="kop-mod-btn minus" data-id="${item.id}" data-aldatu="-1">-</button>
               <span class="kopuru-balioa">${item.kantitatea}</span>
-              <button class="kop-mod-btn plus" onclick="window.saskiaAldatuKantitatea(${
-                item.id
-              }, 1)">+</button>
+              <button class="kop-mod-btn plus" data-id="${item.id}" data-aldatu="1">+</button>
             </td>
             <td>${azpiTotala.toFixed(2)}€</td>
-            <td><button class="saski-ezabatu-txikia" onclick="window.saskiaEzabatu(${
-              item.id
-            })">&times;</button></td>
+            <td><button class="saski-ezabatu-txikia" data-id="${item.id}">&times;</button></td>
           </tr>
         `;
       });
@@ -207,7 +182,7 @@ $(document).ready(function () {
     if (item) {
       var nKop = item.kantitatea + aldatu;
 
-      // Stock Check
+      // Stock konprobazioa
       if (aldatu > 0 && nKop > item.stock) {
         alert("Ezin da gehiago gehitu, stock-a agortu da.");
         return;
@@ -255,6 +230,19 @@ $(document).ready(function () {
       return;
     }
     window.location.href = ebatziUrl("php", "bezero_erosketa.php");
+  });
+
+  // Saskiko kantitatea aldatu botoiak
+  $(document).on("click", ".kop-mod-btn", function () {
+    var id = $(this).data("id");
+    var aldatu = parseInt($(this).data("aldatu"));
+    window.saskiaAldatuKantitatea(id, aldatu);
+  });
+
+  // Saskiko ezabatu botoia
+  $(document).on("click", ".saski-ezabatu-txikia", function () {
+    var id = $(this).data("id");
+    window.saskiaEzabatu(id);
   });
 
   // Hasieratu kontagailua orria kargatzean

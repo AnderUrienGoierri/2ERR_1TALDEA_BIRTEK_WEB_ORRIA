@@ -120,7 +120,7 @@ function produktuakBistaratu(produktuak) {
   });
 }
 
-// Delegation for clicks on products
+// Produktuak klikatzean
 $(document).on("click", ".klikagarria-joan", function (e) {
   var id = $(this).closest(".produktu-txartela").data("id");
   if (id) {
