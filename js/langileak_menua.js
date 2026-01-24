@@ -40,7 +40,7 @@ $(document).ready(function () {
     */
   });
   // Eskaera inprimakiaren bidalketa (AJAX)
-  $(".kontaktu-inprimaki-diseinua").on("submit", function (e) {
+  $("#langile-eskaera-inprimakia").on("submit", function (e) {
     e.preventDefault();
     var $form = $(this);
     var formData = new FormData(this);

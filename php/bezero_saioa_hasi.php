@@ -41,6 +41,12 @@ try {
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Saioa Hasi</h3>
           <p class="tartea-behean-1-5 testua-grisa">Dagoeneko kontua baduzu, sartu hemen:</p>
+
+          <?php if (isset($_GET['error'])): ?>
+            <div class="login-errore-mezua tartea-behean-1">
+              <i class="fas fa-exclamation-circle"></i> Posta elektronikoa edo pasahitza okerrak dira.
+            </div>
+          <?php endif; ?>
           <form class="kontaktu-inprimaki-diseinua" action="login_bezeroa.php" method="POST">
             <div>
               <input type="email" name="emaila" placeholder="Posta elektronikoa" class="inprimaki-sarrera" required />

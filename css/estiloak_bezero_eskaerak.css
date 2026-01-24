@@ -54,10 +54,9 @@
 }
 
 .eskari-gorputza {
-  padding: 0.5rem; /* Less padding on mobile */
+  padding: 0.5rem; 
 }
 
-/* Scrollable container for tables on small screens */
 .taula-scroll-edukiontzia {
   overflow-x: auto;
   width: 100%;
@@ -68,7 +67,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
-  min-width: 500px; /* Force scroll on very small screens */
+  min-width: 500px; 
 }
 
 .lerro-taula th,
