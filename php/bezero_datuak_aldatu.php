@@ -36,8 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emaila = $_POST['emaila'];
     $hizkuntza = $_POST['hizkuntza'];
     $pasahitza = $_POST['pasahitza'];
+    $herria_izena = $_POST['herria_berria'] ?? '';
+    $lurraldea = $_POST['lurraldea_berria'] ?? '';
+    $nazioa = $_POST['nazioa_berria'] ?? '';
 
     try {
+        // Herri berria bada, txertatu lehenago
+        if ($herria_id === 'berria' && !empty($herria_izena)) {
+            $sql_herria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, :nazioa)";
+            $stmt_herria = $konexioa->prepare($sql_herria);
+            $stmt_herria->execute([
+                ':izena' => $herria_izena,
+                ':lurraldea' => $lurraldea,
+                ':nazioa' => $nazioa
+            ]);
+            $herria_id = $konexioa->lastInsertId();
+        }
         $sql = "UPDATE bezeroak SET 
                 izena_edo_soziala = :izena, 
                 abizena = :abizena, 
@@ -83,13 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $mezua = "Datuak ondo eguneratu dira!";
-        $_SESSION['izena'] = $izena_edo_soziala; // Update session name
+        $_SESSION['izena'] = $izena_edo_soziala; // 
     } catch (PDOException $e) {
         $mezua = "Errorea: " . $e->getMessage();
     }
 }
 
-// Fetch current data
+
 $stmt = $konexioa->prepare("SELECT * FROM bezeroak WHERE id_bezeroa = :id");
 $stmt->execute([':id' => $id_bezeroa]);
 $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -113,8 +127,8 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-        <div class="inprimaki-edukiontzia bazter-borobilduak itzala-arin">
-            <h2 class="inprimaki-titulua inprimaki-izenburu-zentratua">Datu Pertsonalak Aldatu</h2>
+        <div class="inprimaki-edukiontzia">
+            <h2 class="inprimaki-titulua">Datu Pertsonalak Aldatu</h2>
 
             <?php if ($mezua): ?>
                 <p class="arrakasta-mezua"><?= $mezua ?></p>
@@ -179,13 +193,35 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Herria:</label>
-                        <select name="herria_id" class="inprimaki-sarrera" required>
+                        <select name="herria_id" id="herria_id" class="inprimaki-sarrera" required>
                             <?php foreach ($herriak as $herria): ?>
                                 <option value="<?= $herria['id_herria'] ?>" <?= ($bezeroa['herria_id'] == $herria['id_herria']) ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($herria['izena']) ?>
                                 </option>
                             <?php endforeach; ?>
+                            <option value="berria">-- Aukeratu Beste Bat --</option>
                         </select>
+                    </div>
+
+                    <div id="herri_berria_atala" class="herri-berria-panela zutabe-osoa" style="display: none;">
+                        <h4 class="herri-berria-izenburua">Herri Berriaren Datuak</h4>
+                        <div class="herri-berria-sareta">
+                            <div class="inprimaki-taldea">
+                                <label>Herriaren Izena:</label>
+                                <input type="text" name="herria_berria" id="herria_berria"
+                                    class="inprimaki-sarrera" placeholder="Adib: Tolosa">
+                            </div>
+                            <div class="inprimaki-taldea">
+                                <label>Lurraldea:</label>
+                                <input type="text" name="lurraldea_berria" id="lurraldea_berria"
+                                    class="inprimaki-sarrera" placeholder="Adib: Gipuzkoa">
+                            </div>
+                            <div class="inprimaki-taldea">
+                                <label>Nazioa:</label>
+                                <input type="text" name="nazioa_berria" id="nazioa_berria"
+                                    class="inprimaki-sarrera" placeholder="Adib: Euskal Herria">
+                            </div>
+                        </div>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Posta Kodea:</label>
@@ -229,6 +265,23 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#herria_id').on('change', function () {
+                if ($(this).val() === 'berria') {
+                    $('#herri_berria_atala').slideDown();
+                    $('#herria_berria').attr('required', true);
+                    $('#lurraldea_berria').attr('required', true);
+                    $('#nazioa_berria').attr('required', true);
+                } else {
+                    $('#herri_berria_atala').slideUp();
+                    $('#herria_berria').removeAttr('required');
+                    $('#lurraldea_berria').removeAttr('required');
+                    $('#nazioa_berria').removeAttr('required');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

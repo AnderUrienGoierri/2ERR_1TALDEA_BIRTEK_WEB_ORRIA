@@ -14,7 +14,7 @@
 .produktuak-orria {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -197,7 +197,7 @@
 }
 
 .txartel-edukia {
-  padding: 1rem; /* Reduced for 320px */
+  padding: 1rem; 
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -225,7 +225,7 @@
 }
 
 .txartel-prezioa {
-  font-size: 1.25rem; /* Fixed: was 0.5rem */
+  font-size: 1.25rem; 
   font-weight: 700;
   color: #166534;
 }

@@ -76,7 +76,8 @@ try {
                 required />
             </div>
             <div>
-              <input type="text" name="nan" placeholder="NAN / IFZ" class="inprimaki-sarrera" required />
+              <input type="text" name="nan" placeholder="NAN / IFZ (9 karaktere)" class="inprimaki-sarrera" required
+                maxlength="9" minlength="9" />
             </div>
             <div>
               <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
@@ -92,6 +93,10 @@ try {
             </div>
             <div>
               <input type="text" name="lurraldea" placeholder="Lurraldea (Probintzia) - Beharrezkoa berria bada"
+                class="inprimaki-sarrera" />
+            </div>
+            <div>
+              <input type="text" name="nazioa" placeholder="Nazioa - Beharrezkoa berria bada"
                 class="inprimaki-sarrera" />
             </div>
             <div>
@@ -114,6 +119,7 @@ try {
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/globala.js"></script>
+  <script src="../js/hornitzaile_saioa_hasi.js"></script>
   <script>
     $(document).on("session:valid", function (e, user, type) {
       var menuUrl = (type === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';

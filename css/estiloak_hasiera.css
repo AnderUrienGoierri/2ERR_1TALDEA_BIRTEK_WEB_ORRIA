@@ -16,14 +16,6 @@
   backdrop-filter: blur(10px);
 }
 
-@media (min-width: 768px) {
-  .azal-kaxa {
-    padding: 3rem 1rem;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-  }
-}
-
 .azal-izenburua {
   font-size: 1.75rem; /* Reduced for 320px */
   font-weight: 800;
@@ -33,20 +25,6 @@
   font-family: var(--font-izenburua);
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-@media (min-width: 768px) {
-  .azal-izenburua {
-    font-size: 3rem;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .azal-izenburua {
-    font-size: 4rem;
-  }
 }
 
 .azal-azpititulua {
@@ -122,20 +100,8 @@
   box-shadow: var(--itzala-lg);
 }
 
-@media (min-width: 768px) {
-  .hasiera-txartel-lerroa {
-    flex-direction: row;
-  }
-}
-
 .hasiera-zutabea {
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .hasiera-zutabea {
-    width: 50%;
-  }
 }
 
 .hasiera-txartel-irudia {
@@ -176,14 +142,44 @@
   border-radius: 1.5rem;
 }
 
-@media (min-width: 1024px) {
-  .hasiera-slider-egitura img {
-    height: 600px;
-  }
-}
-
 .bx-wrapper {
   border: none !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
   border-radius: 1.5rem;
+}
+
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
+
+@media (min-width: 768px) {
+  .azal-kaxa {
+    padding: 3rem 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .azal-izenburua {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .hasiera-txartel-lerroa {
+    flex-direction: row;
+  }
+
+  .hasiera-zutabea {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .azal-izenburua {
+    font-size: 4rem;
+  }
+
+  .hasiera-slider-egitura img {
+    height: 600px;
+  }
 }

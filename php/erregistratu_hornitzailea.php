@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Herria kudeatu (Izena bidez bilatu edo sortu)
         $herria_izena = trim($_POST['herria_izena'] ?? '');
         $lurraldea = trim($_POST['lurraldea'] ?? '');
+        $nazioa = trim($_POST['nazioa'] ?? 'Euskal Herria');
 
         if (empty($herria_izena)) {
             die("Herria beharrezkoa da.");
@@ -47,9 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die("Herria berria bada, Lurraldea (probintzia) zehaztea beharrezkoa da.");
             }
             // Txertatu berria
-            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, 'Euskal Herria')";
+            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, :nazioa)";
             $stmtHerria = $konexioa->prepare($sqlHerria);
-            $stmtHerria->execute([':izena' => $herria_izena, ':lurraldea' => $lurraldea]);
+            $stmtHerria->execute([':izena' => $herria_izena, ':lurraldea' => $lurraldea, ':nazioa' => $nazioa]);
             $herria_id = $konexioa->lastInsertId();
         }
 

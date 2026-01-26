@@ -1,6 +1,6 @@
 <footer class="oin-nagusia">
   <div class="oin-sarea">
-    <div class="testua-erdian md:text-left">
+    <div class="testua-erdian">
       <h3 class="oin-izenburua">BIRTEK</h3>
       <img src="../irudiak/birtek_logo_berde_karratua.png" alt="BIRTEK Logo Karratua" class="oin-logo-irudia">
       <p class="oin-testua">Teknologia berreskuratzen, etorkizuna eraikitzen. Goierri Eskolan kokatuta.</p>
@@ -16,7 +16,7 @@
       </div>
       <div><a href="https://wa.me/34600000000" class="oin-whatsapp-botoia"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
     </div>
-    <div class="testua-erdian md:text-right">
+    <div class="testua-erdian">
       <h4 class="oin-goiburua">Lotura Azkarrak</h4>
       <ul class="oin-nab-zerrenda">
         <li><a href="hasiera.php" class="oin-lotura">Hasiera</a></li>

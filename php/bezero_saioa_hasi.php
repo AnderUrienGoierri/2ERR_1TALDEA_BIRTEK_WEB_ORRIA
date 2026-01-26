@@ -76,7 +76,8 @@ try {
                 required />
             </div>
             <div>
-              <input type="text" name="nan" placeholder="NAN / IFZ" class="inprimaki-sarrera" required />
+              <input type="text" name="nan" placeholder="NAN / IFZ (9 karaktere)" class="inprimaki-sarrera" required
+                maxlength="9" minlength="9" />
             </div>
             <div>
               <input type="text" name="helbidea" placeholder="Helbidea" class="inprimaki-sarrera" />
@@ -92,6 +93,10 @@ try {
             </div>
             <div>
               <input type="text" name="lurraldea" placeholder="Lurraldea (Probintzia) - Beharrezkoa berria bada"
+                class="inprimaki-sarrera" />
+            </div>
+            <div>
+              <input type="text" name="nazioa" placeholder="Nazioa - Beharrezkoa berria bada"
                 class="inprimaki-sarrera" />
             </div>
             <div>
@@ -114,14 +119,15 @@ try {
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/globala.js"></script>
+  <script src="../js/bezero_saioa_hasi.js"></script>
   <script>
     // saioa hasita badago:
     $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
       var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
       $(".kontaktu-sareta").html(
-        '<div class="testua-zentratuta ongietorri-kutxa-osagarria">' +
-        '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
-        '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
+        '<div>' +
+        '<h2>Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
+        '<p>Dagoeneko saioa hasita daukazu.</p>' +
         '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
         '</div>'
       );

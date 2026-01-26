@@ -1,25 +1,6 @@
 /* --- JavaScript jQuery .JS --- */
 
 $(document).ready(function () {
-  // --- KONFIGURAZIOA ---
-  function ebatziUrl(helburuMota, helburuFitxategia) {
-    var unekoBidea = window.location.pathname;
-    var azpiKarpetaDa =
-      unekoBidea.includes("/html/") || unekoBidea.includes("/php/");
-
-    if (helburuMota === "php" || helburuMota === "html") {
-      var file = helburuFitxategia;
-      if (helburuMota === "html" && file.endsWith(".html")) {
-        file = file.replace(".html", ".php");
-      }
-
-      if (azpiKarpetaDa && unekoBidea.includes("/php/")) return file;
-      if (azpiKarpetaDa && unekoBidea.includes("/html/"))
-        return "../php/" + file;
-      return "php/" + file;
-    }
-    return helburuFitxategia;
-  }
 
 
   // --- SASKI MODALA INJEKZIOA ---
@@ -53,6 +34,10 @@ $(document).ready(function () {
   }
 
 
+  // --- MUGIKOR MENU LOGIKA ---
+  $(document).on("click", "#mugikor-menu-botoia", function () {
+    $("#mugikor-menua").toggleClass("erakutsi");
+  });
 
   // --- SASKIAREN LOGIKA (GLOBAL) ---
 
@@ -234,7 +219,7 @@ $(document).ready(function () {
       alert("Saskia hutsik dago!");
       return;
     }
-    window.location.href = ebatziUrl("php", "bezero_erosketa.php");
+    window.location.href = "bezero_erosketa.php";
   });
 
   // Saskiko kantitatea aldatu botoiak
@@ -260,33 +245,10 @@ $(document).ready(function () {
     function (e) {
       e.preventDefault();
       if (confirm("Ziur zaude saioa itxi nahi duzula?")) {
-        window.location.href = ebatziUrl("php", "logout.php");
+        window.location.href = "logout.php";
       }
     },
   );
-
-  // --- MUGIKOR MENU LOGIKA ---
-  $(document).on("click", "#mugikor-menu-botoia", function () {
-    $("#mugikor-menua").toggleClass("erakutsi");
-  });
- 
-  // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
-  $(document).on("submit", "#bezero-erregistro-form, #hornitzaile-erregistro-form", function (e) {
-    var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
-    var errorea = "";
-
-    // 1. Luzera egiaztatu
-    if (pasahitza.length < 8) {
-      errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
-    } 
-    // 2. Karakter berezia egiaztatu
-    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
-      errorea = "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
-    }
-
-    if (errorea !== "") {
-      e.preventDefault();
-      alert(errorea);
-    }
-  });
 });
+
+

@@ -585,7 +585,6 @@ body {
   z-index: 1050;
   align-items: center; /* Zentroan agertzeko */
   justify-content: center;
-  padding: 1rem;
 }
 .modala-geruza.erakutsi {
   display: flex;
@@ -675,7 +674,7 @@ body {
 }
 
 .saski-taula td {
-  padding: 1rem 0.5rem;
+  padding: 0.6rem 0.1rem;
   border-bottom: 1px solid #f3f4f6;
   vertical-align: middle;
 }
@@ -710,7 +709,6 @@ body {
 .kopuru-kontrola-td {
   display: flex !important;
   align-items: center;
-  gap: 0.5rem;
   justify-content: center;
 }
 .kop-mod-btn {
@@ -806,7 +804,6 @@ body {
   text-decoration: none;
 }
 .azal-cta-botoia {
-  /* Fix: Class name was inconsistent in original CSS (azal-ekintza vs azal-cta) */
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -873,7 +870,7 @@ body {
 }
 
 /* --- EDUKIAK / PRODUKTU ESTEKA --- */
-/* --- EDUKIAK / PRODUKTU ESTEKA --- */
+
 .produktu-esteka {
   color: var(--kolore-urdina);
   text-decoration: none;
@@ -887,7 +884,7 @@ body {
 }
 
 /* HORNITZAILEA LOGEATUTA ESTILOA (Globala, saioa itxi arte) */
-/* HORNITZAILEA LOGEATUTA ESTILOA (Globala, saioa itxi arte) */
+
 .nab-botoia.hornitzailea-aktibo {
   background-color: var(--kolore-urdina);
   color: white;
@@ -898,7 +895,7 @@ body {
   background-color: var(--kolore-urdina-iluna);
 }
 
-/* --- MUGIKORRAREN USER CONTAINER --- */
+/* --- MUGIKORRAREN EDUKIONTZIA --- */
 .mugikor-erabiltzaile-edukiontzia {
   display: flex;
   flex-direction: column;
@@ -926,7 +923,7 @@ body {
   color: #374151;
 }
 
-/* Logout Utility classes */
+/* Logout utilidade klaseak */
 .botoi-gorria {
   background: var(--kolore-gorria-argia);
   color: var(--kolore-gorria-iluna);
@@ -1086,104 +1083,12 @@ body {
 
 
 
-/* ========================================================================= */
-/* --- MEDIA QUERIES (AT THE END) --- */
-/* ========================================================================= */
-
-@media (min-width: 400px) {
-  .nab-ekintzak {
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 0.4rem;
-  }
-  .saioa-hasi-botoia span {
-    display: inline-block;
-  }
-  .saski-kontagailu-txapa {
-    position: absolute;
-    top: -18px;
-    right: 20px;
-  }
-  .saski-botoia span:not(.saski-kontagailu-txapa) {
-    display: inline;
-  }
-}
-
-@media (min-width: 710px) {
-  .nab-menu-mahaigaina {
-    gap: 0.5rem;
-    font-size: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-height: 4.7rem; /* (Padding 0.3*2 + Line-height 1.5) * 2 + Gap 0.5 */
-    overflow: hidden;
-  }
-  .nab-botoia {
-    padding: 0.3rem 0.5rem;
-  }
-  .mugikor-menu-botoia {
-    display: none;
-  }
-  .mugikor-menu-edukiontzia.erakutsi,
-  .mugikor-menu-edukiontzia {
-    display: none;
-  }
-}
-
-/* 768px tik gora zabaltzen denean */
-@media (min-width: 768px) {
-  .eduki-nagusia {
-    margin-top: 7rem;
-    margin-bottom: 4rem;
-  }
-  .goiburu-barnealdea {
-    height: 7rem;
-    gap: 0.2rem;
-    padding: 0;
-  }
-  .logoa {
-    font-size: 2.5rem;
-  }
-  .saioa-hasi-botoia {
-    font-size: 0.95rem;
-    padding: 0.4rem 0.8rem;
-    max-width: 200px;
-  }
-  .saski-botoia {
-    font-size: 1.1rem;
-    margin-right: 1rem;
-  }
-
-  .oin-sarea {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .md\:text-left {
-    text-align: left;
-  }
-  .md\:text-right {
-    text-align: right;
-  }
-}
-
-@media (min-width: 1170px) {
-  .logoa {
-    font-size: 3.5rem;
-  }
-}
-
 .erosketa-sareta {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-@media (min-width: 900px) {
-  .erosketa-sareta {
-    grid-template-columns: 3fr 2fr;
-  }
 }
 
 /* --- EROSKETA ARRAKASTA MEZUA --- */
@@ -1288,7 +1193,7 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
-/* --- SEMANTIC CLASSES FOR REFACTORING --- */
+
 .ongietorri-kutxa-osagarria {
   grid-column: 1 / -1;
   padding: 2rem;
@@ -1338,14 +1243,117 @@ body {
   gap: 0.5rem;
 }
 
-.m-0 {
-  margin: 0;
-}
-
 .alert-berdea {
   background: #d4edda;
   color: #155724;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
+}
+
+/* --- MEZUA UTILITATEAK --- */
+.mezua-kutxa-arrakasta {
+  padding: 2rem;
+  text-align: center;
+}
+
+.mezua-ikonoa-arrakasta {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.mezua-titulua-arrakasta {
+  color: #333;
+}
+
+/* ========================================================================= */
+/* --- MEDIA QUERIES (AT THE END) --- */
+/* ========================================================================= */
+
+@media (min-width: 400px) {
+  .nab-ekintzak {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+  .saioa-hasi-botoia span {
+    display: inline-block;
+  }
+  .saski-kontagailu-txapa {
+    position: absolute;
+    top: -18px;
+    right: 20px;
+  }
+  .saski-botoia span:not(.saski-kontagailu-txapa) {
+    display: inline;
+  }
+}
+
+@media (min-width: 710px) {
+  .nab-menu-mahaigaina {
+    gap: 0.5rem;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 4.7rem; /* (Padding 0.3*2 + Line-height 1.5) * 2 + Gap 0.5 */
+    overflow: hidden;
+  }
+  .nab-botoia {
+    padding: 0.3rem 0.5rem;
+  }
+  .mugikor-menu-botoia {
+    display: none;
+  }
+  .mugikor-menu-edukiontzia.erakutsi,
+  .mugikor-menu-edukiontzia {
+    display: none;
+  }
+}
+
+/* 768px tik gora zabaltzen denean */
+@media (min-width: 768px) {
+  .eduki-nagusia {
+    margin-top: 7rem;
+    margin-bottom: 4rem;
+  }
+  .goiburu-barnealdea {
+    height: 7rem;
+    gap: 0.2rem;
+    padding: 0;
+  }
+  .logoa {
+    font-size: 2.5rem;
+  }
+  .saioa-hasi-botoia {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+    max-width: 200px;
+  }
+  .saski-botoia {
+    font-size: 1.1rem;
+    margin-right: 1rem;
+  }
+
+  .oin-sarea {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .md\:text-left {
+    text-align: left;
+  }
+  .md\:text-right {
+    text-align: right;
+  }
+}
+
+@media (min-width: 900px) {
+  .erosketa-sareta {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+@media (min-width: 1170px) {
+  .logoa {
+    font-size: 3.5rem;
+  }
 }

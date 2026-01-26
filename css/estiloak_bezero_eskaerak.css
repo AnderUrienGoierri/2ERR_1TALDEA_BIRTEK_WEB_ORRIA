@@ -18,7 +18,7 @@
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
-  flex-direction: column; /* Mobile first: stacked */
+  flex-direction: column; 
   gap: 1rem;
 }
 
@@ -57,9 +57,11 @@
   padding: 0.5rem; 
 }
 
-.taula-scroll-edukiontzia {
+.taula-scroll-edukiontzia,
+#erosketa-saski-container {
   overflow-x: auto;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lerro-taula {
@@ -95,6 +97,15 @@
   padding: 1rem;
 }
 
+.saski-oina-guztira {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  border-top: 1px solid #eee;
+  background: #f9fafb;
+}
+
 .atzera-botoia {
   display: inline-flex;
   align-items: center;
@@ -122,7 +133,7 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%; /* Full width on mobile buttons inside grid/flex */
+  width: 100%; 
 }
 
 .ezabatu-eskaria-botoia {

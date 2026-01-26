@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS bezeroak (
     helbidea VARCHAR(150) NOT NULL,
     herria_id INT UNSIGNED NOT NULL,
     posta_kodea VARCHAR(5) NOT NULL,
-    telefonoa VARCHAR(15) NOT NULL,
+    telefonoa VARCHAR(15),
     
     -- Login eta Hizkuntza
     emaila VARCHAR(255) UNIQUE NOT NULL, -- NVARCHAR ordez VARCHAR erabilita bateragarritasunerako
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS hornitzaileak (
     helbidea VARCHAR(150) NOT NULL,
     herria_id INT UNSIGNED NOT NULL,
     posta_kodea VARCHAR(5) NOT NULL,
-    telefonoa VARCHAR(15) NOT NULL,
+    telefonoa VARCHAR(15),
     
     -- Login
     emaila VARCHAR(255) UNIQUE NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS produktuak (
     irudia_url VARCHAR(255),
     
     -- Egoera
-    biltegi_id INT UNSIGNED,
+    biltegi_id INT UNSIGNED NOT NULL,
     produktu_egoera ENUM('Berria', 'Berritua A', 'Berritua B', 'Hondatua', 'Zehazteko') NOT NULL DEFAULT 'Zehazteko',
     produktu_egoera_oharra TEXT,
     salgai BOOLEAN DEFAULT FALSE,

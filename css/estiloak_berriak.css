@@ -17,7 +17,7 @@
 }
 
 .berriak-titulua {
-  font-size: 1.75rem; /* Smaller for mobile first */
+  font-size: 1.75rem;
   font-weight: 800;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -29,14 +29,7 @@
   display: block;
 }
 
-@media (min-width: 768px) {
-  .berriak-titulua {
-    font-size: 2.25rem;
-    margin-bottom: 3rem;
-  }
-}
-
-/* --- GRID LAYOUT --- */
+/* --- GRID --- */
 .berriak-sarea {
   display: grid;
   grid-template-columns: repeat(1, 1fr); /* Mugikorra lehenetsi */
@@ -44,18 +37,6 @@
   max-width: 1200px; /* Zabalera maximoa zabaldu */
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-@media (min-width: 768px) {
-  .berriak-sarea {
-    grid-template-columns: repeat(2, 1fr); /* Tablet */
-  }
-}
-
-@media (min-width: 1024px) {
-  .berriak-sarea {
-    grid-template-columns: repeat(3, 1fr); /* Mahaigaina */
-  }
 }
 
 /* --- ALBISTE TXARTELA --- */
@@ -95,18 +76,11 @@
   transform: scale(1.05);
 }
 
-/* --- EDUKIA --- */
 .albiste-edukia {
-  padding: 1rem; /* Reduced for 320px */
+  padding: 1rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
-
-@media (min-width: 375px) {
-  .albiste-edukia {
-    padding: 1.5rem;
-  }
 }
 
 .albiste-kategoria {
@@ -142,4 +116,31 @@
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 0;
+}
+
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
+
+@media (min-width: 375px) {
+  .albiste-edukia {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .berriak-titulua {
+    font-size: 2.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .berriak-sarea {
+    grid-template-columns: repeat(2, 1fr); /* Tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .berriak-sarea {
+    grid-template-columns: repeat(3, 1fr); /* Mahaigaina */
+  }
 }

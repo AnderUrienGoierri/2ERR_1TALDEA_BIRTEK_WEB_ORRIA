@@ -16,15 +16,6 @@
   padding: 0 1.5rem;
 }
 
-@media (min-width: 640px) {
-  .menu-bezeroa {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-}
-
-
-
 .menu-txartela {
   background: white;
   border-radius: 1.5rem;
@@ -65,4 +56,11 @@
   margin: 2rem auto;
   text-decoration: none;
   font-weight: bold;
+}
+
+@media (min-width: 640px) {
+  .menu-bezeroa {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
 }
