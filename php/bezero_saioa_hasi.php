@@ -66,7 +66,8 @@ try {
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Erregistratu</h3>
           <p class="tartea-behean-1-5 testua-grisa">Berria zara? Sortu kontu bat erraz:</p>
-          <form class="kontaktu-inprimaki-diseinua" action="erregistratu_bezeroa.php" method="POST">
+          <form id="bezero-erregistro-form" class="kontaktu-inprimaki-diseinua" action="erregistratu_bezeroa.php"
+            method="POST">
             <div>
               <input type="text" name="izena" placeholder="Izena eta Abizenak" class="inprimaki-sarrera" required />
             </div>
@@ -100,7 +101,7 @@ try {
             <div>
               <input type="password" name="pasahitza_erregistroa" placeholder="Pasahitza segurua"
                 class="inprimaki-sarrera" required minlength="8" />
-              <p class="testua-txikia testua-grisa tartea-goian-txikia">Gutxienez 8 karaktere.</p>
+              <p>Gutxienez 8 karaktere.</p>
             </div>
             <button type="submit" class="botoia botoi-nagusia">Sortu Kontua</button>
           </form>
@@ -118,7 +119,7 @@ try {
     $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
       var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
       $(".kontaktu-sareta").html(
-        '<div class="testua-zentratuta ongietorri-kutxa">' +
+        '<div class="testua-zentratuta ongietorri-kutxa-osagarria">' +
         '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
         '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
         '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +

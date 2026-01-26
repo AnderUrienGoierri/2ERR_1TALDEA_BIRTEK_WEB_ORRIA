@@ -216,6 +216,11 @@ $(document).ready(function () {
     // Globala.js-ko funtzioa deitu
     if (typeof window.saskiaGehitu === "function") {
       window.saskiaGehitu(id, izena, prezioa, stock, $botoia);
+      
+      //  (soilik saskiratu denean)
+      if (typeof window.saskiaAnimatuKontagailua === "function") {
+        window.saskiaAnimatuKontagailua();
+      }
 
       // Saskia irekita badago, eguneratu ikuspegia
       if (

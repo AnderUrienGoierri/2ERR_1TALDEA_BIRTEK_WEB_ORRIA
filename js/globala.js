@@ -160,10 +160,15 @@ $(document).ready(function () {
     $.each(saskia, function (index, item) {
       kopuruTotala += item.kantitatea;
     });
-    $(".saski-kontagailua").text(kopuruTotala).addClass("saski-pop-animazioa");
+    $(".saski-kontagailua").text(kopuruTotala);
+  };
 
+  // 4.1. Animatu saski kontagailua (soilik "Saskiratu" egitean deitzeko)
+  window.saskiaAnimatuKontagailua = function () {
+    var $txapa = $(".saski-kontagailua");
+    $txapa.addClass("saski-pop-animazioa");
     setTimeout(function () {
-      $(".saski-kontagailua").removeClass("saski-pop-animazioa");
+      $txapa.removeClass("saski-pop-animazioa");
     }, 300);
   };
 
@@ -263,5 +268,25 @@ $(document).ready(function () {
   // --- MUGIKOR MENU LOGIKA ---
   $(document).on("click", "#mugikor-menu-botoia", function () {
     $("#mugikor-menua").toggleClass("erakutsi");
+  });
+ 
+  // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
+  $(document).on("submit", "#bezero-erregistro-form, #hornitzaile-erregistro-form", function (e) {
+    var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
+    var errorea = "";
+
+    // 1. Luzera egiaztatu
+    if (pasahitza.length < 8) {
+      errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
+    } 
+    // 2. Karakter berezia egiaztatu
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
+      errorea = "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
+    }
+
+    if (errorea !== "") {
+      e.preventDefault();
+      alert(errorea);
+    }
   });
 });

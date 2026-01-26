@@ -1288,3 +1288,64 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
+/* --- SEMANTIC CLASSES FOR REFACTORING --- */
+.ongietorri-kutxa-osagarria {
+  grid-column: 1 / -1;
+  padding: 2rem;
+}
+
+.ordainketa-info-kutxa {
+  text-align: center;
+}
+
+.ordainketa-ikonoa {
+  font-size: 5rem;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+
+.ordainketa-izenburua {
+  margin-bottom: 15px;
+}
+
+.ordainketa-testua {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 30px;
+}
+
+.botoi-taldea-zentratuta {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.botoi-grisa {
+  background-color: #4b5563;
+}
+
+.zutabe-osoa {
+  grid-column: 1 / -1;
+}
+
+.testu-eskubian {
+  text-align: right;
+}
+
+.label-flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.alert-berdea {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

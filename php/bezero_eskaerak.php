@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $konexioa->rollBack();
                 }
             } elseif ($_POST['action'] === 'delete_line' && isset($_POST['id_eskaera_lerroa']) && isset($_POST['id_eskaera'])) {
-                 // Check order status first
+                // Check order status first
                 $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = :id AND bezeroa_id = :uid");
                 $stmt->execute([':id' => $_POST['id_eskaera'], ':uid' => $id_bezeroa]);
                 $order = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -64,12 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // 3. Remove line
                         $deleteStmt = $konexioa->prepare("DELETE FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
                         $deleteStmt->execute([':id' => $_POST['id_eskaera_lerroa']]);
-                        
+
                         // 4. Update Order Total
                         $deduction = $line['unitate_prezioa'] * $line['kantitatea'];
                         $updateTotal = $konexioa->prepare("UPDATE eskaerak SET guztira_prezioa = guztira_prezioa - :val WHERE id_eskaera = :id");
                         $updateTotal->execute([':val' => $deduction, ':id' => $_POST['id_eskaera']]);
-                        
+
                         $konexioa->commit();
                         $mezua = "Produktua ezabatu da eta stock-a berreskuratu da.";
                     } else {
@@ -100,7 +100,8 @@ $stmt->execute([':id' => $id_bezeroa]);
 $eskaerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Helper function to fetch order lines
-function lortuEskeraLerroak($konexioa, $id_eskaera) {
+function lortuEskeraLerroak($konexioa, $id_eskaera)
+{
     $sql = "
         SELECT el.*, p.izena, p.deskribapena 
         FROM eskaera_lerroak el
@@ -114,6 +115,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
 ?>
 <!DOCTYPE html>
 <html lang="eu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -127,6 +129,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
         }
     </script>
 </head>
+
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
@@ -135,19 +138,19 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
             <a href="bezero_menua.php" class="atzera-botoia"><i class="fas fa-arrow-left"></i> Atzera</a>
             <h2>Nire Erosketak</h2>
             <?php if ($mezua): ?>
-                <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                <div class="alert-berdea">
                     <?= htmlspecialchars($mezua) ?>
                 </div>
             <?php endif; ?>
 
             <?php if (count($eskaerak) > 0): ?>
                 <?php foreach ($eskaerak as $eskaera): ?>
-                    <?php 
-                        $rawStatus = $eskaera['eskaera_egoera'];
-                        $statusClass = 'egoera-' . explode('/', $rawStatus)[0];
-                        $lerroak = lortuEskeraLerroak($konexioa, $eskaera['id_eskaera']);
-                        $isPrestatzen = (strpos($rawStatus, 'Prestatzen') !== false);
-                        $isOsatua = (strpos($rawStatus, 'Osatua') !== false || strpos($rawStatus, 'Bidalita') !== false);
+                    <?php
+                    $rawStatus = $eskaera['eskaera_egoera'];
+                    $statusClass = 'egoera-' . explode('/', $rawStatus)[0];
+                    $lerroak = lortuEskeraLerroak($konexioa, $eskaera['id_eskaera']);
+                    $isPrestatzen = (strpos($rawStatus, 'Prestatzen') !== false);
+                    $isOsatua = (strpos($rawStatus, 'Osatua') !== false || strpos($rawStatus, 'Bidalita') !== false);
                     ?>
                     <div class="eskari-txartela">
                         <div class="eskari-goiburua">
@@ -155,19 +158,20 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
                                 <div class="eskari-izenburua">Eskaera #<?= $eskaera['id_eskaera'] ?></div>
                                 <small class="testu-apala"><?= $eskaera['data'] ?></small>
                             </div>
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="botoi-taldea-zentratuta">
                                 <span class="eskari-egoera-etiketa <?= $statusClass ?>">
                                     <?= $eskaera['eskaera_egoera'] ?>
                                 </span>
                                 <?php if ($isPrestatzen): ?>
-                                    <form method="POST" onsubmit="return confirmDelete()" style="margin:0;">
+                                    <form method="POST" onsubmit="return confirmDelete()" class="m-0">
                                         <input type="hidden" name="action" value="delete_order">
                                         <input type="hidden" name="id_eskaera" value="<?= $eskaera['id_eskaera'] ?>">
                                         <button type="submit" class="ezabatu-eskaria-botoia">Ezabatu Eskaera</button>
                                     </form>
                                 <?php endif; ?>
                                 <?php if ($isOsatua): ?>
-                                    <a href="faktura.php?id=<?= $eskaera['id_eskaera'] ?>" target="_blank" class="faktura-deskargatu-botoia">Faktura Deskargatu</a>
+                                    <a href="faktura.php?id=<?= $eskaera['id_eskaera'] ?>" target="_blank"
+                                        class="faktura-deskargatu-botoia">Faktura Deskargatu</a>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -185,26 +189,30 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
                                     </thead>
                                     <tbody>
                                         <?php foreach ($lerroak as $lerroa): ?>
-                                        <tr>
-                                            <td>
-                                                <a href="produktua_xehetasunak.php?id=<?= $lerroa['produktua_id'] ?>" class="produktu-esteka">
-                                                    <?= htmlspecialchars($lerroa['izena']) ?>
-                                                </a>
-                                            </td>
-                                            <td><?= $lerroa['kantitatea'] ?></td>
-                                            <td><?= $lerroa['unitate_prezioa'] ?>€</td>
-                                            <td><?= $lerroa['kantitatea'] * $lerroa['unitate_prezioa'] ?>€</td>
-                                            <td>
-                                                <?php if ($isPrestatzen): ?>
-                                                    <form method="POST" onsubmit="return confirmDelete()" style="margin:0;">
-                                                        <input type="hidden" name="action" value="delete_line">
-                                                        <input type="hidden" name="id_eskaera" value="<?= $eskaera['id_eskaera'] ?>">
-                                                        <input type="hidden" name="id_eskaera_lerroa" value="<?= $lerroa['id_eskaera_lerroa'] ?>">
-                                                        <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
-                                                    </form>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="produktua_xehetasunak.php?id=<?= $lerroa['produktua_id'] ?>"
+                                                        class="produktu-esteka">
+                                                        <?= htmlspecialchars($lerroa['izena']) ?>
+                                                    </a>
+                                                </td>
+                                                <td><?= $lerroa['kantitatea'] ?></td>
+                                                <td><?= $lerroa['unitate_prezioa'] ?>€</td>
+                                                <td><?= $lerroa['kantitatea'] * $lerroa['unitate_prezioa'] ?>€</td>
+                                                <td>
+                                                    <?php if ($isPrestatzen): ?>
+                                                        <form method="POST" onsubmit="return confirmDelete()" class="m-0">
+                                                            <input type="hidden" name="action" value="delete_line">
+                                                            <input type="hidden" name="id_eskaera"
+                                                                value="<?= $eskaera['id_eskaera'] ?>">
+                                                            <input type="hidden" name="id_eskaera_lerroa"
+                                                                value="<?= $lerroa['id_eskaera_lerroa'] ?>">
+                                                            <button type="submit" class="ezabatu-lerroa-botoia"
+                                                                title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -224,5 +232,5 @@ function lortuEskeraLerroak($konexioa, $id_eskaera) {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
 </body>
-</html>
 
+</html>

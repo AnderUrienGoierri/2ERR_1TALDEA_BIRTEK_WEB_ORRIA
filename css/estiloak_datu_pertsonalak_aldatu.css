@@ -21,11 +21,43 @@
 
 .inprimaki-edukiontzia {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 2rem auto;
+  padding: 2rem;
   background: #fff;
   border-radius: 0.5rem;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
+
+.inprimaki-izenburu-zentratua {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.datu-aldaketa-botoia {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 12px;
+  font-size: 1.1rem;
+}
+
+.atzera-botoi-kontainer {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.herri-berria-panela {
+  display: none;
+  grid-column: 1 / -1;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.herri-berria-izenburua {
+  margin-bottom: 1rem;
+  color: var(--kolore-nagusia);
+}
+

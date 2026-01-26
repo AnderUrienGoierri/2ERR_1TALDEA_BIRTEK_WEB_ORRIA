@@ -410,3 +410,14 @@
   }
 }
 
+.kontaktu-irudia {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cv-igoera-sarrera {
+  padding: 10px;
+}

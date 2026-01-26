@@ -43,7 +43,8 @@ try {
 }
 
 // Funtzioa fitxategi teknikoak lortzeko (Helper)
-function lortuXehetasunTeknikoak($kont, $id, $mota) {
+function lortuXehetasunTeknikoak($kont, $id, $mota)
+{
     $taulak = [
         'Eramangarria' => 'eramangarriak',
         'Mahai-gainekoa' => 'mahai_gainekoak',
@@ -56,7 +57,8 @@ function lortuXehetasunTeknikoak($kont, $id, $mota) {
         'Kableak' => 'kableak'
     ];
 
-    if (!isset($taulak[$mota])) return "";
+    if (!isset($taulak[$mota]))
+        return "";
 
     try {
         $taula = $taulak[$mota];
@@ -65,29 +67,41 @@ function lortuXehetasunTeknikoak($kont, $id, $mota) {
         $stmtT->execute([':id' => $id]);
         $datuak = $stmtT->fetch(PDO::FETCH_ASSOC);
 
-        if (!$datuak) return "";
+        if (!$datuak)
+            return "";
 
         $gehigarriak = [];
         unset($datuak['id_produktua']); // Ez dugu IDa erakutsi behar xehetasunetan
 
         foreach ($datuak as $gakoa => $balioa) {
-            if ($balioa === null || $balioa === "") continue;
-            
+            if ($balioa === null || $balioa === "")
+                continue;
+
             // Formatua hobetu (gakoak euskarara edo label politak)
             $label = str_replace('_', ' ', $gakoa);
             $label = ucfirst($label);
-            
+
             // Unitateak gehitu
-            if (strpos($gakoa, 'gb') !== false) $balioa .= " GB";
-            if (strpos($gakoa, 'kg') !== false) $balioa .= " kg";
-            if (strpos($gakoa, 'wh') !== false) $balioa .= " Wh";
-            if (strpos($gakoa, 'mah') !== false) $balioa .= " mAh";
-            if (strpos($gakoa, 'prezioa') !== false) $balioa .= " €";
-            if (strpos($gakoa, 'tamaina') !== false || strpos($gakoa, 'hazbeteak') !== false) $balioa .= "\"";
-            if (strpos($gakoa, '_w') !== false && strpos($gakoa, '_wh') === false) $balioa .= " W";
-            if (strpos($gakoa, 'hz') !== false) $balioa .= " Hz";
-            if (strpos($gakoa, 'mp') !== false) $balioa .= " MP";
-            if (strpos($gakoa, '_luzera_m') !== false) $balioa .= " m";
+            if (strpos($gakoa, 'gb') !== false)
+                $balioa .= " GB";
+            if (strpos($gakoa, 'kg') !== false)
+                $balioa .= " kg";
+            if (strpos($gakoa, 'wh') !== false)
+                $balioa .= " Wh";
+            if (strpos($gakoa, 'mah') !== false)
+                $balioa .= " mAh";
+            if (strpos($gakoa, 'prezioa') !== false)
+                $balioa .= " €";
+            if (strpos($gakoa, 'tamaina') !== false || strpos($gakoa, 'hazbeteak') !== false)
+                $balioa .= "\"";
+            if (strpos($gakoa, '_w') !== false && strpos($gakoa, '_wh') === false)
+                $balioa .= " W";
+            if (strpos($gakoa, 'hz') !== false)
+                $balioa .= " Hz";
+            if (strpos($gakoa, 'mp') !== false)
+                $balioa .= " MP";
+            if (strpos($gakoa, '_luzera_m') !== false)
+                $balioa .= " m";
 
             if (is_bool($balioa) || $balioa === "1" || $balioa === "0") {
                 $balioa = ($balioa == "1" || $balioa === true) ? "Bai" : "Ez";
@@ -108,6 +122,7 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
 ?>
 <!DOCTYPE html>
 <html lang="eu">
+
 <head>
     <meta charset="UTF-8">
     <title>FAKTURA #<?= $id_eskaera ?> - BIRTEK</title>
@@ -115,9 +130,10 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
     <link rel="stylesheet" href="../css/estiloak_faktura.css">
 
 </head>
+
 <body>
 
- <!--  Akzio Botoiak (Flotanteak) -->
+    <!--  Akzio Botoiak (Flotanteak) -->
     <div class="akzio-botoiak">
         <button onclick="window.print()" class="botoi-print">
             <i class="fas fa-download"></i> PDF moduan deskargatu
@@ -141,13 +157,15 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
         <div class="faktura-info-taldea">
             <div class="info-blokea">
                 <h3>Bezeroa</h3>
-                <p><strong><?= htmlspecialchars($faktura['izena_edo_soziala'] . " " . ($faktura['abizena'] ?? "")) ?></strong></p>
+                <p><strong><?= htmlspecialchars($faktura['izena_edo_soziala'] . " " . ($faktura['abizena'] ?? "")) ?></strong>
+                </p>
                 <p><?= htmlspecialchars($faktura['helbidea']) ?></p>
-                <p><?= htmlspecialchars($faktura['posta_kodea']) ?>, <?= htmlspecialchars($faktura['herria_izena']) ?></p>
+                <p><?= htmlspecialchars($faktura['posta_kodea']) ?>, <?= htmlspecialchars($faktura['herria_izena']) ?>
+                </p>
                 <p>NAN/IFZ: <?= htmlspecialchars($faktura['ifz_nan']) ?></p>
                 <p>Email: <?= htmlspecialchars($faktura['emaila']) ?></p>
             </div>
-            <div class="info-blokea" style="text-align: right;">
+            <div class="info-blokea testu-eskubian">
                 <h3>Faktura Xehetasunak</h3>
                 <p><strong>Faktura zk:</strong> #<?= $id_eskaera ?></p>
                 <p><strong>Data:</strong> <?= date("Y/m/d H:i", strtotime($faktura['data'])) ?></p>
@@ -161,32 +179,35 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
             <thead>
                 <tr>
                     <th>Produktua</th>
-                    <th style="text-align: center;">Kantitatea</th>
-                    <th style="text-align: right;">Unitate Prezioa</th>
-                    <th style="text-align: right;">Guztira</th>
+                    <th class="testua-zentratuta">Kantitatea</th>
+                    <th class="testu-eskubian">Unitate Prezioa</th>
+                    <th class="testu-eskubian">Guztira</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($lerroak as $lerroa): ?>
-                <tr>
-                    <td>
-                        <strong><?= htmlspecialchars($lerroa['marka']) ?></strong> - <?= htmlspecialchars($lerroa['produktu_izena']) ?>
-                        <div class="tekniko-xehetasunak">
-                            <small><?= lortuXehetasunTeknikoak($konexioa, $lerroa['produktua_id'], $lerroa['mota']) ?></small>
-                        </div>
-                    </td>
-                    <td style="text-align: center;"><?= $lerroa['kantitatea'] ?></td>
-                    <td style="text-align: right;"><?= number_format($lerroa['unitate_prezioa'], 2) ?>€</td>
-                    <td style="text-align: right;"><?= number_format($lerroa['kantitatea'] * $lerroa['unitate_prezioa'], 2) ?>€</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <strong><?= htmlspecialchars($lerroa['marka']) ?></strong> -
+                            <?= htmlspecialchars($lerroa['produktu_izena']) ?>
+                            <div class="tekniko-xehetasunak">
+                                <small><?= lortuXehetasunTeknikoak($konexioa, $lerroa['produktua_id'], $lerroa['mota']) ?></small>
+                            </div>
+                        </td>
+                        <td class="testua-zentratuta"><?= $lerroa['kantitatea'] ?></td>
+                        <td class="testu-eskubian"><?= number_format($lerroa['unitate_prezioa'], 2) ?>€</td>
+                        <td class="testu-eskubian">
+                            <?= number_format($lerroa['kantitatea'] * $lerroa['unitate_prezioa'], 2) ?>€</td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
 
         <!-- 4. Laburpen Ekonomikoa -->
         <div class="guztira-atala">
-            <p style="margin-bottom: 0;">Zerga-oinarria: <?= number_format($faktura['guztira_prezioa'] / 1.21, 2) ?>€</p>
-            <p style="margin-top: 0;">BEZ (21%): <?= number_format($faktura['guztira_prezioa'] - ($faktura['guztira_prezioa'] / 1.21), 2) ?>€</p>
+            <p class="tartea-behean-ez">Zerga-oinarria: <?= number_format($faktura['guztira_prezioa'] / 1.21, 2) ?>€</p>
+            <p class="tartea-goian-ez">BEZ (21%):
+                <?= number_format($faktura['guztira_prezioa'] - ($faktura['guztira_prezioa'] / 1.21), 2) ?>€</p>
             <p>GUZTIRA: <span class="guztira-balioa"><?= number_format($faktura['guztira_prezioa'], 2) ?>€</span></p>
         </div>
 
@@ -197,7 +218,8 @@ $txartela_moztuta = "**** **** **** " . substr($faktura['bezero_ordainketa_txart
         </div>
     </div>
 
-   
+
 
 </body>
+
 </html>

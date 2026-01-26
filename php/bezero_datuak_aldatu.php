@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emaila = $_POST['emaila'];
     $hizkuntza = $_POST['hizkuntza'];
     $pasahitza = $_POST['pasahitza'];
-    
+
     try {
         $sql = "UPDATE bezeroak SET 
                 izena_edo_soziala = :izena, 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 emaila = :emaila,
                 hizkuntza = :hizkuntza
                 WHERE id_bezeroa = :id";
-        
+
         $params = [
             ':izena' => $izena_edo_soziala,
             ':abizena' => $abizena,
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ':id' => $id_bezeroa
             ]);
         }
-        
+
         $mezua = "Datuak ondo eguneratu dira!";
         $_SESSION['izena'] = $izena_edo_soziala; // Update session name
     } catch (PDOException $e) {
@@ -97,6 +97,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="eu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,61 +108,74 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/estiloak_datu_pertsonalak_aldatu.css">
 
 </head>
+
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-        <div class="inprimaki-edukiontzia bazter-borobilduak itzala-arin" style="max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff;">
-            <h2 class="inprimaki-titulua" style="text-align: center; margin-bottom: 2rem;">Datu Pertsonalak Aldatu</h2>
-            
+        <div class="inprimaki-edukiontzia bazter-borobilduak itzala-arin">
+            <h2 class="inprimaki-titulua inprimaki-izenburu-zentratua">Datu Pertsonalak Aldatu</h2>
+
             <?php if ($mezua): ?>
                 <p class="arrakasta-mezua"><?= $mezua ?></p>
             <?php endif; ?>
-            
+
             <form class="kontaktu-inprimaki-diseinua" method="POST">
                 <div class="inprimaki-sareta">
                     <h3 class="inprimaki-atal-izenburua">Oinarrizko Informazioa</h3>
-                    
+
                     <div class="inprimaki-taldea">
                         <label>Izena edo Izen Soziala:</label>
-                        <input type="text" name="izena_edo_soziala" value="<?= htmlspecialchars($bezeroa['izena_edo_soziala']) ?>" class="inprimaki-sarrera" required>
+                        <input type="text" name="izena_edo_soziala"
+                            value="<?= htmlspecialchars($bezeroa['izena_edo_soziala']) ?>" class="inprimaki-sarrera"
+                            required>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Abizena:</label>
-                        <input type="text" name="abizena" value="<?= htmlspecialchars($bezeroa['abizena'] ?? '') ?>" class="inprimaki-sarrera">
+                        <input type="text" name="abizena" value="<?= htmlspecialchars($bezeroa['abizena'] ?? '') ?>"
+                            class="inprimaki-sarrera">
                     </div>
                     <div class="inprimaki-taldea">
                         <label>IFZ / NAN:</label>
-                        <input type="text" name="ifz_nan" value="<?= htmlspecialchars($bezeroa['ifz_nan']) ?>" class="inprimaki-sarrera" required>
+                        <input type="text" name="ifz_nan" value="<?= htmlspecialchars($bezeroa['ifz_nan']) ?>"
+                            class="inprimaki-sarrera" required>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Jaiotza Data:</label>
-                        <input type="date" name="jaiotza_data" value="<?= htmlspecialchars($bezeroa['jaiotza_data'] ?? '') ?>" class="inprimaki-sarrera">
+                        <input type="date" name="jaiotza_data"
+                            value="<?= htmlspecialchars($bezeroa['jaiotza_data'] ?? '') ?>" class="inprimaki-sarrera">
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Sexua:</label>
                         <select name="sexua" class="inprimaki-sarrera">
                             <option value="">Aukeratu...</option>
                             <option value="gizona" <?= ($bezeroa['sexua'] == 'gizona') ? 'selected' : '' ?>>Gizona</option>
-                            <option value="emakumea" <?= ($bezeroa['sexua'] == 'emakumea') ? 'selected' : '' ?>>Emakumea</option>
-                            <option value="ez-binarioa" <?= ($bezeroa['sexua'] == 'ez-binarioa') ? 'selected' : '' ?>>Ez-binarioa</option>
+                            <option value="emakumea" <?= ($bezeroa['sexua'] == 'emakumea') ? 'selected' : '' ?>>Emakumea
+                            </option>
+                            <option value="ez-binarioa" <?= ($bezeroa['sexua'] == 'ez-binarioa') ? 'selected' : '' ?>>
+                                Ez-binarioa</option>
                         </select>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Hizkuntza:</label>
                         <select name="hizkuntza" class="inprimaki-sarrera">
-                            <option value="Euskara" <?= ($bezeroa['hizkuntza'] == 'Euskara') ? 'selected' : '' ?>>Euskara</option>
-                            <option value="Gaztelania" <?= ($bezeroa['hizkuntza'] == 'Gaztelania') ? 'selected' : '' ?>>Gaztelania</option>
-                            <option value="Frantsesa" <?= ($bezeroa['hizkuntza'] == 'Frantsesa') ? 'selected' : '' ?>>Frantsesa</option>
-                            <option value="Ingelesa" <?= ($bezeroa['hizkuntza'] == 'Ingelesa') ? 'selected' : '' ?>>Ingelesa</option>
+                            <option value="Euskara" <?= ($bezeroa['hizkuntza'] == 'Euskara') ? 'selected' : '' ?>>Euskara
+                            </option>
+                            <option value="Gaztelania" <?= ($bezeroa['hizkuntza'] == 'Gaztelania') ? 'selected' : '' ?>>
+                                Gaztelania</option>
+                            <option value="Frantsesa" <?= ($bezeroa['hizkuntza'] == 'Frantsesa') ? 'selected' : '' ?>>
+                                Frantsesa</option>
+                            <option value="Ingelesa" <?= ($bezeroa['hizkuntza'] == 'Ingelesa') ? 'selected' : '' ?>>
+                                Ingelesa</option>
                         </select>
                     </div>
 
                     <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
-                    
+
                     <div class="inprimaki-taldea">
                         <label>Helbidea:</label>
-                        <input type="text" name="helbidea" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>" class="inprimaki-sarrera" required>
+                        <input type="text" name="helbidea" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>"
+                            class="inprimaki-sarrera" required>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Herria:</label>
@@ -175,33 +189,39 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Posta Kodea:</label>
-                        <input type="text" name="posta_kodea" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>" class="inprimaki-sarrera" required>
+                        <input type="text" name="posta_kodea" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>"
+                            class="inprimaki-sarrera" required>
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Telefonoa:</label>
-                        <input type="text" name="telefonoa" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>" class="inprimaki-sarrera" required>
+                        <input type="text" name="telefonoa" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>"
+                            class="inprimaki-sarrera" required>
                     </div>
-                    <div class="inprimaki-taldea" style="grid-column: 1 / -1;">
+                    <div class="inprimaki-taldea zutabe-osoa">
                         <label>Emaila:</label>
-                        <input type="email" name="emaila" value="<?= htmlspecialchars($bezeroa['emaila']) ?>" class="inprimaki-sarrera" required>
+                        <input type="email" name="emaila" value="<?= htmlspecialchars($bezeroa['emaila']) ?>"
+                            class="inprimaki-sarrera" required>
                     </div>
 
                     <h3 class="inprimaki-atal-izenburua">Segurtasuna eta Ordainketa</h3>
-                    
+
                     <div class="inprimaki-taldea">
                         <label>Ordainketa Txartela (Token):</label>
-                        <input type="text" name="bezero_ordainketa_txartela" value="<?= htmlspecialchars($bezeroa['bezero_ordainketa_txartela'] ?? '') ?>" class="inprimaki-sarrera">
+                        <input type="text" name="bezero_ordainketa_txartela"
+                            value="<?= htmlspecialchars($bezeroa['bezero_ordainketa_txartela'] ?? '') ?>"
+                            class="inprimaki-sarrera">
                     </div>
                     <div class="inprimaki-taldea">
                         <label>Pasahitza Berria (Utzi hutsik ez aldatzeko):</label>
-                        <input type="password" name="pasahitza" class="inprimaki-sarrera" placeholder="Pasahitza berria...">
+                        <input type="password" name="pasahitza" class="inprimaki-sarrera"
+                            placeholder="Pasahitza berria...">
                     </div>
                 </div>
-                
-                <button type="submit" class="botoia botoi-nagusia" style="width:100%; margin-top:2rem; padding: 12px; font-size: 1.1rem;">Gorde Aldaketak</button>
+
+                <button type="submit" class="botoia botoi-nagusia datu-aldaketa-botoia">Gorde Aldaketak</button>
             </form>
-            
-            <div style="text-align: center; margin-top: 1.5rem;">
+
+            <div class="atzera-botoi-kontainer">
                 <a href="bezero_menua.php" class="atzerako-botoia"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
             </div>
         </div>
@@ -210,5 +230,5 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
 </body>
-</html>
 
+</html>

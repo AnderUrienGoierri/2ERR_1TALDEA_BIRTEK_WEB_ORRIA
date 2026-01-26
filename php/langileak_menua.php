@@ -45,7 +45,7 @@ session_start();
           <input type="tel" name="telefonoa" placeholder="Telefono zenbakia" class="inprimaki-sarrera" required />
           <div>
             <label for="cv-igoera" class="label-input-fitxategia">Igo zure CV (PDF):</label>
-            <input type="file" id="cv-igoera" name="cv" accept=".pdf" class="inprimaki-sarrera" style="padding: 10px"
+            <input type="file" id="cv-igoera" name="cv" accept=".pdf" class="inprimaki-sarrera cv-igoera-sarrera"
               required />
           </div>
           <textarea name="oharra" rows="4" class="inprimaki-sarrera"
