@@ -208,7 +208,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                                                         </form>
                                                     <?php endif; ?>
                                                     <?php if ($isOsatua): ?>
-                                                        <a href="faktura.php?id=<?= $eskaera['id_eskaera'] ?>" target="_blank"
+                                                        <a href="deskargatu_faktura.php?id=<?= $eskaera['id_eskaera'] ?>"
                                                             class="faktura-deskargatu-botoia">Faktura</a>
                                                     <?php endif; ?>
                                                 </td>
