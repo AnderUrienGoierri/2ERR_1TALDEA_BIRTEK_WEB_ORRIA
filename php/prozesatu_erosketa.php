@@ -24,21 +24,21 @@ try {
     $konexioa->beginTransaction();
 
     $guztira = 0;
-    
+
     // 1. Pase bat stock-a eta prezioak egiaztatzeko
     foreach ($saskia as &$elementua) {
         $stmtP = $konexioa->prepare("SELECT salmenta_prezioa, stock FROM produktuak WHERE id_produktua = ?");
         $stmtP->execute([$elementua['id']]);
         $prod = $stmtP->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$prod) {
             throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
         }
-        
+
         if ($prod['stock'] < $elementua['kantitatea']) {
             throw new Exception("Ez dago stock nahikorik: " . $elementua['izena'] . " (" . $prod['stock'] . " ale geratzen dira)");
         }
-        
+
         // Kalkulatu guztira DBko prezioekin (segurtasuna)
         $guztira += $prod['salmenta_prezioa'] * $elementua['kantitatea'];
         $elementua['db_prezioa'] = $prod['salmenta_prezioa'];

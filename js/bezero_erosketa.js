@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   // Prevent form submission if cart is empty
   $("#bidalketa-form").on("submit", function (e) {
-    var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
+    const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
     if (saskia.length === 0) {
       e.preventDefault();
       alert("Saskia hutsik dago!");
@@ -13,33 +13,33 @@ $(document).ready(function () {
   // EVENT LISTENERS FOR CONTROLS
   $(document).on("click", ".kopuru-plus", function (e) {
     e.preventDefault(); // Prevent button from submitting form if inside form
-    var id = $(this).data("id");
+    const id = $(this).data("id");
     aldatuKantitatea(id, 1);
   });
 
   $(document).on("click", ".kopuru-minus", function (e) {
     e.preventDefault();
-    var id = $(this).data("id");
+    const id = $(this).data("id");
     aldatuKantitatea(id, -1);
   });
 
   $(document).on("click", ".item-ezabatu", function (e) {
     e.preventDefault();
-    var id = $(this).data("id");
+    const id = $(this).data("id");
     ezabatuItem(id);
   });
 });
 
 function renderErosketaSaskia() {
-  var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  var $container = $("#erosketa-saski-container");
-  var totala = 0;
+  const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
+  const $container = $("#erosketa-saski-container");
+  let totala = 0;
 
   $container.empty();
 
   if (saskia.length === 0) {
     $container.html(
-      '<p class="saskia-hutsik-mezua">Ez duzu produkturik aukeratu.</p>',
+      '<p class="saskia-hutsik-mezua">Ez duzu produkturik aukeratu.</p>'
     );
     $("#erosketa-guztira").text("0.00 €");
     $('button[type="submit"]')
@@ -53,7 +53,7 @@ function renderErosketaSaskia() {
   }
 
   // Table Structure
-  var tableHtml = `
+  let tableHtml = `
     <div class="taula-edukiontzia-scroll">
     <table class="lerro-taula">
         <thead>
@@ -68,8 +68,9 @@ function renderErosketaSaskia() {
         <tbody>
   `;
 
-  $.each(saskia, function (index, item) {
-    var subtotala = item.prezioa * item.kantitatea;
+  // Use forEach instead of $.each
+  saskia.forEach((item) => {
+    const subtotala = item.prezioa * item.kantitatea;
     totala += subtotala;
 
     tableHtml += `
@@ -79,23 +80,15 @@ function renderErosketaSaskia() {
             </td>
             <td class="testua-zentratuta">
                 <div class="kopuru-kontrola-lerroa">
-                    <button class="kopuru-btn kopuru-minus" data-id="${
-                      item.id
-                    }">-</button>
+                    <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>
                     <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>
-                    <button class="kopuru-btn kopuru-plus" data-id="${
-                      item.id
-                    }">+</button>
+                    <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>
                 </div>
             </td>
             <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>
-            <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(
-              2,
-            )} €</td>
+            <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>
             <td class="testua-zentratuta">
-                <button class="ezabatu-btn-gorria item-ezabatu" data-id="${
-                  item.id
-                }" title="Ezabatu">
+                <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -114,13 +107,12 @@ function renderErosketaSaskia() {
 }
 
 function aldatuKantitatea(id, change) {
-  var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  var item = $.grep(saskia, function (i) {
-    return i.id == id;
-  })[0];
+  const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
+  // Use .find() instead of $.grep
+  const item = saskia.find((i) => i.id == id);
 
   if (item) {
-    var newQty = item.kantitatea + change;
+    const newQty = item.kantitatea + change;
 
     // Stock Check
     if (newQty > item.stock) {
@@ -139,10 +131,9 @@ function aldatuKantitatea(id, change) {
 }
 
 function ezabatuItem(id) {
-  var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  var filtered = $.grep(saskia, function (i) {
-    return i.id != id;
-  });
+  const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
+  // Use .filter() instead of $.grep
+  const filtered = saskia.filter((i) => i.id != id);
   window.saskiaGorde(filtered);
   renderErosketaSaskia();
 }

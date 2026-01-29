@@ -241,7 +241,7 @@ $(document).ready(function () {
   // --- SAIOA ITXI LOGIKA ---
   $(document).on(
     "click",
-    "#logout-botoia-menua, .saioa-itxi-botoia, .mugikor-logout-botoia, .saio-informazio-edukiontzia .botoi-gorria",
+    "#logout-botoia-menua, .saioa-itxi-botoia, .mugikor-logout-botoia, .saio-informazio-edukiontzia .botoi-gorria, .saioa-itxi-botoia-dropdown",
     function (e) {
       e.preventDefault();
       if (confirm("Ziur zaude saioa itxi nahi duzula?")) {

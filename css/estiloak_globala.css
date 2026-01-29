@@ -545,6 +545,69 @@ body {
   transform: translateY(-2px);
 }
 
+/* --- GOIBURUA DROPDOWN (ERABILTZAILE MENUA) --- */
+.erabiltzaile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-edukia {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.erabiltzaile-dropdown:hover .dropdown-edukia {
+  display: block;
+}
+
+.dropdown-elementua {
+  color: var(--testu-bigarren);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dropdown-elementua:hover {
+  background-color: #f3f4f6;
+  color: var(--kolore-nagusia);
+}
+
+.dropdown-elementua.gorria {
+  color: var(--kolore-gorria);
+  border-top: 1px solid #f3f4f6;
+}
+
+.dropdown-elementua.gorria:hover {
+  background-color: #fef2f2;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* --- MUGIKORRAREN USER CONTAINER --- */
 .mugikor-erabiltzaile-edukiontzia {
   display: flex;
@@ -602,7 +665,6 @@ body {
   box-shadow: var(--itzala-lg);
   transform: scale(0.95);
 }
-
 
 .modala-goiburua {
   padding: 1rem;
@@ -993,9 +1055,6 @@ body {
   border-radius: 1rem;
 }
 
-
-
-
 .zabalera-osoa {
   width: 100%;
 }
@@ -1038,8 +1097,6 @@ body {
   color: #6b7280;
 }
 
-
-
 .flex-gap-1 {
   display: flex;
   gap: 1rem;
@@ -1080,8 +1137,6 @@ body {
 .atzerako-botoia:hover {
   color: #166534;
 }
-
-
 
 .erosketa-sareta {
   display: grid;
