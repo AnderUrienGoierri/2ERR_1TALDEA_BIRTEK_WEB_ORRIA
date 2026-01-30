@@ -1,4 +1,4 @@
-/* --- HORNITZAILE MENUA STYLE --- */
+/* --- HORNITZAILE MENUA  --- */
 
 .ongi-etorri-mezua {
   text-align: center;
@@ -71,7 +71,7 @@
   background-color: #dc2626;
 }
 
-/* --- SARRERA EGIN PAGE STYLES --- */
+/* --- SARRERA EGIN orria --- */
 .inprimaki-trukatu {
   display: flex;
   gap: 1rem;
@@ -111,7 +111,7 @@
   margin: 0 auto;
 }
 
-/* Mobile First Grid */
+/* Mobile First Grid-a */
 .sarrera-sareta-berria {
   display: grid;
   grid-template-columns: 1fr;
@@ -140,7 +140,7 @@
   color: #166534;
 }
 
-/* Dynamic Messages */
+/* Mezu dinamikoak*/
 .mezu-kutxa {
   padding: 10px;
   border-radius: 5px;
@@ -240,7 +240,7 @@
   }
 }
 
-/* Responsive Table */
+/* Taula - (Responsive) */
 @media (max-width: 768px) {
   .sarrera-taula,
   .sarrera-taula thead,
