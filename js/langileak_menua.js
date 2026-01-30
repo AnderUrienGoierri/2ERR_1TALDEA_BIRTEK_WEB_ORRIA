@@ -39,14 +39,15 @@ $(document).ready(function () {
     });
     */
   });
-  // Eskaera inprimakiaren bidalketa (AJAX)
+
+  // Eskaera formularioaren bidalketa arrakasta mezua(AJAX)
   $("#langile-eskaera-inprimakia").on("submit", function (e) {
     e.preventDefault();
     var $form = $(this);
     var formData = new FormData(this);
     var $submitBtn = $form.find('button[type="submit"]');
 
-    // Desgaitu botoia
+    // Desgaitu botoia klick egitean eta "Bidaltzen..." jarri
     $submitBtn.prop("disabled", true).text("Bidaltzen...");
 
     $.ajax({

@@ -61,7 +61,6 @@
 #erosketa-saski-container {
   overflow-x: auto;
   width: 100%;
-  -webkit-overflow-scrolling: touch;
 }
 
 .lerro-taula {

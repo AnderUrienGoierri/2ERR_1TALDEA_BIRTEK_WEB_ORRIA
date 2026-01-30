@@ -40,8 +40,8 @@ $(document).ready(function () {
             url: "lortu_pasahitza_hornitzailea.php",
             method: "POST",
             data: { emaila: emaila },
-            success: function (response) {
-                alert(response);
+            success: function (erantzuna) {
+                alert(erantzuna);
             },
             error: function () {
                 alert("Errore bat gertatu da pasahitza berreskuratzean.");
