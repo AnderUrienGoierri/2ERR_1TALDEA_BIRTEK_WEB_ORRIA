@@ -247,8 +247,24 @@ $(document).ready(function () {
       if (confirm("Ziur zaude saioa itxi nahi duzula?")) {
         window.location.href = "logout.php";
       }
-    },
+    }
   );
+
+  // --- GORA JOAN BOTOIAREN LOGIKA ---
+  var $goraJoanBotoia = $("#gora-joan-botoia");
+
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 300) {
+      $goraJoanBotoia.addClass("erakutsi");
+    } else {
+      $goraJoanBotoia.removeClass("erakutsi");
+    }
+  });
+
+  $goraJoanBotoia.on("click", function () {
+    $("html, body").animate({ scrollTop: 0 }, 600);
+    return false;
+  });
 });
 
 

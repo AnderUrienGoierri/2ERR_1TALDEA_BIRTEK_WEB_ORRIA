@@ -14,7 +14,8 @@
         <a href="#" class="sozial-lotura testua-tik"><i class="fab fa-tiktok"></i></a>
         <a href="#" class="sozial-lotura testua-tg"><i class="fab fa-telegram"></i></a>
       </div>
-      <div><a href="https://wa.me/34600000000" class="oin-whatsapp-botoia"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      <div><a href="https://wa.me/34600000000" class="oin-whatsapp-botoia"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
     </div>
     <div class="testua-erdian">
       <h4 class="oin-goiburua">Lotura Azkarrak</h4>
@@ -23,10 +24,17 @@
         <li><a href="produktuak.php" class="oin-lotura">Produktuak</a></li>
         <li><a href="berriak.php" class="oin-lotura">Berriak</a></li>
         <li><a href="kontaktua.php" class="oin-lotura">Kontaktua</a></li>
-        <li><a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="oin-lotura">Birziklatu</a></li>
+        <li><a
+            href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>"
+            class="oin-lotura">Birziklatu</a></li>
         <li><a href="langileak_menua.php" class="oin-lotura">Langileak</a></li>
       </ul>
     </div>
   </div>
   <div class="oin-copyright">© 2025 BIRTEK</div>
+
+  <!-- Gora Joan Botoia -->
+  <button id="gora-joan-botoia" title="Gora joan">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 </footer>
