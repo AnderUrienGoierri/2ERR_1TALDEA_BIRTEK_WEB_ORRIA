@@ -14,7 +14,7 @@ $izena = $_SESSION['izena'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bezeroaren Menua - BIRTEK</title>
     <!-- Use existing CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_menua.css">
@@ -25,7 +25,7 @@ $izena = $_SESSION['izena'];
 
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
-
+        
         <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
             <a href="bezero_datuak_aldatu.php" class="menu-txartela">
@@ -38,8 +38,8 @@ $izena = $_SESSION['izena'];
                 <i class="fas fa-shopping-bag menu-ikonoa"></i>
                 <span class="menu-izenburua">Erosketak Kudeatu</span>
             </a>
-
-            <!-- Button 3: Produktuak Ikusi -->
+            
+             <!-- Button 3: Produktuak Ikusi -->
             <a href="produktuak.php" class="menu-txartela">
                 <i class="fas fa-store menu-ikonoa"></i>
                 <span class="menu-izenburua">Produktuak Ikusi</span>

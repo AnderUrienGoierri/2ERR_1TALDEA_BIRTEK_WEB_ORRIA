@@ -9,30 +9,21 @@
   --kolore-nagusia-oso-argia: #f0fdf4;
   --kolore-nagusia-argia: #dcfce7;
   --kolore-nagusia-tainua: #bbf7d0;
-  
+
   --testu-nagusia: #1f2937;
   --testu-bigarren: #374151;
   --testu-argia: #6b7280;
-  
+
   --kolore-gorria: #dc2626;
   --kolore-gorria-iluna: #991b1b;
   --kolore-gorria-argia: #fee2e2;
-  
+
   --kolore-urdina: #2563eb;
   --kolore-urdina-iluna: #1d4ed8;
-  
+
   /* Letra-tipoak */
   --font-testua: "Inter", sans-serif;
   --font-izenburua: "Outfit", sans-serif;
-  
-  /* Itzalak */
-  --itzala-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --itzala-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --itzala-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
-  /* Besteak */
-  --erradioa: 0.5rem;
-  --trantsizioa: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- RESET ETA OINARRIAK --- */
@@ -54,10 +45,8 @@ body {
 }
 
 .web-gorputza {
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.7)
-    ),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
     url("../irudiak/birtek1.jpeg");
   background-attachment: fixed;
   background-size: cover;
@@ -86,8 +75,8 @@ body {
 /* --- GOIBURUA (GLASSMORPHISM FONDO DESIENuA) --- */
 .goiburu-nagusia {
   background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: var(--itzala-md);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   position: fixed;
@@ -107,17 +96,25 @@ body {
 }
 
 .logo-edukiontzia {
-  text-decoration: none !important;
+  text-decoration: none;
   padding-left: 2%;
   padding-right: 2%;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.goiburu-logo-irudia {
+  height: 3.5rem;
+  width: auto;
+  object-fit: contain;
 }
 
 .logoa {
   font-size: 1.75rem; /* Mugikorretara adaptatuta(320px) */
   font-weight: 800;
   color: var(--kolore-nagusia);
-  text-decoration: none !important;
+  text-decoration: none;
   font-family: var(--font-izenburua);
   letter-spacing: -1px;
   transition: var(--trantsizioa);
@@ -139,6 +136,7 @@ body {
   color: var(--testu-bigarren);
   text-decoration: none;
   transition: var(--trantsizioa);
+  line-height: 1.5rem;
   font-weight: 500;
 }
 
@@ -187,7 +185,7 @@ body {
 
 .nab-ekintzak {
   display: flex;
-  flex-direction: column-reverse; 
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   gap: 0.1rem;
@@ -195,13 +193,13 @@ body {
 }
 
 .saioa-hasi-botoia {
-  padding: 0.3rem 0.6rem;
+  padding: 0.1rem 0.4rem;
   border: 1px solid #d1d5db;
   background: white;
   border-radius: 0.75rem;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.85rem; 
+  font-size: 0.85rem;
   font-family: var(--font-testua);
   color: var(--testu-bigarren);
   transition: var(--trantsizioa);
@@ -215,7 +213,7 @@ body {
 }
 
 .saioa-hasi-botoia span {
-  display: none; /* Hidden by default on smallest mobile */
+  display: none; /* Mobile first: pantaila txikian ezkutuan hasten da */
   white-space: normal;
   word-wrap: break-word;
   text-align: left;
@@ -262,21 +260,59 @@ body {
 .saski-kontagailua {
   position: absolute;
   top: -10px;
-  right: -5px;
-  background-color: var(--kolore-gorria);
+  right: 0px;
+  background-color: #ff0000; /* Vibrant Red */
   color: white;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   padding: 2px 6px;
-  border-radius: 9999px;
+  border-radius: 9999px; /* Rounded pill look */
   min-width: 18px;
-  min-height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid white;
-  box-shadow: var(--itzala-sm);
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+/* --- ANIMAZIOAK --- */
+@keyframes saskiPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.saski-pop-animazioa {
+  animation: saskiPop 0.3s ease-out;
+}
+
+.saski-mezua {
+  position: absolute;
+  top: 100%;
+  right: 0.5rem;
+  background-color: var(--kolore-nagusia-iluna);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+  box-shadow: var(--itzala-md);
+  white-space: nowrap;
+}
+
+.saski-mezua.erakutsi {
+  opacity: 1;
+  transform: translateY(5px);
 }
 
 /* --- OINA (FOOTER) --- */
@@ -299,14 +335,12 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
   font-family: var(--font-izenburua);
 }
 .oin-goiburua {
   font-size: 1.125rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
   font-family: var(--font-izenburua);
 }
 .oin-testua {
@@ -492,21 +526,86 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
   background-color: var(--kolore-gorria-argia);
   color: var(--kolore-gorria-iluna);
   border: 1px solid var(--kolore-gorria);
   border-radius: 12px;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  width: fit-content;
+  margin: 2rem auto;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
   transition: var(--trantsizioa);
 }
 
 .saioa-itxi-botoia:hover {
-  background-color: #fecaca;
-  transform: translateY(-1px);
-  box-shadow: var(--itzala-sm);
+  background-color: var(--kolore-gorria);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* --- GOIBURUA DROPDOWN (ERABILTZAILE MENUA) --- */
+.erabiltzaile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-edukia {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.erabiltzaile-dropdown:hover .dropdown-edukia {
+  display: block;
+}
+
+.dropdown-elementua {
+  color: var(--testu-bigarren);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dropdown-elementua:hover {
+  background-color: #f3f4f6;
+  color: var(--kolore-nagusia);
+}
+
+.dropdown-elementua.gorria {
+  color: var(--kolore-gorria);
+  border-top: 1px solid #f3f4f6;
+}
+
+.dropdown-elementua.gorria:hover {
+  background-color: #fef2f2;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- MUGIKORRAREN USER CONTAINER --- */
@@ -524,7 +623,7 @@ body {
   color: var(--kolore-nagusia);
 }
 
-#mugikor-saioa-itxi-botoia {
+.mugikor-saioa-itxi-botoia {
   color: var(--kolore-gorria);
   border: none;
   background: none;
@@ -547,10 +646,8 @@ body {
   inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1050;
-  align-items: center;
+  align-items: center; /* Zentroan agertzeko */
   justify-content: center;
-  padding: 1rem;
-  backdrop-filter: blur(2px);
 }
 .modala-geruza.erakutsi {
   display: flex;
@@ -567,11 +664,6 @@ body {
   padding: 0;
   box-shadow: var(--itzala-lg);
   transform: scale(0.95);
-  animation: modalSartu 0.3s forwards;
-}
-
-@keyframes modalSartu {
-  to { transform: scale(1); opacity: 1; }
 }
 
 .modala-goiburua {
@@ -605,9 +697,6 @@ body {
   color: var(--kolore-gorria-iluna);
   transform: translateY(-50%) scale(1.1);
 }
-.modala-edukia {
-  padding: 1.5rem;
-}
 
 /* Saskia Modal barnekoak */
 .saski-elementu-lerroa {
@@ -630,51 +719,126 @@ body {
   font-size: 0.85rem;
   color: #666;
 }
-.kantitate-kontrola {
+/* --- SASKI MODALA TAULA (RESTORATION) --- */
+.saski-taula {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.saski-taula th {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid #f3f4f6;
+  color: #6b7280;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.saski-taula td {
+  padding: 0.6rem 0.1rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.saski-taula tr:hover {
+  background-color: #f9fafb;
+}
+
+.saski-ezabatu-txikia {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.saski-ezabatu-txikia:hover {
+  color: var(--kolore-gorria);
+}
+
+.saski-hutsik {
+  text-align: center;
+  padding: 2rem 0;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Kantitate aldatzeko botoiak (Saskia) */
+.kopuru-kontrola-td {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.kop-mod-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background-color: #f3f4f6;
-  padding: 0.25rem;
-  border-radius: 0.375rem;
-  margin-right: 0.75rem;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  color: var(--kolore-nagusia);
 }
-.saski-kendu-botoia {
-  background: #e74c3c;
-  padding: 0.5rem;
-  margin-left: 0.5rem;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
+.kop-mod-btn:hover {
+  background-color: var(--kolore-nagusia-argia);
+  border-color: var(--kolore-nagusia);
 }
+.kopuru-balioa {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 .saski-oina {
-  padding: 1rem;
-  border-top: 1px solid #ddd;
+  padding: 1.5rem;
+  border-top: 1px solid #f3f4f6;
   background: #f9fafb;
 }
+
 .saski-guztira-lerroa {
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #111827;
 }
+
+.botoi-zabalera-osoa-top {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
 .saski-itxi-zentratua {
   display: block;
   width: 100%;
-  text-align: center;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #f3f4f6;
-  border: none;
-  color: #374151;
-  font-weight: bold;
+  padding: 0.8rem;
+  background: white;
+  border: 1px solid #d1d5db;
+  color: #4b5563;
+  border-radius: 0.75rem;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 0.375rem;
+  transition: all 0.2s;
+  text-align: center;
 }
+
 .saski-itxi-zentratua:hover {
-  background-color: #e5e7eb;
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
 }
 
 /* --- HERO BOTOIAK (AZALA) --- */
@@ -701,7 +865,7 @@ body {
   transition: var(--trantsizioa);
   text-decoration: none;
 }
-.azal-cta-botoia { /* Fix: Class name was inconsistent in original CSS (azal-ekintza vs azal-cta) */
+.azal-cta-botoia {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -768,7 +932,7 @@ body {
 }
 
 /* --- EDUKIAK / PRODUKTU ESTEKA --- */
-/* --- EDUKIAK / PRODUKTU ESTEKA --- */
+
 .produktu-esteka {
   color: var(--kolore-urdina);
   text-decoration: none;
@@ -782,18 +946,18 @@ body {
 }
 
 /* HORNITZAILEA LOGEATUTA ESTILOA (Globala, saioa itxi arte) */
-/* HORNITZAILEA LOGEATUTA ESTILOA (Globala, saioa itxi arte) */
+
 .nab-botoia.hornitzailea-aktibo {
-  background-color: var(--kolore-urdina) !important;
-  color: white !important;
+  background-color: var(--kolore-urdina);
+  color: white;
   font-weight: bold;
   border: 1px solid var(--kolore-urdina-iluna);
 }
 .nab-botoia.hornitzailea-aktibo:hover {
-  background-color: var(--kolore-urdina-iluna) !important;
+  background-color: var(--kolore-urdina-iluna);
 }
 
-/* --- MUGIKORRAREN USER CONTAINER --- */
+/* --- MUGIKORRAREN EDUKIONTZIA --- */
 .mugikor-erabiltzaile-edukiontzia {
   display: flex;
   flex-direction: column;
@@ -821,17 +985,17 @@ body {
   color: #374151;
 }
 
-/* Logout Utility classes */
+/* Logout utilidade klaseak */
 .botoi-gorria {
-  background: var(--kolore-gorria-argia) !important;
-  color: var(--kolore-gorria-iluna) !important;
-  border-color: var(--kolore-gorria) !important;
+  background: var(--kolore-gorria-argia);
+  color: var(--kolore-gorria-iluna);
+  border-color: var(--kolore-gorria);
 }
 
 .mugikor-logout-botoia {
-  color: var(--kolore-gorria-iluna) !important;
-  background: var(--kolore-gorria-argia) !important;
-  border-top: 1px solid #fecaca !important;
+  color: var(--kolore-gorria-iluna);
+  background: var(--kolore-gorria-argia);
+  border-top: 1px solid #fecaca;
 }
 
 .ongietorri-kutxa {
@@ -840,49 +1004,59 @@ body {
 }
 
 .ezkutuan {
+  display: none;
+}
+
+.erakutsi-inline-flex {
+  display: inline-flex !important;
+}
+
+.erakutsi-flex {
+  display: flex !important;
+}
+
+.erakutsi-block {
+  display: block !important;
+}
+
+.ezkutatu {
   display: none !important;
 }
 
+.mugikor-logout-botoia-berezian {
+  width: calc(100% - 3rem) !important;
+  margin: 0.5rem 1.5rem !important;
+  text-align: left !important;
+}
+
 .testua-eskuinera {
-  text-align: right !important;
+  text-align: right;
 }
 
 .testua-zentratuta {
-  text-align: center !important;
+  text-align: center;
 }
 
 .zabalera-osoa-grid {
-  grid-column: 1 / -1 !important;
+  grid-column: 1 / -1;
 }
 
 .flex-zentratua-gap {
-  display: flex !important;
-  gap: 10px !important;
-  justify-content: center !important;
-  align-items: center !important;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .irudi-estandar-panoramikoa {
-  width: 100% !important;
-  height: 200px !important;
-  object-fit: cover !important;
-  border-radius: 1rem !important;
-}
-
-.tartea-goian-2 {
-  margin-top: 2rem !important;
-}
-
-.tartea-behean-2 {
-  margin-bottom: 2rem !important;
-}
-
-.tartea-behean-1 {
-  margin-bottom: 1rem !important;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
 .zabalera-osoa {
-  width: 100% !important;
+  width: 100%;
 }
 
 .nab-ikonoa {
@@ -923,14 +1097,6 @@ body {
   color: #6b7280;
 }
 
-.tartea-behean-1-5 {
-  margin-bottom: 1.5rem;
-}
-
-.tartea-goian-txikia {
-  margin-top: 0.5rem;
-}
-
 .flex-gap-1 {
   display: flex;
   gap: 1rem;
@@ -946,14 +1112,6 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-}
-
-.bazter-borobilduak {
-  border-radius: 0.5rem;
-}
-
-.itzala-arin {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .ez-klikagarria {
@@ -978,6 +1136,189 @@ body {
 
 .atzerako-botoia:hover {
   color: #166534;
+}
+
+.erosketa-sareta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- EROSKETA ARRAKASTA MEZUA --- */
+.arrakasta-edukiontzia {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: var(--erradioa);
+  box-shadow: var(--itzala-lg);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.arrakasta-ikonoa {
+  font-size: 5rem;
+  color: #10b981; /* Success Green */
+  margin-bottom: 1.5rem;
+  animation: arrakastaSartu 0.5s ease-out;
+}
+
+@keyframes arrakastaSartu {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.arrakasta-titulua {
+  font-family: var(--font-izenburua);
+  font-size: 2rem;
+  color: var(--kolore-nagusia-iluna);
+  margin-bottom: 1rem;
+}
+
+.arrakasta-testua {
+  font-size: 1.1rem;
+  color: var(--testu-bigarren);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.arrakasta-ekintzak {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.arrakasta-mezua {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.arrakasta-ekintzak .botoia {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--trantsizioa);
+}
+
+.botoi-sekundarioa {
+  background-color: #4b5563;
+  color: white;
+}
+
+.botoi-sekundarioa:hover {
+  background-color: #374151;
+  transform: translateY(-2px);
+}
+
+.oin-logo-irudia {
+  width: 80px;
+  height: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: white; /* Barruan txuria mantentzeko */
+  border-radius: 12px; /* Kanpoko ertza biribiltzeko eta "fusionatzeko" */
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Login errore mezua */
+.login-errore-mezua {
+  color: #d9534f;
+  background-color: #f2dede;
+  padding: 0.3rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ebccd1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ongietorri-kutxa-osagarria {
+  grid-column: 1 / -1;
+  padding: 2rem;
+}
+
+.ordainketa-info-kutxa {
+  text-align: center;
+}
+
+.ordainketa-ikonoa {
+  font-size: 5rem;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+
+.ordainketa-izenburua {
+  margin-bottom: 15px;
+}
+
+.ordainketa-testua {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 30px;
+}
+
+.botoi-taldea-zentratuta {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.botoi-grisa {
+  background-color: #4b5563;
+}
+
+.zutabe-osoa {
+  grid-column: 1 / -1;
+}
+
+.testu-eskubian {
+  text-align: right;
+}
+
+.label-flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alert-berdea {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* --- MEZUA UTILITATEAK --- */
+.mezua-kutxa-arrakasta {
+  padding: 2rem;
+  text-align: center;
+}
+
+.mezua-ikonoa-arrakasta {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.mezua-titulua-arrakasta {
+  color: #333;
 }
 
 /* ========================================================================= */
@@ -1010,6 +1351,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-height: 4.7rem; /* (Padding 0.3*2 + Line-height 1.5) * 2 + Gap 0.5 */
+    overflow: hidden;
   }
   .nab-botoia {
     padding: 0.3rem 0.5rem;
@@ -1019,10 +1362,11 @@ body {
   }
   .mugikor-menu-edukiontzia.erakutsi,
   .mugikor-menu-edukiontzia {
-    display: none !important;
+    display: none;
   }
 }
 
+/* 768px tik gora zabaltzen denean */
 @media (min-width: 768px) {
   .eduki-nagusia {
     margin-top: 7rem;
@@ -1043,7 +1387,9 @@ body {
   }
   .saski-botoia {
     font-size: 1.1rem;
+    margin-right: 1rem;
   }
+
   .oin-sarea {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1055,22 +1401,88 @@ body {
   }
 }
 
+@media (min-width: 900px) {
+  .erosketa-sareta {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
 @media (min-width: 1170px) {
   .logoa {
     font-size: 3.5rem;
   }
 }
 
-.erosketa-sareta {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+/* --- GORA JOAN BOTOIA --- */
+#gora-joan-botoia {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--kolore-nagusia);
+  color: white;
+  border-radius: 50%;
+  border: 2px solid var(--kolore-nagusia-argia);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-@media (min-width: 900px) {
-  .erosketa-sareta {
-    grid-template-columns: 3fr 2fr;
-  }
+#gora-joan-botoia.erakutsi {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#gora-joan-botoia:not(.erakutsi) {
+  transform: translateY(20px);
+}
+
+#gora-joan-botoia:hover {
+  background-color: var(--kolore-nagusia-iluna);
+  transform: scale(1.1) translateY(-5px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --- BOTOI HOBEKUNTZAK (DISTIRA EFEKTUA) --- */
+.azal-cta-botoia {
+  position: relative;
+  overflow: hidden;
+}
+
+.azal-cta-botoia::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: none;
+}
+
+.azal-cta-botoia:hover::after {
+  left: 120%;
+  transition: all 0.6s ease-in-out;
+}
+
+.azal-cta-botoia i {
+  transition: transform 0.3s ease;
+}
+
+.azal-cta-botoia:hover i {
+  transform: scale(1.2) rotate(-10deg);
 }

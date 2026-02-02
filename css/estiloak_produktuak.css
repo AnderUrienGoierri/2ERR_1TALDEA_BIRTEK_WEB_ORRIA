@@ -3,7 +3,7 @@
 /* PRODUKTU ORRIAKO ELEMENTUAK */
 .produktuak-titulua {
   font-size: 2.25rem; /* Mobile first */
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   text-align: center;
   color: #166534;
   font-family: "Outfit", sans-serif;
@@ -14,9 +14,23 @@
 .produktuak-orria {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.produktu-kopuru-info {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.kopurua-txapa {
+  color: #166534;
+  font-weight: 800;
+  font-size: 1.25rem;
 }
 
 .alboko-barra {
@@ -30,7 +44,7 @@
 
 .iragazki-kaxa {
   background: white;
-  padding: 1.25rem; /* Reduced for 320px */
+  padding: 1rem;
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -41,24 +55,22 @@
 .iragazki-izenburua {
   font-weight: 800;
   font-size: 1.25rem;
-  margin-bottom: 0; /* Changed from 1.5rem because header is now a flex row for toggle */
-  font-family: "Outfit", sans-serif;
+  margin-bottom: 0; 
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-/* Updated Header for Toggle */
+
 .iragazki-goiburua {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  cursor: pointer; /* Clickable on mobile */
-  user-select: none;
+  margin-bottom: 0.5rem;
+  cursor: pointer; 
 }
 
-/* Filter Content Container (Hidden by default on mobile) */
+
 .iragazki-edukia {
   display: none;
 }
@@ -67,9 +79,6 @@
   display: block;
 }
 
-.iragazki-taldea {
-  margin-bottom: 1.5rem;
-}
 
 .inprimaki-sarrera,
 .inprimaki-hautatu {
@@ -87,7 +96,7 @@
   border-color: #166534;
 }
 
-.iragazkiak-berrezarri {
+.berrezarri-testua {
   font-size: 0.875rem;
   color: #ef4444;
   background: none;
@@ -95,6 +104,10 @@
   cursor: pointer;
   font-weight: 600;
 }
+.berrezarri-botoia {
+  text-align: right;
+}
+
 
 .iragazkiak-berrezarri:hover {
   text-decoration: underline;
@@ -105,17 +118,42 @@
   font-weight: 600;
   color: #374151;
   display: block;
-  margin-bottom: 0.5rem;
 }
 
-/* Utility classes for filter layout */
+
 .prezio-iragazki-taldea {
   display: flex;
   gap: 5px;
 }
 
 .zabaler-erdi {
-  width: 50% !important;
+  width: 50%;
+}
+
+/* Radio botoiak prezioa ordenatzeko*/
+.prezio-ordenatu-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.radio-etiketa {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+.radio-etiketa input[type="radio"] {
+  cursor: pointer;
+  accent-color: #166534;
+}
+
+.radio-etiketa:hover {
+  color: #166534;
 }
 
 .klikagarria {
@@ -136,7 +174,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .produktu-txartela:hover {
@@ -157,7 +197,7 @@
 }
 
 .txartel-edukia {
-  padding: 1rem; /* Reduced for 320px */
+  padding: 1rem; 
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -185,7 +225,7 @@
 }
 
 .txartel-prezioa {
-  font-size: 1.25rem; /* Fixed: was 0.5rem */
+  font-size: 1.25rem; 
   font-weight: 700;
   color: #166534;
 }
@@ -245,7 +285,6 @@
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
-  backdrop-filter: blur(4px);
 }
 
 /* --- FEEDBACK MEZUA --- */
@@ -275,15 +314,6 @@
 /* --- MEDIA QUERIES (AT THE END) --- */
 /* ========================================================================= */
 
-@media (min-width: 375px) {
-  .iragazki-kaxa {
-    padding: 2rem;
-  }
-  .txartel-edukia {
-    padding: 1.5rem;
-  }
-}
-
 @media (min-width: 640px) {
   .produktu-sarea {
     grid-template-columns: repeat(2, 1fr);
@@ -293,7 +323,6 @@
 @media (min-width: 768px) {
   .produktuak-titulua {
     font-size: 1.75rem;
-    margin-bottom: 3rem;
   }
 }
 

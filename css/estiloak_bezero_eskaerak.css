@@ -1,34 +1,41 @@
 .eskari-edukiontzia {
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 1rem auto;
   padding: 1rem;
 }
+
 .eskari-txartela {
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 1.5rem;
   margin-bottom: 2rem;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .eskari-goiburua {
-  background: #f8f9fa;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; 
+  gap: 1rem;
 }
+
 .eskari-izenburua {
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #166534;
 }
+
 .eskari-egoera-etiketa {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
   font-weight: bold;
 }
+
 .egoera-Osatua {
   background-color: #d4edda;
   color: #155724;
@@ -47,63 +54,103 @@
 }
 
 .eskari-gorputza {
-  padding: 1rem;
+  padding: 0.5rem; 
 }
+
+.taula-scroll-edukiontzia,
+#erosketa-saski-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
 .lerro-taula {
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
+  min-width: 500px; 
 }
+
 .lerro-taula th,
 .lerro-taula td {
   text-align: left;
-  padding: 0.5rem;
+  padding: 0.4rem 0.2rem;
   border-bottom: 1px solid #eee;
 }
+
 .lerro-taula th {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
+
 .testu-apala {
   color: #6c757d;
 }
+
 .guztira-lerroa {
   text-align: right;
   font-weight: bold;
   margin-top: 1rem;
   font-size: 1.1rem;
+  padding: 1rem;
 }
+
+.saski-oina-guztira {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  border-top: 1px solid #eee;
+  background: #f9fafb;
+}
+
 .atzera-botoia {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #007bff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.atzera-botoia:hover {
+  color: #166534;
+}
+
+.ezabatu-eskaria-botoia,
+.faktura-deskargatu-botoia {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%; 
 }
 
 .ezabatu-eskaria-botoia {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #fee2e2;
+  color: #991b1b;
 }
+
 .ezabatu-eskaria-botoia:hover {
-  background-color: #c82333;
+  background-color: #fecaca;
 }
 
 .faktura-deskargatu-botoia {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: var(--kolore-nagusia-argia, #dcfce7);
+  color: var(--kolore-nagusia-iluna, #166534);
 }
+
 .faktura-deskargatu-botoia:hover {
-  background-color: #0056b3;
+  background-color: #bbf7d0;
 }
 
 .ezabatu-lerroa-botoia {
@@ -111,7 +158,30 @@
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 1.1rem;
 }
-.ezabatu-lerroa-botoia:hover {
-  color: #a71d2a;
+
+@media (min-width: 768px) {
+  .eskari-edukiontzia {
+    margin: 3rem auto;
+  }
+
+  .eskari-goiburua {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .eskari-gorputza {
+    padding: 1.5rem;
+  }
+
+  .ezabatu-eskaria-botoia,
+  .faktura-deskargatu-botoia {
+    width: auto;
+  }
+
+  .lerro-taula th {
+    font-size: 0.9rem;
+  }
 }

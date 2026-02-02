@@ -2,6 +2,11 @@ var produktuGuztiak = []; // Produktu guztiak gordetzeko (filtratzeko)
 
 // PRODUKTU SAREA OSATU:
 $(document).ready(function () {
+  // Produktu kopuru info estiloak (jQuery-rekin)
+  $("#produktu-kopuru-info").addClass("produktu-kopuru-info");
+
+  $("#kopurua-txapa").addClass("kopurua-txapa");
+
   // Begiratu ea zerbitzaritik (PHP) datuak jada badatozen (hasierakoProduktuak)
   if (
     typeof hasierakoProduktuak !== "undefined" &&
@@ -13,22 +18,31 @@ $(document).ready(function () {
     console.log("Produktuak PHPtik kargatuta.", produktuGuztiak.length);
   } else {
     console.error(
-      "Errorea: Produktuak ez dira kargatu. 'hasierakoProduktuak' ez dago definituta."
+      "Errorea: Produktuak ez dira kargatu. 'hasierakoProduktuak' ez dago definituta.",
     );
     $(".produktu-sarea").html(
-      "<p>Errorea: Ezin izan dira produktuak kargatu.</p>"
+      "<p>Errorea: Ezin izan dira produktuak kargatu.</p>",
     );
   }
 
   // Iragazkietan aldaketak detektatu
   $(
-    "#iragazkia-bilatu, #iragazkia-egoera, #iragazkia-kategoria, #iragazkia-mota, #iragazkia-ordenatu, #prezioa-min, #prezioa-max"
+    "#iragazkia-bilatu, #iragazkia-egoera, #iragazkia-kategoria, #iragazkia-mota, #iragazkia-ordenatu, #prezioa-min, #prezioa-max",
   ).on("input change", function () {
     produktuakFiltratu();
   });
 
+  // Radio buttons aldaketak detektatu (Prezioa ordenatu)
+  $("input[name='prezio-ordenatu']").on("change", function () {
+      var balioa = $(this).val();
+      window.location.href = "produktuak.php?prezio-ordenatu=" + balioa;
+  });
+
   // "FILTROAK GARBITU" botoia
   $(".iragazkiak-berrezarri").on("click", function () {
+    // URL garbitu
+    window.location.href = "produktuak.php";
+    /*
     $("#iragazkia-bilatu").val("");
     $("#iragazkia-egoera").val("");
     $("#iragazkia-kategoria").val("");
@@ -36,7 +50,9 @@ $(document).ready(function () {
     $("#iragazkia-ordenatu").val("default");
     $("#prezioa-min").val("");
     $("#prezioa-max").val("");
+    $("input[name='prezio-ordenatu']").prop("checked", false);
     produktuakFiltratu(); // Berrezarri ondoren filtratu (denak erakusteko)
+    */
   });
 
   // MUGIKORRA ETA IDAZMAHAIA: Iragazkiak erakutsi/ezkutatu
@@ -62,14 +78,10 @@ function produktuakBistaratu(produktuak) {
   $.each(produktuak, function (index, produktua) {
     var stockKlasea =
       produktua.stock > 0 ? "txartel-stock" : "txartel-stock-agortuta";
-    // Kategoria ID bada zenbaki bat, agian izena berreskuratu beharko litzateke,
-    // baina `api_produktuak.php`-k jada `id_kategoria` izenarekin bidaltzen du (testua).
 
     var txartelaHtml = `
-      <div class="produktu-txartela">
-        <div class="txartel-irudia klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
-          produktua.id_produktua
-        }'">
+      <div class="produktu-txartela" data-id="${produktua.id_produktua}">
+        <div class="txartel-irudia klikagarria-joan">
           <img
             src="${produktua.irudia_url}"
             alt="${produktua.izena}"
@@ -79,13 +91,11 @@ function produktuakBistaratu(produktuak) {
           <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
         </div>
         <div class="txartel-edukia">
-          <h3 class="txartel-izenburua klikagarria" onclick="window.location.href='produktua_xehetasunak.php?id=${
-            produktua.id_produktua
-          }'">${produktua.izena}</h3>
+          <h3 class="txartel-izenburua klikagarria-joan">${produktua.izena}</h3>
           <div class="txartel-informazio-lerroa">
             <span class="txartel-marka">${produktua.marka} | ${
-      produktua.egoera
-    }</span>
+              produktua.egoera
+            }</span>
             <span class="${stockKlasea}">Stock: ${produktua.stock}</span>
           </div>
           <p class="txartel-azalpena">
@@ -94,16 +104,14 @@ function produktuakBistaratu(produktuak) {
 
           <div class="txartel-oina">
             <span class="txartel-prezioa">${produktua.prezioa.toFixed(
-              2
+              2,
             )} €</span>
             <button class="produktua-saskiratu-botoia" data-stock="${
               produktua.stock
             }" ${produktua.stock === 0 ? "disabled" : ""}>
               Saskiratu
             </button>
-            <button class="produktua-ikusi-botoia" onclick="window.location.href='produktua_xehetasunak.php?id=${
-              produktua.id_produktua
-            }'">Ikusi</button>
+            <button class="produktua-ikusi-botoia klikagarria-joan">Ikusi</button>
           </div>
         </div>
       </div>
@@ -112,12 +120,24 @@ function produktuakBistaratu(produktuak) {
   });
 }
 
+// Produktuak klikatzean
+$(document).on("click", ".klikagarria-joan", function (e) {
+  var id = $(this).closest(".produktu-txartela").data("id");
+  if (id) {
+    window.location.href = "produktua_xehetasunak.php?id=" + id;
+  }
+});
+
 function produktuakFiltratu() {
   var bilatuTestua = $("#iragazkia-bilatu").val().toLowerCase();
   var egoera = $("#iragazkia-egoera").val();
   var kategoria = $("#iragazkia-kategoria").val();
   var mota = $("#iragazkia-mota").val();
   var ordenatu = $("#iragazkia-ordenatu").val();
+  var prezioOrdenatu = $("input[name='prezio-ordenatu']:checked").val();
+  if (prezioOrdenatu) {
+    ordenatu = prezioOrdenatu;
+  }
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 
@@ -196,6 +216,11 @@ $(document).ready(function () {
     // Globala.js-ko funtzioa deitu
     if (typeof window.saskiaGehitu === "function") {
       window.saskiaGehitu(id, izena, prezioa, stock, $botoia);
+      
+      //  (soilik saskiratu denean)
+      if (typeof window.saskiaAnimatuKontagailua === "function") {
+        window.saskiaAnimatuKontagailua();
+      }
 
       // Saskia irekita badago, eguneratu ikuspegia
       if (
@@ -206,7 +231,7 @@ $(document).ready(function () {
       }
     } else {
       console.error(
-        "Errorea: window.saskiaGehitu ez dago definituta globala.js-n"
+        "Errorea: window.saskiaGehitu ez dago definituta globala.js-n",
       );
     }
   });

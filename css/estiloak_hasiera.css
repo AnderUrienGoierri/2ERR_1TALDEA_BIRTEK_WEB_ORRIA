@@ -2,29 +2,45 @@
 
 /* HASIERA ORRIKO ELEMENTUAK */
 .azal-kaxa {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 2rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  padding: 3rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(22, 101, 52, 0.1);
+  padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 4rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-@media (min-width: 768px) {
-  .azal-kaxa {
-    padding: 3rem 1rem;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-  }
+.azal-kaxa:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 45px 0 rgba(22, 101, 52, 0.15);
+}
+
+.azal-kaxa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--kolore-nagusia), var(--kolore-nagusia-tainua), var(--kolore-nagusia));
+  background-size: 200% auto;
+  animation: distira-ertza 3s linear infinite;
+}
+
+@keyframes distira-ertza {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 .azal-izenburua {
-  font-size: 1.75rem; /* Reduced for 320px */
+  font-size: 1.75rem; 
   font-weight: 800;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -32,20 +48,6 @@
   font-family: var(--font-izenburua);
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-@media (min-width: 768px) {
-  .azal-izenburua {
-    font-size: 3rem;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .azal-izenburua {
-    font-size: 4rem;
-  }
 }
 
 .azal-azpititulua {
@@ -121,20 +123,8 @@
   box-shadow: var(--itzala-lg);
 }
 
-@media (min-width: 768px) {
-  .hasiera-txartel-lerroa {
-    flex-direction: row;
-  }
-}
-
 .hasiera-zutabea {
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .hasiera-zutabea {
-    width: 50%;
-  }
 }
 
 .hasiera-txartel-irudia {
@@ -158,7 +148,7 @@
   color: var(--testu-bigarren);
 }
 
-/* SLIDER */
+/* SLIDER-a */
 .slider-kanpo-edukiontzia {
   display: flex;
   max-width: 1280px;
@@ -175,14 +165,44 @@
   border-radius: 1.5rem;
 }
 
-@media (min-width: 1024px) {
-  .hasiera-slider-egitura img {
-    height: 600px;
-  }
-}
-
 .bx-wrapper {
   border: none !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
   border-radius: 1.5rem;
+}
+
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
+
+@media (min-width: 768px) {
+  .azal-kaxa {
+    padding: 3rem 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .azal-izenburua {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .hasiera-txartel-lerroa {
+    flex-direction: row;
+  }
+
+  .hasiera-zutabea {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .azal-izenburua {
+    font-size: 4rem;
+  }
+
+  .hasiera-slider-egitura img {
+    height: 600px;
+  }
 }

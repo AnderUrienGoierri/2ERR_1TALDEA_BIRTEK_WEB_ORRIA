@@ -40,87 +40,13 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarrerak Kudeatu - BIRTEK</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> <!-- Reusing order list styles -->
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
 </head>
 <body class="web-gorputza">
-    <header class="goiburu-nagusia">
-      <nav class="nab-edukiontzia">
-        <div class="goiburu-barnealdea">
-          <!-- Mugikorra Menu Botoia -->
-          <button id="mugikor-menu-botoia" class="mugikor-menu-botoia">
-            <i class="fas fa-bars burger-ikonoa"></i>
-          </button>
-          <!-- logoa -->
-          <a href="hasiera.php" class="logo-edukiontzia">
-            <span class="logoa">BIRTEK</span>
-          </a>
-          <div class="nab-menu-mahaigaina">
-            <a href="hasiera.php" class="nab-botoia">Hasiera</a>
-            <a href="produktuak.php" class="nab-botoia">Produktuak</a>
-            <a href="berriak.php" class="nab-botoia">Berriak</a>
-            <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
-            <a href="hornitzaile_menua.php" class="nab-botoia hornitzailea-aktibo">Birziklatu</a>
-            <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
-          </div>
-          <div class="nab-ekintzak">
-            <?php if (isset($_SESSION['id_bezeroa'])): ?>
-                <div class="saio-info-edukiontzia">
-                    <a href="bezero_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
-                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span>
-                    </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </div>
-            <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-                <div class="saio-info-edukiontzia">
-                    <a href="hornitzaile_menua.php" class="saioa-hasi-botoia aktibo" id="saioa-hasi-botoia" title="Joan Nire Menura">
-                        <i class="fas fa-user"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala'] ?? 'Hornitzailea') ?></span>
-                    </a>
-                    <button id="saioa-itxi-botoia" class="saioa-hasi-botoia" style="background:#fee2e2; color:#991b1b; border-color:#f87171;">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </div>
-            <?php else: ?>
-                <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia" id="saioa-hasi-botoia">Saioa Hasi</a>
-            <?php endif; ?>
-          </div>
-        </div>
-        <div id="mugikor-menua" class="mugikor-menu-edukiontzia">
-          <a href="hasiera.php" class="nab-botoia">Hasiera</a>
-          <a href="produktuak.php" class="nab-botoia">Produktuak</a>
-          <a href="berriak.php" class="nab-botoia">Berriak</a>
-          <a href="kontaktua.php" class="nab-botoia">Kontaktua</a>
-          <a href="hornitzaile_menua.php" class="nab-botoia hornitzailea-aktibo">Birziklatu</a>
-          <a href="langileak_menua.php" class="nab-botoia">Langileak</a>
-
-          <?php if (isset($_SESSION['id_bezeroa'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="bezero_menua.php" class="nab-botoia mugikor-user-link">
-                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
-                  </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
-                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
-              </div>
-          <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
-              <div class="mugikor-user-container">
-                  <a href="hornitzaile_menua.php" class="nab-botoia mugikor-user-link">
-                      <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena_soziala']) ?>
-                  </a>
-                  <a href="logout_bezeroa.php" class="nab-botoia" style="color: #991b1b; background: #fee2e2; border-top: 1px solid #fecaca;">
-                      <i class="fas fa-sign-out-alt"></i> Saioa Itxi
-                  </a>
-              </div>
-          <?php else: ?>
-              <a href="bezero_saioa_hasi.php" class="nab-botoia">Saioa Hasi</a>
-          <?php endif; ?>
-        </div>
-      </nav>
-    </header>
+    <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
         <div class="eskari-edukiontzia"> <!-- Reusing class for container style -->
@@ -165,6 +91,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
 </body>
