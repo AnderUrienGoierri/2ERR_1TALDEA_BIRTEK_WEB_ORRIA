@@ -26,23 +26,46 @@ try {
     $guztira = 0;
 
     // 1. Pase bat stock-a eta prezioak egiaztatzeko
+    $konprobatutako_produktuak = []; // Cachea: id => [stock, prezioa, gastatua]
+
     foreach ($saskia as &$elementua) {
-        $stmtP = $konexioa->prepare("SELECT salmenta_prezioa, stock FROM produktuak WHERE id_produktua = ?");
-        $stmtP->execute([$elementua['id']]);
-        $prod = $stmtP->fetch(PDO::FETCH_ASSOC);
+        $prodId = $elementua['id'];
 
-        if (!$prod) {
-            throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
+        // Datuak kargatu ez badira, DBtik ekarri (FOR UPDATE erabiltzen dugu blokeatzeko)
+        if (!isset($konprobatutako_produktuak[$prodId])) {
+            $stmtP = $konexioa->prepare("SELECT salmenta_prezioa, stock FROM produktuak WHERE id_produktua = ? FOR UPDATE");
+            $stmtP->execute([$prodId]);
+            $prod = $stmtP->fetch(PDO::FETCH_ASSOC);
+
+            if (!$prod) {
+                throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
+            }
+            
+            $konprobatutako_produktuak[$prodId] = [
+                'stock' => $prod['stock'],
+                'prezioa' => $prod['salmenta_prezioa'],
+                'gastatua' => 0
+            ];
         }
 
-        if ($prod['stock'] < $elementua['kantitatea']) {
-            throw new Exception("Ez dago stock nahikorik: " . $elementua['izena'] . " (" . $prod['stock'] . " ale geratzen dira)");
+        // Egiaztatu nahikoa stock dagoen (orain arte gastatutakoa kontuan hartuta)
+        $uneko_stock = $konprobatutako_produktuak[$prodId]['stock'];
+        $dagoeneko_gastatua = $konprobatutako_produktuak[$prodId]['gastatua'];
+        $beharrezkoa = $elementua['kantitatea'];
+
+        if (($uneko_stock - $dagoeneko_gastatua) < $beharrezkoa) {
+            $geratzen_direnak = max(0, $uneko_stock - $dagoeneko_gastatua);
+            throw new Exception("Ez dago stock nahikorik: " . $elementua['izena'] . " (" . $geratzen_direnak . " ale geratzen dira)");
         }
+
+        // Eguneratu gastatutako kantitatea
+        $konprobatutako_produktuak[$prodId]['gastatua'] += $beharrezkoa;
 
         // Kalkulatu guztira DBko prezioekin (segurtasuna)
-        $guztira += $prod['salmenta_prezioa'] * $elementua['kantitatea'];
-        $elementua['db_prezioa'] = $prod['salmenta_prezioa'];
+        $guztira += $konprobatutako_produktuak[$prodId]['prezioa'] * $beharrezkoa;
+        $elementua['db_prezioa'] = $konprobatutako_produktuak[$prodId]['prezioa'];
     }
+    unset($elementua); // Apurtu erreferentzia
 
     // 2. Sortu eskaera nagusia
     $stmtE = $konexioa->prepare("INSERT INTO eskaerak (bezeroa_id, guztira_prezioa, data, eskaera_egoera) VALUES (?, ?, NOW(), 'Prestatzen')");

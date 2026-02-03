@@ -133,7 +133,7 @@ try {
       <div class="produktuak-orria">
         <div class="alboko-barra">
           <!-- Iragazkiak -->
-          <div class="iragazki-kaxa">
+          <aside class="iragazki-kaxa">
             <!-- Iragazki Goiburua -->
             <div class="iragazki-goiburua">
               <h3 class="iragazki-izenburua">
@@ -230,7 +230,7 @@ try {
                 </select>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
 
         <div class="eduki-zutabea">
