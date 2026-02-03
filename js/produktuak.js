@@ -188,6 +188,9 @@ function produktuakFiltratu() {
   }
 
   produktuakBistaratu(emaitzak);
+  
+  // Eguneratu kopurua txapan
+  $("#kopurua-txapa").text(emaitzak.length);
 }
 
 // ==========================================================

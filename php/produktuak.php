@@ -91,6 +91,8 @@ try {
       ]
     ];
   }
+  // Eguneratu kopurua bilaketa filtroa aplikatu bada
+  $produktu_kopuru_totala = count($produktuak_lista);
 
 } catch (Exception $e) {
   // Errorea gertatuz gero, array hutsa edo errorea kudeatu dezakegu
