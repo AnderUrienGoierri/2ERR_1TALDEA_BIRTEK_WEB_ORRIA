@@ -45,6 +45,43 @@ WHERE p.salgai = 1 AND p.stock > 0;
 
 `GROUP BY` estatistikak eta laburpenak egiteko erabiltzen da.
 
+Hobekuntza
+
+Kontsulta hori **estatistikak lortzeko eta erabakiak hartzeko** (Business Intelligence) erabili dugu, batez ere administrazioaren edo kudeaketaren ikuspuntutik.
+
+Nahiz eta bezeroen orrietan (produktuen zerrendan, adibidez) zuzenean agertu ez, kontsulta hau funtsezkoa da BIRTEKeko kudeatzaileentzat (eta mahaigaineko Java aplikazioko txostenetan aurreikusita dago) arrazoi hauengatik:
+
+1. **Salmenten analisia** : Kategoria bakoitzak (Ordenagailuak, Telefonia, Softwarea...) zenbat diru sortzen duen jakiteko. Horrela, kategoria errentagarrienak zeintzuk diren ikus dezakegu.
+2. **Stock kudeaketa** : Diru gehien ematen duten kategorietan hornikuntza lehenesteko erabiltzen dugu.
+3. **Txostenak** : Zuzendaritzari salmenten laburpen argi bat aurkezteko (adibidez, grafikoetan irudikatzeko).
+
+Laburbilduz, kontsulta konplexu honek **datu hutsak informazio baliagarri** bihurtzen ditu enpresaren martxa aztertzeko.
+
+
+Egia esan, kontsulta aurreratu horiek (estatistikak, Business Intelligence...)  **ez daude bezeroek edo hornitzaileek ikusten dituzten orri publikoetan** .
+
+BIRTEKeko arkitekturan, datu-analisiaren zati hori honela banatuta dago:
+
+1. **Web Orria (Bezero/Hornitzaile):** Webgunea batez ere "eragiketak" egiteko da: erosketak egin, produktuak ikusi, bidalketak kudeatu... Horregatik erabiltzen dugu
+
+   ```
+   JOIN
+   ```
+
+   bakarrik (datuak lotzeko).
+2. **Kudeaketa (Business Intelligence):** Estatistika konplexu hauek (Kategorien araberako salmentak, bezeroen gastu totalak...) **BIRTEKeko kudeatzaileentzat** pentsatuta daude.
+3. **BirtekAp (Java):**
+
+   langileak_menua.php orrian ikus dezakezun bezala, proiektuak **Java mahaigaineko aplikazio bat** du (
+
+   ```
+   BirtekAp
+   ```
+
+   ). Estatistika eta txosten aurreratu horiek aplikazio administratibo horretan exekutatzeko diseinatuta daude, enpresaren barne kudeaketarako.
+
+Guk README_web_sql.md fitxategian gehitu ditugu proiektuaren **gaitasun teknikoa eta SQL konplexutasun-maila** erakusteko, nahiz eta web-interfazean (publikoan) zuzenean ikusgai ez egon.
+
 ### Salmenta Totalak Kategoria bakoitzeko
 
 Kategoria bakoitzak sortutako diru-kopuru osoa kalkulatzeko aztertutako kontsulta.
