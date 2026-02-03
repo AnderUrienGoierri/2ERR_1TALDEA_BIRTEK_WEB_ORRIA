@@ -126,14 +126,15 @@ try {
     <section>
       <h2 class="produktuak-titulua">Gure Produktuak</h2>
 
-      <div id="produktu-kopuru-info">
-        [ <span id="kopurua-txapa"><?php echo $produktu_kopuru_totala; ?></span> ]
+      <div id="produktu-kopuru-info" class="produktu-kopuru-info">
+        <span>Guztira:</span>
+        <span id="kopurua-txapa" class="kopurua-txapa"><?php echo $produktu_kopuru_totala; ?></span>
       </div>
 
       <div class="produktuak-orria">
         <div class="alboko-barra">
           <!-- Iragazkiak -->
-          <div class="iragazki-kaxa">
+          <aside class="iragazki-kaxa">
             <!-- Iragazki Goiburua -->
             <div class="iragazki-goiburua">
               <h3 class="iragazki-izenburua">
@@ -230,7 +231,7 @@ try {
                 </select>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
 
         <div class="eduki-zutabea">

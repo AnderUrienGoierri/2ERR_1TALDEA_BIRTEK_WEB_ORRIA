@@ -169,6 +169,10 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                                         <button type="submit" class="ezabatu-eskaria-botoia">Ezabatu Eskaera</button>
                                     </form>
                                 <?php endif; ?>
+                                <?php if ($isOsatua): ?>
+                                    <a href="deskargatu_faktura.php?id=<?= $eskaera['id_eskaera'] ?>"
+                                        class="faktura-deskargatu-botoia">Faktura</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="eskari-gorputza">
@@ -206,10 +210,8 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                                                             <button type="submit" class="ezabatu-lerroa-botoia"
                                                                 title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
                                                         </form>
-                                                    <?php endif; ?>
-                                                    <?php if ($isOsatua): ?>
-                                                        <a href="deskargatu_faktura.php?id=<?= $eskaera['id_eskaera'] ?>"
-                                                            class="faktura-deskargatu-botoia">Faktura</a>
+                                                    <?php else: ?>
+                                                        <span class="testu-apala">-</span>
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
