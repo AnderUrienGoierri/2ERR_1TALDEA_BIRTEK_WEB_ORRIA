@@ -8,6 +8,33 @@ if (!isset($_SESSION['id_hornitzailea'])) {
 }
 
 $id_hornitzailea = $_SESSION['id_hornitzailea'];
+$mezua = "";
+
+// 1. EZABATZE LOGIKA
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'delete_sarrera_lerroa') {
+    try {
+        $id_lerroa = $_POST['id_sarrera_lerroa'];
+        
+        // Egiaztatu lerroa hornitzailearena den eta "Bidean" dagoen
+        $stmt_check = $konexioa->prepare("
+            SELECT sl.id_sarrera_lerroa 
+            FROM sarrera_lerroak sl
+            JOIN sarrerak s ON sl.sarrera_id = s.id_sarrera
+            WHERE sl.id_sarrera_lerroa = ? AND s.hornitzailea_id = ? AND sl.sarrera_lerro_egoera = 'Bidean'
+        ");
+        $stmt_check->execute([$id_lerroa, $id_hornitzailea]);
+        
+        if ($stmt_check->fetch()) {
+            $stmt_del = $konexioa->prepare("DELETE FROM sarrera_lerroak WHERE id_sarrera_lerroa = ?");
+            $stmt_del->execute([$id_lerroa]);
+            $mezua = "Sarrera lerroa ondo ezabatu da.";
+        } else {
+            $mezua = "Ezin da lerro hau ezabatu (baliteke jada 'Jasota' izatea).";
+        }
+    } catch (PDOException $e) {
+        $mezua = "Errorea ezabatzean: " . $e->getMessage();
+    }
+}
 
 // Fetch shipments (sarrerak + lerroak)
 // Joining sarrerak, sarrera_lerroak, and produktuak
@@ -44,6 +71,11 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> <!-- Reusing order list styles -->
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
+    <script>
+        function confirmDelete() {
+            return confirm("Ziur zaude sarrera hau ezabatu nahi duzula?");
+        }
+    </script>
 </head>
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
@@ -53,6 +85,12 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="hornitzaile_menua.php" class="atzera-botoia"><i class="fas fa-arrow-left"></i> Atzera</a>
             <h2>Nire Sarrerak (Bidalketak)</h2>
 
+            <?php if ($mezua): ?>
+                <div class="alert-berdea">
+                    <?= htmlspecialchars($mezua) ?>
+                </div>
+            <?php endif; ?>
+
             <?php if (count($sarrerak) > 0): ?>
                 <table class="sarrera-taula">
                     <thead>
@@ -61,6 +99,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th class="sarrera-th">Produktua</th>
                             <th class="sarrera-th-zentratua">Kantitatea</th>
                             <th class="sarrera-th-zentratua">Bidalketa Egoera</th>
+                            <th class="sarrera-th-zentratua">Ekintzak</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +120,19 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <span class="egoera-<?= $sarrera['sarrera_lerro_egoera'] ?>">
                                         <?= $sarrera['sarrera_lerro_egoera'] ?>
                                     </span>
+                                </td>
+                                <td class="sarrera-td-zentratua">
+                                    <?php if ($sarrera['sarrera_lerro_egoera'] === 'Bidean'): ?>
+                                        <form method="POST" onsubmit="return confirmDelete()" style="display:inline;">
+                                            <input type="hidden" name="action" value="delete_sarrera_lerroa">
+                                            <input type="hidden" name="id_sarrera_lerroa" value="<?= $sarrera['id_sarrera_lerroa'] ?>">
+                                            <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu sarrera">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    <?php else: ?>
+                                        <span class="testu-apala">-</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
