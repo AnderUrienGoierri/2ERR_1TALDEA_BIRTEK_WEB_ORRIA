@@ -270,7 +270,7 @@
   .sarrera-td-zentratua {
     border: none;
     position: relative;
-    padding: 0.75rem 0 0.75rem 50% !important;
+    padding: 0.75rem 0 0.75rem 55% !important;
     text-align: left !important;
   }
 
@@ -278,9 +278,9 @@
   .sarrera-td-zentratua::before {
     position: absolute;
     left: 0;
-    width: 45%;
+    width: 50%;
     padding-right: 10px;
-    white-space: nowrap;
+    white-space: normal;
     font-weight: bold;
     color: #4b5563;
   }
@@ -296,5 +296,8 @@
   }
   .sarrera-gorputz-tr td:nth-of-type(4)::before {
     content: "Bidalketa Egoera:";
+  }
+  .sarrera-gorputz-tr td:nth-of-type(5)::before {
+    content: "Ekintzak:";
   }
 }
