@@ -285,6 +285,8 @@
     color: #4b5563;
   }
 
+
+  /* hornitzaile_sarrerak_kudeatu.php orriko div blokeak txukun agertzeko*/
   .sarrera-gorputz-tr td:nth-of-type(1)::before {
     content: "Data:";
   }
