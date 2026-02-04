@@ -60,10 +60,9 @@ $(document).ready(function () {
     $(".iragazki-edukia").slideToggle();
   });
 
-  // Leihoa aldatzean ez dugu ezer behartuko, erabiltzaileak erabaki dezala.
-  // Nahi izanez gero, hemen jarri daiteke logika bereziren bat, baina
-  // orokorrean hobe da 'slideToggle'-k jarritakoa errespetatzea edo
-  // CSS bidez kudeatzea hasierako egoera.
+  // Hasieran ere filtratu (PHP-tik balioak badaude, kopurua sinkronizatzeko)
+  // Atzerapen txiki bat jarriko diogu nabigatzaileak selekzioak ondo karga ditzan
+  setTimeout(produktuakFiltratu, 100);
 });
 
 function produktuakBistaratu(produktuak) {
@@ -129,49 +128,45 @@ $(document).on("click", ".klikagarria-joan", function (e) {
 });
 
 function produktuakFiltratu() {
-  var bilatuTestua = $("#iragazkia-bilatu").val().toLowerCase();
+  var bilatuTestua = $("#iragazkia-bilatu").val() ? $("#iragazkia-bilatu").val().trim().toLowerCase() : "";
   var egoera = $("#iragazkia-egoera").val();
   var kategoria = $("#iragazkia-kategoria").val();
   var mota = $("#iragazkia-mota").val();
   var ordenatu = $("#iragazkia-ordenatu").val();
+  
   var prezioOrdenatu = $("input[name='prezio-ordenatu']:checked").val();
   if (prezioOrdenatu) {
     ordenatu = prezioOrdenatu;
   }
+  
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 
+  console.log("Filtratzen: ", { bilatuTestua, egoera, kategoria, mota, ordenatu });
+
   var emaitzak = produktuGuztiak.filter(function (p) {
-    // Stock-a egiaztatu (0 bada ez erakutsi)
     if (p.stock <= 0) return false;
 
-    // Bilatu (Izena edo Marka)
-    var matchBilatu =
-      !bilatuTestua ||
-      p.izena.toLowerCase().includes(bilatuTestua) ||
-      p.marka.toLowerCase().includes(bilatuTestua);
+    var matchBilatu = !bilatuTestua || 
+                      (p.izena && p.izena.toLowerCase().includes(bilatuTestua)) || 
+                      (p.marka && p.marka.toLowerCase().includes(bilatuTestua));
 
-    // Egoera
     var matchEgoera = !egoera || p.egoera === egoera;
+    
+    // Kategoria konparaketa (trim eginda)
+    var pKat = p.id_kategoria ? p.id_kategoria.trim() : "";
+    var fKat = kategoria ? kategoria.trim() : "";
+    var matchKategoria = !fKat || pKat === fKat;
 
-    // Kategoria (id_kategoria gisa stringa dator API-tik momentuz)
-    var matchKategoria = !kategoria || p.id_kategoria === kategoria;
+    // Mota konparaketa (trim eginda)
+    var pMota = p.mota ? p.mota.trim() : "";
+    var fMota = mota ? mota.trim() : "";
+    var matchMota = !fMota || pMota === fMota;
 
-    // Mota
-    var matchMota = !mota || p.mota === mota;
-
-    // Prezioa
     var matchPrezioaMin = isNaN(prezioaMin) || p.prezioa >= prezioaMin;
     var matchPrezioaMax = isNaN(prezioaMax) || p.prezioa <= prezioaMax;
 
-    return (
-      matchBilatu &&
-      matchEgoera &&
-      matchKategoria &&
-      matchMota &&
-      matchPrezioaMin &&
-      matchPrezioaMax
-    );
+    return matchBilatu && matchEgoera && matchKategoria && matchMota && matchPrezioaMin && matchPrezioaMax;
   });
 
   // Ordenatu
@@ -179,18 +174,23 @@ function produktuakFiltratu() {
     emaitzak.sort(function (a, b) {
       if (ordenatu === "prezioa-asc") return a.prezioa - b.prezioa;
       if (ordenatu === "prezioa-desc") return b.prezioa - a.prezioa;
-      if (ordenatu === "izena-asc") return a.izena.localeCompare(b.izena);
-      if (ordenatu === "izena-desc") return b.izena.localeCompare(a.izena);
+      if (ordenatu === "izena-asc") return (a.izena || "").localeCompare(b.izena || "");
+      if (ordenatu === "izena-desc") return (b.izena || "").localeCompare(a.izena || "");
       if (ordenatu === "stock-asc") return a.stock - b.stock;
       if (ordenatu === "stock-desc") return b.stock - a.stock;
       return 0;
     });
   }
 
+  console.log("Aurkitutako produktu kopurua:", emaitzak.length);
   produktuakBistaratu(emaitzak);
   
   // Eguneratu kopurua txapan
-  $("#kopurua-txapa").text(emaitzak.length);
+  var $txapa = $("#kopurua-txapa");
+  if ($txapa.length > 0) {
+    $txapa.text(emaitzak.length);
+    console.log("Kopuru txapa eguneratua: " + emaitzak.length);
+  }
 }
 
 // ==========================================================

@@ -5,21 +5,19 @@ session_start();
 require_once 'DB_konexioa.php';
 
 
-// produktu kopuru totala lortu
-$stmt_total = $konexioa->prepare("SELECT COUNT(*) FROM produktuak WHERE salgai = 1 AND stock > 0");
-$stmt_total->execute();
-$produktu_kopuru_totala = $stmt_total->fetchColumn();
+// produktu kopuru totala lortu (Hasieran hutsik, gero beteko dugu)
+$produktu_kopuru_totala = 0;
 
 $produktuak_lista = [];
 
 try {
-  // Kontsulta nagusia
+  // Kontsulta nagusia (filtered by URL params)
   $sql = "SELECT p.*, k.izena as produktu_kategoria_izena 
             FROM produktuak p 
             LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
             WHERE p.salgai = 1 AND p.stock > 0";
   
-  $params = []; // Parametroak gordetzeko arraya
+  $params = [];
 
   // BILAKETA LOGIKA (PHP)
   $bilatu_hitza = "";
@@ -29,7 +27,7 @@ try {
       $params[':bilatu'] = "%" . $bilatu_hitza . "%";
   }
 
-  // PREZIOAREN ARABERA ordenatu produktuak php bidez 
+  // PREZIOAREN ARABERA ordenatu
   if (isset($_GET['prezio-ordenatu'])) {
     $ordena = $_GET['prezio-ordenatu'];
     if ($ordena === 'prezioa-asc') {
@@ -48,17 +46,16 @@ try {
   $stmt_kategoriak->execute();
   $kategoriak_filtro = $stmt_kategoriak->fetchAll(PDO::FETCH_COLUMN);
 
-  // Egoerak lortu filtrorako (salgai dauden produktuetatik)
+  // Egoerak, motak lortu filtrorako
   $stmt_egoerak = $konexioa->prepare("SELECT DISTINCT produktu_egoera FROM produktuak WHERE salgai = 1 AND stock > 0 ORDER BY produktu_egoera");
   $stmt_egoerak->execute();
   $egoerak_filtro = $stmt_egoerak->fetchAll(PDO::FETCH_COLUMN);
 
-  // Motak lortu filtrorako (salgai dauden produktuetatik)
   $stmt_motak = $konexioa->prepare("SELECT DISTINCT mota FROM produktuak WHERE salgai = 1 AND stock > 0 ORDER BY mota");
   $stmt_motak->execute();
   $motak_filtro = $stmt_motak->fetchAll(PDO::FETCH_COLUMN);
 
-  // Datuak formatu egokian prestatu (JS-ak espero duen bezala)
+  // Datuak formatu egokian prestatu
   foreach ($db_produktuak as $lerroa) {
     $irudia = $lerroa['irudia_url'];
     if (!empty($irudia)) {
@@ -91,7 +88,41 @@ try {
       ]
     ];
   }
-  // Eguneratu kopurua bilaketa filtroa aplikatu bada
+
+  // JS-rako produktu GUZTIAK lortu (filtroak dinamikoki funtziona dezaten)
+  $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena 
+                                     FROM produktuak p 
+                                     LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
+                                     WHERE p.salgai = 1 AND p.stock > 0");
+  $stmt_guztiak->execute();
+  $db_guztiak = $stmt_guztiak->fetchAll(PDO::FETCH_ASSOC);
+  $hasierako_produktu_guztiak = [];
+
+  foreach ($db_guztiak as $lerroa) {
+    // Irudiaren URL-a prestatu
+    $irudia = $lerroa['irudia_url'];
+    if (!empty($irudia)) {
+      $final_url = (strpos($irudia, 'http') === 0) ? $irudia : '../produktuen_irudiak/' . $irudia;
+    } else {
+      $final_url = '../irudiak/birtek1.jpeg';
+    }
+
+    $hasierako_produktu_guztiak[] = [
+      'id_produktua' => (int) $lerroa['id_produktua'],
+      'izena' => $lerroa['izena'],
+      'deskribapena' => $lerroa['deskribapena'],
+      'id_kategoria' => $lerroa['produktu_kategoria_izena'],
+      'marka' => $lerroa['marka'],
+      'mota' => $lerroa['mota'],
+      'egoera' => $lerroa['produktu_egoera'],
+      'prezioa' => (float) $lerroa['salmenta_prezioa'],
+      'stock' => (int) $lerroa['stock'],
+      'salgai' => (bool) $lerroa['salgai'],
+      'irudia_url' => $final_url
+    ];
+  }
+
+  // Eguneratu kopuru totala filtratutakoen arabera
   $produktu_kopuru_totala = count($produktuak_lista);
 
 } catch (Exception $e) {
@@ -114,8 +145,8 @@ try {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
   <!-- gure css artxiboak -->
-  <link rel="stylesheet" href="../css/estiloak_globala.css" />
-  <link rel="stylesheet" href="../css/estiloak_produktuak.css" />
+  <link rel="stylesheet" href="../css/estiloak_globala.css?v=1.3" />
+  <link rel="stylesheet" href="../css/estiloak_produktuak.css?v=1.3" />
 </head>
 
 <!-- ===================================================================================== -->
@@ -149,7 +180,7 @@ try {
             <div class="iragazki-edukia">
               <!-- Garbitu Botoia (Mobilean ezkutuan egoteko) -->
               <div class="berrezarri-botoia">
-                <button class="berrezarri-testua">Garbitu</button>
+                <button class="berrezarri-testua iragazkiak-berrezarri">Garbitu</button>
               </div>
               <!-- Iragazki Taldea: BILATZAILEA -->
               <div>
@@ -298,11 +329,11 @@ try {
   <!-- JQUERY LIBURUTEGIA IMPORTATU -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
-    // PHP-tik datuak pasatzeko JS-ra, filtroak funtziona dezaten
-    var hasierakoProduktuak = <?php echo json_encode($produktuak_lista); ?>;
+    // PHP-tik datuak pasatzeko JS-ra, filtroak funtziona dezaten (GUZTIAK)
+    var hasierakoProduktuak = <?php echo json_encode($hasierako_produktu_guztiak); ?>;
   </script>
   <script src="../js/globala.js"></script>
-  <script src="../js/produktuak.js"></script>
+  <script src="../js/produktuak.js?v=1.4"></script>
 </body>
 
 </html>
