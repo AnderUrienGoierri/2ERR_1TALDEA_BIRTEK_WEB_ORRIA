@@ -19,7 +19,7 @@ Web orrien egitura definitzeko erabilitako etiketak eta atributuak.
 - `<main>`: Eduki nagusiarentzako edukiontzia.
 - `<aside>` / `<div class="alboko-barra">`: Alboko barra semantikoa, adibidez, produktuen iragazkiak biltzeko.
 - `<section>`: Edukiaren atal tematikoak banatzeko (adibidez, produktu sarea edo harremanetarako orria).
-- `<div>`: Edukiak multzokatzeko erabiltzen den edukiontzi orokorra.
+- `<div>`: Edukiak multzokatzeko erabiltzen den edukiontzi orokorra. Klase bat esleitzen diogu div-ari gehienetan.
 - `<footer>` / `<div class="oin-nagusia">`: Orriaren oina (harremanetarako datuak, copyright, estekak).
 - `<span>`: Testu zati txikiak edo elementu linealak estiloekin markatzeko (adibidez, prezioak edo stock abisuak).
 
