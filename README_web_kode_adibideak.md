@@ -205,3 +205,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ```
+
+### 4.3 Java Aplikazioa Abiarazi
+
+Hau da `php/java_app_abiarazi.php`, zerbitzariko aplikazio exekutablea abiarazteko.
+
+```php
+// php/java_app_abiarazi.php
+<?php
+$exePath = "C:\\birtek_app_exekutablea\\BirtekAPP.exe";
+$workingDir = "C:\\birtek_app_exekutablea";
+
+$command = "cd /d \"$workingDir\" && start \"\" \"$exePath\"";
+
+pclose(popen($command, "r"));
+
+echo "Abiarazten: " . $command;
+?>
+```
