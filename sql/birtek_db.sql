@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS eskaerak (
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     guztira_prezioa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     
-    faktura_zenbakia VARCHAR(20) UNIQUE NOT NULL,
+    faktura_zenbakia VARCHAR(20) UNIQUE,
 	faktura_url VARCHAR(255),
     
     eskaera_egoera ENUM('Prestatzen', 'Osatua/Bidalita', 'Ezabatua') NOT NULL DEFAULT 'Prestatzen',
@@ -386,8 +386,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.bezeroak TO 'leire_sales'@'loc
 GRANT SELECT, UPDATE ON birtek_db.produktuak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaerak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';  -- fakturak orain eskaerak taula kudeatzen dira
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.eskaera_lerroak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
-GRANT SELECT, INSERT ON birtek_db.herriak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
--- SAT
+GRANT SELECT, INSERT, UPDATE ON birtek_db.herriak TO 'leire_sales'@'localhost', 'iker_sales'@'localhost', 'amaia_sales'@'localhost';
+-- TEKNIKOAK SAT
 CREATE USER IF NOT EXISTS 'unai_sat'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'maite_sat'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'aitor_sat'@'localhost' IDENTIFIED BY '1234';
@@ -396,7 +396,7 @@ CREATE USER IF NOT EXISTS 'nerea_sat'@'localhost' IDENTIFIED BY '1234';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.produktuak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.konponketak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.akatsak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
-GRANT SELECT, INSERT ON birtek_db.herriak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON birtek_db.herriak TO 'unai_sat'@'localhost', 'maite_sat'@'localhost', 'aitor_sat'@'localhost', 'nerea_sat'@'localhost';
 
 -- LOGISTIKA
 CREATE USER IF NOT EXISTS 'gorka_biltegia'@'localhost' IDENTIFIED BY '1234';
@@ -404,11 +404,12 @@ CREATE USER IF NOT EXISTS 'oihane_biltegia'@'localhost' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'xabier_biltegia'@'localhost' IDENTIFIED BY '1234';
 
 GRANT SELECT, INSERT, UPDATE ON birtek_db.produktuak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON birtek_db.hornitzaileak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.biltegiak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrera_lerroak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON birtek_db.sarrerak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 GRANT SELECT, UPDATE ON birtek_db.eskaera_lerroak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
-GRANT SELECT, INSERT ON birtek_db.herriak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON birtek_db.herriak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 
 -- FITXAKETAK (Langile guztieenak)
 GRANT SELECT, INSERT ON birtek_db.fitxaketak TO 
@@ -853,7 +854,7 @@ INSERT INTO konponketak (produktua_id, langilea_id, hasiera_data, konponketa_ego
 (48, 8, '2023-08-05 13:00:00', 'Konponduta', 25, 'RAM moduluak trukatu dira.'),
 (58, 9, '2023-08-10 15:15:00', 'Prozesuan', 18, 'Pasahitza reset egiten.');
 
--- 6. FITXAKETAK, LOGISTIKA ETA SARRERAK
+-- 6. FITXAKETAK, ETA SARRERAK
 INSERT INTO fitxaketak (id_fitxaketa, langilea_id, data, ordua, mota) VALUES
 (1, 1, '2024-01-08', '08:00:00', 'Sarrera'), (2, 1, '2024-01-08', '16:00:00', 'Irteera'),
 (3, 2, '2024-01-08', '08:05:00', 'Sarrera'), (4, 2, '2024-01-08', '15:00:00', 'Irteera'),
@@ -925,10 +926,10 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (16, 13, 70, 15, 'Bidean'),
 (17, 14, 75, 4, 'Jasota'),
 (18, 15, 80, 10, 'Jasota'),
-(19, 16, 60, 8, 'Jasota'), -- Zuzenduta: 85 -> 60 (AOC Monitor)
-(20, 17, 55, 50, 'Jasota'), -- Zuzenduta: 90 -> 55 (Asus ProArt)
-(21, 18, 5, 100, 'Bidean'), -- Zuzenduta: 91 -> 5 (Asus ROG)
-(22, 19, 25, 20, 'Ezabatua'), -- Zuzenduta: 95 -> 25 (OnePlus)
+(19, 16, 60, 8, 'Jasota'), 
+(20, 17, 55, 50, 'Jasota'), 
+(21, 18, 5, 100, 'Bidean'), 
+(22, 19, 25, 20, 'Ezabatua'), 
 (23, 20, 5, 10, 'Jasota'),
 (24, 21, 15, 5, 'Jasota'),
 (25, 22, 25, 8, 'Jasota'),
@@ -937,11 +938,11 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (28, 25, 55, 6, 'Jasota'),
 (29, 26, 65, 5, 'Jasota'),
 (30, 27, 75, 4, 'Jasota'),
-(31, 28, 60, 8, 'Jasota'), -- Zuzenduta: 85 -> 60
-(32, 29, 25, 20, 'Bidean'), -- Zuzenduta: 95 -> 25
+(31, 28, 60, 8, 'Jasota'), 
+(32, 29, 25, 20, 'Bidean'), 
 (33, 30, 5, 10, 'Jasota');
 
-
+/*
 CREATE TABLE IF NOT EXISTS eskaerak (
     id_eskaera INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     bezeroa_id INT UNSIGNED NOT NULL,
@@ -958,6 +959,7 @@ CREATE TABLE IF NOT EXISTS eskaerak (
     CONSTRAINT fk_eskaera_bezeroa FOREIGN KEY (bezeroa_id) REFERENCES bezeroak(id_bezeroa),
     CONSTRAINT fk_eskaera_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
+*/
 
 -- 7. ESKAERAK ETA FAKTURAK
 INSERT INTO eskaerak (id_eskaera, bezeroa_id, langilea_id, guztira_prezioa, faktura_zenbakia, eskaera_egoera, data) VALUES
@@ -1025,5 +1027,6 @@ INSERT INTO eskaera_lerroak (id_eskaera_lerroa, eskaera_id, produktua_id, kantit
 (30, 28, 48, 1, 2200.00, 'Prestatzen'),
 (31, 29, 54, 1, 60.00, 'Osatua/Bidalita'), 
 (32, 30, 50, 1, 1200.00, 'Osatua/Bidalita');
+
 
 

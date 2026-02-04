@@ -48,8 +48,6 @@ session_start();
             <input type="file" id="cv-igoera" name="cv" accept=".pdf" class="inprimaki-sarrera cv-igoera-sarrera"
               required />
           </div>
-          <textarea name="oharra" rows="4" class="inprimaki-sarrera"
-            placeholder="Zergatik nahi duzu gurekin lan egin?"></textarea>
           <button type="submit" class="botoia botoi-nagusia">Eskaera Bidali</button>
         </form>
       </div>
