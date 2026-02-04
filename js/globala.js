@@ -71,7 +71,7 @@ $(document).ready(function () {
 
     window.saskiaGorde(saskia);
 
-    // 1. Notification message (#saski-mezua)
+    // 1. Jakinarazpen mezua (#saski-mezua)
     var $mezua = $("#saski-mezua");
     if ($mezua.length > 0) {
       $mezua.text("Saskira gehituta!").addClass("erakutsi");
@@ -80,7 +80,7 @@ $(document).ready(function () {
       }, 2000);
     }
 
-    // 2. Button Pop Animation
+    // 2. Botoiaren Pop Animazioa
     if ($botoia) {
       $botoia.addClass("saski-pop-animazioa");
       setTimeout(function () {

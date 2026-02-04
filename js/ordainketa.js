@@ -57,7 +57,7 @@ function burutuErosketa() {
 
   var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
-  /* AJAX **/
+  /* AJAX deia **/
   $.ajax({
     url: "prozesatu_erosketa.php",
     type: "POST",

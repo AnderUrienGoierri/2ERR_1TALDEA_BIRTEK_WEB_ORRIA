@@ -1,7 +1,7 @@
 $(document).ready(function () {
   renderErosketaSaskia();
 
-  // Prevent form submission if cart is empty
+  // Saskia hutsik badago inprimakia bidaltzea ekidin
   $("#bidalketa-form").on("submit", function (e) {
     const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
     if (saskia.length === 0) {
@@ -10,9 +10,9 @@ $(document).ready(function () {
     }
   });
 
-  // EVENT LISTENERS FOR CONTROLS
+  // KONTROLENTZAKO GERTAERA-ENTZULEAK
   $(document).on("click", ".kopuru-plus", function (e) {
-    e.preventDefault(); // Prevent button from submitting form if inside form
+    e.preventDefault(); // Botoiak inprimakia bidaltzea ekidin (inprimaki barruan badago)
     const id = $(this).data("id");
     aldatuKantitatea(id, 1);
   });
@@ -52,7 +52,7 @@ function renderErosketaSaskia() {
       .removeClass("botoi-desgaitua");
   }
 
-  // Table Structure
+  /* Taularen egitura */
   let tableHtml = `
     <div class="taula-edukiontzia-scroll">
     <table class="lerro-taula">
@@ -68,7 +68,7 @@ function renderErosketaSaskia() {
         <tbody>
   `;
 
-  // Use forEach instead of $.each
+  /* forEach erabili $.each-en ordez */
   saskia.forEach((item) => {
     const subtotala = item.prezioa * item.kantitatea;
     totala += subtotala;
@@ -108,13 +108,13 @@ function renderErosketaSaskia() {
 
 function aldatuKantitatea(id, change) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  // Use .find() instead of $.grep
+  
   const item = saskia.find((i) => i.id == id);
 
   if (item) {
     const newQty = item.kantitatea + change;
 
-    // Stock Check
+    // Stock egiaztapena
     if (newQty > item.stock) {
       alert("Ez dago stock nahikorik gehiago gehitzeko.");
       return;
@@ -122,7 +122,7 @@ function aldatuKantitatea(id, change) {
 
     if (newQty > 0) {
       item.kantitatea = newQty;
-      window.saskiaGorde(saskia); // Updates LocalStorage + CounterBadge in global header
+      window.saskiaGorde(saskia); // LocalStorage + Goiburuko Kontagailua eguneratu
       renderErosketaSaskia();
     } else {
       ezabatuItem(id);
@@ -132,7 +132,7 @@ function aldatuKantitatea(id, change) {
 
 function ezabatuItem(id) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  // Use .filter() instead of $.grep
+  
   const filtered = saskia.filter((i) => i.id != id);
   window.saskiaGorde(filtered);
   renderErosketaSaskia();
