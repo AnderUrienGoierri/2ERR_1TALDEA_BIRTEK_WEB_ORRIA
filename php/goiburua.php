@@ -17,7 +17,7 @@
         <a href="produktuak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'produktuak.php') ? 'aktibo' : ''; ?>">Produktuak</a>
         <a href="berriak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'berriak.php') ? 'aktibo' : ''; ?>">Berriak</a>
         <a href="kontaktua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'kontaktua.php') ? 'aktibo' : ''; ?>">Kontaktua</a>
-        <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : '' ?>">Birziklatu</a>
+        <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : (basename($_SERVER['PHP_SELF']) == 'hornitzaile_saioa_hasi.php' ? 'aktibo' : '') ?>">Birziklatu</a>
         <a href="langileak_menua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'langileak_menua.php') ? 'aktibo' : ''; ?>">Langileak</a>
       </div>
 
@@ -62,7 +62,7 @@
       <a href="produktuak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'produktuak.php') ? 'aktibo' : ''; ?>">Produktuak</a>
       <a href="berriak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'berriak.php') ? 'aktibo' : ''; ?>">Berriak</a>
       <a href="kontaktua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'kontaktua.php') ? 'aktibo' : ''; ?>">Kontaktua</a>
-      <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : '' ?>">Birziklatu</a>
+      <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : (basename($_SERVER['PHP_SELF']) == 'hornitzaile_saioa_hasi.php' ? 'aktibo' : '') ?>">Birziklatu</a>
       <a href="langileak_menua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'langileak_menua.php') ? 'aktibo' : ''; ?>">Langileak</a>
 
       <?php if (isset($_SESSION['id_bezeroa'])): ?>

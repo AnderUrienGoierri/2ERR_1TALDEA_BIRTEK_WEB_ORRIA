@@ -142,6 +142,12 @@ Bezero aldeko interaktibitatea eta dinamismoa kudeatzeko.
 
 ### AJAX (Asynchronous JavaScript and XML)
 
+Lehen, webgune batean zerbait aldatu nahi bazenuen (adibidez, formulario bat bidali edo mezu berriak ikusi), nabigatzaileak orrialde osoa berriro kargatu behar zuen. AJAXekin, hori ez da beharrezkoa:
+
+* **Erabiltzaile esperientzia hobea:** Orrialdea ez da "izozten" edo zurian geratzen datuak bidaltzen diren bitartean. Atzealdean gertatzen da dena.
+* **Abiadura eta eraginkortasuna:** Datu kopuru txikiak soilik bidaltzen eta jasotzen dira, ez webgunearen diseinu osoa (HTML, CSS, irudiak...).
+* **Interaktibitatea:** Web aplikazio modernoei (Gmail, Google Maps edo Twitter bezalakoak) "aplikazio" itxura ematen die, eta ez dokumentu estatiko batena.
+
 - `$.ajax({ ... })`: Zerbitzariarekin komunikazio asinkronoa egiteko. Proiektu honetan honako kasu hauetan erabili da:
   - **Pasahitza berreskuratzeko** (`bezero_saioa_hasi.js` eta `hornitzaile_saioa_hasi.js`):
     - Erabiltzaileak posta elektronikoa sartzean, PHP fitxategiari (`lortu_pasahitza_*.php`) deitzen dio `POST` bidez, pasahitza berreskuratzeko prozesua hasteko orria birkargatu gabe.

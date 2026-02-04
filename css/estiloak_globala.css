@@ -208,8 +208,8 @@ body {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  gap: 0.4rem;
-  max-width: 130px; /* Mugikorretara adpatatuta (320px) */
+  gap: 0.1rem;
+  max-width: 130px; /* Mugikorretara adpatatuta (300px) */
 }
 
 .saioa-hasi-botoia span {
