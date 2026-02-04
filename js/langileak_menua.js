@@ -2,6 +2,11 @@
 $(document).ready(function () {
   // Java aplikazioa abiarazteko botoia
   $(".birtek-java-ap-botoia").click(function (e) {
+    // Deskarga botoia bada, utzi normal funtzionatzen
+    if ($(this).attr("download") !== undefined) {
+      return;
+    }
+
     e.preventDefault();
     var botoia = $(this);
     var jatorrizkoEdukia = botoia.html(); // .php() konponduta .html()-ra
@@ -12,7 +17,6 @@ $(document).ready(function () {
 
     
     // PHP script-a deitu
-    /*
     $.ajax({
       url: "../php/java_app_abiarazi.php",
       type: "GET",
@@ -29,15 +33,10 @@ $(document).ready(function () {
         alert(
           "Errorea aplikazioa abiaraztean. Ziurtatu XAMPP martxan dagoela."
         );
-        console.error("Launch error:", error);
-        alert(
-          "Errorea aplikazioa abiaraztean. Ziurtatu XAMPP martxan dagoela."
-        );
         botoia.html(jatorrizkoEdukia);
         botoia.prop("disabled", false);
       },
     });
-    */
   });
 
   // Eskaera formularioaren bidalketa arrakasta mezua(AJAX)

@@ -25,9 +25,12 @@ session_start();
   <main class="eduki-nagusia">
     <section class="langileak-edukiontzia">
       <div class="birtek-java-ap-botoia-kanpo">
-        <button class="birtek-java-ap-botoia" title="Laster erabilgarri">
+        <a href="birtek://ireki" class="birtek-java-ap-botoia" style="text-decoration: none; display: inline-block;">
           <i class="fas fa-users-cog"></i> BirtekAp
-        </button>
+        </a>
+        <a href="../../birtek_app_exekutablea.zip" class="birtek-java-ap-botoia" download style="text-decoration: none; display: inline-block;">
+          <i class="fas fa-download"></i> App deskargatu
+        </a>
       </div>
 
       <div class="inprimaki-kutxa">

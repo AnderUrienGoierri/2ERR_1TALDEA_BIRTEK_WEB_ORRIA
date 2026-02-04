@@ -144,15 +144,17 @@ Bezero aldeko interaktibitatea eta dinamismoa kudeatzeko.
 
 Lehen, webgune batean zerbait aldatu nahi bazenuen (adibidez, formulario bat bidali edo mezu berriak ikusi), nabigatzaileak orrialde osoa berriro kargatu behar zuen. AJAXekin, hori ez da beharrezkoa:
 
-* **Erabiltzaile esperientzia hobea:** Orrialdea ez da "izozten" edo zurian geratzen datuak bidaltzen diren bitartean. Atzealdean gertatzen da dena.
-* **Abiadura eta eraginkortasuna:** Datu kopuru txikiak soilik bidaltzen eta jasotzen dira, ez webgunearen diseinu osoa (HTML, CSS, irudiak...).
-* **Interaktibitatea:** Web aplikazio modernoei (Gmail, Google Maps edo Twitter bezalakoak) "aplikazio" itxura ematen die, eta ez dokumentu estatiko batena.
+- **Erabiltzaile esperientzia hobea:** Orrialdea ez da "izozten" edo zurian geratzen datuak bidaltzen diren bitartean. Atzealdean gertatzen da dena.
+- **Abiadura eta eraginkortasuna:** Datu kopuru txikiak soilik bidaltzen eta jasotzen dira, ez webgunearen diseinu osoa (HTML, CSS, irudiak...).
+- **Interaktibitatea:** Web aplikazio modernoei (Gmail, Google Maps edo Twitter bezalakoak) "aplikazio" itxura ematen die, eta ez dokumentu estatiko batena.
 
-- `$.ajax({ ... })`: Zerbitzariarekin komunikazio asinkronoa egiteko. Proiektu honetan honako kasu hauetan erabili da:
+* `$.ajax({ ... })`: Zerbitzariarekin komunikazio asinkronoa egiteko. Proiektu honetan honako kasu hauetan erabili da:
   - **Pasahitza berreskuratzeko** (`bezero_saioa_hasi.js` eta `hornitzaile_saioa_hasi.js`):
     - Erabiltzaileak posta elektronikoa sartzean, PHP fitxategiari (`lortu_pasahitza_*.php`) deitzen dio `POST` bidez, pasahitza berreskuratzeko prozesua hasteko orria birkargatu gabe.
   - **Langileen eskaerak kudeatzeko** (`langileak_menua.js`):
     - `gorde_eskaera_langilea.php` fitxategiari datuak eta fitxategiak (`FormData`) bidaltzeko `POST` bidez. Honek fitxategien igoera ahalbidetzen du orria freskatu gabe, eta erantzuna jasotzean interfazea eguneratzen du.
+  - **Java aplikazioa abiarazteko** (`langileak_menua.js`):
+    - `java_app_abiarazi.php` fitxategiari deitzen dio `GET` bidez. Honek zerbitzarian dagoen exekutablea (`C:\birtek_app_exekutablea\BirtekAPP.exe`) abiarazten du `pclose(popen(...))` bidez.
   - **Erosketa prozesatzeko** (`ordainketa.js`):
     - Saskiaren edukia JSON formatuan bidaltzen du `prozesatu_erosketa.php` fitxategira `POST` bidez. Arrakasta kasuan, `localStorage` garbitu eta erosketa burutuaren mezua erakusten du dinamikoki, erabiltzailea beste orri batera eraman gabe.
 

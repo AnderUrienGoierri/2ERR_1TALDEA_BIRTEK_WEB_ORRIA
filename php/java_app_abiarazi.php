@@ -2,8 +2,8 @@
 // c:\xampp\htdocs\2ERR_1TALDEA_BIRTEK\php\launch_java_app.php
 
 // Define absolute path to the executable
-$exePath = "c:\\xampp\\htdocs\\2ERR_1TALDEA_BIRTEK\\BirtekAPP\\BirtekAPP.exe";
-$workingDir = "c:\\xampp\\htdocs\\2ERR_1TALDEA_BIRTEK\\BirtekAPP";
+$exePath = "C:\\birtek_app_exekutablea\\BirtekAPP.exe";
+$workingDir = "C:\\birtek_app_exekutablea";
 
 // Construct the command
 // cd /d changes drive and directory
