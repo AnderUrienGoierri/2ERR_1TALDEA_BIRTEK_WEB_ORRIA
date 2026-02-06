@@ -240,8 +240,10 @@ $(document).ready(function () {
 
   // --- ERABILTZAILE DROPDOWN LOGIKA ---
   $(document).on("click", ".erabiltzaile-dropdown .saioa-hasi-botoia", function (e) {
-    e.preventDefault();
-    $(this).parent(".erabiltzaile-dropdown").toggleClass("irekita");
+    if ($(e.target).closest(".fa-chevron-down").length > 0) {
+      e.preventDefault();
+      $(this).parent(".erabiltzaile-dropdown").toggleClass("irekita");
+    }
   });
 
   // Itxi erabiltzaile dropdown-a kanpoan klik egitean
