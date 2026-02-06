@@ -261,12 +261,12 @@ body {
   position: absolute;
   top: -10px;
   right: 0px;
-  background-color: #ff0000; /* Vibrant Red */
+  background-color: #ff0000; 
   color: white;
   font-size: 0.75rem;
   font-weight: 800;
   padding: 2px 6px;
-  border-radius: 9999px; /* Rounded pill look */
+  border-radius: 9999px; /* pildora forma borobildua*/
   min-width: 18px;
   line-height: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -567,8 +567,16 @@ body {
   animation: fadeIn 0.2s ease-out;
 }
 
-.erabiltzaile-dropdown:hover .dropdown-edukia {
+.erabiltzaile-dropdown.irekita .dropdown-edukia {
   display: block;
+}
+
+.erabiltzaile-dropdown .fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.erabiltzaile-dropdown.irekita .fa-chevron-down {
+  transform: rotate(180deg);
 }
 
 .dropdown-elementua {
@@ -1159,7 +1167,7 @@ body {
 
 .arrakasta-ikonoa {
   font-size: 5rem;
-  color: #10b981; /* Success Green */
+  color: #10b981; /* arrakasta berdea */
   margin-bottom: 1.5rem;
   animation: arrakastaSartu 0.5s ease-out;
 }
@@ -1321,6 +1329,82 @@ body {
   color: #333;
 }
 
+
+/* --- GORA JOAN BOTOIA --- */
+#gora-joan-botoia {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--kolore-nagusia);
+  color: white;
+  border-radius: 50%;
+  border: 2px solid var(--kolore-nagusia-argia);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+#gora-joan-botoia.erakutsi {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#gora-joan-botoia:not(.erakutsi) {
+  transform: translateY(20px);
+}
+
+#gora-joan-botoia:hover {
+  background-color: var(--kolore-nagusia-iluna);
+  transform: scale(1.1) translateY(-5px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --- BOTOI HOBEKUNTZAK (DISTIRA EFEKTUA) --- */
+.azal-cta-botoia {
+  position: relative;
+  overflow: hidden;
+}
+
+.azal-cta-botoia::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: none;
+}
+
+.azal-cta-botoia:hover::after {
+  left: 120%;
+  transition: all 0.6s ease-in-out;
+}
+
+.azal-cta-botoia i {
+  transition: transform 0.3s ease;
+}
+
+.azal-cta-botoia:hover i {
+  transform: scale(1.2) rotate(-10deg);
+}
+
+
 /* ========================================================================= */
 /* --- MEDIA QUERIES (AT THE END) --- */
 /* ========================================================================= */
@@ -1411,78 +1495,4 @@ body {
   .logoa {
     font-size: 3.5rem;
   }
-}
-
-/* --- GORA JOAN BOTOIA --- */
-#gora-joan-botoia {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: var(--kolore-nagusia);
-  color: white;
-  border-radius: 50%;
-  border: 2px solid var(--kolore-nagusia-argia);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-#gora-joan-botoia.erakutsi {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-#gora-joan-botoia:not(.erakutsi) {
-  transform: translateY(20px);
-}
-
-#gora-joan-botoia:hover {
-  background-color: var(--kolore-nagusia-iluna);
-  transform: scale(1.1) translateY(-5px);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* --- BOTOI HOBEKUNTZAK (DISTIRA EFEKTUA) --- */
-.azal-cta-botoia {
-  position: relative;
-  overflow: hidden;
-}
-
-.azal-cta-botoia::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 20%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: rotate(30deg);
-  transition: none;
-}
-
-.azal-cta-botoia:hover::after {
-  left: 120%;
-  transition: all 0.6s ease-in-out;
-}
-
-.azal-cta-botoia i {
-  transition: transform 0.3s ease;
-}
-
-.azal-cta-botoia:hover i {
-  transform: scale(1.2) rotate(-10deg);
 }

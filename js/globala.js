@@ -238,6 +238,19 @@ $(document).ready(function () {
   // Hasieratu kontagailua orria kargatzean
   window.saskiaEguneratuKontagailua();
 
+  // --- ERABILTZAILE DROPDOWN LOGIKA ---
+  $(document).on("click", ".erabiltzaile-dropdown .saioa-hasi-botoia", function (e) {
+    e.preventDefault();
+    $(this).parent(".erabiltzaile-dropdown").toggleClass("irekita");
+  });
+
+  // Itxi erabiltzaile dropdown-a kanpoan klik egitean
+  $(document).on("click", function (e) {
+    if (!$(e.target).closest(".erabiltzaile-dropdown").length) {
+      $(".erabiltzaile-dropdown").removeClass("irekita");
+    }
+  });
+
   // --- SAIOA ITXI LOGIKA ---
   $(document).on(
     "click",

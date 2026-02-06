@@ -195,9 +195,9 @@
 .birtek-java-ap-botoia {
   background-color: #2563eb; /* Urdina */
   color: white;
-  font-size: 1.5rem;
-  font-weight: 800;
-  padding: 1.5rem 3rem;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.2rem 1rem;
   border-radius: 1rem;
   border: none;
   cursor: pointer;
@@ -332,11 +332,11 @@
     grid-template-columns: 1fr;
   }
 
-  .birtek-ap-botoia {
+  .birtek-java-ap-botoia {
     width: 100%;
     justify-content: center;
-    padding: 1rem;
-    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
 }
 
