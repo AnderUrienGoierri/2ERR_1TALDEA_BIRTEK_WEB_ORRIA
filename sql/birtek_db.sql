@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS langileak (
 
 
     saila_id INT unsigned,
-    iban VARCHAR(34)UNIQUE,
+    iban VARCHAR(34) UNIQUE,
 
     kurrikuluma MEDIUMBLOB, -- pdf gordetzeko
 
