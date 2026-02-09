@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.shellIntegration.enabled": true
+}
+/*Hau terminal integratuaren ezaugarri bat da, komandoen exekuzioa seguitzeko eta hobeagoa izatea.
+
+Zertarako da:
+
+Komandoen detekzioa hobetzea (noiz hasi eta noiz amaitu)
+Akatsen kokapena zuzenean atzitzea
+Komando-historiala hobetzea
+Copy-paste portaera hobetzea
+Terminal output-a hobeki partzea
+Terminalaren eta VS Code-ren artean integrazio hobea besterik ez da.*/
