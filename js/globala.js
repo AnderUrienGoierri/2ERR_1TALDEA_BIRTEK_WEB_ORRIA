@@ -138,7 +138,7 @@ $(document).ready(function () {
     $guztira.text(guztiraPrezioa.toFixed(2) + " €");
   };
 
-  // 4. Eguneratu saski kontagailua (badge)
+  // 4. Eguneratu saski kontagailua (txapa)
   window.saskiaEguneratuKontagailua = function () {
     var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
     var kopuruTotala = 0;
@@ -188,7 +188,7 @@ $(document).ready(function () {
     }
   };
 
-  // --- SASKI INTERAKZIOAK (EVENT LISTENERS) ---
+  // --- SASKI INTERAKZIOAK (GERTAERA-ENTZULEAK) ---
 
   // Ireki saskia
   $(document).on("click", "#saski-botoia-toggle", function () {
@@ -238,7 +238,7 @@ $(document).ready(function () {
   // Hasieratu kontagailua orria kargatzean
   window.saskiaEguneratuKontagailua();
 
-  // --- ERABILTZAILE DROPDOWN LOGIKA ---
+  // --- ERABILTZAILEAREN DROPDOWN LOGIKA ---
   $(document).on("click", ".erabiltzaile-dropdown .saioa-hasi-botoia", function (e) {
     if ($(e.target).closest(".fa-chevron-down").length > 0) {
       e.preventDefault();
@@ -264,6 +264,14 @@ $(document).ready(function () {
       }
     }
   );
+
+  // --- INPRIMAKIEN BAIEZTAPEN OROKORRA ---
+  $(document).on("submit", ".form-baieztatu", function (e) {
+    var mezua = $(this).data("mezua") || "Ziur zaude aurrera egin nahi duzula?";
+    if (!confirm(mezua)) {
+      e.preventDefault();
+    }
+  });
 
   // --- GORA JOAN BOTOIAREN LOGIKA ---
   var $goraJoanBotoia = $("#gora-joan-botoia");

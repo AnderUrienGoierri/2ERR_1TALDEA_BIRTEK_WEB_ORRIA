@@ -21,7 +21,7 @@ $(document).ready(function () {
       url: "../php/java_app_abiarazi.php",
       type: "GET",
       success: function (response) {
-        console.log("Java App launch response: " + response);
+        console.log("Java aplikazioaren abiarazte erantzuna: " + response);
         // Botoia berrezarri 3 segundu barru
         setTimeout(function () {
           botoia.html(jatorrizkoEdukia);
@@ -29,7 +29,7 @@ $(document).ready(function () {
         }, 3000);
       },
       error: function (xhr, status, error) {
-        console.error("Launch error:", error);
+        console.error("Abiarazte errorea:", error);
         alert(
           "Errorea aplikazioa abiaraztean. Ziurtatu XAMPP martxan dagoela."
         );

@@ -1,7 +1,7 @@
 /* --- BIRTEK - ESTILO GLOBALA --- */
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Inter:wght@400;500;600&display=swap");
 
-/* --- ALDAGAIAK (VARIABLES) --- */
+/* --- ALDAGAIAK --- */
 :root {
   /* Koloreak */
   --kolore-nagusia: #166534;
@@ -24,6 +24,25 @@
   /* Letra-tipoak */
   --font-testua: "Inter", sans-serif;
   --font-izenburua: "Outfit", sans-serif;
+}
+
+/* --- UTILITATEAK --- */
+.ezkutuan {
+    display: none;
+}
+
+.inprimaki-inline {
+    display: inline;
+}
+
+.link-botoi {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.goiburu-ikono-txikia {
+    font-size: 0.8em;
+    margin-left: 5px;
 }
 
 /* --- RESET ETA OINARRIAK --- */
@@ -466,7 +485,7 @@ body {
 
 /* --- SASKIA GEHIGARRIAK --- */
 #saski-edukia {
-  display: none; /* Initially hidden */
+  display: none; /* Hasieran ezkutuan */
 }
 #saski-edukia h4 {
   margin-top: 0;
@@ -727,7 +746,7 @@ body {
   font-size: 0.85rem;
   color: #666;
 }
-/* --- SASKI MODALA TAULA (RESTORATION) --- */
+/* --- SASKI MODALA TAULA (BERRESKURATZEA) --- */
 .saski-taula {
   width: 100%;
   border-collapse: collapse;

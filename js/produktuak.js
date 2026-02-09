@@ -32,7 +32,7 @@ $(document).ready(function () {
     produktuakFiltratu();
   });
 
-  // Radio buttons aldaketak detektatu (Prezioa ordenatu)
+  // Radio botoien aldaketak detektatu (Prezioa ordenatu)
   $("input[name='prezio-ordenatu']").on("change", function () {
       var balioa = $(this).val();
       window.location.href = "produktuak.php?prezio-ordenatu=" + balioa;

@@ -69,19 +69,14 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Sarrerak Kudeatu - BIRTEK</title>
     <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
-    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> <!-- Reusing order list styles -->
+    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> 
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
-    <script>
-        function confirmDelete() {
-            return confirm("Ziur zaude sarrera hau ezabatu nahi duzula?");
-        }
-    </script>
 </head>
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-        <div class="eskari-edukiontzia"> <!-- Reusing class for container style -->
+        <div class="eskari-edukiontzia"> 
             <a href="hornitzaile_menua.php" class="atzera-botoia"><i class="fas fa-arrow-left"></i> Atzera</a>
             <h2>Nire Sarrerak (Bidalketak)</h2>
 
@@ -123,7 +118,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                                 <td class="sarrera-td-zentratua">
                                     <?php if ($sarrera['sarrera_lerro_egoera'] === 'Bidean'): ?>
-                                        <form method="POST" onsubmit="return confirmDelete()" style="display:inline;">
+                                        <form method="POST" class="inprimaki-inline form-baieztatu" data-mezua="Ziur zaude sarrera hau ezabatu nahi duzula?">
                                             <input type="hidden" name="action" value="delete_sarrera_lerroa">
                                             <input type="hidden" name="id_sarrera_lerroa" value="<?= $sarrera['id_sarrera_lerroa'] ?>">
                                             <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu sarrera">

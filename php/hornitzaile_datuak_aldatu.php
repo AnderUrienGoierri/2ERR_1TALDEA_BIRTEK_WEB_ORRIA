@@ -19,7 +19,7 @@ try {
     // Ezin badira herriak kargatu
 }
 
-// Handle Update
+// Eguneraketa kudeatu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $izena_soziala = $_POST['izena_soziala'];
     $ifz_nan = $_POST['ifz_nan'];
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch current data
+// Uneko datuak lortu
 $stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE id_hornitzailea = :id");
 $stmt->execute([':id' => $id_hornitzailea]);
 $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);

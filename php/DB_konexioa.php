@@ -1,5 +1,5 @@
 <?php
-$zerbitzaria = "localhost";     //host
+$zerbitzaria = "localhost";     // zerbitzaria
 $datu_basea = "birtek_db";      // nire datu-basearen izena
 $erabiltzailea = "root";        
 // root soilik baimenak ditu lokalean erabiltzeko, GU ez gera lokalean konektatuko,

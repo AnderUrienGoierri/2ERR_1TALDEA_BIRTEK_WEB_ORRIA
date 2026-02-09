@@ -5,10 +5,10 @@ require_once 'DB_konexioa.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $izena = trim($_POST['izena']);
     $emaila = trim($_POST['emaila_erregistroa']);
-    $helbidea = trim($_POST['helbidea']); // Note: Form might pass this, or we might need to add it if missing in HTML
+    $helbidea = trim($_POST['helbidea']); // Oharra: Inprimakiak hau pasa dezake, edo agian gehitu egin behar dugu HTML-n falta bada
     $pasahitza = trim($_POST['pasahitza_erregistroa']);
 
-    // Default values
+    // Balio lehenetsiak
     $ifz_nan = trim($_POST['nan']);
     $herria_id = !empty($_POST['herria_id']) ? $_POST['herria_id'] : 1;
     $posta_kodea = !empty($_POST['posta_kodea']) ? substr(trim($_POST['posta_kodea']), 0, 5) : '00000';
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        // Note: 'izena_edo_soziala' is the column name in DB for 'izena'
+        // Oharra: 'izena_edo_soziala' da DBko zutabearen izena 'izena'-rentzat
         $sql = "INSERT INTO bezeroak (izena_edo_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo) 
                 VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)";
 

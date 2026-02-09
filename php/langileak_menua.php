@@ -25,10 +25,10 @@ session_start();
   <main class="eduki-nagusia">
     <section class="langileak-edukiontzia">
       <div class="birtek-java-ap-botoia-kanpo">
-        <a href="birtek://ireki" class="birtek-java-ap-botoia" style="text-decoration: none; display: inline-block;">
+        <a href="birtek://ireki" class="birtek-java-ap-botoia link-botoi">
           <i class="fas fa-users-cog"></i> BirtekAp
         </a>
-        <a href="../../birtek_app_exekutablea.zip" class="birtek-java-ap-botoia" download style="text-decoration: none; display: inline-block;">
+        <a href="../../birtek_app_exekutablea.zip" class="birtek-java-ap-botoia link-botoi" download>
           <i class="fas fa-download"></i> App deskargatu
         </a>
       </div>

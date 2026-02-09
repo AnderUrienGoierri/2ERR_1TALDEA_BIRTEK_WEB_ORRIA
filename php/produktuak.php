@@ -1,7 +1,6 @@
 <?php
 session_start();
 // DB konexioa
-//include_once 'DB_konexioa.php'
 require_once 'DB_konexioa.php';
 
 
@@ -11,7 +10,7 @@ $produktu_kopuru_totala = 0;
 $produktuak_lista = [];
 
 try {
-  // Kontsulta nagusia (filtered by URL params)
+  // Kontsulta nagusia (URL parametroen bidez filtratua)
   $sql = "SELECT p.*, k.izena as produktu_kategoria_izena 
             FROM produktuak p 
             LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
@@ -89,7 +88,7 @@ try {
     ];
   }
 
-  // JS-rako produktu GUZTIAK lortu (filtroak dinamikoki funtziona dezaten)
+  // JS-rako produktu GUZTIAK lortu (filtroek dinamikoki funtziona dezaten)
   $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena 
                                      FROM produktuak p 
                                      LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
@@ -139,12 +138,11 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Produktuak</title>
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome (ikonoak) -->
   <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
-  <!-- Google Fonts -->
+  <!-- Google Fonts (letra-tipoak) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <!-- gure css artxiboak -->
   <link rel="stylesheet" href="../css/estiloak_globala.css?v=1.3" />
   <link rel="stylesheet" href="../css/estiloak_produktuak.css?v=1.3" />
 </head>
@@ -176,9 +174,9 @@ try {
               </h3>
             </div>
 
-            <!-- Iragazki Edukia (Mobilean ezkutatzeko) -->
+            <!-- Iragazki Edukia (Mugikorrean ezkutatzeko) -->
             <div class="iragazki-edukia">
-              <!-- Garbitu Botoia (Mobilean ezkutuan egoteko) -->
+              <!-- Garbitu Botoia (Mugikorrean ezkutuan egoteko) -->
               <div class="berrezarri-botoia">
                 <button class="berrezarri-testua iragazkiak-berrezarri">Garbitu</button>
               </div>
@@ -321,7 +319,7 @@ try {
     </section>
   </main>
   <!-- ================================================================================================= -->
-  <!-- OINA - FOOTER -->
+  <!-- OINA -->
   <?php include 'footer.php'; ?>
 
   <!-- ================================================================================================= -->

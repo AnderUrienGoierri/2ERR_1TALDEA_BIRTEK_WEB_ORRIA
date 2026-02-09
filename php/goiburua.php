@@ -26,7 +26,7 @@
         <?php if (isset($_SESSION['id_bezeroa'])): ?>
           <div class="erabiltzaile-dropdown">
                 <a href="bezero_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_menua.php') ? 'aktibo' : ''; ?>">
-                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span> <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i>
+                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
                 </a>
                 <div class="dropdown-edukia">
                     <a href="bezero_datuak_aldatu.php" class="dropdown-elementua"><i class="fas fa-id-card"></i> Nire Profila</a>
@@ -37,7 +37,7 @@
         <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
           <div class="erabiltzaile-dropdown">
                 <a href="hornitzaile_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php') ? 'aktibo' : ''; ?>">
-                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span> <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i>
+                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
                 </a>
                 <div class="dropdown-edukia">
                     <a href="hornitzaile_datuak_aldatu.php" class="dropdown-elementua"><i class="fas fa-id-card"></i> Nire Profila</a>

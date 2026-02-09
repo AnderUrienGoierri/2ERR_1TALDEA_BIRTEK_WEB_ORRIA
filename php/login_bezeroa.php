@@ -14,12 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // NOTE: In a real app, use password_verify(). Since sql shows plain text or simple hashes,
-        // we will assume direct comparison or simple check. 
-        // Based on sql INSERT: '123456Jon', 'admin2024', etc. exist.
-        // Also user instruction said "pass: 1234" for all sysadmins, but bezeroak have distinct passes.
-        // We'll use simple equality for now as per simple academic exercises often do, 
-        // or password_verify if they are hashed. Given I see plain text in SQL, I'll use plain text check.
+        // OHARRA: Benetako aplikazio batean, password_verify() erabili beharko litzateke. SQL-ak testu arrunta edo hash sinpleak erakusten dituenez,
+        // konparaketa zuzena edo egiaztapen sinplea egingo dugu.
+        // SQLko INSERT-etan oinarrituta: '123456Jon', 'admin2024', etab. existitzen dira.
+        // Era berean, erabiltzailearen argibideek esan zuten "pass: 1234" sysadmin guztientzat, baina bezeroek pasahitz desberdinak dituzte.
+        // Berdintasun konparaketa sinplea erabiliko dugu gaurkoz, ariketa akademikoetan egin ohi den bezala,
+        // edo password_verify hash-eratuak badira. SQL-n testu arrunta ikusten dudanez, testu arrunteko egiaztapena erabiliko dut.
         
         if ($bezeroa && $pasahitza === $bezeroa['pasahitza']) {
             $_SESSION['id_bezeroa'] = $bezeroa['id_bezeroa'];
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: bezero_menua.php");
             exit();
         } else {
-            // Error handling - redirect back with query param
+            
             header("Location: bezero_saioa_hasi.php?error=1");
             exit();
         }

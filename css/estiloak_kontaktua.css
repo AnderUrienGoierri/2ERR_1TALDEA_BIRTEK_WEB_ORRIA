@@ -13,21 +13,21 @@
   grid-template-columns: minmax(
     0,
     1fr
-  ); /* CRITICAL: Allows grid tracks to shrink below content size */
+  ); /* GARRANTZITSUA: Grid pistak edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
   gap: 3rem;
   align-items: start;
 }
 
 .inprimaki-kutxa {
   background-color: white;
-  padding: 1rem; /* Optimized for ultra-small screens like 250px */
+  padding: 1rem; /* 250px bezalako pantaila ultra-txikietarako optimizatua */
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  width: 80%; /* Narrower feel on small mobile */
+  width: 80%; /* Mugikor txikietan estuagoa izateko */
   max-width: 500px; /* Constrained on tablet/desktop */
   margin: 0 auto; /* zentratuta */
-  min-width: 0; /* CRITICAL: Allows grid item to shrink below content size */
+  min-width: 0; /* GARRANTZITSUA: Grid elementua edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
 }
 
 .inprimaki-titulua {
@@ -43,8 +43,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 100%; /* Force full width */
-  min-width: 0; /* Allow flex container to shrink */
+  width: 100%; /* Zabalera osoa behartu */
+  min-width: 0; /* Flex edukiontzia txikitzea ahalbidetu */
 }
 
 .inprimaki-sarrera,
@@ -56,9 +56,9 @@
   outline: none;
   background-color: #f9fafb;
   transition: border-color 0.2s;
-  min-width: 0; /* Ensures inputs can shrink instead of overflowing */
-  box-sizing: border-box; /* Explicitly ensure padding is included in width */
-  max-width: 100%; /* Prevent overflowing parent */
+  min-width: 0; /* Sarrerek gainezka egin ordez txikitzea ziurtatzen du */
+  box-sizing: border-box; /* Padding-a zabaleran sartuta dagoela ziurtatu */
+  max-width: 100%; /* Gurasotik gainezka egitea ekidin */
 }
 
 .inprimaki-sarrera:focus {
@@ -67,7 +67,7 @@
 
 .sozial-kutxa {
   background-color: white;
-  padding: 1rem; /* Reduced for 250px */
+  padding: 1rem; /* 250px-rako murriztua */
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -109,9 +109,9 @@
 .sozial-ikono-lerroa {
   display: flex;
   justify-content: center;
-  gap: 1rem; /* Reduced from 2rem to fit in 250px */
-  font-size: 1.75rem; /* Slightly reduced */
-  flex-wrap: wrap; /* Allow wrapping on tiny screens */
+  gap: 1rem; /* 250px-tan sartzeko murriztua */
+  font-size: 1.75rem; /* Pixka bat murriztua */
+  flex-wrap: wrap; /* Pantaila txikietan lerroz aldatzea ahalbidetu */
 }
 
 .fb-kolorea {
@@ -148,7 +148,7 @@
 }
 
 .kontaktua-titulua {
-  font-size: 1.75rem; /* Reduced for 320px */
+  font-size: 1.75rem; /* 320px-rako murriztua */
   font-weight: 800;
   margin-bottom: 2rem;
   text-align: center;
@@ -371,7 +371,7 @@
   .sozial-kutxa,
   .mapa-edukiontzia {
     width: 100%;
-    padding: 1rem 0.5rem; 
+    padding: 1rem 0.5rem; /* 320px-rako murriztua */
     border-radius: 1rem;
     max-width: 100%; 
   }

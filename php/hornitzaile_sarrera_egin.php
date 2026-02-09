@@ -11,9 +11,9 @@ $id_hornitzailea = $_SESSION['id_hornitzailea'];
 $izena_soziala = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
 $mezua = "";
 
-// Handle Form Submission
+// Inprimakiaren bidalketa kudeatu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mota_sarrera = $_POST['mota_sarrera']; // 'existing' or 'new'
+    $mota_sarrera = $_POST['mota_sarrera']; // 'existing' (lehendik dagoena) edo 'new' (berria)
     $kantitatea = $_POST['kantitatea'];
 
     try {
@@ -23,23 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($mota_sarrera == 'existing') {
             $produktua_id = $_POST['produktua_id'];
         } else {
-            // New product entry
+            // Produktu sarrera berria
             $izena = trim($_POST['izena']);
             $marka = trim($_POST['marka']);
-            $mota = $_POST['mota']; // ENUM value
+            $mota = $_POST['mota']; // ENUM balioa
             $deskribapena = trim($_POST['deskribapena']);
-            $stock = 0; // Default to 0 as per user request (goods are Incoming 'Bidean')
-            $prezioa = 0.00; // Removed input, default 0
+            $stock = 0; // 0 lehenetsia erabiltzaileak eskatu bezala (artikuluak 'Bidean' datoz)
+            $prezioa = 0.00; // Sarrera kenduta, 0 lehenetsia
 
-            // Determine Kategoria ID
+            // Kategoria ID-a zehaztu
             // 1: Ordenagailuak (Eramangarria, Mahai-gainekoa)
             // 2: Telefonia (Mugikorra, Tableta)
             // 3: Irudia (Pantaila)
-            // 4: Osagarriak (Periferikoa, Kablea) -> Note: 'Kablea' value in select, 'kableak' table
+            // 4: Osagarriak (Periferikoa, Kablea) -> Oharra: 'Kablea' hautapenean, 'kableak' taulan
             // 5: Softwarea (Softwarea)
             // 6: Sareak eta Zerbitzariak (Zerbitzaria)
 
-            $kategoria_id = 1; // Default
+            $kategoria_id = 1; // Lehenetsia
             switch ($mota) {
                 case 'Eramangarria':
                 case 'Mahai-gainekoa':
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     break;
             }
 
-            // Insert into main table
-            // Note: 'mota' ENUM in DB might need update if 'Kablea' or 'Periferikoa' are not present accurately
+            // Taula nagusian txertatu
+            // DBko 'mota' ENUM-a eguneratu beharko litzateke 'Kablea' edo 'Periferikoa' zehaztasunez ez badago
             // DB ENUM: 'Generikoa','Eramangarria','Mahai-gainekoa','Mugikorra','Tableta','Zerbitzaria','Pantaila','Softwarea','Periferikoak','Kableak'
-            // My select values: 'Periferikoa', 'Kablea'. Need to map to DB ENUM.
+            // Nire hautapen balioak: 'Periferikoa', 'Kablea'. DB ENUM-era mapatu behar dira.
             $db_mota = $mota;
             if ($mota == 'Periferikoa')
                 $db_mota = 'Periferikoak';
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtProd->execute([$izena, $marka, $db_mota, $deskribapena, $prezioa, $stock, $id_hornitzailea, $kategoria_id]);
             $produktua_id = $konexioa->lastInsertId();
 
-            // Insert into Sub-tables
+            // Azpi-tauletan txertatu
             switch ($mota) {
                 case 'Eramangarria':
                     $stmtSub = $konexioa->prepare("INSERT INTO eramangarriak (id_produktua, prozesadorea, ram_gb, diskoa_gb, pantaila_tamaina, bateria_wh, sistema_eragilea, pisua_kg) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -191,12 +191,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($produktua_id && $kantitatea > 0) {
-            // 1. Insert into sarrerak
+            // 1. Sarreretan txertatu
             $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, 1, 'Bidean', NOW())");
             $stmt->execute([':hid' => $id_hornitzailea]);
             $sarrera_id = $konexioa->lastInsertId();
 
-            // 2. Insert into sarrera_lerroak
+            // 2. Sarrera lerroetan txertatu
             $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera) VALUES (:sid, :pid, :qty, 'Bidean')");
             $stmtLine->execute([
                 ':sid' => $sarrera_id,
@@ -216,7 +216,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch Supplier's Products for Dropdown
+// Hornitzailearen produktuak lortu dropdown-erako
 $produktuak = [];
 try {
     $stmt = $konexioa->prepare("SELECT id_produktua, izena, marka FROM produktuak WHERE hornitzaile_id = :hid ORDER BY izena");
@@ -291,12 +291,12 @@ try {
                                 <option value="Periferikoa">Periferikoa</option>
                                 <option value="Kablea">Kablea</option>
                             </select>
-                            <!-- Stock input removed as per user request -->
+                            <!-- Stock sarrera kendu da erabiltzaileak eskatu bezala -->
                         </div>
                         <textarea name="deskribapena" class="inprimaki-sarrera" placeholder="Deskribapena"
                             rows="3"></textarea>
 
-                        <!-- Dynamic Fields Containers -->
+                        <!-- Eremu Dinamikoen Edukiontziak -->
                         <div id="fields_eramangarria" class="dynamic-fields ezkutuan">
                             <h4>Eramangarria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
@@ -503,12 +503,12 @@ try {
         });
 
         function toggleFormFields() {
-            // Hide all dynamic fields
+            // Dinamikoki erakutsitako eremu guztiak ezkutatu
             $('.dynamic-fields').addClass('ezkutuan');
 
             var mota = $('#produktu_mota_select').val();
-            // Map 'mota' to ID (Normalize string: replace spaces with empty, to lowercase)
-            // But we can just use simple switch/if map since values are known
+            // 'mota' ID-ra mapatu (Katea normalizatu: espazioak kendu, minuskulara)
+            // Baina switch/if mapa erabili dezakegu balioak ezagunak direnez
             var targetId = "";
             if (mota === "Eramangarria") targetId = "fields_eramangarria";
             else if (mota === "Mahai-gainekoa") targetId = "fields_mahaigainekoa";

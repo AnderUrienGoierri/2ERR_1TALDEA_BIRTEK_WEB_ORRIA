@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Simple plain text comparison as per existing project pattern
+        
         if ($hornitzailea && $pasahitza === $hornitzailea['pasahitza']) {
             $_SESSION['id_hornitzailea'] = $hornitzailea['id_hornitzailea'];
             $_SESSION['izena_soziala'] = $hornitzailea['izena_soziala'];

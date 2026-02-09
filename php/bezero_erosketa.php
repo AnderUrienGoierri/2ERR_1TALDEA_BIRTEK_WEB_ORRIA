@@ -45,7 +45,7 @@ try {
 
     <main class="eduki-nagusia">
       <div class="eskari-edukiontzia">
-        <!-- Breadcrumb or Title -->
+        <!-- Nabigazio bidea edo Izena -->
         <a href="produktuak.php" class="atzera-botoia tartea-behean-1"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
         <h2 class="tartea-behean-2">Erosketa Berretsi</h2>
         

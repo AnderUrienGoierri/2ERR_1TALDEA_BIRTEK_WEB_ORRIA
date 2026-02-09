@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-//include_once
 require_once 'DB_konexioa.php';
 
 if (!isset($_SESSION['id_bezeroa'])) {
@@ -21,7 +20,7 @@ try {
     // Ezin badira herriak kargatu, isilik jarraitu (edo mezua eman)
 }
 
-// Handle Update
+// Eguneraketa kudeatu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $izena_edo_soziala = $_POST['izena_edo_soziala'];
     $abizena = $_POST['abizena'];
@@ -97,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $mezua = "Datuak ondo eguneratu dira!";
-        $_SESSION['izena'] = $izena_edo_soziala; // 
+        $_SESSION['izena'] = $izena_edo_soziala; 
     } catch (PDOException $e) {
         $mezua = "Errorea: " . $e->getMessage();
     }
@@ -203,7 +202,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                         </select>
                     </div>
 
-                    <div id="herri_berria_atala" class="herri-berria-panela zutabe-osoa" style="display: none;">
+                    <div id="herri_berria_atala" class="herri-berria-panela zutabe-osoa ezkutuan">
                         <h4 class="herri-berria-izenburua">Herri Berriaren Datuak</h4>
                         <div class="herri-berria-sareta">
                             <div class="inprimaki-taldea">

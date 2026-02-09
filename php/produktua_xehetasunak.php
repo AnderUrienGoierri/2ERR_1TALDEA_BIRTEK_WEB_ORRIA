@@ -85,9 +85,9 @@ if ($id > 0) {
     <!-- Produktuaren izena hartu datu basetik -->
     <title><?php echo $produktua ? htmlspecialchars($produktua['izena']) . " - BIRTEK" : "Produktua ez da aurkitu"; ?>
     </title>
-    <!-- Font Awesome -->
+    <!-- Font Awesome (ikonoak) -->
     <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
-    <!-- Google Fonts -->
+    <!-- Google Fonts (letra-tipoak) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
     <link rel="stylesheet" href="../css/estiloak_globala.css">
     <link rel="stylesheet" href="../css/estiloak_produktu_xehetasunak.css">
@@ -218,7 +218,7 @@ if ($id > 0) {
         <?php endif; ?>
     </main>
 
-    <!-- OINA - FOOTER -->
+    <!-- OINA -->
     <?php include 'footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
