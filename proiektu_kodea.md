@@ -7,11 +7,14 @@ Hemen proiektuaren PHP, CSS, JS eta SQL fitxategi guztiak ikus ditzakezu.
 ## PHP Fitxategiak
 
 ### php/berriak.php
-``php
+
+```php
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
   <head>
     <meta charset="UTF-8" />
@@ -32,44 +35,45 @@ session_start();
     <!-- gure css artxiboak -->
     <link rel="stylesheet" href="../css/estiloak_globala.css" />
     <link rel="stylesheet" href="../css/estiloak_berriak.css" />
-  </head>
 
-  <body class="web-gorputza">
+</head>
+
+<body class="web-gorputza">
     <?php include 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
       <section class="berriak-edukiontzia">
         <h2 class="berriak-titulua">Berriak</h2>
 
-        <div class="berriak-sarea">
+    <div class="berriak-sarea">
           <article class="albiste-txartela">
             <div class="albiste-irudia">
               <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&q=80" alt="Recycling Electronics" />
             </div>
             <div class="albiste-edukia">
-              <span class="albiste-kategoria">Jasangarritasuna</span>
+              <span class="albiste-kategoria">Jasangarritasuna
               <h2 class="albiste-titulua">Zergatik da garrantzitsua gailu elektronikoak berrerabiltzea?</h2>
               <p class="albiste-laburpena">Gailu bakoitzaren bizitza luzatzeak hondakin elektronikoak murrizten ditu eta baliabide naturalen erauzketa ekiditen du.</p>
             </div>
           </article>
 
-          <article class="albiste-txartela">
+    <article class="albiste-txartela">
             <div class="albiste-irudia">
               <img src="../irudiak/birtek_konponketak.png" alt="Repairing Laptop" loading="lazy" />
             </div>
             <div class="albiste-edukia">
-              <span class="albiste-kategoria">Berritzea</span>
+              <span class="albiste-kategoria">Berritzea
               <h2 class="albiste-titulua">Gure berritze prozesua: Kalitatea bermatuta</h2>
               <p class="albiste-laburpena">Ezagutu nola pasatzen dituzten gure gailuek kontrol zorrotzak erabiltzaileari esperientzia optimoa ziurtatzeko.</p>
             </div>
           </article>
 
-          <article class="albiste-txartela">
+    <article class="albiste-txartela">
             <div class="albiste-irudia">
               <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" alt="Electronic Waste" />
             </div>
             <div class="albiste-edukia">
-              <span class="albiste-kategoria">Ingurumena</span>
+              <span class="albiste-kategoria">Ingurumena
               <h2 class="albiste-titulua">Ekonomia zirkularra teknologiaren munduan</h2>
               <p class="albiste-laburpena">Hondakinak baliabide bihurtzea da gure helburu nagusia. Ezagutu nola lagundu dezakezun zu ere.</p>
             </div>
@@ -82,12 +86,14 @@ session_start();
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
-  </body>
-</html>
 
-``n
+</body>
+</html>
+```
+
 ### php/bezero_datuak_aldatu.php
-``php
+
+```php
 <?php
 session_start();
 
@@ -141,14 +147,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
             $herria_id = $konexioa->lastInsertId();
         }
-        $sql = "UPDATE bezeroak SET 
-                izena_edo_soziala = :izena, 
-                abizena = :abizena, 
+        $sql = "UPDATE bezeroak SET
+                izena_edo_soziala = :izena,
+                abizena = :abizena,
                 ifz_nan = :ifz_nan,
                 jaiotza_data = :jaiotza_data,
                 sexua = :sexua,
                 bezero_ordainketa_txartela = :txartela,
-                helbidea = :helbidea, 
+                helbidea = :helbidea,
                 herria_id = :herria_id,
                 posta_kodea = :posta_kodea,
                 telefonoa = :telefonoa,
@@ -186,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $mezua = "Datuak ondo eguneratu dira!";
-        $_SESSION['izena'] = $izena_edo_soziala; 
+        $_SESSION['izena'] = $izena_edo_soziala;
     } catch (PDOException $e) {
         $mezua = "Errorea: " . $e->getMessage();
     }
@@ -198,7 +204,9 @@ $stmt->execute([':id' => $id_bezeroa]);
 $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -219,15 +227,15 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="inprimaki-edukiontzia">
             <h2 class="inprimaki-titulua">Datu Pertsonalak Aldatu</h2>
 
-            <?php if ($mezua): ?>
+    <?php if ($mezua): ?>
                 <p class="arrakasta-mezua"><?= $mezua ?></p>
             <?php endif; ?>
 
-            <form class="kontaktu-inprimaki-diseinua" method="POST">
+    <form class="kontaktu-inprimaki-diseinua" method="POST">
                 <div class="inprimaki-sareta">
                     <h3 class="inprimaki-atal-izenburua">Oinarrizko Informazioa</h3>
 
-                    <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                         <label>Izena edo Izen Soziala:</label>
                         <input type="text" name="izena_edo_soziala"
                             value="<?= htmlspecialchars($bezeroa['izena_edo_soziala']) ?>" class="inprimaki-sarrera"
@@ -273,9 +281,9 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                         </select>
                     </div>
 
-                    <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
+    <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
 
-                    <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                         <label>Helbidea:</label>
                         <input type="text" name="helbidea" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>"
                             class="inprimaki-sarrera" required>
@@ -292,7 +300,7 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                         </select>
                     </div>
 
-                    <div id="herri_berria_atala" class="herri-berria-panela zutabe-osoa ezkutuan">
+    <div id="herri_berria_atala" class="herri-berria-panela zutabe-osoa ezkutuan">
                         <h4 class="herri-berria-izenburua">Herri Berriaren Datuak</h4>
                         <div class="herri-berria-sareta">
                             <div class="inprimaki-taldea">
@@ -328,9 +336,9 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                             class="inprimaki-sarrera" required>
                     </div>
 
-                    <h3 class="inprimaki-atal-izenburua">Segurtasuna eta Ordainketa</h3>
+    <h3 class="inprimaki-atal-izenburua">Segurtasuna eta Ordainketa</h3>
 
-                    <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                         <label>Ordainketa Txartela (Token):</label>
                         <input type="text" name="bezero_ordainketa_txartela"
                             value="<?= htmlspecialchars($bezeroa['bezero_ordainketa_txartela'] ?? '') ?>"
@@ -343,10 +351,10 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-                <button type="submit" class="botoia botoi-nagusia datu-aldaketa-botoia">Gorde Aldaketak</button>
+    <button type="submit" class="botoia botoi-nagusia datu-aldaketa-botoia">Gorde Aldaketak</button>
             </form>
 
-            <div class="atzera-botoi-kontainer">
+    <div class="atzera-botoi-kontainer">
                 <a href="bezero_menua.php" class="atzerako-botoia"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
             </div>
         </div>
@@ -371,12 +379,15 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
             });
         });
     </script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/bezero_erosketa.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -395,15 +406,16 @@ try {
     $stmt->execute([$id_bezeroa]);
     $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Herriak lortu (Dropdown-erako)
-    $stmtH = $konexioa->query("SELECT id_herria, izena FROM herriak ORDER BY izena ASC");
+    // Herriak lortu (Dropdown-erako)$stmtH = $konexioa->query("SELECT id_herria, izena FROM herriak ORDER BY izena ASC");
     $herriak = $stmtH->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
     die("Errorea datubasearekin: " . $e->getMessage());
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
   <head>
     <meta charset="UTF-8" />
@@ -417,9 +429,10 @@ try {
     <link rel="stylesheet" href="../css/estiloak_globala.css" />
     <!-- BEZERO ESKAERAK ESTILOA ERABILI -->
     <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css" />
-  </head>
-    
-  <body class="web-gorputza">
+
+</head>
+
+<body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
@@ -427,8 +440,8 @@ try {
         <!-- Nabigazio bidea edo Izena -->
         <a href="produktuak.php" class="atzera-botoia tartea-behean-1"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
         <h2 class="tartea-behean-2">Erosketa Berretsi</h2>
-        
-        <div class="erosketa-sareta"> 
+
+    <div class="erosketa-sareta">
             <!-- 1. SASKIAREN EDUKIA (Eskari Txartela estiloa) -->
             <div class="eskari-txartela">
                 <div class="eskari-goiburua">
@@ -443,11 +456,11 @@ try {
                 </div>
                 <!-- Guztira lerroa txartelaren barruan edo azpian -->
                 <div class="saski-oina-guztira">
-                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €</span>
+                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €
                 </div>
             </div>
 
-            <!-- 2. BIDALKETA DATUAK (Eskari Txartela estiloa) -->
+    <!-- 2. BIDALKETA DATUAK (Eskari Txartela estiloa) -->
             <div class="eskari-txartela">
                 <div class="eskari-goiburua">
                     <div>
@@ -457,19 +470,19 @@ try {
                 </div>
                 <div class="eskari-gorputza">
                     <p class="tartea-behean-1-5 testua-grisa">Datu hauek erabiliko dira bidalketa egiteko.</p>
-                    
-                    <form action="ordainketa_pasarela.php" method="POST" id="bidalketa-form">
+
+    <form action="ordainketa_pasarela.php" method="POST" id="bidalketa-form">
                         <div class="inprimaki-taldea">
                             <label>Izena eta Abizenak</label>
                             <input type="text" class="inprimaki-sarrera ez-klikagarria" value="<?= htmlspecialchars($bezeroa['izena_edo_soziala'] . ' ' . $bezeroa['abizena']) ?>" disabled>
                         </div>
 
-                        <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                             <label for="helbidea">Helbidea</label>
                             <input type="text" id="helbidea" name="helbidea" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['helbidea']) ?>" required>
                         </div>
 
-                        <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                             <label for="herria_id">Herria</label>
                             <select id="herria_id" name="herria_id" class="inprimaki-hautatu" required>
                                 <?php foreach ($herriak as $herria): ?>
@@ -480,17 +493,17 @@ try {
                             </select>
                         </div>
 
-                        <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                             <label for="posta_kodea">Posta Kodea</label>
                             <input type="text" id="posta_kodea" name="posta_kodea" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>" required>
                         </div>
 
-                        <div class="inprimaki-taldea extra-behean-2">
+    <div class="inprimaki-taldea extra-behean-2">
                             <label for="telefonoa">Telefonoa</label>
                             <input type="tel" id="telefonoa" name="telefonoa" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>" required>
                         </div>
 
-                        <button type="submit" class="botoia botoi-nagusia zabalera-osoa handia">
+    <button type="submit" class="botoia botoi-nagusia zabalera-osoa handia">
                             Ordainketara Joan <i class="fas fa-arrow-right"></i>
                         </button>
                     </form>
@@ -504,12 +517,14 @@ try {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script src="../js/bezero_erosketa.js"></script>
-  </body>
-</html>
 
-``n
+</body>
+</html>
+```
+
 ### php/bezero_eskaerak.php
-``php
+
+```php
 <?php
 session_start();
 
@@ -604,8 +619,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Eskaerak ekarri
 $stmt = $konexioa->prepare("
-    SELECT * FROM eskaerak 
-    WHERE bezeroa_id = :id 
+    SELECT * FROM eskaerak
+    WHERE bezeroa_id = :id
     ORDER BY data DESC
 ");
 $stmt->execute([':id' => $id_bezeroa]);
@@ -615,7 +630,7 @@ $eskaerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 function lortuEskeraLerroak($konexioa, $id_eskaera)
 {
     $sql = "
-        SELECT el.*, p.izena, p.deskribapena 
+        SELECT el.*, p.izena, p.deskribapena
         FROM eskaera_lerroak el
         JOIN produktuak p ON el.produktua_id = p.id_produktua
         WHERE el.eskaera_id = :id
@@ -625,7 +640,9 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -655,7 +672,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                 </div>
             <?php endif; ?>
 
-            <?php if (count($eskaerak) > 0): ?>
+    <?php if (count($eskaerak) > 0): ?>
                 <?php foreach ($eskaerak as $eskaera): ?>
                     <?php
                     $rawStatus = $eskaera['eskaera_egoera'];
@@ -673,7 +690,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                             <div class="botoi-taldea-zentratuta">
                                 <span class="eskari-egoera-etiketa <?= $statusClass ?>">
                                     <?= $eskaera['eskaera_egoera'] ?>
-                                </span>
+
                                 <?php if ($isPrestatzen): ?>
                                     <form method="POST" onsubmit="return confirmDelete()" class="m-0">
                                         <input type="hidden" name="action" value="delete_order">
@@ -723,7 +740,7 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
                                                                 title="Ezabatu produktua"><i class="fas fa-trash"></i></button>
                                                         </form>
                                                     <?php else: ?>
-                                                        <span class="testu-apala">-</span>
+                                                        <span class="testu-apala">-
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
@@ -745,12 +762,15 @@ function lortuEskeraLerroak($konexioa, $id_eskaera)
     <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/bezero_menua.php
-``php
+
+```php
 <?php
 session_start();
 if (!isset($_SESSION['id_bezeroa'])) {
@@ -778,28 +798,28 @@ $izena = $_SESSION['izena'];
 
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
-        
-        <div class="menu-bezeroa">
+
+    <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
             <a href="bezero_datuak_aldatu.php" class="menu-txartela">
                 <i class="fas fa-user-edit menu-ikonoa"></i>
-                <span class="menu-izenburua">Datu-Pertsonalak aldatu</span>
+                <span class="menu-izenburua">Datu-Pertsonalak aldatu
             </a>
 
-            <!-- Button 2: Erosketak Kudeatu -->
+    <!-- Button 2: Erosketak Kudeatu -->
             <a href="bezero_eskaerak.php" class="menu-txartela">
                 <i class="fas fa-shopping-bag menu-ikonoa"></i>
-                <span class="menu-izenburua">Erosketak Kudeatu</span>
+                <span class="menu-izenburua">Erosketak Kudeatu
             </a>
-            
-             <!-- Button 3: Produktuak Ikusi -->
+
+    <!-- Button 3: Produktuak Ikusi -->
             <a href="produktuak.php" class="menu-txartela">
                 <i class="fas fa-store menu-ikonoa"></i>
-                <span class="menu-izenburua">Produktuak Ikusi</span>
+                <span class="menu-izenburua">Produktuak Ikusi
             </a>
         </div>
 
-        <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">
+    <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">
             <i class="fas fa-sign-out-alt"></i>Saioa Itxi
         </button>
     </main>
@@ -809,13 +829,15 @@ $izena = $_SESSION['izena'];
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+
 </body>
 
 </html>
+```
 
-``n
 ### php/bezero_saioa_hasi.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -829,7 +851,9 @@ try {
   $herriak = [];
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -837,30 +861,32 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Saioa Hasi / Erregistratu</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <!-- gure css artxiboak -->
-  <link rel="stylesheet" href="../css/estiloak_globala.css" />
+<!-- gure css artxiboak -->
+
+<link rel="stylesheet" href="../css/estiloak_globala.css" />
   <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
 </head>
 
 <body class="web-gorputza">
   <?php include_once 'goiburua.php'; ?>
 
-  <main class="eduki-nagusia">
+<main class="eduki-nagusia">
     <section class="kontaktu-edukiontzia">
       <h2 class="kontaktua-titulua">Bezeroaren Gunea</h2>
 
-      <div class="kontaktu-sareta">
+    <div class="kontaktu-sareta">
         <!-- SAIOA HASI -->
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Saioa Hasi</h3>
           <p class="tartea-behean-1-5 testua-grisa">Dagoeneko kontua baduzu, sartu hemen:</p>
 
-          <?php if (isset($_GET['error'])): ?>
+    <?php if (isset($_GET['error'])): ?>
             <div class="login-errore-mezua tartea-behean-1">
               <i class="fas fa-exclamation-circle"></i> Posta elektronikoa edo pasahitza okerrak dira.
             </div>
@@ -880,7 +906,7 @@ try {
           </form>
         </div>
 
-        <!-- ERREGISTRATU -->
+    <!-- ERREGISTRATU -->
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Erregistratu</h3>
           <p class="tartea-behean-1-5 testua-grisa">Berria zara? Sortu kontu bat erraz:</p>
@@ -931,14 +957,18 @@ try {
         </div>
       </div>
     </section>
-  </main>
 
-  <?php include 'footer.php'; ?>
+</main>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/globala.js"></script>
-  <script src="../js/bezero_saioa_hasi.js"></script>
-  <script>
+<?php include 'footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="../js/globala.js"></script>
+
+<script src="../js/bezero_saioa_hasi.js"></script>
+
+<script>
     // saioa hasita badago:
     $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
       var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
@@ -951,45 +981,48 @@ try {
       );
     });
   </script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/DB_konexioa.php
-``php
+
+```php
 <?php
 $zerbitzaria = "localhost";     // zerbitzaria
 $datu_basea = "birtek_db";      // nire datu-basearen izena
-$erabiltzailea = "root";        
+$erabiltzailea = "root";
 // root soilik baimenak ditu lokalean erabiltzeko, GU ez gera lokalean konektatuko,
 //  beraz root-en baimen berdinak dituen beste erabiltzaile bat sortu behar da.
-$pasahitza = "1MG32025"; 
+$pasahitza = "1MG32025";
 
 $dsn = "mysql:host=$zerbitzaria;port=3306;dbname=$datu_basea;charset=utf8";
 
 try {
-    
+
     $konexioa = new PDO($dsn, $erabiltzailea, $pasahitza);
     $konexioa->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+
     // Log mezua konektatu dela adierazteko (nabigatzaileko kontsolan ikusteko)
 
 } catch (PDOException $e) {
     // Log mezua errorea egon dela adierazteko (nabigatzaileko kontsolan ikusteko)
     // echo "<script>console.error('Datu-Basera EZ da konektatu');</script>";
 
-    //  'application/json' goiburua kenduta, bestela nabigatzaileak 
+    //  'application/json' goiburua kenduta, bestela nabigatzaileak
     // script-ak testu arrunt bezala erakusten ditu eta ez ditu exekutatzen.
-    
+
     // die: horeraino bakarrik (inprimatu eta gelditu)
     die(json_encode(["ERROREA" => "Datu-Base konexio Errorea: " . $e->getMessage()]));
 }
 ?>
+```
 
-
-``n
 ### php/deskargatu_faktura.php
-``php
+
+```php
 <?php
 session_start();
 
@@ -1021,11 +1054,11 @@ if (file_exists($filepath)) {
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($filepath));
-    
+
     // Buffer-a garbitu
     ob_clean();
     flush();
-    
+
     // Fitxategia irakurri eta bidali
     readfile($filepath);
     exit;
@@ -1034,10 +1067,11 @@ if (file_exists($filepath)) {
     die("Faktura ez da aurkitu zerbitzarian ($filename).");
 }
 ?>
+```
 
-``n
 ### php/erregistratu_bezeroa.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -1063,7 +1097,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Oharra: 'izena_edo_soziala' da DBko zutabearen izena 'izena'-rentzat
-        $sql = "INSERT INTO bezeroak (izena_edo_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo) 
+        $sql = "INSERT INTO bezeroak (izena_edo_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo)
                 VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)";
 
         // Herria kudeatu (Izena bidez bilatu edo sortu)
@@ -1120,9 +1154,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: bezero_saioa_hasi.php");
 }
 ?>
-``n
+```
+
 ### php/erregistratu_hornitzailea.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -1148,7 +1184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        $sql = "INSERT INTO hornitzaileak (izena_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, kontaktu_pertsona, hizkuntza, aktibo) 
+        $sql = "INSERT INTO hornitzaileak (izena_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, kontaktu_pertsona, hizkuntza, aktibo)
                 VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, :kontaktu, 'Euskara', 1)";
 
         // Herria kudeatu (Izena bidez bilatu edo sortu)
@@ -1207,9 +1243,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: hornitzaile_saioa_hasi.php");
 }
 ?>
-``n
+```
+
 ### php/footer.php
-``php
+
+```php
 <footer class="oin-nagusia">
   <div class="oin-sarea">
     <div class="testua-erdian">
@@ -1245,14 +1283,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <div class="oin-copyright">© 2025 BIRTEK</div>
 
-  <!-- Gora Joan Botoia -->
-  <button id="gora-joan-botoia" title="Gora joan">
+<!-- Gora Joan Botoia -->
+
+<button id="gora-joan-botoia" title="Gora joan">
     <i class="fas fa-arrow-up"></i>
   </button>
 </footer>
-``n
+```
+
 ### php/get_saio_egoera.php
-``php
+
+```php
 <?php
 session_start();
 header('Content-Type: application/json');
@@ -1274,40 +1315,41 @@ if (isset($_SESSION['id_bezeroa'])) {
 
 echo json_encode($response);
 ?>
+```
 
-
-``n
 ### php/goiburua.php
-``php
+
+```php
 <header class="goiburu-nagusia">
-  <nav class="nab-edukiontzia">
+
+<nav class="nab-edukiontzia">
     <div class="goiburu-barnealdea">
       <!-- Mugikorra Menu Botoia -->
       <button id="mugikor-menu-botoia" class="mugikor-menu-botoia">
         <i class="fas fa-bars burger-ikonoa"></i>
       </button>
 
-      <!-- logoa -->
+    <!-- logoa -->
       <a href="hasiera.php" class="logo-edukiontzia">
         <img src="../irudiak/birtek_logo_zuri_borobila.png" alt="BIRTEK Logo" class="goiburu-logo-irudia">
-        <span class="logoa">BIRTEK</span>
+        <span class="logoa">BIRTEK
       </a>
 
-      <div class="nab-menu-mahaigaina">
+    <div class="nab-menu-mahaigaina">
         <a href="hasiera.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'hasiera.php') ? 'aktibo' : ''; ?>">Hasiera</a>
         <a href="produktuak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'produktuak.php') ? 'aktibo' : ''; ?>">Produktuak</a>
         <a href="berriak.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'berriak.php') ? 'aktibo' : ''; ?>">Berriak</a>
         <a href="kontaktua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'kontaktua.php') ? 'aktibo' : ''; ?>">Kontaktua</a>
-        <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia 
+        <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia
         <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : (basename($_SERVER['PHP_SELF']) == 'hornitzaile_saioa_hasi.php' ? 'aktibo' : '') ?>">Birziklatu</a>
         <a href="langileak_menua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'langileak_menua.php') ? 'aktibo' : ''; ?>">Langileak</a>
       </div>
 
-      <div class="nab-ekintzak">
+    <div class="nab-ekintzak">
         <?php if (isset($_SESSION['id_bezeroa'])): ?>
           <div class="erabiltzaile-dropdown">
                 <a href="bezero_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_menua.php') ? 'aktibo' : ''; ?>">
-                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?></span> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
+                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena']) ?> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
                 </a>
                 <div class="dropdown-edukia">
                     <a href="bezero_datuak_aldatu.php" class="dropdown-elementua"><i class="fas fa-id-card"></i> Nire Profila</a>
@@ -1318,7 +1360,7 @@ echo json_encode($response);
         <?php elseif (isset($_SESSION['id_hornitzailea'])): ?>
           <div class="erabiltzaile-dropdown">
                 <a href="hornitzaile_menua.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php') ? 'aktibo' : ''; ?>">
-                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?></span> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
+                    <i class="fas fa-user-circle"></i> <span><?= htmlspecialchars($_SESSION['izena_soziala']) ?> <i class="fas fa-chevron-down goiburu-ikono-txikia"></i>
                 </a>
                 <div class="dropdown-edukia">
                     <a href="hornitzaile_datuak_aldatu.php" class="dropdown-elementua"><i class="fas fa-id-card"></i> Nire Profila</a>
@@ -1329,11 +1371,11 @@ echo json_encode($response);
         <?php else: ?>
           <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_saioa_hasi.php') ? 'aktibo' : ''; ?>" id="saioa-hasi-botoia">Saioa Hasi</a>
         <?php endif; ?>
-        
-        <button class="saski-botoia" id="saski-botoia-toggle">
+
+    <button class="saski-botoia" id="saski-botoia-toggle">
           <i class="fas fa-shopping-cart"></i>
-          <span>Saskia</span>
-          <span class="saski-kontagailua">0</span>
+          <span>Saskia
+          <span class="saski-kontagailua">0
         </button>
         <div id="saski-mezua" class="saski-mezua"></div>
       </div>
@@ -1347,7 +1389,7 @@ echo json_encode($response);
       <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="nab-botoia <?= isset($_SESSION['id_hornitzailea']) ? (basename($_SERVER['PHP_SELF']) == 'hornitzaile_menua.php' ? 'hornitzailea-aktibo aktibo' : 'hornitzailea-aktibo') : (basename($_SERVER['PHP_SELF']) == 'hornitzaile_saioa_hasi.php' ? 'aktibo' : '') ?>">Birziklatu</a>
       <a href="langileak_menua.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'langileak_menua.php') ? 'aktibo' : ''; ?>">Langileak</a>
 
-      <?php if (isset($_SESSION['id_bezeroa'])): ?>
+    <?php if (isset($_SESSION['id_bezeroa'])): ?>
           <div class="mugikor-erabiltzaile-edukiontzia">
               <a href="bezero_menua.php" class="nab-botoia mugikor-erabiltzaile-link <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_menua.php') ? 'aktibo' : ''; ?>">
                   <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['izena']) ?>
@@ -1369,12 +1411,14 @@ echo json_encode($response);
           <a href="bezero_saioa_hasi.php" class="nab-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_saioa_hasi.php') ? 'aktibo' : ''; ?>">Saioa Hasi</a>
       <?php endif; ?>
     </div>
-  </nav>
-</header>
 
-``n
+</nav>
+</header>
+```
+
 ### php/gorde_eskaera_langilea.php
-``php
+
+```php
 <?php
 require_once 'DB_konexioa.php';
 
@@ -1416,7 +1460,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 4. Datu basean txertatu
         // Oharra: 'oharra' ez da gordetzen taulan ez dagoelako zutaberik.
         // Aktibo = 0 (ez dago aktibo oraindik)
-        $sql = "INSERT INTO langileak (izena, abizena, emaila, telefonoa, kurrikuluma, aktibo) 
+        $sql = "INSERT INTO langileak (izena, abizena, emaila, telefonoa, kurrikuluma, aktibo)
                 VALUES (:izena, :abizena, :emaila, :telefonoa, :cv, 0)";
 
         $stmt = $konexioa->prepare($sql);
@@ -1441,14 +1485,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Metodoa ez da onartzen.";
 }
 ?>
+```
 
-``n
 ### php/hasiera.php
-``php
+
+```php
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
   <head>
     <meta charset="UTF-8" />
@@ -1475,9 +1522,10 @@ session_start();
     <!-- gure css artxiboak -->
     <link rel="stylesheet" href="../css/estiloak_globala.css" />
     <link rel="stylesheet" href="../css/estiloak_hasiera.css" />
-  </head>
 
-  <body class="web-gorputza">
+</head>
+
+<body class="web-gorputza">
     <?php include 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
@@ -1505,7 +1553,7 @@ session_start();
           </div>
         </div>
 
-        <div class="slider-kanpo-edukiontzia">
+    <div class="slider-kanpo-edukiontzia">
           <div class="hasiera-slider-egitura">
             <div><img src="../irudiak/birtek_biltegia.png" alt="Birtek Biltegia" title="Gure Biltegi Nagusia" /></div>
             <div><img src="../irudiak/birtek_sarrerak_birziklapena.jpeg" alt="Birtek Sarrerak Birziklapena" title="Birziklapen Prozesua" /></div>
@@ -1514,7 +1562,7 @@ session_start();
           </div>
         </div>
 
-        <div class="hasiera-zerrenda-edukiontzia">
+    <div class="hasiera-zerrenda-edukiontzia">
           <div class="hasiera-txartel-lerroa">
             <div class="hasiera-zutabea"><img src="../irudiak/birtek_erakuslekua.png" alt="Erakuslekua" class="hasiera-txartel-irudia" loading="lazy" /></div>
             <div class="hasiera-zutabea">
@@ -1560,12 +1608,14 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
     <script src="../js/globala.js"></script>
     <script src="../js/hasiera.js"></script>
-  </body>
-</html>
 
-``n
+</body>
+</html>
+```
+
 ### php/hornitzaile_datuak_aldatu.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -1617,11 +1667,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $herria_id = $konexioa->lastInsertId();
         }
 
-        $sql = "UPDATE hornitzaileak SET 
-                izena_soziala = :izena, 
+        $sql = "UPDATE hornitzaileak SET
+                izena_soziala = :izena,
                 ifz_nan = :ifz_nan,
                 kontaktu_pertsona = :kontaktu,
-                helbidea = :helbidea, 
+                helbidea = :helbidea,
                 herria_id = :herria_id,
                 posta_kodea = :posta_kodea,
                 telefonoa = :telefonoa,
@@ -1670,7 +1720,9 @@ $stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE id_hornitzailea = 
 $stmt->execute([':id' => $id_hornitzailea]);
 $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -1691,19 +1743,19 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="kontaktu-edukiontzia">
             <h2 class="kontaktua-titulua">Hornitzaile Datuak Aldatu</h2>
 
-            <div class="kontaktu-sareta">
+    <div class="kontaktu-sareta">
                 <div class="inprimaki-kutxa">
                     <h3 class="inprimaki-titulua">Profila Eguneratu</h3>
 
-                    <?php if ($mezua): ?>
+    <?php if ($mezua): ?>
                         <p class="arrakasta-mezua testua-zentratuta"><?= $mezua ?></p>
                     <?php endif; ?>
 
-                    <form class="kontaktu-inprimaki-diseinua" method="POST">
+    <form class="kontaktu-inprimaki-diseinua" method="POST">
                         <div class="inprimaki-sareta">
                             <h3 class="inprimaki-atal-izenburua">Enpresa edo Pertsona Informazioa</h3>
 
-                            <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                                 <label>Izena edo Izen-Soziala:</label>
                                 <input type="text" name="izena_soziala"
                                     value="<?= htmlspecialchars($hornitzailea['izena_soziala']) ?>"
@@ -1731,9 +1783,9 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
                                 </select>
                             </div>
 
-                            <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
+    <h3 class="inprimaki-atal-izenburua">Kontaktua eta Helbidea</h3>
 
-                            <div class="inprimaki-taldea">
+    <div class="inprimaki-taldea">
                                 <label>Helbidea:</label>
                                 <input type="text" name="helbidea"
                                     value="<?= htmlspecialchars($hornitzailea['helbidea']) ?>" class="inprimaki-sarrera"
@@ -1752,7 +1804,7 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
                                 </select>
                             </div>
 
-                            <div id="herri_berria_atala" class="herri-berria-panela">
+    <div id="herri_berria_atala" class="herri-berria-panela">
                                 <h4 class="herri-berria-izenburua">Herri Berriaren Datuak</h4>
                                 <div class="herri-berria-sareta">
                                     <div class="inprimaki-taldea">
@@ -1791,25 +1843,25 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
                                     required>
                             </div>
 
-                            <h3 class="inprimaki-atal-izenburua">Segurtasuna</h3>
+    <h3 class="inprimaki-atal-izenburua">Segurtasuna</h3>
 
-                            <div class="inprimaki-taldea zutabe-osoa">
+    <div class="inprimaki-taldea zutabe-osoa">
                                 <label>Pasahitza Berria (Utzi hutsik ez aldatzeko):</label>
                                 <input type="password" name="pasahitza" class="inprimaki-sarrera"
                                     placeholder="Pasahitza berria...">
                             </div>
                         </div>
 
-                        <button type="submit" class="botoia botoi-nagusia datu-aldaketa-botoia">Gorde Aldaketak</button>
+    <button type="submit" class="botoia botoi-nagusia datu-aldaketa-botoia">Gorde Aldaketak</button>
                     </form>
 
-                    <div class="atzera-botoi-kontainer">
+    <div class="atzera-botoi-kontainer">
                         <a href="hornitzaile_menua.php" class="atzerako-botoia"><i class="fas fa-arrow-left"></i> Atzera
                             Menura</a>
                     </div>
                 </div>
 
-                <div class="sozial-kutxa">
+    <div class="sozial-kutxa">
                     <img src="../irudiak/birtek_konponketak.png" alt="Repairing" class="kontaktu-irudia" />
                     <h3 class="sozial-azpititulua">Laguntza behar duzu?</h3>
                     <p class="testua-grisa tartea-behean-1-5">Zure datuak aldatzeko arazorik baduzu, jarri gurekin
@@ -1824,12 +1876,15 @@ $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script src="../js/hornitzaile_saioa_hasi.js"></script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/hornitzaile_menua.php
-``php
+
+```php
 <?php
 session_start();
 if (!isset($_SESSION['id_hornitzailea'])) {
@@ -1854,28 +1909,28 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
 
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Ongi etorri, <?= htmlspecialchars($izena) ?>!</h2>
-        
-        <div class="menu-hornitzailea">
+
+    <div class="menu-hornitzailea">
             <!-- 1. Aukera: Datuak Aldatu -->
             <a href="hornitzaile_datuak_aldatu.php" class="menu-txartela">
                 <i class="fas fa-user-edit menu-ikonoa"></i>
-                <span class="menu-izenburua">Datu Pertsonalak Aldatu</span>
+                <span class="menu-izenburua">Datu Pertsonalak Aldatu
             </a>
 
-            <!-- 2. Aukera: Sarrera Egin (Produktuak Bidali) -->
+    <!-- 2. Aukera: Sarrera Egin (Produktuak Bidali) -->
             <a href="hornitzaile_sarrera_egin.php" class="menu-txartela">
                 <i class="fas fa-truck-loading menu-ikonoa"></i>
-                <span class="menu-izenburua">Sarrera Egin</span>
+                <span class="menu-izenburua">Sarrera Egin
             </a>
 
-            <!-- 3. Aukera: Sarrerak Kudeatu -->
+    <!-- 3. Aukera: Sarrerak Kudeatu -->
             <a href="hornitzaile_sarrerak_kudeatu.php" class="menu-txartela">
                 <i class="fas fa-clipboard-list menu-ikonoa"></i>
-                <span class="menu-izenburua">Sarrerak Kudeatu</span>
+                <span class="menu-izenburua">Sarrerak Kudeatu
             </a>
         </div>
 
-        <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">
+    <button class="saioa-itxi-botoia botoi-gorria" id="logout-botoia-menua">
             <i class="fas fa-sign-out-alt"></i> Saioa Itxi
         </button>
     </main>
@@ -1884,12 +1939,14 @@ $izena = $_SESSION['izena_soziala'] ?? 'Hornitzailea';
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+
 </body>
 </html>
+```
 
-``n
 ### php/hornitzaile_saioa_hasi.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -1903,7 +1960,9 @@ try {
   $herriak = [];
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -1911,30 +1970,32 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Hornitzailea Saioa Hasi / Erregistratu</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <!-- gure css artxiboak -->
-  <link rel="stylesheet" href="../css/estiloak_globala.css" />
+<!-- gure css artxiboak -->
+
+<link rel="stylesheet" href="../css/estiloak_globala.css" />
   <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
 </head>
 
 <body class="web-gorputza">
   <?php include_once 'goiburua.php'; ?>
 
-  <main class="eduki-nagusia">
+<main class="eduki-nagusia">
     <section class="kontaktu-edukiontzia">
       <h2 class="kontaktua-titulua">Hornitzaileen Gunea</h2>
 
-      <div class="kontaktu-sareta">
+    <div class="kontaktu-sareta">
         <!-- SAIOA HASI -->
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Saioa Hasi</h3>
           <p class="testua-grisa">Dagoeneko hornitzailea zara? Sartu hemen:</p>
 
-          <?php if (isset($_GET['error'])): ?>
+    <?php if (isset($_GET['error'])): ?>
             <div class="login-errore-mezua">
               <i class="fas fa-exclamation-circle"></i> Posta elektronikoa edo pasahitza okerrak dira.
             </div>
@@ -1953,7 +2014,7 @@ try {
           </form>
         </div>
 
-        <!-- ERREGISTRATU -->
+    <!-- ERREGISTRATU -->
         <div class="inprimaki-kutxa">
           <h3 class="inprimaki-titulua">Erregistratu</h3>
           <p class="tartea-behean-1-5 testua-grisa">Hornitzaile berria? Sortu kontu bat:</p>
@@ -2005,14 +2066,18 @@ try {
         </div>
       </div>
     </section>
-  </main>
 
-  <?php include 'footer.php'; ?>
+</main>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/globala.js"></script>
-  <script src="../js/hornitzaile_saioa_hasi.js"></script>
-  <script>
+<?php include 'footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="../js/globala.js"></script>
+
+<script src="../js/hornitzaile_saioa_hasi.js"></script>
+
+<script>
     $(document).on("session:valid", function (e, user, type) {
       var menuUrl = (type === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
       $(".kontaktu-sareta").html(
@@ -2024,12 +2089,15 @@ try {
       );
     });
   </script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/hornitzaile_sarrera_egin.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -2052,8 +2120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $konexioa->beginTransaction();
         $produktua_id = null;
 
-        if ($mota_sarrera == 'existing') {
-            $produktua_id = $_POST['produktua_id'];
+    if ($mota_sarrera == 'existing') {$produktua_id = $_POST['produktua_id'];
         } else {
             // Produktu sarrera berria
             $izena = trim($_POST['izena']);
@@ -2063,7 +2130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stock = 0; // 0 lehenetsia erabiltzaileak eskatu bezala (artikuluak 'Bidean' datoz)
             $prezioa = 0.00; // Sarrera kenduta, 0 lehenetsia
 
-            // Kategoria ID-a zehaztu
+    // Kategoria ID-a zehaztu
             // 1: Ordenagailuak (Eramangarria, Mahai-gainekoa)
             // 2: Telefonia (Mugikorra, Tableta)
             // 3: Irudia (Pantaila)
@@ -2071,7 +2138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // 5: Softwarea (Softwarea)
             // 6: Sareak eta Zerbitzariak (Zerbitzaria)
 
-            $kategoria_id = 1; // Lehenetsia
+    $kategoria_id = 1; // Lehenetsia
             switch ($mota) {
                 case 'Eramangarria':
                 case 'Mahai-gainekoa':
@@ -2096,24 +2163,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     break;
             }
 
-            // Taula nagusian txertatu
+    // Taula nagusian txertatu
             // DBko 'mota' ENUM-a eguneratu beharko litzateke 'Kablea' edo 'Periferikoa' zehaztasunez ez badago
             // DB ENUM: 'Generikoa','Eramangarria','Mahai-gainekoa','Mugikorra','Tableta','Zerbitzaria','Pantaila','Softwarea','Periferikoak','Kableak'
-            // Nire hautapen balioak: 'Periferikoa', 'Kablea'. DB ENUM-era mapatu behar dira.
-            $db_mota = $mota;
+            // Nire hautapen balioak: 'Periferikoa', 'Kablea'. DB ENUM-era mapatu behar dira.$db_mota = $mota;
             if ($mota == 'Periferikoa')
                 $db_mota = 'Periferikoak';
             if ($mota == 'Kablea')
                 $db_mota = 'Kableak';
 
-            $stmtProd = $konexioa->prepare("INSERT INTO produktuak (izena, marka, mota, deskribapena, salmenta_prezioa, stock, hornitzaile_id, kategoria_id, aktibo, salgai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0)");
+    $stmtProd = $konexioa->prepare("INSERT INTO produktuak (izena, marka, mota, deskribapena, salmenta_prezioa, stock, hornitzaile_id, kategoria_id, aktibo, salgai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0)");
             $stmtProd->execute([$izena, $marka, $db_mota, $deskribapena, $prezioa, $stock, $id_hornitzailea, $kategoria_id]);
             $produktua_id = $konexioa->lastInsertId();
 
-            // Azpi-tauletan txertatu
+    // Azpi-tauletan txertatu
             switch ($mota) {
-                case 'Eramangarria':
-                    $stmtSub = $konexioa->prepare("INSERT INTO eramangarriak (id_produktua, prozesadorea, ram_gb, diskoa_gb, pantaila_tamaina, bateria_wh, sistema_eragilea, pisua_kg) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                case 'Eramangarria':$stmtSub = $konexioa->prepare("INSERT INTO eramangarriak (id_produktua, prozesadorea, ram_gb, diskoa_gb, pantaila_tamaina, bateria_wh, sistema_eragilea, pisua_kg) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                     $stmtSub->execute([
                         $produktua_id,
                         $_POST['eram_prozesadorea'],
@@ -2222,29 +2287,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        if ($produktua_id && $kantitatea > 0) {
+    if ($produktua_id && $kantitatea > 0) {
             // 1. Sarreretan txertatu
             $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, 1, 'Bidean', NOW())");
             $stmt->execute([':hid' => $id_hornitzailea]);
             $sarrera_id = $konexioa->lastInsertId();
 
-            // 2. Sarrera lerroetan txertatu
-            $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera) VALUES (:sid, :pid, :qty, 'Bidean')");
+    // 2. Sarrera lerroetan txertatu$stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera) VALUES (:sid, :pid, :qty, 'Bidean')");
             $stmtLine->execute([
                 ':sid' => $sarrera_id,
                 ':pid' => $produktua_id,
                 ':qty' => $kantitatea
             ]);
 
-            $konexioa->commit();
+    $konexioa->commit();
             $mezua = "Sarrera ondo erregistratu da! Produktua bidean dago.";
         } else {
             throw new Exception("Datu guztiak beharrezkoak dira.");
         }
     } catch (Exception $e) {
         if ($konexioa->inTransaction())
-            $konexioa->rollBack();
-        $mezua = "Errorea sarrera egitean: " . $e->getMessage();
+            $konexioa->rollBack();$mezua = "Errorea sarrera egitean: " . $e->getMessage();
     }
 }
 
@@ -2258,7 +2321,9 @@ try {
 }
 
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -2278,22 +2343,22 @@ try {
         <div class="kontaktu-edukiontzia">
             <h2 class="kontaktua-titulua">Sarrera Berria Erregistratu</h2>
 
-            <div class="inprimaki-trukatu">
+    <div class="inprimaki-trukatu">
                 <button type="button" class="trukatu-botoia aktibo" id="btn-existing">Lehendik dagoena</button>
                 <button type="button" class="trukatu-botoia" id="btn-new">Produktu Berria</button>
             </div>
 
-            <div class="inprimaki-kutxa sarrera-edukiontzia">
+    <div class="inprimaki-kutxa sarrera-edukiontzia">
                 <?php if ($mezua): ?>
                     <p class="mezu-kutxa <?= strpos($mezua, 'Errorea') !== false ? 'mezu-errorea' : 'mezu-arrakasta' ?>">
                         <?= $mezua ?>
                     </p>
                 <?php endif; ?>
 
-                <form class="kontaktu-inprimaki-diseinua" method="POST" id="main-form">
+    <form class="kontaktu-inprimaki-diseinua" method="POST" id="main-form">
                     <input type="hidden" name="mota_sarrera" id="mota_sarrera" value="existing">
 
-                    <div id="section-existing">
+    <div id="section-existing">
                         <label class="label-input-fitxategia">Aukeratu Produktua:</label>
                         <select name="produktua_id" class="produktu-hautatzailea">
                             <option value="">-- Aukeratu --</option>
@@ -2305,7 +2370,7 @@ try {
                         </select>
                     </div>
 
-                    <div id="section-new" class="ezkutuan">
+    <div id="section-new" class="ezkutuan">
                         <div class="sarrera-sareta-berria">
                             <input type="text" name="izena" class="inprimaki-sarrera" placeholder="Produktuaren Izena"
                                 required>
@@ -2328,7 +2393,7 @@ try {
                         <textarea name="deskribapena" class="inprimaki-sarrera" placeholder="Deskribapena"
                             rows="3"></textarea>
 
-                        <!-- Eremu Dinamikoen Edukiontziak -->
+    <!-- Eremu Dinamikoen Edukiontziak -->
                         <div id="fields_eramangarria" class="dynamic-fields ezkutuan">
                             <h4>Eramangarria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
@@ -2343,7 +2408,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_mahaigainekoa" class="dynamic-fields ezkutuan">
+    <div id="fields_mahaigainekoa" class="dynamic-fields ezkutuan">
                             <h4>Mahai-gainekoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="mahai_prozesadorea" placeholder="Prozesadorea">
@@ -2361,7 +2426,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_mugikorra" class="dynamic-fields ezkutuan">
+    <div id="fields_mugikorra" class="dynamic-fields ezkutuan">
                             <h4>Mugikorra Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="mug_pantaila_teknologia"
@@ -2380,7 +2445,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_tableta" class="dynamic-fields ezkutuan">
+    <div id="fields_tableta" class="dynamic-fields ezkutuan">
                             <h4>Tableta Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" step="0.1" name="tab_pantaila_hazbeteak"
@@ -2398,7 +2463,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_zerbitzaria" class="dynamic-fields ezkutuan">
+    <div id="fields_zerbitzaria" class="dynamic-fields ezkutuan">
                             <h4>Zerbitzaria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" name="zerb_prozesadore_nukleoak" placeholder="CPU Nukleoak">
@@ -2417,7 +2482,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_pantaila" class="dynamic-fields ezkutuan">
+    <div id="fields_pantaila" class="dynamic-fields ezkutuan">
                             <h4>Pantaila Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" step="0.1" name="pan_hazbeteak" placeholder="Hazbeteak">
@@ -2434,7 +2499,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_softwarea" class="dynamic-fields ezkutuan">
+    <div id="fields_softwarea" class="dynamic-fields ezkutuan">
                             <h4>Softwarea Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="soft_mota" class="inprimaki-sarrera">
@@ -2454,7 +2519,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_periferikoa" class="dynamic-fields ezkutuan">
+    <div id="fields_periferikoa" class="dynamic-fields ezkutuan">
                             <h4>Periferikoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="peri_mota" class="inprimaki-sarrera">
@@ -2476,7 +2541,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_kablea" class="dynamic-fields ezkutuan">
+    <div id="fields_kablea" class="dynamic-fields ezkutuan">
                             <h4>Kablea Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="kab_mota" class="inprimaki-sarrera">
@@ -2497,16 +2562,16 @@ try {
                         </div>
                     </div>
 
-                    <div class="sarrera-kopuru-edukiontzia">
+    <div class="sarrera-kopuru-edukiontzia">
                         <label class="label-input-fitxategia">Kantitatea (Bidalketa):</label>
                         <input type="number" name="kantitatea" min="1" class="inprimaki-sarrera" required>
                     </div>
 
-                    <button type="submit" class="botoia botoi-nagusia inprimaki-bidali-botoia">Bidali
+    <button type="submit" class="botoia botoi-nagusia inprimaki-bidali-botoia">Bidali
                         Produktuak</button>
                 </form>
 
-                <div class="atzera-esteka-edukiontzia">
+    <div class="atzera-esteka-edukiontzia">
                     <a href="hornitzaile_menua.php" class="atzera-esteka-estiloa"><i class="fas fa-arrow-left"></i>
                         Atzera Menura</a>
                 </div>
@@ -2534,11 +2599,11 @@ try {
             });
         });
 
-        function toggleFormFields() {
+    function toggleFormFields() {
             // Dinamikoki erakutsitako eremu guztiak ezkutatu
             $('.dynamic-fields').addClass('ezkutuan');
 
-            var mota = $('#produktu_mota_select').val();
+    var mota = $('#produktu_mota_select').val();
             // 'mota' ID-ra mapatu (Katea normalizatu: espazioak kendu, minuskulara)
             // Baina switch/if mapa erabili dezakegu balioak ezagunak direnez
             var targetId = "";
@@ -2552,17 +2617,19 @@ try {
             else if (mota === "Periferikoa") targetId = "fields_periferikoa";
             else if (mota === "Kablea") targetId = "fields_kablea";
 
-            if (targetId) {
+    if (targetId) {
                 $('#' + targetId).removeClass('ezkutuan');
             }
-        }
-    </script>
+        }</script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/hornitzaile_sarrerak_kudeatu.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -2579,18 +2646,16 @@ $mezua = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'delete_sarrera_lerroa') {
     try {
         $id_lerroa = $_POST['id_sarrera_lerroa'];
-        
-        // Egiaztatu lerroa hornitzailearena den eta "Bidean" dagoen
-        $stmt_check = $konexioa->prepare("
-            SELECT sl.id_sarrera_lerroa 
+
+    // Egiaztatu lerroa hornitzailearena den eta "Bidean" dagoen$stmt_check = $konexioa->prepare("
+            SELECT sl.id_sarrera_lerroa
             FROM sarrera_lerroak sl
             JOIN sarrerak s ON sl.sarrera_id = s.id_sarrera
             WHERE sl.id_sarrera_lerroa = ? AND s.hornitzailea_id = ? AND sl.sarrera_lerro_egoera = 'Bidean'
         ");
         $stmt_check->execute([$id_lerroa, $id_hornitzailea]);
-        
-        if ($stmt_check->fetch()) {
-            $stmt_del = $konexioa->prepare("DELETE FROM sarrera_lerroak WHERE id_sarrera_lerroa = ?");
+
+    if ($stmt_check->fetch()) {$stmt_del = $konexioa->prepare("DELETE FROM sarrera_lerroak WHERE id_sarrera_lerroa = ?");
             $stmt_del->execute([$id_lerroa]);
             $mezua = "Sarrera lerroa ondo ezabatu da.";
         } else {
@@ -2604,9 +2669,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 // Fetch shipments (sarrerak + lerroak)
 // Joining sarrerak, sarrera_lerroak, and produktuak
 $sql = "
-    SELECT 
-        s.id_sarrera, 
-        s.data, 
+    SELECT
+        s.id_sarrera,
+        s.data,
         s.sarrera_egoera,
         sl.id_sarrera_lerroa,
         sl.kantitatea,
@@ -2626,7 +2691,9 @@ $stmt->execute([':hid' => $id_hornitzailea]);
 $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 <head>
     <meta charset="UTF-8">
@@ -2634,24 +2701,24 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Sarrerak Kudeatu - BIRTEK</title>
     <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
-    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> 
+    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css">
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
 </head>
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-        <div class="eskari-edukiontzia"> 
+        <div class="eskari-edukiontzia">
             <a href="hornitzaile_menua.php" class="atzera-botoia"><i class="fas fa-arrow-left"></i> Atzera</a>
             <h2>Nire Sarrerak (Bidalketak)</h2>
 
-            <?php if ($mezua): ?>
+    <?php if ($mezua): ?>
                 <div class="alert-berdea">
                     <?= htmlspecialchars($mezua) ?>
                 </div>
             <?php endif; ?>
 
-            <?php if (count($sarrerak) > 0): ?>
+    <?php if (count($sarrerak) > 0): ?>
                 <table class="sarrera-taula">
                     <thead>
                         <tr class="sarrera-buru-tr">
@@ -2679,7 +2746,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td class="sarrera-td-zentratua">
                                     <span class="egoera-<?= $sarrera['sarrera_lerro_egoera'] ?>">
                                         <?= $sarrera['sarrera_lerro_egoera'] ?>
-                                    </span>
+
                                 </td>
                                 <td class="sarrera-td-zentratua">
                                     <?php if ($sarrera['sarrera_lerro_egoera'] === 'Bidean'): ?>
@@ -2691,7 +2758,7 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             </button>
                                         </form>
                                     <?php else: ?>
-                                        <span class="testu-apala">-</span>
+                                        <span class="testu-apala">-
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -2706,12 +2773,14 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
+
 </body>
 </html>
+```
 
-``n
 ### php/java_app_abiarazi.php
-``php
+
+```php
 <?php
 // c:\xampp\htdocs\2ERR_1TALDEA_BIRTEK\php\launch_java_app.php
 
@@ -2730,15 +2799,17 @@ pclose(popen($command, "r"));
 
 echo "Abiarazten: " . $command;
 ?>
+```
 
-
-``n
 ### php/kontaktua.php
-``php
+
+```php
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -2746,20 +2817,22 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Kontaktua</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <!-- gure css artxiboak -->
-  <link rel="stylesheet" href="../css/estiloak_globala.css" />
+<!-- gure css artxiboak -->
+
+<link rel="stylesheet" href="../css/estiloak_globala.css" />
   <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
 </head>
 
 <body class="web-gorputza">
   <?php include 'goiburua.php'; ?>
 
-  <main class="eduki-nagusia">
+<main class="eduki-nagusia">
     <section>
       <div class="kontaktu-edukiontzia">
         <h2 class="kontaktua-titulua">Jarri Gurekin Harremanetan</h2>
@@ -2796,16 +2869,20 @@ session_start();
     </section>
   </main>
 
-  <?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/globala.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="../js/globala.js"></script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/langileak_menua.php
-``php
+
+```php
 <?php
 session_start();
 ?>
@@ -2817,20 +2894,22 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Langileen Gunea</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <!-- gure css artxiboak -->
-  <link rel="stylesheet" href="../css/estiloak_globala.css" />
+<!-- gure css artxiboak -->
+
+<link rel="stylesheet" href="../css/estiloak_globala.css" />
   <link rel="stylesheet" href="../css/estiloak_kontaktua.css" />
 </head>
 
 <body class="web-gorputza">
   <?php include 'goiburua.php'; ?>
 
-  <main class="eduki-nagusia">
+<main class="eduki-nagusia">
     <section class="langileak-edukiontzia">
       <div class="birtek-java-ap-botoia-kanpo">
         <a href="birtek://ireki" class="birtek-java-ap-botoia link-botoi">
@@ -2841,12 +2920,12 @@ session_start();
         </a>
       </div>
 
-      <div class="inprimaki-kutxa">
+    <div class="inprimaki-kutxa">
         <h2 class="inprimaki-titulua testua-zentratuta">Lan egin gurekin</h2>
         <p class="testua-zentratuta tartea-behean-2 testua-grisa">Bete formulario hau eta bidali zure CV-a gure taldean
           sartzeko.</p>
 
-        <form id="langile-eskaera-inprimakia" class="kontaktu-inprimaki-diseinua" action="#" method="POST"
+    <form id="langile-eskaera-inprimakia" class="kontaktu-inprimaki-diseinua" action="#" method="POST"
           enctype="multipart/form-data">
           <div class="sareta-2-zutabe">
             <input type="text" name="izena" placeholder="Izena" class="inprimaki-sarrera" required />
@@ -2863,19 +2942,25 @@ session_start();
         </form>
       </div>
     </section>
-  </main>
 
-  <?php include 'footer.php'; ?>
+</main>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/globala.js"></script>
-  <script src="../js/langileak_menua.js"></script>
+<?php include 'footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="../js/globala.js"></script>
+
+<script src="../js/langileak_menua.js"></script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/login_bezeroa.php
-``php
+
+```php
 <?php
 session_start();
 
@@ -2886,29 +2971,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emaila = trim($_POST['emaila']);
     $pasahitza = trim($_POST['pasahitza']);
 
-    try {
-        $stmt = $konexioa->prepare("SELECT * FROM bezeroak WHERE emaila = :emaila");
+    try {$stmt = $konexioa->prepare("SELECT * FROM bezeroak WHERE emaila = :emaila");
         $stmt->bindParam(':emaila', $emaila);
         $stmt->execute();
         $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // OHARRA: Benetako aplikazio batean, password_verify() erabili beharko litzateke. SQL-ak testu arrunta edo hash sinpleak erakusten dituenez,
+    // OHARRA: Benetako aplikazio batean, password_verify() erabili beharko litzateke. SQL-ak testu arrunta edo hash sinpleak erakusten dituenez,
         // konparaketa zuzena edo egiaztapen sinplea egingo dugu.
         // SQLko INSERT-etan oinarrituta: '123456Jon', 'admin2024', etab. existitzen dira.
         // Era berean, erabiltzailearen argibideek esan zuten "pass: 1234" sysadmin guztientzat, baina bezeroek pasahitz desberdinak dituzte.
         // Berdintasun konparaketa sinplea erabiliko dugu gaurkoz, ariketa akademikoetan egin ohi den bezala,
         // edo password_verify hash-eratuak badira. SQL-n testu arrunta ikusten dudanez, testu arrunteko egiaztapena erabiliko dut.
-        
-        if ($bezeroa && $pasahitza === $bezeroa['pasahitza']) {
+
+    if ($bezeroa && $pasahitza === $bezeroa['pasahitza']) {
             $_SESSION['id_bezeroa'] = $bezeroa['id_bezeroa'];
             $_SESSION['izena'] = $bezeroa['izena_edo_soziala'];
             $_SESSION['emaila'] = $bezeroa['emaila'];
-            
-            header("Location: bezero_menua.php");
+
+    header("Location: bezero_menua.php");
             exit();
         } else {
-            
-            header("Location: bezero_saioa_hasi.php?error=1");
+
+    header("Location: bezero_saioa_hasi.php?error=1");
             exit();
         }
     } catch (PDOException $e) {
@@ -2918,11 +3002,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: bezero_saioa_hasi.php");
 }
 ?>
+```
 
-
-``n
 ### php/login_hornitzailea.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -2937,12 +3021,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        
+
         if ($hornitzailea && $pasahitza === $hornitzailea['pasahitza']) {
             $_SESSION['id_hornitzailea'] = $hornitzailea['id_hornitzailea'];
             $_SESSION['izena_soziala'] = $hornitzailea['izena_soziala'];
             $_SESSION['emaila'] = $hornitzailea['emaila'];
-            
+
             header("Location: hornitzaile_menua.php");
             exit();
         } else {
@@ -2956,10 +3040,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: hornitzaile_saioa_hasi.php");
 }
 ?>
+```
 
-``n
 ### php/logout.php
-``php
+
+```php
 <?php
 session_start();
 session_unset();
@@ -2969,10 +3054,11 @@ session_destroy();
 header("Location: hasiera.php");
 exit();
 ?>
+```
 
-``n
 ### php/lortu_pasahitza_bezeroa.php
-``php
+
+```php
 <?php
 require_once 'DB_konexioa.php';
 
@@ -3002,9 +3088,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emaila'])) {
     echo "Eskaera baliogabea.";
 }
 ?>
-``n
+```
+
 ### php/lortu_pasahitza_hornitzailea.php
-``php
+
+```php
 <?php
 require_once 'DB_konexioa.php';
 
@@ -3034,9 +3122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emaila'])) {
     echo "Eskaera baliogabea.";
 }
 ?>
-``n
+```
+
 ### php/ordainketa_pasarela.php
-``php
+
+```php
 <?php
 session_start();
 
@@ -3077,7 +3167,9 @@ $titularraOsoa = $bezeroDatuak['izena_edo_soziala'] . ($bezeroDatuak['abizena'] 
 $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
 
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -3085,7 +3177,7 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Ordainketa Pasarela</title>
 
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <link rel="stylesheet" href="../css/estiloak_globala.css" />
   <link rel="stylesheet" href="../css/estiloak_ordainketa.css" />
 </head>
@@ -3093,7 +3185,7 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
 <body class="web-gorputza">
   <?php include_once 'goiburua.php'; ?>
 
-  <main class="eduki-nagusia">
+<main class="eduki-nagusia">
     <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
       <div class="ordainketa-kutxa ordainketa-info-kutxa">
         <div class="ordainketa-ikonoa">
@@ -3115,17 +3207,17 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
           <h2>Ordainketa Pasarela Segurua</h2>
         </div>
 
-        <!-- 1. Bezeroaren datuak (Saio hasitakoa) -->
+    <!-- 1. Bezeroaren datuak (Saio hasitakoa) -->
         <div class="erabiltzaile-informazioa">
           <p><strong>Bezeroa:</strong> <?= htmlspecialchars($izena) ?></p>
         </div>
 
-        <!-- 2. Saskiaren laburpena (JS-k beteko du) -->
+    <!-- 2. Saskiaren laburpena (JS-k beteko du) -->
         <div id="saskia-xehetasunak" class="saskia-laburpena">
           <p>Saskia kargatzen...</p>
         </div>
 
-        <form id="ordainketa-form" onsubmit="return false;">
+    <form id="ordainketa-form" onsubmit="return false;">
           <!-- 3. Txartelaren titularra -->
           <div class="form-group">
             <label for="titularra">Txartelaren Titularraren Izen Abizenak</label>
@@ -3133,14 +3225,14 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
               placeholder="Adib: Ane Goikoetxea" required>
           </div>
 
-          <!-- 4. Txartel zenbakia -->
+    <!-- 4. Txartel zenbakia -->
           <div class="inprimaki-taldea">
             <label for="txartela">Bezero Ordainketa Txartela</label>
             <input type="text" id="txartela" name="txartela" value="<?= htmlspecialchars($gordetakoTxartela) ?>"
               placeholder="xxxx-xxxx-xxxx-xxxx" required>
           </div>
 
-          <div class="botoi-edukiontzia">
+    <div class="botoi-edukiontzia">
             <button type="submit" class="botoia botoi-nagusia" onclick="burutuErosketa()">
               Ordaindu eta Erosketa Burutu
             </button>
@@ -3148,18 +3240,25 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
         </form>
       </div>
     <?php endif; ?>
-  </main>
 
-  <?php include 'footer.php'; ?>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/globala.js"></script>
-  <script src="../js/ordainketa.js"></script>
+</main>
+
+<?php include 'footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="../js/globala.js"></script>
+
+<script src="../js/ordainketa.js"></script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/produktua_xehetasunak.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -3176,19 +3275,18 @@ if ($id > 0) {
         $stmt->execute([$id]);
         $produktua = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$produktua) {
+    if (!$produktua) {
             $error_message = "Produktua ez da aurkitu.";
         } else {
-            // 2. MOTAREN ARABERA ZEHETASUNAK LORTU (Subklaseak)
-            $mota = $produktua['mota']; // ENUM baliotik (Eramangarria, Mahai-gainekoa, etc.)
+            // 2. MOTAREN ARABERA ZEHETASUNAK LORTU (Subklaseak)$mota = $produktua['mota']; // ENUM baliotik (Eramangarria, Mahai-gainekoa, etc.)
             $taula = "";
 
-            /* 
+    /*
               mota ENUM('Generikoa', 'Eramangarria', 'Mahai-gainekoa', 'Mugikorra', 'Tableta', 'Zerbitzaria', 'Pantaila', 'Softwarea', 'Periferikoak', 'Kableak')
               DB Taulak: eramangarriak, mahai_gainekoak, mugikorrak, tabletak, zerbitzariak, pantailak, softwareak, periferikoak, kableak
             */
 
-            switch ($mota) {
+    switch ($mota) {
                 case 'Eramangarria':
                     $taula = 'eramangarriak';
                     break;
@@ -3218,27 +3316,27 @@ if ($id > 0) {
                     $taula = 'kableak';
                     break;
 
-                case 'Generikoa':
+    case 'Generikoa':
                 default:
                     $taula = "";
                     break;
             }
 
-            if (!empty($taula)) {
-                $stmtSub = $konexioa->prepare("SELECT * FROM $taula WHERE id_produktua = ?");
+    if (!empty($taula)) {$stmtSub = $konexioa->prepare("SELECT * FROM $taula WHERE id_produktua = ?");
                 $stmtSub->execute([$id]);
                 $xehetasunak = $stmtSub->fetch(PDO::FETCH_ASSOC);
             }
         }
 
-    } catch (PDOException $e) {
-        $error_message = "Errorea datu-basean: " . $e->getMessage();
+    } catch (PDOException $e) {$error_message = "Errorea datu-basean: " . $e->getMessage();
     }
 } else {
     $error_message = "Ez da produktu ID baliozkorik eskatu.";
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -3289,20 +3387,20 @@ if ($id > 0) {
                         onerror="this.src='../irudiak/birtek1.jpeg'">
                 </div>
 
-                <div class="xehetasunak-info">
+    <div class="xehetasunak-info">
                     <h1 class="produktu-izenburua"><?php echo htmlspecialchars($produktua['izena']); ?></h1>
 
-                    <div class="produktu-meta">
+    <div class="produktu-meta">
                         <!-- Mota eta Kategoria -->
                         <span class="meta-etiketa"><i class="fas fa-tag"></i>
-                            <?php echo htmlspecialchars($produktua['mota']); ?></span>
+                            <?php echo htmlspecialchars($produktua['mota']); ?>
                         <span class="meta-etiketa"><i class="fas fa-certificate"></i>
-                            <?php echo htmlspecialchars($produktua['marka']); ?></span>
+                            <?php echo htmlspecialchars($produktua['marka']); ?>
                         <span class="meta-etiketa"><i class="fas fa-heartbeat"></i>
-                            <?php echo htmlspecialchars($produktua['produktu_egoera']); ?></span>
+                            <?php echo htmlspecialchars($produktua['produktu_egoera']); ?>
                     </div>
 
-                    <!-- ZEHETASUN TEKNIKOAK - Subklasearen arabera -->
+    <!-- ZEHETASUN TEKNIKOAK - Subklasearen arabera -->
                     <?php if ($xehetasunak): ?>
                         <div class="xehetasun-teknikoak-kutxa">
                             <h4 class="xehetasun-teknikoak-izenburua">Ezaugarri Teknikoak:</h4>
@@ -3327,21 +3425,21 @@ if ($id > 0) {
                         </div>
                     <?php endif; ?>
 
-                    <div class="produktu-prezioa">
+    <div class="produktu-prezioa">
                         <?php echo number_format($produktua['salmenta_prezioa'], 2); ?> €
                         <?php if (!empty($produktua['eskaintza'])): ?>
                             <span class="prezioa-eskaintza">
                                 <?php
                                 // Adibidez, eskaintza kalkulatu nahi bada.
-                                // Hemen 'eskaintza' atributua % bat den edo prezio zuzena den ez dago argi, 
+                                // Hemen 'eskaintza' atributua % bat den edo prezio zuzena den ez dago argi,
                                 // baina bistaratze sinple bat egingo dugu.
                                 echo "Eskaintza: " . $produktua['eskaintza'] . "% DTO";
                                 ?>
-                            </span>
+
                         <?php endif; ?>
                     </div>
 
-                    <div class="stock-info <?php echo $produktua['stock'] > 0 ? 'stock-bai' : 'stock-ez'; ?>">
+    <div class="stock-info <?php echo $produktua['stock'] > 0 ? 'stock-bai' : 'stock-ez'; ?>">
                         <?php if ($produktua['stock'] > 0): ?>
                             <i class="fas fa-check-circle"></i> Stock-ean: <?php echo $produktua['stock']; ?> ale
                         <?php else: ?>
@@ -3349,11 +3447,11 @@ if ($id > 0) {
                         <?php endif; ?>
                     </div>
 
-                    <p class="produktu-deskribapena">
+    <p class="produktu-deskribapena">
                         <?php echo nl2br(htmlspecialchars($produktua['deskribapena'])); ?>
                     </p>
 
-                    <div class="ekintza-eremua">
+    <div class="ekintza-eremua">
                         <?php if ($produktua['stock'] > 0): ?>
                             <div class="produktu-kantitatea-aldatu">
                                 <label for="botoi-kopurua" class="kantitate-label">Kantitatea:</label>
@@ -3397,7 +3495,7 @@ if ($id > 0) {
                 }
             });
 
-            $("#kendu-kantitatea").click(function () {
+    $("#kendu-kantitatea").click(function () {
                 var input = $("#botoi-kopurua");
                 var balioa = parseInt(input.val()) || 1;
                 var min = parseInt(input.attr("min")) || 1;
@@ -3406,7 +3504,7 @@ if ($id > 0) {
                 }
             });
 
-            // Xehetasun orriko saskiratu logika espezifikoa
+    // Xehetasun orriko saskiratu logika espezifikoa
             $(".saskiratu-xehetasunak").click(function () {
                 var btn = $(this);
                 var id = btn.data("id");
@@ -3415,20 +3513,20 @@ if ($id > 0) {
                 var stock = parseInt(btn.data("stock")) || 0;
                 var kantitatea = parseInt($("#botoi-kopurua").val()) || 1;
 
-                // Saskia berreskuratu
+    // Saskia berreskuratu
                 var saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
-                // Begiratu ea badagoen
+    // Begiratu ea badagoen
                 var badago = saskia.find(i => i.id == id);
                 var saskianDagoenKantitatea = badago ? badago.kantitatea : 0;
 
-                // STOCK KONTROLA
+    // STOCK KONTROLA
                 if ((saskianDagoenKantitatea + kantitatea) > stock) {
                     alert("Ezin da gehitu: Stock nahikorik ez (" + stock + " ale geratzen dira). Saskian: " + saskianDagoenKantitatea);
                     return;
                 }
 
-                if (badago) {
+    if (badago) {
                     badago.kantitatea += kantitatea;
                 } else {
                     saskia.push({
@@ -3440,11 +3538,11 @@ if ($id > 0) {
                     });
                 }
 
-                // Gorde (Globala.js logika erabiltzen badu, ondo. Bestela eskuz)
+    // Gorde (Globala.js logika erabiltzen badu, ondo. Bestela eskuz)
                 if (typeof window.saskiaGorde === "function") {
                     window.saskiaGorde(saskia); // Honek dropdown ere eguneratzen du
 
-                    // Animazioa deitu
+    // Animazioa deitu
                     if (typeof window.saskiaAnimatuKontagailua === "function") {
                         window.saskiaAnimatuKontagailua();
                     }
@@ -3453,7 +3551,7 @@ if ($id > 0) {
                     location.reload();
                 }
 
-                // Animazio txiki bat botoian
+    // Animazio txiki bat botoian
                 btn.html('<i class="fas fa-check"></i> Gehituta!');
                 btn.css('background-color', '#166534');
                 setTimeout(function () {
@@ -3463,17 +3561,19 @@ if ($id > 0) {
             });
         });
     </script>
+
 </body>
 
 </html>
-``n
+```
+
 ### php/produktuak.php
-``php
+
+```php
 <?php
 session_start();
 // DB konexioa
 require_once 'DB_konexioa.php';
-
 
 // produktu kopuru totala lortu (Hasieran hutsik, gero beteko dugu)
 $produktu_kopuru_totala = 0;
@@ -3482,11 +3582,11 @@ $produktuak_lista = [];
 
 try {
   // Kontsulta nagusia (URL parametroen bidez filtratua)
-  $sql = "SELECT p.*, k.izena as produktu_kategoria_izena 
-            FROM produktuak p 
+  $sql = "SELECT p.*, k.izena as produktu_kategoria_izena
+            FROM produktuak p
             LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
             WHERE p.salgai = 1 AND p.stock > 0";
-  
+
   $params = [];
 
   // BILAKETA LOGIKA (PHP)
@@ -3560,8 +3660,8 @@ try {
   }
 
   // JS-rako produktu GUZTIAK lortu (filtroek dinamikoki funtziona dezaten)
-  $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena 
-                                     FROM produktuak p 
+  $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena
+                                     FROM produktuak p
                                      LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
                                      WHERE p.salgai = 1 AND p.stock > 0");
   $stmt_guztiak->execute();
@@ -3601,7 +3701,9 @@ try {
   $error_message = "Errorea datu basearekin: " . $e->getMessage();
 }
 ?>
+
 <!DOCTYPE html>
+
 <html lang="eu">
 
 <head>
@@ -3609,12 +3711,13 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIRTEK - Produktuak</title>
 
-  <!-- Font Awesome (ikonoak) -->
-  <link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
+<!-- Font Awesome (ikonoak) -->
+
+<link rel="stylesheet" href="../css/fontawesome/css/all.min.css" />
   <!-- Google Fonts (letra-tipoak) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 
-  <link rel="stylesheet" href="../css/estiloak_globala.css?v=1.3" />
+<link rel="stylesheet" href="../css/estiloak_globala.css?v=1.3" />
   <link rel="stylesheet" href="../css/estiloak_produktuak.css?v=1.3" />
 </head>
 
@@ -3628,12 +3731,12 @@ try {
     <section>
       <h2 class="produktuak-titulua">Gure Produktuak</h2>
 
-      <div id="produktu-kopuru-info" class="produktu-kopuru-info">
-        <span>Guztira:</span>
-        <span id="kopurua-txapa" class="kopurua-txapa"><?php echo $produktu_kopuru_totala; ?></span>
+    <div id="produktu-kopuru-info" class="produktu-kopuru-info">
+        <span>Guztira:
+        <span id="kopurua-txapa" class="kopurua-txapa"><?php echo $produktu_kopuru_totala; ?>
       </div>
 
-      <div class="produktuak-orria">
+    <div class="produktuak-orria">
         <div class="alboko-barra">
           <!-- Iragazkiak -->
           <aside class="iragazki-kaxa">
@@ -3645,7 +3748,7 @@ try {
               </h3>
             </div>
 
-            <!-- Iragazki Edukia (Mugikorrean ezkutatzeko) -->
+    <!-- Iragazki Edukia (Mugikorrean ezkutatzeko) -->
             <div class="iragazki-edukia">
               <!-- Garbitu Botoia (Mugikorrean ezkutuan egoteko) -->
               <div class="berrezarri-botoia">
@@ -3688,13 +3791,13 @@ try {
                 <label class="iragazki-etiketa">Prezioa</label>
                 <div class="prezio-ordenatu-radio">
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc" 
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc"
                       <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-asc')
                         echo 'checked'; ?>>
                     Txikitik Handira
                   </label>
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc" 
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc"
                       <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-desc')
                         echo 'checked'; ?>>
                     Handitik Txikira
@@ -3710,7 +3813,7 @@ try {
                 </div>
               </div>
 
-              <!-- Iragazki Taldea: KATEGORIA -->
+    <!-- Iragazki Taldea: KATEGORIA -->
               <div>
                 <label class="iragazki-etiketa">Kategoria</label>
                 <select id="iragazkia-kategoria" class="inprimaki-hautatu">
@@ -3722,7 +3825,7 @@ try {
                 </select>
               </div>
 
-              <!-- Iragazki Taldea: MOTA  -->
+    <!-- Iragazki Taldea: MOTA  -->
               <div>
                 <label class="iragazki-etiketa">Mota</label>
                 <select id="iragazkia-mota" class="inprimaki-hautatu">
@@ -3736,7 +3839,7 @@ try {
           </aside>
         </div>
 
-        <div class="eduki-zutabea">
+    <div class="eduki-zutabea">
           <!-- PRODUKTUEN SAREA -->
           <div class="produktu-sarea">
             <?php if (isset($error_message)): ?>
@@ -3755,26 +3858,26 @@ try {
                 <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
                 <!-- <img src ="$rutaAbs . $p"-->
                       <img
-                      
-                        src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
+
+    src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
                         alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
                         class="txartel-irudia"
                         onerror="this.src='../irudiak/birtek1.jpeg'"
                       />
-                      <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div> 
+                      <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div>
                     </div>
                     <div class="txartel-edukia">
                       <h3 class="txartel-izenburua klikagarria-joan"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
                       <div class="txartel-informazio-lerroa">
-                        <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> | <?php echo htmlspecialchars($produktua['egoera']); ?></span>
-                        <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?></span>
+                        <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> | <?php echo htmlspecialchars($produktua['egoera']); ?>
+                        <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?>
                       </div>
                       <p class="txartel-azalpena">
                         <?php echo htmlspecialchars($produktua['deskribapena'] ?? ""); ?>
                       </p>
 
-                      <div class="txartel-oina">
-                        <span class="txartel-prezioa"><?php echo $prezioaFix; ?> €</span>
+    <div class="txartel-oina">
+                        <span class="txartel-prezioa"><?php echo $prezioaFix; ?> €
                         <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled' : ''; ?>>
                           Saskiratu
                         </button>
@@ -3788,28 +3891,37 @@ try {
         </div>
       </div>
     </section>
-  </main>
+
+</main>
   <!-- ================================================================================================= -->
   <!-- OINA -->
   <?php include 'footer.php'; ?>
 
-  <!-- ================================================================================================= -->
-  <!-- SCRIPT ZATIA -->
-  <!-- JQUERY LIBURUTEGIA IMPORTATU -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script>
+<!-- ================================================================================================= -->
+
+<!-- SCRIPT ZATIA -->
+
+<!-- JQUERY LIBURUTEGIA IMPORTATU -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
     // PHP-tik datuak pasatzeko JS-ra, filtroak funtziona dezaten (GUZTIAK)
     var hasierakoProduktuak = <?php echo json_encode($hasierako_produktu_guztiak); ?>;
   </script>
-  <script src="../js/globala.js"></script>
-  <script src="../js/produktuak.js?v=1.4"></script>
+
+<script src="../js/globala.js"></script>
+
+<script src="../js/produktuak.js?v=1.4"></script>
+
 </body>
 
 </html>
+```
 
-``n
 ### php/prozesatu_erosketa.php
-``php
+
+```php
 <?php
 session_start();
 require_once 'DB_konexioa.php';
@@ -3852,7 +3964,7 @@ try {
             if (!$prod) {
                 throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
             }
-            
+
             $konprobatutako_produktuak[$prodId] = [
                 'stock' => $prod['stock'],
                 'prezioa' => $prod['salmenta_prezioa'],
@@ -3903,11 +4015,13 @@ try {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 ?>
-``n
+```
+
 ## CSS Fitxategiak
 
 ### css/estiloak_berriak.css
-``css
+
+```css
 /* =========================================
    BERRIAK ORRIAREN ESTILOAK
    ========================================= */
@@ -3954,9 +4068,12 @@ try {
   background-color: #ffffff;
   border-radius: 0.75rem; /* 12px */
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -3964,7 +4081,8 @@ try {
 
 .albiste-txartela:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
@@ -4054,10 +4172,11 @@ try {
     grid-template-columns: repeat(3, 1fr); /* Mahaigaina */
   }
 }
+```
 
-``n
 ### css/estiloak_bezero_eskaerak.css
-``css
+
+```css
 .eskari-edukiontzia {
   max-width: 900px;
   margin: 1rem auto;
@@ -4078,7 +4197,7 @@ try {
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -4114,7 +4233,7 @@ try {
 }
 
 .eskari-gorputza {
-  padding: 0.5rem; 
+  padding: 0.5rem;
 }
 
 .taula-scroll-edukiontzia,
@@ -4127,7 +4246,7 @@ try {
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
-  min-width: 500px; 
+  min-width: 500px;
 }
 
 .lerro-taula th,
@@ -4192,7 +4311,7 @@ try {
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%; 
+  width: 100%;
 }
 
 .ezabatu-eskaria-botoia {
@@ -4245,10 +4364,11 @@ try {
     font-size: 0.9rem;
   }
 }
+```
 
-``n
 ### css/estiloak_bezero_menua.css
-``css
+
+```css
 .ongi-etorri-mezua {
   text-align: center;
   font-family: "Outfit", sans-serif;
@@ -4315,10 +4435,11 @@ try {
     gap: 2rem;
   }
 }
+```
 
-``n
 ### css/estiloak_datu_pertsonalak_aldatu.css
-``css
+
+```css
 .inprimaki-edukiontzia {
   max-width: 800px;
   margin: 2rem auto;
@@ -4329,7 +4450,6 @@ try {
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
-
 
 .datu-aldaketa-botoia {
   width: 100%;
@@ -4356,11 +4476,11 @@ try {
   margin-bottom: 1rem;
   color: var(--kolore-nagusia);
 }
+```
 
-
-``n
 ### css/estiloak_globala.css
-``css
+
+```css
 /* --- BIRTEK - ESTILO GLOBALA --- */
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Inter:wght@400;500;600&display=swap");
 
@@ -4391,21 +4511,21 @@ try {
 
 /* --- UTILITATEAK --- */
 .ezkutuan {
-    display: none;
+  display: none;
 }
 
 .inprimaki-inline {
-    display: inline;
+  display: inline;
 }
 
 .link-botoi {
-    text-decoration: none;
-    display: inline-block;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .goiburu-ikono-txikia {
-    font-size: 0.8em;
-    margin-left: 5px;
+  font-size: 0.8em;
+  margin-left: 5px;
 }
 
 /* --- RESET ETA OINARRIAK --- */
@@ -4643,7 +4763,7 @@ body {
   position: absolute;
   top: -10px;
   right: 0px;
-  background-color: #ff0000; 
+  background-color: #ff0000;
   color: white;
   font-size: 0.75rem;
   font-weight: 800;
@@ -5711,7 +5831,6 @@ body {
   color: #333;
 }
 
-
 /* --- GORA JOAN BOTOIA --- */
 #gora-joan-botoia {
   position: fixed;
@@ -5785,7 +5904,6 @@ body {
 .azal-cta-botoia:hover i {
   transform: scale(1.2) rotate(-10deg);
 }
-
 
 /* ========================================================================= */
 /* --- MEDIA QUERI-ak--- */
@@ -5878,10 +5996,11 @@ body {
     font-size: 3.5rem;
   }
 }
+```
 
-``n
 ### css/estiloak_hasiera.css
-``css
+
+```css
 /* --- BIRTEK - HASIERA ORRIA -- */
 
 /* HASIERA ORRIKO ELEMENTUAK */
@@ -5898,7 +6017,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.4);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .azal-kaxa:hover {
@@ -5913,18 +6034,27 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--kolore-nagusia), var(--kolore-nagusia-tainua), var(--kolore-nagusia));
+  background: linear-gradient(
+    90deg,
+    var(--kolore-nagusia),
+    var(--kolore-nagusia-tainua),
+    var(--kolore-nagusia)
+  );
   background-size: 200% auto;
   animation: distira-ertza 3s linear infinite;
 }
 
 @keyframes distira-ertza {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .azal-izenburua {
-  font-size: 1.75rem; 
+  font-size: 1.75rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -6090,10 +6220,11 @@ body {
     height: 600px;
   }
 }
+```
 
-``n
 ### css/estiloak_hornitzaile_menua.css
-``css
+
+```css
 /* --- HORNITZAILE MENUA  --- */
 
 .ongi-etorri-mezua {
@@ -6381,7 +6512,6 @@ body {
     color: #4b5563;
   }
 
-
   /* hornitzaile_sarrerak_kudeatu.php orriko div blokeak txukun agertzeko*/
   .sarrera-gorputz-tr td:nth-of-type(1)::before {
     content: "Data:";
@@ -6399,10 +6529,11 @@ body {
     content: "Ekintzak:";
   }
 }
+```
 
-``n
 ### css/estiloak_kontaktua.css
-``css
+
+```css
 /* --- BIRTEK - KONTAKTUA --- */
 
 .kontaktu-edukiontzia {
@@ -6778,7 +6909,7 @@ body {
     width: 100%;
     padding: 1rem 0.5rem; /* 320px-rako murriztua */
     border-radius: 1rem;
-    max-width: 100%; 
+    max-width: 100%;
   }
 
   .mapa-edukiontzia {
@@ -6808,10 +6939,11 @@ body {
     font-size: 1.5rem;
   }
 }
+```
 
-``n
 ### css/estiloak_ordainketa.css
-``css
+
+```css
 .ordainketa-kutxa {
   max-width: 600px;
   margin: 50px auto;
@@ -6873,10 +7005,11 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+```
 
-``n
 ### css/estiloak_produktu_xehetasunak.css
-``css
+
+```css
 .xehetasunak-edukiontzia {
   max-width: 1200px;
   margin: 2rem auto;
@@ -7062,10 +7195,11 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+```
 
-``n
 ### css/estiloak_produktuak.css
-``css
+
+```css
 /* --- BIRTEK - PRODUKTUAK --- */
 
 /* PRODUKTU ORRIAKO ELEMENTUAK */
@@ -7106,7 +7240,9 @@ body {
   font-size: 0.9rem;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7135,21 +7271,19 @@ body {
 .iragazki-izenburua {
   font-weight: 800;
   font-size: 1.25rem;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-
 
 .iragazki-goiburua {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
-  cursor: pointer; 
+  cursor: pointer;
 }
-
 
 .iragazki-edukia {
   display: none;
@@ -7158,7 +7292,6 @@ body {
 .iragazki-edukia.erakutsi {
   display: block;
 }
-
 
 .inprimaki-sarrera,
 .inprimaki-hautatu {
@@ -7188,7 +7321,6 @@ body {
   text-align: right;
 }
 
-
 .iragazkiak-berrezarri:hover {
   text-decoration: underline;
 }
@@ -7199,7 +7331,6 @@ body {
   color: #374151;
   display: block;
 }
-
 
 .prezio-iragazki-taldea {
   display: flex;
@@ -7277,7 +7408,7 @@ body {
 }
 
 .txartel-edukia {
-  padding: 1rem; 
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -7305,7 +7436,7 @@ body {
 }
 
 .txartel-prezioa {
-  font-size: 1.25rem; 
+  font-size: 1.25rem;
   font-weight: 700;
   color: #166534;
 }
@@ -7427,12 +7558,13 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+```
 
-``n
 ## JS Fitxategiak
 
 ### js/bezero_erosketa.js
-``javascript
+
+```javascript
 $(document).ready(function () {
   renderErosketaSaskia();
 
@@ -7488,54 +7620,17 @@ function renderErosketaSaskia() {
   }
 
   /* Taularen egitura */
-  let tableHtml = `
-    <div class="taula-edukiontzia-scroll">
-    <table class="lerro-taula">
-        <thead>
-            <tr class="lerro-taula-izenburua">
-                <th class="testua-ezkerrean">Produktua</th>
-                <th class="testua-zentratuta">Kantitatea</th>
-                <th class="testua-eskuinera">Prezioa</th>
-                <th class="testua-eskuinera">Guztira</th>
-                <th class="testua-zentratuta">Ekintzak</th>
-            </tr>
-        </thead>
-        <tbody>
-  `;
+  let tableHtml = `    <div class="taula-edukiontzia-scroll">     <table class="lerro-taula">         <thead>             <tr class="lerro-taula-izenburua">                 <th class="testua-ezkerrean">Produktua</th>                 <th class="testua-zentratuta">Kantitatea</th>                 <th class="testua-eskuinera">Prezioa</th>                 <th class="testua-eskuinera">Guztira</th>                 <th class="testua-zentratuta">Ekintzak</th>             </tr>         </thead>         <tbody>  `;
 
   /* forEach erabili $.each-en ordez */
   saskia.forEach((item) => {
     const subtotala = item.prezioa * item.kantitatea;
     totala += subtotala;
 
-    tableHtml += `
-        <tr>
-            <td>
-                <strong>${item.izena}</strong>
-            </td>
-            <td class="testua-zentratuta">
-                <div class="kopuru-kontrola-lerroa">
-                    <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>
-                    <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>
-                    <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>
-                </div>
-            </td>
-            <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>
-            <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>
-            <td class="testua-zentratuta">
-                <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    `;
+    tableHtml +=        <tr>             <td>                 <strong>${item.izena}</strong>             </td>             <td class="testua-zentratuta">                 <div class="kopuru-kontrola-lerroa">                     <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>                     <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>                     <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>                 </div>             </td>             <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>             <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>             <td class="testua-zentratuta">                 <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">                     <i class="fas fa-trash"></i>                 </button>             </td>         </tr>    `;
   });
 
-  tableHtml += `
-        </tbody>
-    </table>
-    </div>
-  `;
+  tableHtml += `        </tbody>     </table>     </div>  `;
 
   $container.html(tableHtml);
   $("#erosketa-guztira").text(totala.toFixed(2) + " €");
@@ -7543,7 +7638,7 @@ function renderErosketaSaskia() {
 
 function aldatuKantitatea(id, change) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  
+
   const item = saskia.find((i) => i.id == id);
 
   if (item) {
@@ -7567,41 +7662,47 @@ function aldatuKantitatea(id, change) {
 
 function ezabatuItem(id) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  
+
   const filtered = saskia.filter((i) => i.id != id);
   window.saskiaGorde(filtered);
   renderErosketaSaskia();
 }
+```
 
-``n
 ### js/bezero_saioa_hasi.js
-``javascript
+
+```javascript
 $(document).ready(function () {
   // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
-  $(document).on("submit", "#bezero-erregistro-form, #hornitzaile-erregistro-form", function (e) {
-    var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
-    var errorea = "";
+  $(document).on(
+    "submit",
+    "#bezero-erregistro-form, #hornitzaile-erregistro-form",
+    function (e) {
+      var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
+      var errorea = "";
 
-    // 1. Luzera egiaztatu
-    if (pasahitza.length < 8) {
-      errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
-    }
-    // 2. Karakter berezia egiaztatu
-    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
-      errorea = "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
-    }
+      // 1. Luzera egiaztatu
+      if (pasahitza.length < 8) {
+        errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
+      }
+      // 2. Karakter berezia egiaztatu
+      else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
+        errorea =
+          "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
+      }
 
-    // 3. NAN/IFZ luzera egiaztatu (9 karaktere)
-    var nan = $(this).find('input[name="nan"]').val();
-    if (nan && nan.length !== 9) {
-      errorea = "NAN/IFZ zenbakiak 9 karaktere izan behar ditu.";
-    }
+      // 3. NAN/IFZ luzera egiaztatu (9 karaktere)
+      var nan = $(this).find('input[name="nan"]').val();
+      if (nan && nan.length !== 9) {
+        errorea = "NAN/IFZ zenbakiak 9 karaktere izan behar ditu.";
+      }
 
-    if (errorea !== "") {
-      e.preventDefault();
-      alert(errorea);
-    }
-  });
+      if (errorea !== "") {
+        e.preventDefault();
+        alert(errorea);
+      }
+    },
+  );
 
   // --- PASAHITZA AHAZTU DUZU? ---
   $(".pasahitza-ahaztu-esteka").on("click", function (e) {
@@ -7623,18 +7724,18 @@ $(document).ready(function () {
       },
       error: function () {
         alert("Errore bat gertatu da pasahitza berreskuratzean.");
-      }
+      },
     });
   });
 });
+```
 
-``n
 ### js/globala.js
-``javascript
+
+```javascript
 /* --- JavaScript jQuery .JS --- */
 
 $(document).ready(function () {
-
 
   // --- SASKI MODALA INJEKZIOA ---
   if ($("#saski-modala").length === 0) {
@@ -7646,12 +7747,12 @@ $(document).ready(function () {
           <button class="modala-itxi-botoia" id="modal-itxi-botoia-x">&times;</button>
         </div>
 
-        <div id="saski-elementu-zerrenda" class="modala-edukia taula-scroll">
+    <div id="saski-elementu-zerrenda" class="modala-edukia taula-scroll">
           <!-- JS bidez beteko da -->
         </div>
         <div class="saski-oina">
           <div class="saski-guztira-lerroa">
-            <span>Guztira:</span><span id="saski-guztira">0.00 €</span>
+            <span>Guztira:<span id="saski-guztira">0.00 €
           </div>
           <button id="erosketa-burutu-botoia" class="botoia botoi-nagusia botoi-zabalera-osoa-top">
             Erosketa Burutu
@@ -7665,7 +7766,6 @@ $(document).ready(function () {
     `;
     $("body").append(saskiHtml);
   }
-
 
   // --- MUGIKOR MENU LOGIKA ---
   $(document).on("click", "#mugikor-menu-botoia", function () {
@@ -7705,7 +7805,7 @@ $(document).ready(function () {
     window.saskiaGorde(saskia);
 
     // 1. Jakinarazpen mezua (#saski-mezua)
-    var $mezua = $("#saski-mezua");
+    var$mezua = $("#saski-mezua");
     if ($mezua.length > 0) {
       $mezua.text("Saskira gehituta!").addClass("erakutsi");
       setTimeout(function () {
@@ -7734,37 +7834,15 @@ $(document).ready(function () {
     if (saskia.length === 0) {
       $zerrenda.html("<p class='saskia-hutsik'>Saskia hutsik dago.</p>");
     } else {
-      var taulaHtml = `
-        <table class="saski-taula">
-          <thead>
-            <tr>
-              <th>Produktua</th>
-              <th>Kop</th>
-              <th>Prezioa</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
+      var taulaHtml = `        <table class="saski-taula">           <thead>             <tr>               <th>Produktua</th>               <th>Kop</th>               <th>Prezioa</th>               <th></th>             </tr>           </thead>           <tbody>      `;
 
-      $.each(saskia, function (index, item) {
+    $.each(saskia, function (index, item) {
         var azpiTotala = item.prezioa * item.kantitatea;
         guztiraPrezioa += azpiTotala;
-        taulaHtml += `
-          <tr>
-            <td>${item.izena}</td>
-            <td class="kopuru-kontrola-td">
-              <button class="kop-mod-btn minus" data-id="${item.id}" data-aldatu="-1">-</button>
-              <span class="kopuru-balioa">${item.kantitatea}</span>
-              <button class="kop-mod-btn plus" data-id="${item.id}" data-aldatu="1">+</button>
-            </td>
-            <td>${azpiTotala.toFixed(2)}€</td>
-            <td><button class="saski-ezabatu-txikia" data-id="${item.id}">&times;</button></td>
-          </tr>
-        `;
+        taulaHtml +=          <tr>             <td>${item.izena}</td>             <td class="kopuru-kontrola-td">               <button class="kop-mod-btn minus" data-id="${item.id}" data-aldatu="-1">-</button>               <span class="kopuru-balioa">${item.kantitatea}</span>               <button class="kop-mod-btn plus" data-id="${item.id}" data-aldatu="1">+</button>             </td>             <td>${azpiTotala.toFixed(2)}€</td>             <td><button class="saski-ezabatu-txikia" data-id="${item.id}">&times;</button></td>           </tr>        `;
       });
 
-      taulaHtml += "</tbody></table>";
+    taulaHtml += "</tbody></table>";
       $zerrenda.append(taulaHtml);
     }
 
@@ -7805,13 +7883,13 @@ $(document).ready(function () {
     if (item) {
       var nKop = item.kantitatea + aldatu;
 
-      // Stock konprobazioa
+    // Stock konprobazioa
       if (aldatu > 0 && nKop > item.stock) {
         alert("Ezin da gehiago gehitu, stock-a agortu da.");
         return;
       }
 
-      if (nKop > 0) {
+    if (nKop > 0) {
         item.kantitatea = nKop;
       } else {
         saskia = saskia.filter((i) => i.id != id);
@@ -7922,12 +8000,11 @@ $(document).ready(function () {
     return false;
   });
 });
+```
 
-
-
-``n
 ### js/hasiera.js
-``javascript
+
+```javascript
 $(document).ready(function () {
   // SLIDER KONFIGURAZIOA
   $(".hasiera-slider-egitura").bxSlider({
@@ -7944,81 +8021,83 @@ $(document).ready(function () {
     adaptiveHeight: true,
   });
 });
+```
 
-
-``n
 ### js/hornitzaile_saioa_hasi.js
-``javascript
+
+```javascript
 $(document).ready(function () {
-    // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
-    $(document).on("submit", "#hornitzaile-erregistro-form", function (e) {
-        var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
-        var errorea = "";
+  // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
+  $(document).on("submit", "#hornitzaile-erregistro-form", function (e) {
+    var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
+    var errorea = "";
 
-        // 1. Luzera egiaztatu
-        if (pasahitza.length < 8) {
-            errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
-        }
-        // 2. Karakter berezia egiaztatu
-        else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
-            errorea = "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
-        }
+    // 1. Luzera egiaztatu
+    if (pasahitza.length < 8) {
+      errorea = "Pasahitzak gutxienez 8 karaktere izan behar ditu.";
+    }
+    // 2. Karakter berezia egiaztatu
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pasahitza)) {
+      errorea =
+        "Pasahitzak gutxienez karakter berezi bat izan behar du (!@#$%^&*...).";
+    }
 
-        // 3. NAN/IFZ luzera egiaztatu (9 karaktere)
-        var nan = $(this).find('input[name="nan"]').val();
-        if (nan && nan.length !== 9) {
-            errorea = "NAN/IFZ zenbakiak 9 karaktere izan behar ditu.";
-        }
+    // 3. NAN/IFZ luzera egiaztatu (9 karaktere)
+    var nan = $(this).find('input[name="nan"]').val();
+    if (nan && nan.length !== 9) {
+      errorea = "NAN/IFZ zenbakiak 9 karaktere izan behar ditu.";
+    }
 
-        if (errorea !== "") {
-            e.preventDefault();
-            alert(errorea);
-        }
+    if (errorea !== "") {
+      e.preventDefault();
+      alert(errorea);
+    }
+  });
+
+  // --- PASAHITZA AHAZTU DUZU? ---
+  $(".pasahitza-ahaztu-esteka").on("click", function (e) {
+    e.preventDefault();
+
+    var emaila = $('input[name="emaila"]').val();
+
+    if (!emaila) {
+      alert("Mesedez, sartu zure posta elektronikoa lehenik.");
+      return;
+    }
+
+    $.ajax({
+      url: "lortu_pasahitza_hornitzailea.php",
+      method: "POST",
+      data: { emaila: emaila },
+      success: function (erantzuna) {
+        alert(erantzuna);
+      },
+      error: function () {
+        alert("Errore bat gertatu da pasahitza berreskuratzean.");
+      },
     });
+  });
 
-    // --- PASAHITZA AHAZTU DUZU? ---
-    $(".pasahitza-ahaztu-esteka").on("click", function (e) {
-        e.preventDefault();
-
-        var emaila = $('input[name="emaila"]').val();
-
-        if (!emaila) {
-            alert("Mesedez, sartu zure posta elektronikoa lehenik.");
-            return;
-        }
-
-        $.ajax({
-            url: "lortu_pasahitza_hornitzailea.php",
-            method: "POST",
-            data: { emaila: emaila },
-            success: function (erantzuna) {
-                alert(erantzuna);
-            },
-            error: function () {
-                alert("Errore bat gertatu da pasahitza berreskuratzean.");
-            }
-        });
-    });
-
-    // --- HERRIA AUKERATU (DATUAK ALDATU ORRIAN) ---
-    $('#herria_id').on('change', function () {
-        if ($(this).val() === 'berria') {
-            $('#herri_berria_atala').slideDown();
-            $('#herria_berria').attr('required', true);
-            $('#lurraldea_berria').attr('required', true);
-            $('#nazioa_berria').attr('required', true);
-        } else {
-            $('#herri_berria_atala').slideUp();
-            $('#herria_berria').removeAttr('required');
-            $('#lurraldea_berria').removeAttr('required');
-            $('#nazioa_berria').removeAttr('required');
-        }
-    });
+  // --- HERRIA AUKERATU (DATUAK ALDATU ORRIAN) ---
+  $("#herria_id").on("change", function () {
+    if ($(this).val() === "berria") {
+      $("#herri_berria_atala").slideDown();
+      $("#herria_berria").attr("required", true);
+      $("#lurraldea_berria").attr("required", true);
+      $("#nazioa_berria").attr("required", true);
+    } else {
+      $("#herri_berria_atala").slideUp();
+      $("#herria_berria").removeAttr("required");
+      $("#lurraldea_berria").removeAttr("required");
+      $("#nazioa_berria").removeAttr("required");
+    }
+  });
 });
+```
 
-``n
 ### js/langileak_menua.js
-``javascript
+
+```javascript
 /* --- Langileak Menua Logika Espezifikoa --- */
 $(document).ready(function () {
   // Java aplikazioa abiarazteko botoia
@@ -8036,7 +8115,6 @@ $(document).ready(function () {
     botoia.html('<i class="fas fa-cog fa-spin"></i> Abiarazten...');
     botoia.prop("disabled", true);
 
-    
     // PHP script-a deitu
     $.ajax({
       url: "../php/java_app_abiarazi.php",
@@ -8052,7 +8130,7 @@ $(document).ready(function () {
       error: function (xhr, status, error) {
         console.error("Abiarazte errorea:", error);
         alert(
-          "Errorea aplikazioa abiaraztean. Ziurtatu XAMPP martxan dagoela."
+          "Errorea aplikazioa abiaraztean. Ziurtatu XAMPP martxan dagoela.",
         );
         botoia.html(jatorrizkoEdukia);
         botoia.prop("disabled", false);
@@ -8084,21 +8162,24 @@ $(document).ready(function () {
             '<h3 class="mezua-titulua-arrakasta">Eskaera bidalita, eskerrikasko!</h3>' +
             '<p class="testua-grisa tartea-goian-1">Laster jarriko gara zurekin harremanetan.</p>' +
             '<button class="botoia botoi-nagusia tartea-goian-2" onclick="location.reload()">Itzuli</button>' +
-            "</div>"
+            "</div>",
         );
       },
       error: function (xhr, status, error) {
         console.error("Errorea:", error);
-        alert("Errorea gertatu da eskaera bidaltzean. Mesedez, saiatu berriro.");
+        alert(
+          "Errorea gertatu da eskaera bidaltzean. Mesedez, saiatu berriro.",
+        );
         $submitBtn.prop("disabled", false).text("Eskaera Bidali");
       },
     });
   });
 });
+```
 
-``n
 ### js/ordainketa.js
-``javascript
+
+```javascript
 $(document).ready(function () {
   kargatuSaskia();
 });
@@ -8178,21 +8259,7 @@ function burutuErosketa() {
         $(".ordainketa-kutxa").fadeOut(300, function () {
           $(this)
             .html(
-              `
-            <div class="arrakasta-edukiontzia">
-                <div class="arrakasta-ikonoa">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2 class="arrakasta-titulua">Erosketa Burutu da!</h2>
-                <p class="arrakasta-testua">
-                    Eskerrik asko zure erosketagatik. Zure eskaera ondo erregistratu da eta prozesatzen ari gara.
-                </p>
-                <div class="arrakasta-ekintzak">
-                    <a href="bezero_eskaerak.php" class="botoia botoi-sekundarioa">Erosketak Kudeatu</a>
-                    <a href="hasiera.php" class="botoia botoi-nagusia">Itzuli Hasierara</a>
-                </div>
-            </div>
-          `,
+              `            <div class="arrakasta-edukiontzia">                 <div class="arrakasta-ikonoa">                     <i class="fas fa-check-circle"></i>                 </div>                 <h2 class="arrakasta-titulua">Erosketa Burutu da!</h2>                 <p class="arrakasta-testua">                     Eskerrik asko zure erosketagatik. Zure eskaera ondo erregistratu da eta prozesatzen ari gara.                 </p>                 <div class="arrakasta-ekintzak">                     <a href="bezero_eskaerak.php" class="botoia botoi-sekundarioa">Erosketak Kudeatu</a>                     <a href="hasiera.php" class="botoia botoi-nagusia">Itzuli Hasierara</a>                 </div>             </div>          `,
             )
             .fadeIn(300);
         });
@@ -8211,10 +8278,11 @@ function burutuErosketa() {
     },
   });
 }
+```
 
-``n
 ### js/produktuak.js
-``javascript
+
+```javascript
 var produktuGuztiak = []; // Produktu guztiak gordetzeko (filtratzeko)
 
 // PRODUKTU SAREA OSATU:
@@ -8295,33 +8363,32 @@ function produktuakBistaratu(produktuak) {
     var stockKlasea =
       produktua.stock > 0 ? "txartel-stock" : "txartel-stock-agortuta";
 
-    var txartelaHtml = `
-      <div class="produktu-txartela" data-id="${produktua.id_produktua}">
+    var txartelaHtml = <div class="produktu-txartela" data-id="${produktua.id_produktua}">
         <div class="txartel-irudia klikagarria-joan">
           <img
             src="${produktua.irudia_url}"
             alt="${produktua.izena}"
             class="txartel-irudia"
-            onerror="this.src='../irudiak/birtek1.jpeg'" 
+            onerror="this.src='../irudiak/birtek1.jpeg'"
           />
-          <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
+          <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div>
         </div>
         <div class="txartel-edukia">
           <h3 class="txartel-izenburua klikagarria-joan">${produktua.izena}</h3>
           <div class="txartel-informazio-lerroa">
             <span class="txartel-marka">${produktua.marka} | ${
               produktua.egoera
-            }</span>
-            <span class="${stockKlasea}">Stock: ${produktua.stock}</span>
+            }
+            <span class="${stockKlasea}">Stock: ${produktua.stock}
           </div>
           <p class="txartel-azalpena">
             ${produktua.deskribapena || ""}
           </p>
 
-          <div class="txartel-oina">
+    <div class="txartel-oina">
             <span class="txartel-prezioa">${produktua.prezioa.toFixed(
               2,
-            )} €</span>
+            )} €
             <button class="produktua-saskiratu-botoia" data-stock="${
               produktua.stock
             }" ${produktua.stock === 0 ? "disabled" : ""}>
@@ -8350,12 +8417,12 @@ function produktuakFiltratu() {
   var kategoria = $("#iragazkia-kategoria").val();
   var mota = $("#iragazkia-mota").val();
   var ordenatu = $("#iragazkia-ordenatu").val();
-  
+
   var prezioOrdenatu = $("input[name='prezio-ordenatu']:checked").val();
   if (prezioOrdenatu) {
     ordenatu = prezioOrdenatu;
   }
-  
+
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 
@@ -8364,12 +8431,12 @@ function produktuakFiltratu() {
   var emaitzak = produktuGuztiak.filter(function (p) {
     if (p.stock <= 0) return false;
 
-    var matchBilatu = !bilatuTestua || 
-                      (p.izena && p.izena.toLowerCase().includes(bilatuTestua)) || 
+    var matchBilatu = !bilatuTestua ||
+                      (p.izena && p.izena.toLowerCase().includes(bilatuTestua)) ||
                       (p.marka && p.marka.toLowerCase().includes(bilatuTestua));
 
     var matchEgoera = !egoera || p.egoera === egoera;
-    
+
     // Kategoria konparaketa (trim eginda)
     var pKat = p.id_kategoria ? p.id_kategoria.trim() : "";
     var fKat = kategoria ? kategoria.trim() : "";
@@ -8401,7 +8468,7 @@ function produktuakFiltratu() {
 
   console.log("Aurkitutako produktu kopurua:", emaitzak.length);
   produktuakBistaratu(emaitzak);
-  
+
   // Eguneratu kopurua txapan
   var $txapa = $("#kopurua-txapa");
   if ($txapa.length > 0) {
@@ -8436,13 +8503,13 @@ $(document).ready(function () {
     // Globala.js-ko funtzioa deitu
     if (typeof window.saskiaGehitu === "function") {
       window.saskiaGehitu(id, izena, prezioa, stock, $botoia);
-      
-      //  (soilik saskiratu denean)
+
+    //  (soilik saskiratu denean)
       if (typeof window.saskiaAnimatuKontagailua === "function") {
         window.saskiaAnimatuKontagailua();
       }
 
-      // Saskia irekita badago, eguneratu ikuspegia
+    // Saskia irekita badago, eguneratu ikuspegia
       if (
         $("#saski-modala").is(":visible") &&
         typeof window.saskiaErakutsi === "function"
@@ -8456,12 +8523,13 @@ $(document).ready(function () {
     }
   });
 });
+```
 
-``n
 ## SQL Fitxategiak
 
 ### sql/birtek_db.sql
-``sql
+
+```sql
 -- ========================================================
 -- BIRTEK DATU-BASEA - SCRIPT OSOA
 -- ========================================================
@@ -8502,30 +8570,29 @@ CREATE TABLE IF NOT EXISTS langileak (
     abizena VARCHAR(100) NOT NULL,
     nan VARCHAR(9) UNIQUE,
     jaiotza_data DATE,
-    
+
     -- Kokapena
     herria_id INT unsigned,
     helbidea VARCHAR(150),
     posta_kodea VARCHAR(5),
     telefonoa VARCHAR(20),
-    
+
     -- Login datuak eta Hizkuntza
     emaila VARCHAR(100) UNIQUE NOT NULL,
     hizkuntza ENUM('Euskara', 'Gaztelania', 'Frantsesa', 'Ingelesa') DEFAULT 'Euskara',
     pasahitza VARCHAR(255),
     salto_txartela_uid VARCHAR(50) UNIQUE, -- Langilea identifikatzeko
-    
+
     -- Lan datuak
     alta_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     aktibo BOOLEAN NOT NULL DEFAULT 0,
-    
-    
+
     saila_id INT unsigned,
     iban VARCHAR(34)UNIQUE,
-    
+
     kurrikuluma MEDIUMBLOB, -- pdf gordetzeko
-    
+
     CONSTRAINT fk_langilea_saila FOREIGN KEY (saila_id) REFERENCES langile_sailak(id_saila),
     CONSTRAINT fk_langilea_herria FOREIGN KEY (herria_id) REFERENCES herriak(id_herria)
 );
@@ -8537,7 +8604,7 @@ CREATE TABLE IF NOT EXISTS fitxaketak (
     ordua TIME NOT NULL DEFAULT (CURRENT_TIME),
     mota ENUM('Sarrera', 'Irteera') NOT NULL DEFAULT 'Sarrera',
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
+
     CONSTRAINT fk_fitxaketa_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
 
@@ -8548,25 +8615,25 @@ CREATE TABLE IF NOT EXISTS bezeroak (
     ifz_nan VARCHAR(9) UNIQUE NOT NULL,
     jaiotza_data DATE,
     sexua ENUM('gizona', 'emakumea', 'ez-binarioa'),
-    
+
     -- Ordaintzeko
     bezero_ordainketa_txartela VARCHAR(255),
-    
+
     -- Bidalketarako
     helbidea VARCHAR(150) NOT NULL,
     herria_id INT UNSIGNED NOT NULL,
     posta_kodea VARCHAR(5) NOT NULL,
     telefonoa VARCHAR(15),
-    
+
     -- Login eta Hizkuntza
     emaila VARCHAR(255) UNIQUE NOT NULL, -- NVARCHAR ordez VARCHAR erabilita bateragarritasunerako
     hizkuntza ENUM('Euskara', 'Gaztelania', 'Frantsesa', 'Ingelesa') NOT NULL DEFAULT 'Euskara',
     pasahitza VARCHAR(255) NOT NULL,
-    
+
     alta_data DATETIME DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     aktibo BOOLEAN NOT NULL DEFAULT 1,
-    
+
     CONSTRAINT fk_bezeroa_herria FOREIGN KEY (herria_id) REFERENCES herriak(id_herria)
 );
 
@@ -8574,22 +8641,22 @@ CREATE TABLE IF NOT EXISTS hornitzaileak (
     id_hornitzailea INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     izena_soziala VARCHAR(100) NOT NULL,
     ifz_nan VARCHAR(9) UNIQUE NOT NULL,
-    
+
     -- Kontaktu datuak
     kontaktu_pertsona VARCHAR(100),
     helbidea VARCHAR(150) NOT NULL,
     herria_id INT UNSIGNED NOT NULL,
     posta_kodea VARCHAR(5) NOT NULL,
     telefonoa VARCHAR(15),
-    
+
     -- Login
     emaila VARCHAR(255) UNIQUE NOT NULL,
     hizkuntza ENUM('Euskara', 'Gaztelania', 'Frantsesa', 'Ingelesa') NOT NULL DEFAULT 'Gaztelania',
     pasahitza VARCHAR(255) NOT NULL,
     aktibo BOOLEAN NOT NULL DEFAULT 1,
-    
+
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
+
     CONSTRAINT fk_hornitzailea_herria FOREIGN KEY (herria_id) REFERENCES herriak(id_herria)
 );
 
@@ -8615,22 +8682,22 @@ CREATE TABLE IF NOT EXISTS produktuak (
     izena VARCHAR(255) NOT NULL,
     marka VARCHAR(50) NOT NULL,
     mota ENUM('Eramangarria', 'Mahai-gainekoa', 'Mugikorra', 'Tableta', 'Zerbitzaria', 'Pantaila', 'Softwarea') NOT NULL,
-    
+
     deskribapena TEXT,
     irudia_url VARCHAR(255),
-    
+
     -- Egoera
     biltegi_id INT UNSIGNED NOT NULL,
     produktu_egoera ENUM('Berria', 'Berritua A', 'Berritua B', 'Hondatua', 'Zehazteko') NOT NULL DEFAULT 'Zehazteko',
     produktu_egoera_oharra TEXT,
     salgai BOOLEAN DEFAULT FALSE,
-    
+
     -- Datu Ekonomikoak
     salmenta_prezioa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     stock INT UNSIGNED DEFAULT 0,
     eskaintza DECIMAL(5, 2) DEFAULT NULL,
     zergak_ehunekoa DECIMAL(5, 2) NOT NULL DEFAULT 21.00,
-    
+
     sortze_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -8751,7 +8818,7 @@ CREATE TABLE IF NOT EXISTS konponketak (
     akatsa_id INT UNSIGNED NOT NULL,
     oharrak TEXT,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
+
     CONSTRAINT fk_konponketa_produktua FOREIGN KEY (produktua_id) REFERENCES produktuak(id_produktua),
     CONSTRAINT fk_konponketa_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea),
     CONSTRAINT fk_konponketa_akatsa FOREIGN KEY (akatsa_id) REFERENCES akatsak(id_akatsa)
@@ -8768,7 +8835,7 @@ CREATE TABLE IF NOT EXISTS sarrerak (
     hornitzailea_id INT UNSIGNED NOT NULL,
     langilea_id INT UNSIGNED NOT NULL,
     sarrera_egoera ENUM('Bidean', 'Jasota', 'Ezabatua') NOT NULL DEFAULT 'Bidean',
-    
+
     CONSTRAINT fk_sarrera_hornitzailea FOREIGN KEY (hornitzailea_id) REFERENCES hornitzaileak(id_hornitzailea),
     CONSTRAINT fk_sarrera_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
@@ -8794,12 +8861,12 @@ CREATE TABLE IF NOT EXISTS eskaerak (
     data DATETIME DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     guztira_prezioa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    
+
     faktura_zenbakia VARCHAR(20) UNIQUE,
 	faktura_url VARCHAR(255),
-    
+
     eskaera_egoera ENUM('Prestatzen', 'Osatua/Bidalita', 'Ezabatua') NOT NULL DEFAULT 'Prestatzen',
-    
+
     CONSTRAINT fk_eskaera_bezeroa FOREIGN KEY (bezeroa_id) REFERENCES bezeroak(id_bezeroa),
     CONSTRAINT fk_eskaera_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
@@ -8810,13 +8877,12 @@ CREATE TABLE IF NOT EXISTS eskaera_lerroak (
     produktua_id INT UNSIGNED NOT NULL,
     kantitatea INT UNSIGNED NOT NULL,
     unitate_prezioa DECIMAL(10, 2) NOT NULL,
-    
+
     eskaera_lerro_egoera ENUM('Prestatzen', 'Osatua/Bidalita', 'Ezabatua') NOT NULL DEFAULT 'Prestatzen',
-    
+
     CONSTRAINT fk_el_eskaera FOREIGN KEY (eskaera_id) REFERENCES eskaerak(id_eskaera),
     CONSTRAINT fk_el_produktua FOREIGN KEY (produktua_id) REFERENCES produktuak(id_produktua)
 );
-
 
 -- ========================================================
 -- 7. ERABILTZAILEAK ETA BAIMENAK
@@ -8824,7 +8890,7 @@ CREATE TABLE IF NOT EXISTS eskaera_lerroak (
 
 FLUSH PRIVILEGES;
 
--- ZUZENDARITZA (SysAdmin) 
+-- ZUZENDARITZA (SysAdmin)
 CREATE USER IF NOT EXISTS 'ander_sysadmin'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON *.* TO 'ander_sysadmin'@'localhost' WITH GRANT OPTION;
 
@@ -8877,25 +8943,24 @@ GRANT SELECT, UPDATE ON birtek_db.eskaera_lerroak TO 'gorka_biltegia'@'localhost
 GRANT SELECT, INSERT, UPDATE ON birtek_db.herriak TO 'gorka_biltegia'@'localhost', 'oihane_biltegia'@'localhost', 'xabier_biltegia'@'localhost';
 
 -- FITXAKETAK (Langile guztieenak)
-GRANT SELECT, INSERT ON birtek_db.fitxaketak TO 
+GRANT SELECT, INSERT ON birtek_db.fitxaketak TO
 
 -- 'lander_sysadmin'            IADA BADUTE crud osoa
 -- 'ander_sysadmin'@'localhost' IADA BADUTE crud osoa
 -- 'ane_admin'@'localhost',     IADA BADUTE crud osoa
 -- 'mikel_admin'@'localhost';   IADA BADUTE crud osoa
-    'leire_sales'@'localhost', 
-    'iker_sales'@'localhost', 
-    'amaia_sales'@'localhost', 
-    'unai_sat'@'localhost', 
-    'maite_sat'@'localhost', 
-    'aitor_sat'@'localhost', 
-    'nerea_sat'@'localhost', 
-    'gorka_biltegia'@'localhost', 
-    'oihane_biltegia'@'localhost', 
+    'leire_sales'@'localhost',
+    'iker_sales'@'localhost',
+    'amaia_sales'@'localhost',
+    'unai_sat'@'localhost',
+    'maite_sat'@'localhost',
+    'aitor_sat'@'localhost',
+    'nerea_sat'@'localhost',
+    'gorka_biltegia'@'localhost',
+    'oihane_biltegia'@'localhost',
     'xabier_biltegia'@'localhost';
 
 FLUSH PRIVILEGES;
-
 
 -- ========================================================================================================================================
 
@@ -8904,12 +8969,12 @@ FLUSH PRIVILEGES;
 -- ========================================================================================================================
 
 -- 1. OINARRIZKO DATUAK
-INSERT INTO biltegiak (id_biltegia, izena, biltegi_sku) VALUES 
+INSERT INTO biltegiak (id_biltegia, izena, biltegi_sku) VALUES
 (1, 'Harrera Biltegia', 'HAR_BIL'),
 (2, 'Biltegi Nagusia', 'BIL_NAG'),
 (3, 'Irteera Biltegia', 'IRT_BIL');
 
-INSERT INTO produktu_kategoriak (id_kategoria, izena) VALUES 
+INSERT INTO produktu_kategoriak (id_kategoria, izena) VALUES
 (1, 'Ordenagailuak'),
 (2, 'Telefonia'),
 (3, 'Irudia'),
@@ -9000,7 +9065,7 @@ INSERT INTO langileak (id_langilea, izena, abizena, nan, jaiotza_data, herria_id
 (14, 'Xabier', 'Larrea', '34567890M', '1990-03-15', 1, 'Intxaurrondo 50', '20015', '600258369', 'xabier.larrea@birtek.eus', '1234', 'UID_LOG_03', 5, 'ES1234567890123456789014', '2020-11-30', 1);
 
 -- 3. HORNITZAILEAK ETA BEZEROAK
-INSERT INTO hornitzaileak (id_hornitzailea, izena_soziala, ifz_nan, kontaktu_pertsona, helbidea, herria_id, posta_kodea, telefonoa, emaila, pasahitza) VALUES 
+INSERT INTO hornitzaileak (id_hornitzailea, izena_soziala, ifz_nan, kontaktu_pertsona, helbidea, herria_id, posta_kodea, telefonoa, emaila, pasahitza) VALUES
 (1, 'PC Componentes Pro', 'A88776655', 'Soporte B2B', 'Poligono Industrial Alhama', 6, '28001', '910000000', 'b2b@pccomponentes.com', 'hash_pcc'),
 (2, 'Ingram Micro', 'A11223344', 'Carlos Distribución', 'Calle Tecnología 5', 6, '28002', '910111222', 'pedidos@ingram.com', 'hash_ingram'),
 (3, 'Amazon Business', 'W8888888', 'Logistika Zentroa', 'Trapagaran Poligonoa', 1, '48510', '900800700', 'business@amazon.es', 'hash_amazon'),
@@ -9035,7 +9100,7 @@ INSERT INTO hornitzaileak (id_hornitzailea, izena_soziala, ifz_nan, kontaktu_per
 (32, 'Baiona Gazta', 'A01010101', 'Marie Larousse', 'Quai de la Nive', 40, '64100', '055933445', 'marie@baionagazta.fr', 'hash_32'),
 (33, 'Eibar Armagintza', 'B12123434', 'Josu Arregui', 'Ipurua kalea 3', 5, '20600', '943201122', 'josu@eibararma.eus', 'hash_33');
 
-INSERT INTO bezeroak (izena_edo_soziala, abizena, ifz_nan, jaiotza_data, sexua, bezero_ordainketa_txartela, helbidea, herria_id, posta_kodea, telefonoa, emaila, hizkuntza, pasahitza, aktibo) VALUES 
+INSERT INTO bezeroak (izena_edo_soziala, abizena, ifz_nan, jaiotza_data, sexua, bezero_ordainketa_txartela, helbidea, herria_id, posta_kodea, telefonoa, emaila, hizkuntza, pasahitza, aktibo) VALUES
 ('Ane', 'Goikoetxea Lasa', '12345678A', '1990-05-15', 'emakumea', 'tok_visa_4242', 'Askatasunaren Etorbidea 14, 2.B', 1, '20004', '600123456', 'ane.goiko@email.eus', 'Euskara', 'pasahitzaSegurua1', 1),
 ('Jon', 'Perez Garcia', '87654321B', '1985-11-20', 'gizona', 'tok_mastercard_5555', 'Kale Nagusia 30', 2, '48001', '611222333', 'jon.perez@gmail.com', 'Gaztelania', '123456Jon', 1),
 ('Teknologia Berriak SL', NULL, 'B99887766', NULL, NULL, 'tok_amex_9090', 'Jundiz Industrialdea, Pab 5', 3, '01015', '945111222', 'info@teknologiaberriak.com', 'Euskara', 'admin2024', 1),
@@ -9076,7 +9141,7 @@ INSERT INTO bezeroak (izena_edo_soziala, abizena, ifz_nan, jaiotza_data, sexua, 
 
 -- 4. PRODUKTUAK ETA SUBKLASEAK (IRUDIEKIN EGUNERATUA)
 INSERT INTO produktuak (
-    id_produktua, izena, deskribapena, hornitzaile_id, biltegi_id, kategoria_id, 
+    id_produktua, izena, deskribapena, hornitzaile_id, biltegi_id, kategoria_id,
     marka, mota, produktu_egoera, salmenta_prezioa, stock, salgai, irudia_url, zergak_ehunekoa
 ) VALUES
 (1, 'MacBook Air 11" (2014)', 'Eramangarri ultra-trinkoa, eguneroko lanetarako oraindik balekoa.', 1, 1, 1, 'Apple', 'Eramangarria', 'Berritua B', 350.00, 5, TRUE, '../produktuen_irudiak/1_mac_book_air_2024.jpg', 21.00),
@@ -9391,10 +9456,10 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (16, 13, 70, 15, 'Bidean'),
 (17, 14, 75, 4, 'Jasota'),
 (18, 15, 80, 10, 'Jasota'),
-(19, 16, 60, 8, 'Jasota'), 
-(20, 17, 55, 50, 'Jasota'), 
-(21, 18, 5, 100, 'Bidean'), 
-(22, 19, 25, 20, 'Ezabatua'), 
+(19, 16, 60, 8, 'Jasota'),
+(20, 17, 55, 50, 'Jasota'),
+(21, 18, 5, 100, 'Bidean'),
+(22, 19, 25, 20, 'Ezabatua'),
 (23, 20, 5, 10, 'Jasota'),
 (24, 21, 15, 5, 'Jasota'),
 (25, 22, 25, 8, 'Jasota'),
@@ -9403,8 +9468,8 @@ INSERT INTO sarrera_lerroak (id_sarrera_lerroa, sarrera_id, produktua_id, kantit
 (28, 25, 55, 6, 'Jasota'),
 (29, 26, 65, 5, 'Jasota'),
 (30, 27, 75, 4, 'Jasota'),
-(31, 28, 60, 8, 'Jasota'), 
-(32, 29, 25, 20, 'Bidean'), 
+(31, 28, 60, 8, 'Jasota'),
+(32, 29, 25, 20, 'Bidean'),
 (33, 30, 5, 10, 'Jasota');
 
 /*
@@ -9415,12 +9480,12 @@ CREATE TABLE IF NOT EXISTS eskaerak (
     data DATETIME DEFAULT CURRENT_TIMESTAMP,
     eguneratze_data DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     guztira_prezioa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    
+
     faktura_zenbakia VARCHAR(20) UNIQUE NOT NULL,
 	faktura_url VARCHAR(255),
-    
+
     eskaera_egoera ENUM('Prestatzen', 'Osatua/Bidalita', 'Ezabatua') NOT NULL DEFAULT 'Prestatzen',
-    
+
     CONSTRAINT fk_eskaera_bezeroa FOREIGN KEY (bezeroa_id) REFERENCES bezeroak(id_bezeroa),
     CONSTRAINT fk_eskaera_langilea FOREIGN KEY (langilea_id) REFERENCES langileak(id_langilea)
 );
@@ -9466,11 +9531,11 @@ INSERT INTO eskaera_lerroak (id_eskaera_lerroa, eskaera_id, produktua_id, kantit
 (4, 4, 46, 1, 4500.00, 'Osatua/Bidalita'),
 (5, 5, 21, 1, 1209.00, 'Prestatzen'),
 (6, 6, 51, 1, 299.00, 'Osatua/Bidalita'),
-(7, 7, 57, 1, 150.00, 'Ezabatua'), 
+(7, 7, 57, 1, 150.00, 'Ezabatua'),
 (8, 8, 76, 1, 99.00, 'Osatua/Bidalita'),
 (9, 9, 47, 1, 3800.00, 'Osatua/Bidalita'),
 (10, 10, 32, 1, 600.00, 'Osatua/Bidalita'),
-(11, 11, 58, 1, 135.00, 'Prestatzen'), 
+(11, 11, 58, 1, 135.00, 'Prestatzen'),
 (12, 12, 29, 1, 450.00, 'Osatua/Bidalita'),
 (13, 13, 11, 1, 2499.00, 'Osatua/Bidalita'),
 (14, 14, 77, 1, 89.00, 'Prestatzen'),
@@ -9479,8 +9544,8 @@ INSERT INTO eskaera_lerroak (id_eskaera_lerroa, eskaera_id, produktua_id, kantit
 (17, 17, 2, 1, 1400.00, 'Prestatzen'),
 (18, 18, 61, 1, 550.00, 'Osatua/Bidalita'),
 (19, 19, 66, 1, 15.00, 'Osatua/Bidalita'),
-(20, 20, 70, 1, 25.00, 'Ezabatua'), 
-(21, 20, 71, 2, 10.00, 'Ezabatua'), 
+(20, 20, 70, 1, 25.00, 'Ezabatua'),
+(21, 20, 71, 2, 10.00, 'Ezabatua'),
 (22, 21, 4, 1, 950.00, 'Osatua/Bidalita'),
 (23, 21, 54, 1, 300.00, 'Osatua/Bidalita'),
 (24, 22, 34, 1, 900.00, 'Prestatzen'),
@@ -9490,10 +9555,6 @@ INSERT INTO eskaera_lerroak (id_eskaera_lerroa, eskaera_id, produktua_id, kantit
 (28, 26, 79, 1, 75.00, 'Osatua/Bidalita'),
 (29, 27, 49, 1, 1500.00, 'Osatua/Bidalita'),
 (30, 28, 48, 1, 2200.00, 'Prestatzen'),
-(31, 29, 54, 1, 60.00, 'Osatua/Bidalita'), 
+(31, 29, 54, 1, 60.00, 'Osatua/Bidalita'),
 (32, 30, 50, 1, 1200.00, 'Osatua/Bidalita');
-
-
-
-
-``n
+```

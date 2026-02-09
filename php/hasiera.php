@@ -48,10 +48,10 @@ session_start();
               Teknologia berreskuratzen, etorkizuna eraikitzen.
             </p>
             <div class="azal-botoi-taldea">
-              <a href="produktuak.php" class="azal-cta-botoia azal-botoi-erosi">
+              <a href="produktuak.php" class="azal-botoia azal-botoi-erosi">
                 <i class="fas fa-shopping-cart"></i> EROSI
               </a>
-              <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="azal-cta-botoia azal-botoi-birziklatu">
+              <a href="<?= isset($_SESSION['id_hornitzailea']) ? 'hornitzaile_menua.php' : 'hornitzaile_saioa_hasi.php' ?>" class="azal-botoia azal-botoi-birziklatu">
                 <i class="fas fa-recycle"></i> BIRZIKLATU
               </a>
             </div>

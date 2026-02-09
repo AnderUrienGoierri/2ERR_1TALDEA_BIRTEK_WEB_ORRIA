@@ -1,4 +1,4 @@
-/* --- BIRTEK - KONTAKTUA --- */
+/* --- BIRTEK - KONTAKTUA ETA FORMULARIOAK--- */
 
 .kontaktu-edukiontzia {
   margin: 0 auto; /*zentratua agertzeko*/
@@ -10,10 +10,7 @@
 
 .kontaktu-sareta {
   display: grid;
-  grid-template-columns: minmax(
-    0,
-    1fr
-  ); /* GARRANTZITSUA: Grid pistak edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
+  grid-template-columns: minmax(0,1fr); /* GARRANTZITSUA: Grid pistak edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
   gap: 3rem;
   align-items: start;
 }
@@ -121,7 +118,7 @@
   color: #e4405f;
 }
 .tw-kolorea {
-  color: #000000; /* X (Twitter) beltza */
+  color: #000000;
 }
 .tik-kolorea {
   color: #000000;
@@ -148,7 +145,7 @@
 }
 
 .kontaktua-titulua {
-  font-size: 1.75rem; /* 320px-rako murriztua */
+  font-size: 1.75rem;
   font-weight: 800;
   margin-bottom: 2rem;
   text-align: center;
@@ -178,7 +175,7 @@
 }
 
 /* =========================================
-   Langileak Orriko Estiloak
+Langileak Orriko Estiloak
    ========================================= */
 .langileak-edukiontzia {
   max-width: 800px;
@@ -217,8 +214,8 @@
 }
 
 /* =========================================
-   Erabilgarritasun Klaseak (Utility Classes)
-   ========================================= */
+Erabilgarritasun Klaseak (Utility Classes)
+========================================= */
 .testua-zentratuta {
   text-align: center;
 }
@@ -311,8 +308,8 @@
 }
 
 /* =========================================
-   MEDIA QUERIES
-   ========================================= */
+MEDIA QUERIES
+========================================= */
 
 @media (min-width: 480px) {
   .inprimaki-kutxa,
@@ -342,7 +339,7 @@
 
 @media (min-width: 768px) {
   .kontaktu-sareta {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .sozial-kutxa {
@@ -371,9 +368,9 @@
   .sozial-kutxa,
   .mapa-edukiontzia {
     width: 100%;
-    padding: 1rem 0.5rem; /* 320px-rako murriztua */
+    padding: 1rem 0.5rem;
     border-radius: 1rem;
-    max-width: 100%; 
+    max-width: 100%;
   }
 
   .mapa-edukiontzia {

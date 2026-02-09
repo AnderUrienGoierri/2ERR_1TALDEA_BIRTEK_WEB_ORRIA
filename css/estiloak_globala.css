@@ -228,7 +228,7 @@ body {
   justify-content: center;
   text-decoration: none;
   gap: 0.1rem;
-  max-width: 130px; /* Mugikorretara adpatatuta (300px) */
+  max-width: 130px;
 }
 
 .saioa-hasi-botoia span {
@@ -280,7 +280,7 @@ body {
   position: absolute;
   top: -10px;
   right: 0px;
-  background-color: #ff0000; 
+  background-color: #ff0000;
   color: white;
   font-size: 0.75rem;
   font-weight: 800;
@@ -796,7 +796,7 @@ body {
 
 /* Kantitate aldatzeko botoiak (Saskia) */
 .kopuru-kontrola-td {
-  display: flex !important;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -892,7 +892,7 @@ body {
   transition: var(--trantsizioa);
   text-decoration: none;
 }
-.azal-cta-botoia {
+.azal-botoia {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -908,11 +908,11 @@ body {
   border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
-.azal-cta-botoia:hover {
+.azal-botoia:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
-.azal-cta-botoia:active {
+.azal-botoia:active {
   transform: translateY(-1px);
 }
 
@@ -1035,25 +1035,25 @@ body {
 }
 
 .erakutsi-inline-flex {
-  display: inline-flex !important;
+  display: inline-flex;
 }
 
 .erakutsi-flex {
-  display: flex !important;
+  display: flex ;
 }
 
 .erakutsi-block {
-  display: block !important;
+  display: block;
 }
 
 .ezkutatu {
-  display: none !important;
+  display: none;
 }
 
 .mugikor-logout-botoia-berezian {
-  width: calc(100% - 3rem) !important;
-  margin: 0.5rem 1.5rem !important;
-  text-align: left !important;
+  width: calc(100% - 3rem) ;
+  margin: 0.5rem 1.5rem ;
+  text-align: left;
 }
 
 .testua-eskuinera {
@@ -1348,7 +1348,6 @@ body {
   color: #333;
 }
 
-
 /* --- GORA JOAN BOTOIA --- */
 #gora-joan-botoia {
   position: fixed;
@@ -1393,12 +1392,12 @@ body {
 }
 
 /* --- BOTOI HOBEKUNTZAK (DISTIRA EFEKTUA) --- */
-.azal-cta-botoia {
+.azal-botoia {
   position: relative;
   overflow: hidden;
 }
 
-.azal-cta-botoia::after {
+.azal-botoia::after {
   content: "";
   position: absolute;
   top: -50%;
@@ -1410,16 +1409,16 @@ body {
   transition: none;
 }
 
-.azal-cta-botoia:hover::after {
+.azal-botoia:hover::after {
   left: 120%;
   transition: all 0.6s ease-in-out;
 }
 
-.azal-cta-botoia i {
+.azal-botoia i {
   transition: transform 0.3s ease;
 }
 
-.azal-cta-botoia:hover i {
+.azal-botoia:hover i {
   transform: scale(1.2) rotate(-10deg);
 }
 
@@ -1454,7 +1453,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-height: 4.7rem; /* (Padding 0.3*2 + Line-height 1.5) * 2 + Gap 0.5 */
+    max-height: 4.7rem;
     overflow: hidden;
   }
   .nab-botoia {

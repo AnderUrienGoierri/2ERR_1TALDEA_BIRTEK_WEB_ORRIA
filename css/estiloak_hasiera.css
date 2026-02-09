@@ -166,8 +166,8 @@
 }
 
 .bx-wrapper {
-  border: none !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  border: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border-radius: 1.5rem;
 }
 

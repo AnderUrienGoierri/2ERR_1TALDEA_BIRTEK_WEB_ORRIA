@@ -270,8 +270,8 @@
   .sarrera-td-zentratua {
     border: none;
     position: relative;
-    padding: 0.75rem 0 0.75rem 55% !important;
-    text-align: left !important;
+    padding: 0.75rem 0 0.75rem 55% ;
+    text-align: left ;
   }
 
   .sarrera-td::before,
