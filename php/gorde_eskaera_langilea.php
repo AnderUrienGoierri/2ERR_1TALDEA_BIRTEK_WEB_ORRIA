@@ -37,9 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // 4. Datu basean txertatu
-        // Oharra: 'oharra' ez da gordetzen taulan ez dagoelako zutaberik.
         // Aktibo = 0 (ez dago aktibo oraindik)
-        $sql = "INSERT INTO langileak (izena, abizena, emaila, telefonoa, kurrikuluma, aktibo) 
+        $sql = "INSERT INTO langileak (izena, abizena, emaila, telefonoa, kurrikuluma, aktibo)
                 VALUES (:izena, :abizena, :emaila, :telefonoa, :cv, 0)";
 
         $stmt = $konexioa->prepare($sql);

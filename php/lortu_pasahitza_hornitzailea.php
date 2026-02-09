@@ -10,7 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emaila'])) {
     }
 
     try {
-        $stmt = $konexioa->prepare("SELECT pasahitza FROM hornitzaileak WHERE emaila = :emaila");
+        $stmt = $konexioa->prepare("SELECT pasahitza
+                                    FROM hornitzaileak
+                                    WHERE emaila = :emaila");
         $stmt->bindParam(':emaila', $emaila);
         $stmt->execute();
         $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);

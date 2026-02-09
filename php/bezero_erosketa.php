@@ -26,30 +26,30 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="eu">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BIRTEK - Erosketa Berretsi</title>
 
     <link
-      rel="stylesheet"
-      href="../css/fontawesome/css/all.min.css"
+    rel="stylesheet"
+    href="../css/fontawesome/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/estiloak_globala.css" />
     <!-- BEZERO ESKAERAK ESTILOA ERABILI -->
     <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css" />
-  </head>
-    
-  <body class="web-gorputza">
+</head>
+
+<body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-      <div class="eskari-edukiontzia">
-        <!-- Nabigazio bidea edo Izena -->
-        <a href="produktuak.php" class="atzera-botoia tartea-behean-1"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
-        <h2 class="tartea-behean-2">Erosketa Berretsi</h2>
-        
-        <div class="erosketa-sareta"> 
+        <div class="eskari-edukiontzia">
+            <!-- Nabigazio bidea edo Izena -->
+            <a href="produktuak.php" class="atzera-botoia tartea-behean-1"><i class="fas fa-arrow-left"></i> Dendara itzuli</a>
+            <h2 class="tartea-behean-2">Erosketa Berretsi</h2>
+
+            <div class="erosketa-sareta">
             <!-- 1. SASKIAREN EDUKIA (Eskari Txartela estiloa) -->
             <div class="eskari-txartela">
                 <div class="eskari-goiburua">
@@ -68,7 +68,7 @@ try {
                 </div>
             </div>
 
-            <!-- 2. BIDALKETA DATUAK (Eskari Txartela estiloa) -->
+            <!-- 2. BIDALKETA DATUAK -->
             <div class="eskari-txartela">
                 <div class="eskari-goiburua">
                     <div>
@@ -78,7 +78,7 @@ try {
                 </div>
                 <div class="eskari-gorputza">
                     <p class="tartea-behean-1-5 testua-grisa">Datu hauek erabiliko dira bidalketa egiteko.</p>
-                    
+
                     <form action="ordainketa_pasarela.php" method="POST" id="bidalketa-form">
                         <div class="inprimaki-taldea">
                             <label>Izena eta Abizenak</label>
@@ -117,13 +117,13 @@ try {
                     </form>
                 </div>
             </div>
+            </div>
         </div>
-      </div>
     </main>
 
     <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script src="../js/bezero_erosketa.js"></script>
-  </body>
+</body>
 </html>

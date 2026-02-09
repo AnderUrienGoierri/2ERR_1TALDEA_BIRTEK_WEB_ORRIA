@@ -92,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Eskaerak ekarri
 $stmt = $konexioa->prepare("
-    SELECT * FROM eskaerak 
-    WHERE bezeroa_id = :id 
+    SELECT * FROM eskaerak
+    WHERE bezeroa_id = :id
     ORDER BY data DESC
 ");
 $stmt->execute([':id' => $id_bezeroa]);
@@ -103,7 +103,7 @@ $eskaerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 function lortuEskeraLerroak($konexioa, $id_eskaera)
 {
     $sql = "
-        SELECT el.*, p.izena, p.deskribapena 
+        SELECT el.*, p.izena, p.deskribapena
         FROM eskaera_lerroak el
         JOIN produktuak p ON el.produktua_id = p.id_produktua
         WHERE el.eskaera_id = :id

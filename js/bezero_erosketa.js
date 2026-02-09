@@ -72,7 +72,6 @@ function renderErosketaSaskia() {
   saskia.forEach((item) => {
     const subtotala = item.prezioa * item.kantitatea;
     totala += subtotala;
-
     tableHtml += `
         <tr>
             <td>
@@ -108,7 +107,7 @@ function renderErosketaSaskia() {
 
 function aldatuKantitatea(id, change) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  
+
   const item = saskia.find((i) => i.id == id);
 
   if (item) {
@@ -132,7 +131,7 @@ function aldatuKantitatea(id, change) {
 
 function ezabatuItem(id) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  
+
   const filtered = saskia.filter((i) => i.id != id);
   window.saskiaGorde(filtered);
   renderErosketaSaskia();

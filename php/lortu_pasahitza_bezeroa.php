@@ -10,7 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emaila'])) {
     }
 
     try {
-        $stmt = $konexioa->prepare("SELECT pasahitza FROM bezeroak WHERE emaila = :emaila");
+        $stmt = $konexioa->prepare("SELECT pasahitza
+                                    FROM bezeroak
+                                    WHERE emaila = :emaila");
         $stmt->bindParam(':emaila', $emaila);
         $stmt->execute();
         $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,3 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emaila'])) {
     echo "Eskaera baliogabea.";
 }
 ?>
+
+
+
+

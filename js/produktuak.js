@@ -133,12 +133,12 @@ function produktuakFiltratu() {
   var kategoria = $("#iragazkia-kategoria").val();
   var mota = $("#iragazkia-mota").val();
   var ordenatu = $("#iragazkia-ordenatu").val();
-  
+
   var prezioOrdenatu = $("input[name='prezio-ordenatu']:checked").val();
   if (prezioOrdenatu) {
     ordenatu = prezioOrdenatu;
   }
-  
+
   var prezioaMin = parseFloat($("#prezioa-min").val());
   var prezioaMax = parseFloat($("#prezioa-max").val());
 
@@ -147,28 +147,23 @@ function produktuakFiltratu() {
   var emaitzak = produktuGuztiak.filter(function (p) {
     if (p.stock <= 0) return false;
 
-    var matchBilatu = !bilatuTestua || 
-                      (p.izena && p.izena.toLowerCase().includes(bilatuTestua)) || 
-                      (p.marka && p.marka.toLowerCase().includes(bilatuTestua));
-
+    var matchBilatu = !bilatuTestua ||
+    (p.izena && p.izena.toLowerCase().includes(bilatuTestua)) ||
+    (p.marka && p.marka.toLowerCase().includes(bilatuTestua));
     var matchEgoera = !egoera || p.egoera === egoera;
-    
     // Kategoria konparaketa (trim eginda)
     var pKat = p.id_kategoria ? p.id_kategoria.trim() : "";
     var fKat = kategoria ? kategoria.trim() : "";
     var matchKategoria = !fKat || pKat === fKat;
-
     // Mota konparaketa (trim eginda)
     var pMota = p.mota ? p.mota.trim() : "";
     var fMota = mota ? mota.trim() : "";
     var matchMota = !fMota || pMota === fMota;
-
     var matchPrezioaMin = isNaN(prezioaMin) || p.prezioa >= prezioaMin;
     var matchPrezioaMax = isNaN(prezioaMax) || p.prezioa <= prezioaMax;
 
     return matchBilatu && matchEgoera && matchKategoria && matchMota && matchPrezioaMin && matchPrezioaMax;
   });
-
   // Ordenatu
   if (ordenatu !== "default") {
     emaitzak.sort(function (a, b) {
@@ -181,11 +176,9 @@ function produktuakFiltratu() {
       return 0;
     });
   }
-
   console.log("Aurkitutako produktu kopurua:", emaitzak.length);
   produktuakBistaratu(emaitzak);
-  
-  // Eguneratu kopurua txapan
+ // Eguneratu kopurua txapan
   var $txapa = $("#kopurua-txapa");
   if ($txapa.length > 0) {
     $txapa.text(emaitzak.length);
@@ -219,7 +212,7 @@ $(document).ready(function () {
     // Globala.js-ko funtzioa deitu
     if (typeof window.saskiaGehitu === "function") {
       window.saskiaGehitu(id, izena, prezioa, stock, $botoia);
-      
+
       //  (soilik saskiratu denean)
       if (typeof window.saskiaAnimatuKontagailua === "function") {
         window.saskiaAnimatuKontagailua();

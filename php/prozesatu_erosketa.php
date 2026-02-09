@@ -40,7 +40,7 @@ try {
             if (!$prod) {
                 throw new Exception("Produktua ez da aurkitu: " . $elementua['izena']);
             }
-            
+
             $konprobatutako_produktuak[$prodId] = [
                 'stock' => $prod['stock'],
                 'prezioa' => $prod['salmenta_prezioa'],
