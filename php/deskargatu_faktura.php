@@ -29,11 +29,11 @@ if (file_exists($filepath)) {
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($filepath));
-    
+
     // Buffer-a garbitu
     ob_clean();
     flush();
-    
+
     // Fitxategia irakurri eta bidali
     readfile($filepath);
     exit;

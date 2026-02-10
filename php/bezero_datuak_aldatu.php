@@ -51,14 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
             $herria_id = $konexioa->lastInsertId();
         }
-        $sql = "UPDATE bezeroak SET 
-                izena_edo_soziala = :izena, 
-                abizena = :abizena, 
+        $sql = "UPDATE bezeroak SET
+                izena_edo_soziala = :izena,
+                abizena = :abizena,
                 ifz_nan = :ifz_nan,
                 jaiotza_data = :jaiotza_data,
                 sexua = :sexua,
                 bezero_ordainketa_txartela = :txartela,
-                helbidea = :helbidea, 
+                helbidea = :helbidea,
                 herria_id = :herria_id,
                 posta_kodea = :posta_kodea,
                 telefonoa = :telefonoa,
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $mezua = "Datuak ondo eguneratu dira!";
-        $_SESSION['izena'] = $izena_edo_soziala; 
+        $_SESSION['izena'] = $izena_edo_soziala;
     } catch (PDOException $e) {
         $mezua = "Errorea: " . $e->getMessage();
     }

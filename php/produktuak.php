@@ -11,11 +11,11 @@ $produktuak_lista = [];
 
 try {
   // Kontsulta nagusia (URL parametroen bidez filtratua)
-  $sql = "SELECT p.*, k.izena as produktu_kategoria_izena 
-            FROM produktuak p 
+  $sql = "SELECT p.*, k.izena as produktu_kategoria_izena
+            FROM produktuak p
             LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
             WHERE p.salgai = 1 AND p.stock > 0";
-  
+
   $params = [];
 
   // BILAKETA LOGIKA (PHP)
@@ -89,10 +89,10 @@ try {
   }
 
   // JS-rako produktu GUZTIAK lortu (filtroek dinamikoki funtziona dezaten)
-  $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena 
-                                     FROM produktuak p 
-                                     LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
-                                     WHERE p.salgai = 1 AND p.stock > 0");
+  $stmt_guztiak = $konexioa->prepare("SELECT p.*, k.izena as produktu_kategoria_izena
+                                    FROM produktuak p
+                                    LEFT JOIN produktu_kategoriak k ON p.kategoria_id = k.id_kategoria
+                                    WHERE p.salgai = 1 AND p.stock > 0");
   $stmt_guztiak->execute();
   $db_guztiak = $stmt_guztiak->fetchAll(PDO::FETCH_ASSOC);
   $hasierako_produktu_guztiak = [];
@@ -217,13 +217,13 @@ try {
                 <label class="iragazki-etiketa">Prezioa</label>
                 <div class="prezio-ordenatu-radio">
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc" 
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-asc" id="prezio-asc"
                       <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-asc')
                         echo 'checked'; ?>>
                     Txikitik Handira
                   </label>
                   <label class="radio-etiketa">
-                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc" 
+                    <input type="radio" name="prezio-ordenatu" value="prezioa-desc" id="prezio-desc"
                       <?php if (isset($_GET['prezio-ordenatu']) && $_GET['prezio-ordenatu'] == 'prezioa-desc')
                         echo 'checked'; ?>>
                     Handitik Txikira
@@ -284,7 +284,7 @@ try {
                 <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
                 <!-- <img src ="$rutaAbs . $p"-->
                       <img
-                      
+
                         src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
                         alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
                         class="txartel-irudia"

@@ -85,9 +85,9 @@ function produktuakBistaratu(produktuak) {
             src="${produktua.irudia_url}"
             alt="${produktua.izena}"
             class="txartel-irudia"
-            onerror="this.src='../irudiak/birtek1.jpeg'" 
+            onerror="this.src='../irudiak/birtek1.jpeg'"
           />
-          <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div> 
+          <div class="txartel-kategoria-txapa">${produktua.id_kategoria}</div>
         </div>
         <div class="txartel-edukia">
           <h3 class="txartel-izenburua klikagarria-joan">${produktua.izena}</h3>

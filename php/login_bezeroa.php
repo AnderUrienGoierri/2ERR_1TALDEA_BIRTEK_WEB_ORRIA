@@ -20,16 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Era berean, erabiltzailearen argibideek esan zuten "pass: 1234" sysadmin guztientzat, baina bezeroek pasahitz desberdinak dituzte.
         // Berdintasun konparaketa sinplea erabiliko dugu gaurkoz, ariketa akademikoetan egin ohi den bezala,
         // edo password_verify hash-eratuak badira. SQL-n testu arrunta ikusten dudanez, testu arrunteko egiaztapena erabiliko dut.
-        
+
         if ($bezeroa && $pasahitza === $bezeroa['pasahitza']) {
             $_SESSION['id_bezeroa'] = $bezeroa['id_bezeroa'];
             $_SESSION['izena'] = $bezeroa['izena_edo_soziala'];
             $_SESSION['emaila'] = $bezeroa['emaila'];
-            
+
             header("Location: bezero_menua.php");
             exit();
         } else {
-            
+
             header("Location: bezero_saioa_hasi.php?error=1");
             exit();
         }

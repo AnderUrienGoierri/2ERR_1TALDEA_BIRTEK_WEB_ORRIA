@@ -14,16 +14,16 @@ $mezua = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'delete_sarrera_lerroa') {
     try {
         $id_lerroa = $_POST['id_sarrera_lerroa'];
-        
+
         // Egiaztatu lerroa hornitzailearena den eta "Bidean" dagoen
         $stmt_check = $konexioa->prepare("
-            SELECT sl.id_sarrera_lerroa 
+            SELECT sl.id_sarrera_lerroa
             FROM sarrera_lerroak sl
             JOIN sarrerak s ON sl.sarrera_id = s.id_sarrera
             WHERE sl.id_sarrera_lerroa = ? AND s.hornitzailea_id = ? AND sl.sarrera_lerro_egoera = 'Bidean'
         ");
         $stmt_check->execute([$id_lerroa, $id_hornitzailea]);
-        
+
         if ($stmt_check->fetch()) {
             $stmt_del = $konexioa->prepare("DELETE FROM sarrera_lerroak WHERE id_sarrera_lerroa = ?");
             $stmt_del->execute([$id_lerroa]);
@@ -39,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 // Fetch shipments (sarrerak + lerroak)
 // Joining sarrerak, sarrera_lerroak, and produktuak
 $sql = "
-    SELECT 
-        s.id_sarrera, 
-        s.data, 
+    SELECT
+        s.id_sarrera,
+        s.data,
         s.sarrera_egoera,
         sl.id_sarrera_lerroa,
         sl.kantitatea,
@@ -69,14 +69,14 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Sarrerak Kudeatu - BIRTEK</title>
     <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../css/estiloak_globala.css">
-    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css"> 
+    <link rel="stylesheet" href="../css/estiloak_bezero_eskaerak.css">
     <link rel="stylesheet" href="../css/estiloak_hornitzaile_menua.css">
 </head>
 <body class="web-gorputza">
     <?php include_once 'goiburua.php'; ?>
 
     <main class="eduki-nagusia">
-        <div class="eskari-edukiontzia"> 
+        <div class="eskari-edukiontzia">
             <a href="hornitzaile_menua.php" class="atzera-botoia"><i class="fas fa-arrow-left"></i> Atzera</a>
             <h2>Nire Sarrerak (Bidalketak)</h2>
 

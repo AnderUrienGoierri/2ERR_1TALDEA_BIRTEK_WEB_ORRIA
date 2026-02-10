@@ -25,7 +25,7 @@ $izena = $_SESSION['izena'];
 
     <main class="eduki-nagusia">
         <h2 class="ongi-etorri-mezua">Kaixo, <?= htmlspecialchars($izena) ?>!</h2>
-        
+
         <div class="menu-bezeroa">
             <!-- Button 1: Datu-Pertsonalak aldatu -->
             <a href="bezero_datuak_aldatu.php" class="menu-txartela">
@@ -38,8 +38,7 @@ $izena = $_SESSION['izena'];
                 <i class="fas fa-shopping-bag menu-ikonoa"></i>
                 <span class="menu-izenburua">Erosketak Kudeatu</span>
             </a>
-            
-             <!-- Button 3: Produktuak Ikusi -->
+            <!-- Button 3: Produktuak Ikusi -->
             <a href="produktuak.php" class="menu-txartela">
                 <i class="fas fa-store menu-ikonoa"></i>
                 <span class="menu-izenburua">Produktuak Ikusi</span>

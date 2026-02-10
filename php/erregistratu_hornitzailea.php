@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefonoa = '000000000';
 
     try {
-        // Check if email already exists
+        // egiaztatau emaila existitzen den
         $check = $konexioa->prepare("SELECT id_hornitzailea FROM hornitzaileak WHERE emaila = :emaila");
         $check->execute([':emaila' => $emaila]);
         if ($check->rowCount() > 0) {
@@ -58,16 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([
             ':izena' => $izena,
             ':emaila' => $emaila,
-            ':pasahitza' => $pasahitza, // Plain text for consistency
+            ':pasahitza' => $pasahitza,
             ':helbidea' => $helbidea,
             ':ifz' => $ifz_nan,
             ':herria' => $herria_id,
             ':pk' => $posta_kodea,
             ':tel' => $telefonoa,
-            ':kontaktu' => $izena // Default to company name
+            ':kontaktu' => $izena
         ]);
 
-        // Auto login
+        // auto-logina
         $_SESSION['id_hornitzailea'] = $konexioa->lastInsertId();
         $_SESSION['izena_soziala'] = $izena;
         $_SESSION['emaila'] = $emaila;
