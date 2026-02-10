@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($mota == 'Kablea')
                 $db_mota = 'Kableak';
 
-            $stmtProd = $konexioa->prepare("INSERT INTO produktuak (izena, marka, mota, deskribapena, salmenta_prezioa, stock, hornitzaile_id, kategoria_id, aktibo, salgai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0)");
+            $stmtProd = $konexioa->prepare("INSERT INTO produktuak (izena, marka, mota, deskribapena, salmenta_prezioa, stock, hornitzaile_id, kategoria_id, biltegi_id, salgai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0)");
             $stmtProd->execute([$izena, $marka, $db_mota, $deskribapena, $prezioa, $stock, $id_hornitzailea, $kategoria_id]);
             $produktua_id = $konexioa->lastInsertId();
 
@@ -204,8 +204,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ':qty' => $kantitatea
             ]);
 
+            // 3. Produktuaren stock-a eguneratu
+            $stmtUpdate = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
+            $stmtUpdate->execute([
+                ':qty' => $kantitatea,
+                ':pid' => $produktua_id
+            ]);
+
             $konexioa->commit();
-            $mezua = "Sarrera ondo erregistratu da! Produktua bidean dago.";
+            $mezua = "Sarrera ondo erregistratu da! Produktua bidean dago eta stock-a eguneratu da.";
         } else {
             throw new Exception("Datu guztiak beharrezkoak dira.");
         }
@@ -297,7 +304,7 @@ try {
                             rows="3"></textarea>
 
                         <!-- Eremu Dinamikoen Edukiontziak -->
-                        <div id="fields_eramangarria" class="dynamic-fields ezkutuan">
+                        <div id="fields_eramangarria" class="ezkutuan">
                             <h4>Eramangarria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="eram_prozesadorea" placeholder="Prozesadorea (Adib: i7-1360P)">
@@ -311,7 +318,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_mahaigainekoa" class="dynamic-fields ezkutuan">
+                        <div id="fields_mahaigainekoa" class="ezkutuan">
                             <h4>Mahai-gainekoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="mahai_prozesadorea" placeholder="Prozesadorea">
@@ -329,7 +336,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_mugikorra" class="dynamic-fields ezkutuan">
+                        <div id="fields_mugikorra" class=" ezkutuan">
                             <h4>Mugikorra Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="mug_pantaila_teknologia"
@@ -348,7 +355,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_tableta" class="dynamic-fields ezkutuan">
+                        <div id="fields_tableta" class="ezkutuan">
                             <h4>Tableta Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" step="0.1" name="tab_pantaila_hazbeteak"
@@ -402,7 +409,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_softwarea" class="dynamic-fields ezkutuan">
+                        <div id="fields_softwarea" class= "ezkutuan">
                             <h4>Softwarea Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="soft_mota" class="inprimaki-sarrera">
@@ -422,7 +429,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_periferikoa" class="dynamic-fields ezkutuan">
+                        <div id="fields_periferikoa" class="ezkutuan">
                             <h4>Periferikoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="peri_mota" class="inprimaki-sarrera">
@@ -492,6 +499,10 @@ try {
                 $('#section-new').addClass('ezkutuan');
                 $('#section-existing').removeClass('ezkutuan');
                 $('#mota_sarrera').val('existing');
+                
+                // Form validation fix: disable inputs in hidden section
+                $('#section-new :input').prop('disabled', true);
+                $('#section-existing :input').prop('disabled', false);
             });
             $('#btn-new').click(function () {
                 $('.trukatu-botoia').removeClass('aktibo');
@@ -499,7 +510,14 @@ try {
                 $('#section-existing').addClass('ezkutuan');
                 $('#section-new').removeClass('ezkutuan');
                 $('#mota_sarrera').val('new');
+
+                // Form validation fix: disable inputs in hidden section
+                $('#section-existing :input').prop('disabled', true);
+                $('#section-new :input').prop('disabled', false);
             });
+            
+            // Initialization: disable the hidden section inputs on load
+            $('#section-new :input').prop('disabled', true);
         });
 
         function toggleFormFields() {
@@ -507,7 +525,7 @@ try {
             $('.dynamic-fields').addClass('ezkutuan');
 
             var mota = $('#produktu_mota_select').val();
-            // 'mota' ID-ra mapatu (Katea normalizatu: espazioak kendu, minuskulara)
+            // 'mota' ID-ra mapatu
             // Baina switch/if mapa erabili dezakegu balioak ezagunak direnez
             var targetId = "";
             if (mota === "Eramangarria") targetId = "fields_eramangarria";
