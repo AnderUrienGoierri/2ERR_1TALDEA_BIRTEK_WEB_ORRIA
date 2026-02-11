@@ -120,18 +120,5 @@ try {
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/globala.js"></script>
   <script src="../js/hornitzaile_saioa_hasi.js"></script>
-  <script>
-    $(document).on("session:valid", function (e, user, type) {
-      var menuUrl = (type === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
-      $(".kontaktu-sareta").html(
-        '<div class="testua-zentratuta ongietorri-kutxa-osagarria">' +
-        '<h2 class="tartea-behean-1">Ongi etorri berriro, ' + user + "!</h2>" +
-        '<p class="tartea-behean-1-5">Dagoeneko saioa hasita daukazu.</p>' +
-        '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
-        '</div>'
-      );
-    });
-  </script>
 </body>
-
 </html>

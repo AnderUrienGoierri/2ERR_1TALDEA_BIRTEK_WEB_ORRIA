@@ -280,11 +280,6 @@ try {
                 ?>
                   <div class="produktu-txartela" data-id="<?php echo $produktua['id_produktua']; ?>">
                     <div class="txartel-irudia">
-                <!-- $p = $produktuak['irudia_url']-->
-                <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
-                <!-- <img src ="$rutaAbs . $p"-->
-                      <img
-
                         src="<?php echo htmlspecialchars($produktua['irudia_url']); ?>"
                         alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
                         class="txartel-irudia"

@@ -120,19 +120,6 @@ try {
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/globala.js"></script>
   <script src="../js/bezero_saioa_hasi.js"></script>
-  <script>
-    // saioa hasita badago:
-    $(document).on("saioa:baliozkoa", function (e, erabiltzailea, mota) {
-      var menuUrl = (mota === 'hornitzailea') ? 'hornitzaile_menua.php' : 'bezero_menua.php';
-      $(".kontaktu-sareta").html(
-        '<div>' +
-        '<h2>Ongi etorri berriro, ' + erabiltzailea + "!</h2>" +
-        '<p>Dagoeneko saioa hasita daukazu.</p>' +
-        '<a href="' + menuUrl + '" class="botoia botoi-nagusia">Joan Nire Menura</a>' +
-        '</div>'
-      );
-    });
-  </script>
 </body>
 
 </html>

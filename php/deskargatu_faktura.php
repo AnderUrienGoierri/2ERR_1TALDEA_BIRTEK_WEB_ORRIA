@@ -8,37 +8,46 @@ if (!isset($_SESSION['id_bezeroa']) || !isset($_GET['id'])) {
 $id_eskaera = $_GET['id'];
 
 // Bideak definitu
-$base_path = $_SERVER['DOCUMENT_ROOT'] . "/fakturak/";
+$base_url = "http://192.168.115.155/fakturak/fakturak/";
 
-// Fitxategia bilatu (.pdf formatuan bakarrik orain)
+// Fitxategiaren izena eraiki
 $filename = "faktura_" . $id_eskaera . ".pdf";
-$filepath = $base_path . $filename;
+$file_url = $base_url . $filename;
 
-// Bigarren aukera (izen formatu ezberdina bada)
-if (!file_exists($filepath)) {
+// Egiaztatu lehen izen formatuarekin (faktura_XX.pdf)
+$headers = @get_headers($file_url);
+if (!$headers || strpos($headers[0], '200') === false) {
+    // Bigarren aukera (XX.pdf)
     $filename = $id_eskaera . ".pdf";
-    $filepath = $base_path . $filename;
+    $file_url = $base_url . $filename;
+    $headers = @get_headers($file_url);
 }
 
-if (file_exists($filepath)) {
+if ($headers && strpos($headers[0], '200') !== false) {
     // PDFa zerbitzatu deskarga moduan
     header('Content-Description: File Transfer');
     header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="' . basename($filepath) . '"');
+    header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
     header('Expires: 0');
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
-    header('Content-Length: ' . filesize($filepath));
+
+    // Remote fitxategiaren tamaina saiatu lortzen
+    foreach ($headers as $header) {
+        if (stripos($header, 'Content-Length:') === 0) {
+            header($header);
+            break;
+        }
+    }
 
     // Buffer-a garbitu
     ob_clean();
     flush();
 
     // Fitxategia irakurri eta bidali
-    readfile($filepath);
+    readfile($file_url);
     exit;
 } else {
-    // Errore mezu polita (aukerakoa, baina hobe die baino)
-    die("Faktura ez da aurkitu zerbitzarian ($filename).");
+    die("Faktura ez da aurkitu zerbitzarian: " . $filename);
 }
 ?>
