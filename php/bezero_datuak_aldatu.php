@@ -264,23 +264,6 @@ $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
     <?php include 'footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#herria_id').on('change', function () {
-                if ($(this).val() === 'berria') {
-                    $('#herri_berria_atala').slideDown();
-                    $('#herria_berria').attr('required', true);
-                    $('#lurraldea_berria').attr('required', true);
-                    $('#nazioa_berria').attr('required', true);
-                } else {
-                    $('#herri_berria_atala').slideUp();
-                    $('#herria_berria').removeAttr('required');
-                    $('#lurraldea_berria').removeAttr('required');
-                    $('#nazioa_berria').removeAttr('required');
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
