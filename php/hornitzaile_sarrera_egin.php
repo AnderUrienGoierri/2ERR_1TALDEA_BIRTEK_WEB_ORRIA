@@ -13,208 +13,35 @@ $mezua = "";
 
 // Inprimakiaren bidalketa kudeatu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mota_sarrera = $_POST['mota_sarrera']; // 'existing' (lehendik dagoena) edo 'new' (berria)
     $kantitatea = $_POST['kantitatea'];
 
     try {
         $konexioa->beginTransaction();
-        $produktua_id = null;
 
-        if ($mota_sarrera == 'existing') {
-            $produktua_id = $_POST['produktua_id'];
-        } else {
-            // Produktu sarrera berria
-            $izena = trim($_POST['izena']);
-            $marka = trim($_POST['marka']);
-            $mota = $_POST['mota']; // ENUM balioa
-            $deskribapena = trim($_POST['deskribapena']);
-            $stock = 0; // 0 lehenetsia erabiltzaileak eskatu bezala (artikuluak 'Bidean' datoz)
-            $prezioa = 0.00; // Sarrera kenduta, 0 lehenetsia
+        // Produktoaren datu guztiak JSON batean bildu (katalogora ez gehitzeko oraindik)
+        $produktu_datuak = $_POST;
+        // Kantitatea kendu JSONetik, sarrera-lerroan gordeko baita separatuta
+        unset($produktu_datuak['kantitatea']);
+        $json_datuak = json_encode($produktu_datuak, JSON_UNESCAPED_UNICODE);
 
-            // Kategoria ID-a zehaztu
-            // 1: Ordenagailuak (Eramangarria, Mahai-gainekoa)
-            // 2: Telefonia (Mugikorra, Tableta)
-            // 3: Irudia (Pantaila)
-            // 4: Osagarriak (Periferikoa, Kablea) -> Oharra: 'Kablea' hautapenean, 'kableak' taulan
-            // 5: Softwarea (Softwarea)
-            // 6: Sareak eta Zerbitzariak (Zerbitzaria)
-
-            $kategoria_id = 1; // Lehenetsia
-            switch ($mota) {
-                case 'Eramangarria':
-                case 'Mahai-gainekoa':
-                    $kategoria_id = 1;
-                    break;
-                case 'Mugikorra':
-                case 'Tableta':
-                    $kategoria_id = 2;
-                    break;
-                case 'Pantaila':
-                    $kategoria_id = 3;
-                    break;
-                case 'Periferikoa':
-                case 'Kablea':
-                    $kategoria_id = 4;
-                    break;
-                case 'Softwarea':
-                    $kategoria_id = 5;
-                    break;
-                case 'Zerbitzaria':
-                    $kategoria_id = 6;
-                    break;
-            }
-
-            // Taula nagusian txertatu
-            // DBko 'mota' ENUM-a eguneratu beharko litzateke 'Kablea' edo 'Periferikoa' zehaztasunez ez badago
-            // DB ENUM: 'Generikoa','Eramangarria','Mahai-gainekoa','Mugikorra','Tableta','Zerbitzaria','Pantaila','Softwarea','Periferikoak','Kableak'
-            // Nire hautapen balioak: 'Periferikoa', 'Kablea'. DB ENUM-era mapatu behar dira.
-            $db_mota = $mota;
-            if ($mota == 'Periferikoa')
-                $db_mota = 'Periferikoak';
-            if ($mota == 'Kablea')
-                $db_mota = 'Kableak';
-
-            $stmtProd = $konexioa->prepare("INSERT INTO produktuak (izena, marka, mota, deskribapena, salmenta_prezioa, stock, hornitzaile_id, kategoria_id, biltegi_id, salgai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 0)");
-            $stmtProd->execute([$izena, $marka, $db_mota, $deskribapena, $prezioa, $stock, $id_hornitzailea, $kategoria_id]);
-            $produktua_id = $konexioa->lastInsertId();
-
-            // Azpi-tauletan txertatu
-            switch ($mota) {
-                case 'Eramangarria':
-                    $stmtSub = $konexioa->prepare("INSERT INTO eramangarriak (id_produktua, prozesadorea, ram_gb, diskoa_gb, pantaila_tamaina, bateria_wh, sistema_eragilea, pisua_kg) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['eram_prozesadorea'],
-                        $_POST['eram_ram_gb'],
-                        $_POST['eram_diskoa_gb'],
-                        $_POST['eram_pantaila_tamaina'],
-                        $_POST['eram_bateria_wh'],
-                        $_POST['eram_sistema_eragilea'],
-                        $_POST['eram_pisua_kg']
-                    ]);
-                    break;
-                case 'Mahai-gainekoa':
-                    $stmtSub = $konexioa->prepare("INSERT INTO mahai_gainekoak (id_produktua, prozesadorea, plaka_basea, ram_gb, diskoa_gb, txartel_grafikoa, elikatze_iturria_w, kaxa_formatua) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['mahai_prozesadorea'],
-                        $_POST['mahai_plaka_basea'],
-                        $_POST['mahai_ram_gb'],
-                        $_POST['mahai_diskoa_gb'],
-                        $_POST['mahai_txartel_grafikoa'],
-                        $_POST['mahai_elikatze_iturria_w'],
-                        $_POST['mahai_kaxa_formatua']
-                    ]);
-                    break;
-                case 'Mugikorra':
-                    $stmtSub = $konexioa->prepare("INSERT INTO mugikorrak (id_produktua, pantaila_teknologia, pantaila_hazbeteak, biltegiratzea_gb, ram_gb, kamera_nagusa_mp, bateria_mah, sistema_eragilea, sareak) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['mug_pantaila_teknologia'],
-                        $_POST['mug_pantaila_hazbeteak'],
-                        $_POST['mug_biltegiratzea_gb'],
-                        $_POST['mug_ram_gb'],
-                        $_POST['mug_kamera_nagusa_mp'],
-                        $_POST['mug_bateria_mah'],
-                        $_POST['mug_sistema_eragilea'],
-                        $_POST['mug_sareak']
-                    ]);
-                    break;
-                case 'Tableta':
-                    $stmtSub = $konexioa->prepare("INSERT INTO tabletak (id_produktua, pantaila_hazbeteak, biltegiratzea_gb, konektibitatea, sistema_eragilea, bateria_mah, arkatzarekin_bateragarria) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['tab_pantaila_hazbeteak'],
-                        $_POST['tab_biltegiratzea_gb'],
-                        $_POST['tab_konektibitatea'],
-                        $_POST['tab_sistema_eragilea'],
-                        $_POST['tab_bateria_mah'],
-                        isset($_POST['tab_arkatzarekin']) ? 1 : 0
-                    ]);
-                    break;
-                case 'Zerbitzaria':
-                    $stmtSub = $konexioa->prepare("INSERT INTO zerbitzariak (id_produktua, prozesadore_nukleoak, ram_mota, disko_badiak, rack_unitateak, elikatze_iturri_erredundantea, raid_kontroladora) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['zerb_prozesadore_nukleoak'],
-                        $_POST['zerb_ram_mota'],
-                        $_POST['zerb_disko_badiak'],
-                        $_POST['zerb_rack_unitateak'],
-                        isset($_POST['zerb_elikatze_erredundantea']) ? 1 : 0,
-                        $_POST['zerb_raid_kontroladora']
-                    ]);
-                    break;
-                case 'Pantaila':
-                    $stmtSub = $konexioa->prepare("INSERT INTO pantailak (id_produktua, hazbeteak, bereizmena, panel_mota, freskatze_tasa_hz, konexioak, kurbatura) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['pan_hazbeteak'],
-                        $_POST['pan_bereizmena'],
-                        $_POST['pan_panel_mota'],
-                        $_POST['pan_freskatze_tasa_hz'],
-                        $_POST['pan_konexioak'],
-                        $_POST['pan_kurbatura']
-                    ]);
-                    break;
-                case 'Softwarea':
-                    $stmtSub = $konexioa->prepare("INSERT INTO softwareak (id_produktua, software_mota, lizentzia_mota, bertsioa, garatzailea) VALUES (?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['soft_mota'],
-                        $_POST['soft_lizentzia'],
-                        $_POST['soft_bertsioa'],
-                        $_POST['soft_garatzailea']
-                    ]);
-                    break;
-                case 'Periferikoa':
-                    $stmtSub = $konexioa->prepare("INSERT INTO periferikoak (id_produktua, periferiko_mota, konexioa, ezaugarriak, argiztapena) VALUES (?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['peri_mota'],
-                        $_POST['peri_konexioa'],
-                        $_POST['peri_ezaugarriak'],
-                        isset($_POST['peri_argiztapena']) ? 1 : 0
-                    ]);
-                    break;
-                case 'Kablea':
-                    $stmtSub = $konexioa->prepare("INSERT INTO kableak (id_produktua, kable_mota, luzera_m, konektore_a, konektore_b, bertsioa) VALUES (?, ?, ?, ?, ?, ?)");
-                    $stmtSub->execute([
-                        $produktua_id,
-                        $_POST['kab_mota'],
-                        $_POST['kab_luzera_m'],
-                        $_POST['kab_konektore_a'],
-                        $_POST['kab_konektore_b'],
-                        $_POST['kab_bertsioa']
-                    ]);
-                    break;
-            }
-        }
-
-        if ($produktua_id && $kantitatea > 0) {
+        if ($kantitatea > 0) {
             // 1. Sarreretan txertatu
             $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, 1, 'Bidean', NOW())");
             $stmt->execute([':hid' => $id_hornitzailea]);
             $sarrera_id = $konexioa->lastInsertId();
 
-            // 2. Sarrera lerroetan txertatu
-            $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera) VALUES (:sid, :pid, :qty, 'Bidean')");
+            // 2. Sarrera lerroetan txertatu (produktua_id = NULL baimendu dugu DBan)
+            $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera, produktu_berria_datuak) VALUES (:sid, NULL, :qty, 'Bidean', :data)");
             $stmtLine->execute([
                 ':sid' => $sarrera_id,
-                ':pid' => $produktua_id,
-                ':qty' => $kantitatea
-            ]);
-
-            // 3. Produktuaren stock-a eguneratu
-            $stmtUpdate = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
-            $stmtUpdate->execute([
                 ':qty' => $kantitatea,
-                ':pid' => $produktua_id
+                ':data' => $json_datuak
             ]);
 
             $konexioa->commit();
-            $mezua = "Sarrera ondo erregistratu da! Produktua bidean dago eta stock-a eguneratu da.";
+            $mezua = "Sarrera ondo erregistratu da! Produktu berria egiaztatzeko zain dago (Langileek 'Jasota' gisa markatzean katalogoan sartuko da).";
         } else {
-            throw new Exception("Datu guztiak beharrezkoak dira.");
+            throw new Exception("Sarrera kopurua 1 baino handiagoa izan behar da.");
         }
     } catch (Exception $e) {
         if ($konexioa->inTransaction())
@@ -222,16 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mezua = "Errorea sarrera egitean: " . $e->getMessage();
     }
 }
-
-// Hornitzailearen produktuak lortu dropdown-erako
-$produktuak = [];
-try {
-    $stmt = $konexioa->prepare("SELECT id_produktua, izena, marka FROM produktuak WHERE hornitzaile_id = :hid ORDER BY izena");
-    $stmt->execute([':hid' => $id_hornitzailea]);
-    $produktuak = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="eu">
@@ -251,42 +68,21 @@ try {
 
     <main class="eduki-nagusia">
         <div class="kontaktu-edukiontzia">
-            <h2 class="kontaktua-titulua">Sarrera Berria Erregistratu</h2>
-
-            <div class="inprimaki-trukatu">
-                <button type="button" class="trukatu-botoia aktibo" id="btn-existing">Lehendik dagoena</button>
-                <button type="button" class="trukatu-botoia" id="btn-new">Produktu Berria</button>
-            </div>
+            <h2 class="kontaktua-titulua">Produktu Berria Erregistratu</h2>
 
             <div class="inprimaki-kutxa sarrera-edukiontzia">
                 <?php if ($mezua): ?>
                     <p class="mezu-kutxa <?= strpos($mezua, 'Errorea') !== false ? 'mezu-errorea' : 'mezu-arrakasta' ?>">
-                        <?= $mezua ?>
+                        <?= htmlspecialchars($mezua) ?>
                     </p>
                 <?php endif; ?>
 
-                <form class="kontaktu-inprimaki-diseinua" method="POST" id="main-form">
-                    <input type="hidden" name="mota_sarrera" id="mota_sarrera" value="existing">
-
-                    <div id="section-existing">
-                        <label class="label-input-fitxategia">Aukeratu Produktua:</label>
-                        <select name="produktua_id" class="produktu-hautatzailea">
-                            <option value="">-- Aukeratu --</option>
-                            <?php foreach ($produktuak as $prod): ?>
-                                <option value="<?= $prod['id_produktua'] ?>">
-                                    <?= htmlspecialchars($prod['izena']) ?> (<?= htmlspecialchars($prod['marka']) ?>)
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div id="section-new" class="ezkutuan">
+                <form class="kontaktu-inprimaki-diseinua" method="POST" id="sarrera_inprimaki_nagusia">
+                    <div id="atal_produktua_berria">
                         <div class="sarrera-sareta-berria">
-                            <input type="text" name="izena" class="inprimaki-sarrera" placeholder="Produktuaren Izena"
-                                required>
+                            <input type="text" name="izena" class="inprimaki-sarrera" placeholder="Produktuaren Izena" required>
                             <input type="text" name="marka" class="inprimaki-sarrera" placeholder="Marka" required>
-                            <select name="mota" id="produktu_mota_select" class="inprimaki-sarrera" required
-                                onchange="toggleFormFields()">
+                            <select name="mota" id="produktu_mota_hautatzailea" class="inprimaki-sarrera" required onchange="eremuDinamikoakKudeatu()">
                                 <option value="" disabled selected>Aukeratu Mota</option>
                                 <option value="Eramangarria">Eramangarria</option>
                                 <option value="Mahai-gainekoa">Mahai-gainekoa</option>
@@ -298,27 +94,24 @@ try {
                                 <option value="Periferikoa">Periferikoa</option>
                                 <option value="Kablea">Kablea</option>
                             </select>
-                            <!-- Stock sarrera kendu da erabiltzaileak eskatu bezala -->
                         </div>
-                        <textarea name="deskribapena" class="inprimaki-sarrera" placeholder="Deskribapena"
-                            rows="3"></textarea>
+                        <textarea name="deskribapena" class="inprimaki-sarrera" placeholder="Deskribapena" rows="3"></textarea>
 
                         <!-- Eremu Dinamikoen Edukiontziak -->
-                        <div id="fields_eramangarria" class="ezkutuan">
+                        <div id="eremuak_eramangarria" class="eremu-dinamikoak ezkutuan">
                             <h4>Eramangarria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="eram_prozesadorea" placeholder="Prozesadorea (Adib: i7-1360P)">
                                 <input type="number" name="eram_ram_gb" placeholder="RAM (GB)">
                                 <input type="number" name="eram_diskoa_gb" placeholder="Diskoa (GB)">
-                                <input type="number" step="0.1" name="eram_pantaila_tamaina"
-                                    placeholder="Pantaila (hazbeteak)">
+                                <input type="number" step="0.1" name="eram_pantaila_tamaina" placeholder="Pantaila (hazbeteak)">
                                 <input type="number" name="eram_bateria_wh" placeholder="Bateria (Wh)">
                                 <input type="text" name="eram_sistema_eragilea" placeholder="Sistema Eragilea">
                                 <input type="number" step="0.01" name="eram_pisua_kg" placeholder="Pisua (Kg)">
                             </div>
                         </div>
 
-                        <div id="fields_mahaigainekoa" class="ezkutuan">
+                        <div id="eremuak_mahaigainekoa" class="eremu-dinamikoak ezkutuan">
                             <h4>Mahai-gainekoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="text" name="mahai_prozesadorea" placeholder="Prozesadorea">
@@ -336,13 +129,11 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_mugikorra" class=" ezkutuan">
+                        <div id="eremuak_mugikorra" class="eremu-dinamikoak ezkutuan">
                             <h4>Mugikorra Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
-                                <input type="text" name="mug_pantaila_teknologia"
-                                    placeholder="Pantaila Teknologia (OLED...)">
-                                <input type="number" step="0.1" name="mug_pantaila_hazbeteak"
-                                    placeholder="Pantaila (hazbeteak)">
+                                <input type="text" name="mug_pantaila_teknologia" placeholder="Pantaila Teknologia (OLED...)">
+                                <input type="number" step="0.1" name="mug_pantaila_hazbeteak" placeholder="Pantaila (hazbeteak)">
                                 <input type="number" name="mug_biltegiratzea_gb" placeholder="Biltegiratzea (GB)">
                                 <input type="number" name="mug_ram_gb" placeholder="RAM (GB)">
                                 <input type="number" name="mug_kamera_nagusa_mp" placeholder="Kamera (MP)">
@@ -355,11 +146,10 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_tableta" class="ezkutuan">
+                        <div id="eremuak_tableta" class="eremu-dinamikoak ezkutuan">
                             <h4>Tableta Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
-                                <input type="number" step="0.1" name="tab_pantaila_hazbeteak"
-                                    placeholder="Pantaila (hazbeteak)">
+                                <input type="number" step="0.1" name="tab_pantaila_hazbeteak" placeholder="Pantaila (hazbeteak)">
                                 <input type="number" name="tab_biltegiratzea_gb" placeholder="Biltegiratzea (GB)">
                                 <select name="tab_konektibitatea" class="inprimaki-sarrera">
                                     <option value="WiFi">WiFi</option>
@@ -373,7 +163,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_zerbitzaria" class="dynamic-fields ezkutuan">
+                        <div id="eremuak_zerbitzaria" class="eremu-dinamikoak ezkutuan">
                             <h4>Zerbitzaria Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" name="zerb_prozesadore_nukleoak" placeholder="CPU Nukleoak">
@@ -386,13 +176,12 @@ try {
                                 <input type="number" name="zerb_rack_unitateak" placeholder="Rack Unitateak (U)">
                                 <input type="text" name="zerb_raid_kontroladora" placeholder="RAID Kontroladora">
                                 <label class="label-flex">
-                                    <input type="checkbox" name="zerb_elikatze_erredundantea" checked> Elikatze Iturri
-                                    Erredundantea
+                                    <input type="checkbox" name="zerb_elikatze_erredundantea" checked> Elikatze Iturri Erredundantea
                                 </label>
                             </div>
                         </div>
 
-                        <div id="fields_pantaila" class="dynamic-fields ezkutuan">
+                        <div id="eremuak_pantaila" class="eremu-dinamikoak ezkutuan">
                             <h4>Pantaila Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <input type="number" step="0.1" name="pan_hazbeteak" placeholder="Hazbeteak">
@@ -409,7 +198,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_softwarea" class= "ezkutuan">
+                        <div id="eremuak_softwarea" class="eremu-dinamikoak ezkutuan">
                             <h4>Softwarea Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="soft_mota" class="inprimaki-sarrera">
@@ -429,7 +218,7 @@ try {
                             </div>
                         </div>
 
-                        <div id="fields_periferikoa" class="ezkutuan">
+                        <div id="eremuak_periferikoa" class="eremu-dinamikoak ezkutuan">
                             <h4>Periferikoa Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="peri_mota" class="inprimaki-sarrera">
@@ -443,15 +232,14 @@ try {
                                     <option value="Bestelakoak">Bestelakoak</option>
                                 </select>
                                 <input type="text" name="peri_konexioa" placeholder="Konexioa (USB, Bluetooth...)">
-                                <textarea name="peri_ezaugarriak" class="inprimaki-sarrera"
-                                    placeholder="Ezaugarriak (DPI, Mekanikoa...)" rows="1"></textarea>
+                                <textarea name="peri_ezaugarriak" class="inprimaki-sarrera" placeholder="Ezaugarriak (DPI, Mekanikoa...)" rows="1"></textarea>
                                 <label class="label-flex">
                                     <input type="checkbox" name="peri_argiztapena"> Argiztapena
                                 </label>
                             </div>
                         </div>
 
-                        <div id="fields_kablea" class="dynamic-fields ezkutuan">
+                        <div id="eremuak_kablea" class="eremu-dinamikoak ezkutuan">
                             <h4>Kablea Ezaugarriak</h4>
                             <div class="sarrera-sareta-berria">
                                 <select name="kab_mota" class="inprimaki-sarrera">
@@ -477,13 +265,11 @@ try {
                         <input type="number" name="kantitatea" min="1" class="inprimaki-sarrera" required>
                     </div>
 
-                    <button type="submit" class="botoia botoi-nagusia inprimaki-bidali-botoia">Bidali
-                        Produktuak</button>
+                    <button type="submit" class="botoia botoi-nagusia inprimaki-bidali-botoia">Bidali Produktuak</button>
                 </form>
 
                 <div class="atzera-esteka-edukiontzia">
-                    <a href="hornitzaile_menua.php" class="atzera-esteka-estiloa"><i class="fas fa-arrow-left"></i>
-                        Atzera Menura</a>
+                    <a href="hornitzaile_menua.php" class="atzera-esteka-estiloa"><i class="fas fa-arrow-left"></i> Atzera Menura</a>
                 </div>
             </div>
         </div>
@@ -492,57 +278,30 @@ try {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/globala.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#btn-existing').click(function () {
-                $('.trukatu-botoia').removeClass('aktibo');
-                $(this).addClass('aktibo');
-                $('#section-new').addClass('ezkutuan');
-                $('#section-existing').removeClass('ezkutuan');
-                $('#mota_sarrera').val('existing');
-                
-                // Form validation fix: disable inputs in hidden section
-                $('#section-new :input').prop('disabled', true);
-                $('#section-existing :input').prop('disabled', false);
-            });
-            $('#btn-new').click(function () {
-                $('.trukatu-botoia').removeClass('aktibo');
-                $(this).addClass('aktibo');
-                $('#section-existing').addClass('ezkutuan');
-                $('#section-new').removeClass('ezkutuan');
-                $('#mota_sarrera').val('new');
+        function eremuDinamikoakKudeatu() {
+            // Dinamikoki erakutsitako eremu guztiak ezkutatu eta desgaitu
+            $('.eremu-dinamikoak').addClass('ezkutuan');
+            $('.eremu-dinamikoak :input').prop('disabled', true);
 
-                // Form validation fix: disable inputs in hidden section
-                $('#section-existing :input').prop('disabled', true);
-                $('#section-new :input').prop('disabled', false);
-            });
-            
-            // Initialization: disable the hidden section inputs on load
-            $('#section-new :input').prop('disabled', true);
-        });
-
-        function toggleFormFields() {
-            // Dinamikoki erakutsitako eremu guztiak ezkutatu
-            $('.dynamic-fields').addClass('ezkutuan');
-
-            var mota = $('#produktu_mota_select').val();
-            // 'mota' ID-ra mapatu
-            // Baina switch/if mapa erabili dezakegu balioak ezagunak direnez
+            var mota = $('#produktu_mota_hautatzailea').val();
             var targetId = "";
-            if (mota === "Eramangarria") targetId = "fields_eramangarria";
-            else if (mota === "Mahai-gainekoa") targetId = "fields_mahaigainekoa";
-            else if (mota === "Mugikorra") targetId = "fields_mugikorra";
-            else if (mota === "Tableta") targetId = "fields_tableta";
-            else if (mota === "Zerbitzaria") targetId = "fields_zerbitzaria";
-            else if (mota === "Pantaila") targetId = "fields_pantaila";
-            else if (mota === "Softwarea") targetId = "fields_softwarea";
-            else if (mota === "Periferikoa") targetId = "fields_periferikoa";
-            else if (mota === "Kablea") targetId = "fields_kablea";
+            
+            if (mota === "Eramangarria") targetId = "eremuak_eramangarria";
+            else if (mota === "Mahai-gainekoa") targetId = "eremuak_mahaigainekoa";
+            else if (mota === "Mugikorra") targetId = "eremuak_mugikorra";
+            else if (mota === "Tableta") targetId = "eremuak_tableta";
+            else if (mota === "Zerbitzaria") targetId = "eremuak_zerbitzaria";
+            else if (mota === "Pantaila") targetId = "eremuak_pantaila";
+            else if (mota === "Softwarea") targetId = "eremuak_softwarea";
+            else if (mota === "Periferikoa") targetId = "eremuak_periferikoa";
+            else if (mota === "Kablea") targetId = "eremuak_kablea";
 
             if (targetId) {
-                $('#' + targetId).removeClass('ezkutuan');
+                var targetEremua = $('#' + targetId);
+                targetEremua.removeClass('ezkutuan');
+                targetEremua.find(':input').prop('disabled', false);
             }
         }
     </script>
 </body>
-
 </html>

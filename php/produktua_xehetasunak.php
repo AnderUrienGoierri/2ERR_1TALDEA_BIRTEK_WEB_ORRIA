@@ -192,7 +192,11 @@ if ($id > 0) {
                     </p>
 
                     <div class="ekintza-eremua">
-                        <?php if ($produktua['stock'] > 0): ?>
+                        <?php if ($produktua['salgai'] == 0): ?>
+                            <button class="botoia xehetasunak-agortuta-botoia" style="background-color: #6b7280;" disabled>
+                                Ez dago salgai
+                            </button>
+                        <?php elseif ($produktua['stock'] > 0): ?>
                             <div class="produktu-kantitatea-aldatu">
                                 <label for="botoi-kopurua" class="kantitate-label">Kantitatea:</label>
                                 <button class="kantitate-btn" id="kendu-kantitatea">-</button>

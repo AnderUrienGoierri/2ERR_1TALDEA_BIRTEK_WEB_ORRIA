@@ -37,7 +37,7 @@ session_start();
       <section>
         <div class="azal-kaxa">
           <div>
-            <h1 class="azal-izenburua">Ongi Etorri BIRTEK</h1>
+            <h1 class="azal-izenburua">Ongi Etorri</h1>
             <img
               src="../irudiak/birtek2.jpeg"
               alt="Birtek Eraikin Nagusia"

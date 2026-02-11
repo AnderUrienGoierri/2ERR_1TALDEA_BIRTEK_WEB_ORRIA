@@ -59,11 +59,11 @@ try {
     $irudia = $lerroa['irudia_url'];
     if (!empty($irudia)) {
       // Begiratu ea URL osoa den (http...//) edo fitxategi izen soila
-      if (strpos($irudia, 'http') === 0) {
+      if (strpos($irudia, 'http') === 0 || strpos($irudia, '../') === 0) {
         $final_url = $irudia;
       } else {
-        // Irudiak karpetan badago fitxategia
-        $final_url = '../irudiak/' . $irudia;
+        // Irudiak karpetan badago fitxategia, baina produktuak normalean produktuen_irudiak karpetan daude
+        $final_url = '../produktuen_irudiak/' . $irudia;
       }
     } else {
       $final_url = 'https://via.placeholder.com/300?text=Irudirik+Ez';
@@ -101,7 +101,7 @@ try {
     // Irudiaren URL-a prestatu
     $irudia = $lerroa['irudia_url'];
     if (!empty($irudia)) {
-      $final_url = (strpos($irudia, 'http') === 0) ? $irudia : '../produktuen_irudiak/' . $irudia;
+      $final_url = (strpos($irudia, 'http') === 0 || strpos($irudia, '../') === 0) ? $irudia : '../produktuen_irudiak/' . $irudia;
     } else {
       $final_url = '../irudiak/birtek1.jpeg';
     }
@@ -279,22 +279,22 @@ try {
                 $prezioaFix = number_format($produktua['prezioa'], 2, '.', '');
                 ?>
                   <div class="produktu-txartela" data-id="<?php echo $produktua['id_produktua']; ?>">
-                    <div class="txartel-irudia klikagarria-joan">
+                    <div class="txartel-irudia">
                 <!-- $p = $produktuak['irudia_url']-->
                 <!-- $rutaAbs="/2ERR_1TALDEA_BIRTEK_WEB_ORRIA/produktuen_irudiak" -->
                 <!-- <img src ="$rutaAbs . $p"-->
                       <img
 
-                        src="<?php echo htmlspecialchars('../produktuen_irudiak/'.$produktua['irudia_url']); ?>"
+                        src="<?php echo htmlspecialchars($produktua['irudia_url']); ?>"
                         alt="<?php echo htmlspecialchars($produktua['izena']); ?>"
                         class="txartel-irudia"
                         onerror="this.src='../irudiak/birtek1.jpeg'"
                       />
-                      <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div> 
+                      <div class="txartel-kategoria-txapa"><?php echo htmlspecialchars($produktua['id_kategoria']); ?></div>
                     </div>
                     <div class="txartel-edukia">
-                      <h3 class="txartel-izenburua klikagarria-joan"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
-                      <div class="txartel-informazio-lerroa">
+                      <h3 class="txartel-izenburua"><?php echo htmlspecialchars($produktua['izena']); ?></h3>
+                      <div>
                         <span class="txartel-marka"><?php echo htmlspecialchars($produktua['marka']); ?> | <?php echo htmlspecialchars($produktua['egoera']); ?></span>
                         <span class="<?php echo $stockKlasea; ?>">Stock: <?php echo $produktua['stock']; ?></span>
                       </div>
@@ -307,7 +307,7 @@ try {
                         <button class="produktua-saskiratu-botoia" data-stock="<?php echo $produktua['stock']; ?>" <?php echo $produktua['stock'] === 0 ? 'disabled' : ''; ?>>
                           Saskiratu
                         </button>
-                        <button class="produktua-ikusi-botoia klikagarria-joan">Ikusi</button>
+                        <button class="produktua-ikusi-botoia">Ikusi</button>
                       </div>
                   </div>
                 </div>

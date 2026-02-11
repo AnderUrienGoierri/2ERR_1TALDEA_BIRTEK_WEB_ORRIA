@@ -49,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $herria_id = $konexioa->lastInsertId();
         }
 
-        $sql = "UPDATE hornitzaileak SET 
-                izena_soziala = :izena, 
+        $sql = "UPDATE hornitzaileak SET
+                izena_soziala = :izena,
                 ifz_nan = :ifz_nan,
                 kontaktu_pertsona = :kontaktu,
-                helbidea = :helbidea, 
+                helbidea = :helbidea,
                 herria_id = :herria_id,
                 posta_kodea = :posta_kodea,
                 telefonoa = :telefonoa,

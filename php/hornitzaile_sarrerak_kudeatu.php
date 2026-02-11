@@ -11,7 +11,7 @@ $id_hornitzailea = $_SESSION['id_hornitzailea'];
 $mezua = "";
 
 // 1. EZABATZE LOGIKA
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'delete_sarrera_lerroa') {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ekintza']) && $_POST['ekintza'] === 'ezabatu_sarrera_lerroa') {
     try {
         $id_lerroa = $_POST['id_sarrera_lerroa'];
 
@@ -37,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 }
 
 // Fetch shipments (sarrerak + lerroak)
-// Joining sarrerak, sarrera_lerroak, and produktuak
 $sql = "
     SELECT
         s.id_sarrera,
@@ -46,19 +45,28 @@ $sql = "
         sl.id_sarrera_lerroa,
         sl.kantitatea,
         sl.sarrera_lerro_egoera,
+        sl.produktu_berria_datuak,
         p.id_produktua,
         p.izena as produktu_izena,
         p.marka
     FROM sarrerak s
     JOIN sarrera_lerroak sl ON s.id_sarrera = sl.sarrera_id
-    JOIN produktuak p ON sl.produktua_id = p.id_produktua
+    LEFT JOIN produktuak p ON sl.produktua_id = p.id_produktua
     WHERE s.hornitzailea_id = :hid
     ORDER BY s.data DESC
 ";
 
 $stmt = $konexioa->prepare($sql);
 $stmt->execute([':hid' => $id_hornitzailea]);
-$sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$sarrerak = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    // Produktu berria bada (oraindik katalogoan ez dagoena), JSONetik izena atera
+    if ($row['id_produktua'] === null && $row['produktu_berria_datuak']) {
+        $datuak = json_decode($row['produktu_berria_datuak'], true);
+        $row['produktu_izena'] = ($datuak['izena'] ?? 'Produktu Berria') . " (" . ($datuak['marka'] ?? '...') . ")";
+    }
+    $sarrerak[] = $row;
+}
 
 ?>
 <!DOCTYPE html>
@@ -118,8 +126,8 @@ $sarrerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                                 <td class="sarrera-td-zentratua">
                                     <?php if ($sarrera['sarrera_lerro_egoera'] === 'Bidean'): ?>
-                                        <form method="POST" class="inprimaki-inline form-baieztatu" data-mezua="Ziur zaude sarrera hau ezabatu nahi duzula?">
-                                            <input type="hidden" name="action" value="delete_sarrera_lerroa">
+                                        <form method="POST" class="inprimaki-inline inprimaki-baieztatu" data-mezua="Ziur zaude sarrera hau ezabatu nahi duzula?">
+                                            <input type="hidden" name="ekintza" value="ezabatu_sarrera_lerroa">
                                             <input type="hidden" name="id_sarrera_lerroa" value="<?= $sarrera['id_sarrera_lerroa'] ?>">
                                             <button type="submit" class="ezabatu-lerroa-botoia" title="Ezabatu sarrera">
                                                 <i class="fas fa-trash"></i>
