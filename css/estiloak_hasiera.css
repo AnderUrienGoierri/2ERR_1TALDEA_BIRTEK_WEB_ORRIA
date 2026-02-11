@@ -57,27 +57,84 @@
   margin: 0 auto;
 }
 
-.azal-ekintza-botoia {
+.azal-botoi-taldea {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.azal-botoia {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: var(--kolore-nagusia);
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  padding: 1.25rem 3rem;
+  padding: 1rem 2rem;
   border-radius: 9999px;
-  margin-top: 2.5rem;
-  border: none;
   cursor: pointer;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  transition: var(--trantsizioa);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.azal-ekintza-botoia:hover {
+.azal-botoia:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.azal-botoia:active {
+  transform: translateY(-1px);
+}
+
+.azal-botoi-erosi {
+  background-color: var(--kolore-urdina);
+  border-color: #93c5fd;
+}
+
+.azal-botoi-erosi:hover {
+  background-color: var(--kolore-urdina-iluna);
+  border-color: white;
+}
+
+.azal-botoi-birziklatu {
+  background-color: var(--kolore-nagusia);
+  border-color: var(--kolore-nagusia-tainua);
+}
+
+.azal-botoi-birziklatu:hover {
   background-color: var(--kolore-nagusia-iluna);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(22, 101, 52, 0.2);
+  border-color: white;
+}
+
+/* DISTIRA EFEKTUA */
+.azal-botoia::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: none;
+}
+
+.azal-botoia:hover::after {
+  left: 120%;
+  transition: all 0.6s ease-in-out;
+}
+
+.azal-botoia i {
+  transition: transform 0.3s ease;
+}
+
+.azal-botoia:hover i {
+  transform: scale(1.2) rotate(-10deg);
 }
 
 .hasiera-azal-irudia {
@@ -172,7 +229,7 @@
 }
 
 /* =========================================
-   MEDIA QUERIES
+  MEDIA QUERIES
    ========================================= */
 
 @media (min-width: 768px) {

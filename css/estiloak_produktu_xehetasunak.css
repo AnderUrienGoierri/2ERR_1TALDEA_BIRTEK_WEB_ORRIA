@@ -118,7 +118,6 @@
   background-color: #e5e7eb;
 }
 
-/* Hasieran inline ziren estiloak */
 .xehetasunak-errorea {
   text-align: center;
   padding: 4rem;
@@ -139,7 +138,7 @@
   padding: 1rem;
 }
 
-/* Teknika xehetasunak kutxa */
+/*  xehetasunak kutxa */
 .xehetasun-teknikoak-kutxa {
   background: #f9fafb;
   padding: 0.5rem;

@@ -162,7 +162,7 @@
   margin-top: 1rem;
 }
 
-/* --- SARRERAK KUDEATU STYLES --- */
+/* --- SARRERAK KUDEATU  --- */
 .sarrera-taula {
   width: 100%;
   border-collapse: collapse;
@@ -218,7 +218,7 @@
 }
 
 /* =========================================
-   MEDIA QUERIES
+  MEDIA QUERIES
    ========================================= */
 
 @media (min-width: 640px) {

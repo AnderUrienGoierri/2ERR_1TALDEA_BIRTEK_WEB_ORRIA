@@ -214,7 +214,7 @@ Langileak Orriko Estiloak
 }
 
 /* =========================================
-Erabilgarritasun Klaseak (Utility Classes)
+Erabilgarritasun Klaseak
 ========================================= */
 .testua-zentratuta {
   text-align: center;
@@ -277,7 +277,7 @@ Erabilgarritasun Klaseak (Utility Classes)
   font-size: 0.75rem;
 }
 
-/* ---  (Datuak Aldatu estiloetatik hartuta) --- */
+/* ---   --- */
 .inprimaki-sareta {
   display: grid;
   grid-template-columns: 1fr 1fr;

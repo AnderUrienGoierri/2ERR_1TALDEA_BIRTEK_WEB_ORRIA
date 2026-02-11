@@ -171,7 +171,7 @@ if ($id > 0) {
                             <span class="prezioa-eskaintza">
                                 <?php
                                 // Adibidez, eskaintza kalkulatu nahi bada.
-                                // Hemen 'eskaintza' atributua % bat den edo prezio zuzena den ez dago argi, 
+                                // Hemen 'eskaintza' atributua % bat den edo prezio zuzena den ez dago argi,
                                 // baina bistaratze sinple bat egingo dugu.
                                 echo "Eskaintza: " . $produktua['eskaintza'] . "% DTO";
                                 ?>

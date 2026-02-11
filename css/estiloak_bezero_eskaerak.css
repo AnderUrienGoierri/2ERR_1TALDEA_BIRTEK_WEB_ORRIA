@@ -18,7 +18,7 @@
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .eskari-gorputza {
-  padding: 0.5rem; 
+  padding: 0.5rem;
 }
 
 .taula-scroll-edukiontzia,
@@ -67,7 +67,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
-  min-width: 500px; 
+  min-width: 500px;
 }
 
 .lerro-taula th,
@@ -132,7 +132,7 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%; 
+  width: 100%;
 }
 
 .ezabatu-eskaria-botoia {
