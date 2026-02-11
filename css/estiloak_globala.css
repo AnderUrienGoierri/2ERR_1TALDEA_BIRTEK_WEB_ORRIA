@@ -899,7 +899,6 @@ body {
   border-radius: 9999px;
   cursor: pointer;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
-  transition: var(--trantsizioa);
   text-decoration: none;
   border: 3px solid rgba(255, 255, 255, 0.3);
 }
