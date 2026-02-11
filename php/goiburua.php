@@ -48,7 +48,7 @@
         <?php else: ?>
           <a href="bezero_saioa_hasi.php" class="saioa-hasi-botoia <?php echo (basename($_SERVER['PHP_SELF']) == 'bezero_saioa_hasi.php') ? 'aktibo' : ''; ?>" id="saioa-hasi-botoia">Saioa Hasi</a>
         <?php endif; ?>
-        
+
         <button class="saski-botoia" id="saski-botoia-toggle">
           <i class="fas fa-shopping-cart"></i>
           <span>Saskia</span>

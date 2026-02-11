@@ -12,12 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        
         if ($hornitzailea && $pasahitza === $hornitzailea['pasahitza']) {
             $_SESSION['id_hornitzailea'] = $hornitzailea['id_hornitzailea'];
             $_SESSION['izena_soziala'] = $hornitzailea['izena_soziala'];
             $_SESSION['emaila'] = $hornitzailea['emaila'];
-            
+
             header("Location: hornitzaile_menua.php");
             exit();
         } else {

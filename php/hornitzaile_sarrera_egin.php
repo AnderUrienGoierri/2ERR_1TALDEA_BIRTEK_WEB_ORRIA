@@ -285,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             var mota = $('#produktu_mota_hautatzailea').val();
             var targetId = "";
-            
+
             if (mota === "Eramangarria") targetId = "eremuak_eramangarria";
             else if (mota === "Mahai-gainekoa") targetId = "eremuak_mahaigainekoa";
             else if (mota === "Mugikorra") targetId = "eremuak_mugikorra";
