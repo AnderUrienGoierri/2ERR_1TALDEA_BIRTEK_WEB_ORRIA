@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($kantitatea > 0) {
             // 1. Sarreretan txertatu
-            $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, 1, 'Bidean', NOW())");
+            $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, NULL, 'Bidean', NOW())");
             $stmt->execute([':hid' => $id_hornitzailea]);
             $sarrera_id = $konexioa->lastInsertId();
 
