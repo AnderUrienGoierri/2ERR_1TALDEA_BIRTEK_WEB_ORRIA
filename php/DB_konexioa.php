@@ -7,11 +7,12 @@ $pasahitza = "1MG32025";
 // root soilik baimenak ditu lokalean erabiltzeko, GU ez gera lokalean konektatuko,
 //  beraz root-en baimen berdinak dituen beste erabiltzaile bat sortu behar da.
 */
+
 $zerbitzaria = "192.168.115.155";     // zerbitzaria
 $datu_basea = "birtek_db";      // gure datu-basearen izena
 $erabiltzailea = "admin";
-
 $pasahitza = "1234";
+
 
 $dsn = "mysql:host=$zerbitzaria;port=3306;dbname=$datu_basea;charset=utf8";
 

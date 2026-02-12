@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
   $(document).on("submit", "#bezero-erregistro-form, #hornitzaile-erregistro-form", function (e) {
     var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();
@@ -25,7 +26,7 @@ $(document).ready(function () {
     }
   });
 
-  // --- PASAHITZA AHAZTU DUZU? ---
+  // --- PASAHITZA AHAZTU DUZU? ---  AJAX bidez pasahitza berreskuratzeko funtzionalitatea
   $(".pasahitza-ahaztu-esteka").on("click", function (e) {
     e.preventDefault();
 
@@ -48,4 +49,5 @@ $(document).ready(function () {
       }
     });
   });
+
 });

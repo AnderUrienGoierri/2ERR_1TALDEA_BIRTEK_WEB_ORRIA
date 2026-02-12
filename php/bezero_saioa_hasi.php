@@ -43,7 +43,7 @@ try {
           <p class="tartea-behean-1-5 testua-grisa">Dagoeneko kontua baduzu, sartu hemen:</p>
 
           <?php if (isset($_GET['error'])): ?>
-            <div class="login-errore-mezua tartea-behean-1">
+            <div class="login-errore-mezua">
               <i class="fas fa-exclamation-circle"></i> Posta elektronikoa edo pasahitza okerrak dira.
             </div>
           <?php endif; ?>
