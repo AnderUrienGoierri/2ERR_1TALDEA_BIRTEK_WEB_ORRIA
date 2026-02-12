@@ -21,9 +21,9 @@ if ($id > 0) {
             $mota = $produktua['mota']; // ENUM baliotik (Eramangarria, Mahai-gainekoa, etc.)
             $taula = "";
 
-            /* 
-              mota ENUM('Generikoa', 'Eramangarria', 'Mahai-gainekoa', 'Mugikorra', 'Tableta', 'Zerbitzaria', 'Pantaila', 'Softwarea', 'Periferikoak', 'Kableak')
-              DB Taulak: eramangarriak, mahai_gainekoak, mugikorrak, tabletak, zerbitzariak, pantailak, softwareak, periferikoak, kableak
+            /*
+            mota ENUM('Generikoa', 'Eramangarria', 'Mahai-gainekoa', 'Mugikorra', 'Tableta', 'Zerbitzaria', 'Pantaila', 'Softwarea', 'Periferikoak', 'Kableak')
+            DB Taulak: eramangarriak, mahai_gainekoak, mugikorrak, tabletak, zerbitzariak, pantailak, softwareak, periferikoak, kableak
             */
 
             switch ($mota) {

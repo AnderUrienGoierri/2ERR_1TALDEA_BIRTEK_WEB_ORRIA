@@ -34,7 +34,7 @@ $stmt = $konexioa->prepare("SELECT izena_edo_soziala, abizena, bezero_ordainketa
 $stmt->execute([$id_bezeroa]);
 $bezeroDatuak = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$titularraOsoa = $bezeroDatuak['izena_edo_soziala'] . ($bezeroDatuak['abizena'] ? ' ' . $bezeroDatuak['abizena'] : '');
+$titularra = $bezeroDatuak['izena_edo_soziala'] . ($bezeroDatuak['abizena'] ? ' ' . $bezeroDatuak['abizena'] : '');
 $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
 
 ?>
@@ -90,7 +90,7 @@ $gordetakoTxartela = $bezeroDatuak['bezero_ordainketa_txartela'] ?? '';
           <!-- 3. Txartelaren titularra -->
           <div class="form-group">
             <label for="titularra">Txartelaren Titularraren Izen Abizenak</label>
-            <input type="text" id="titularra" name="titularra" value="<?= htmlspecialchars($titularraOsoa) ?>"
+            <input type="text" id="titularra" name="titularra" value="<?= htmlspecialchars($titularra) ?>"
               placeholder="Adib: Ane Goikoetxea" required>
           </div>
 
