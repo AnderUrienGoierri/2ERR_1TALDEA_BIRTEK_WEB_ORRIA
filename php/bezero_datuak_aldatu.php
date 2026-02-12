@@ -103,8 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-$stmt = $konexioa->prepare("SELECT * FROM bezeroak WHERE id_bezeroa = :id");
-$stmt->execute([':id' => $id_bezeroa]);
+$stmt = $konexioa->prepare("SELECT * FROM bezeroak WHERE id_bezeroa = ?");
+$stmt->execute([$id_bezeroa]);
 $bezeroa = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>

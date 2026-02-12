@@ -26,16 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($kantitatea > 0) {
             // 1. Sarreretan txertatu
-            $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (:hid, NULL, 'Bidean', NOW())");
-            $stmt->execute([':hid' => $id_hornitzailea]);
+            $stmt = $konexioa->prepare("INSERT INTO sarrerak (hornitzailea_id, langilea_id, sarrera_egoera, data) VALUES (?, NULL, 'Bidean', NOW())");
+            $stmt->execute([$id_hornitzailea]);
             $sarrera_id = $konexioa->lastInsertId();
 
             // 2. Sarrera lerroetan txertatu (produktua_id = NULL baimendu dugu DBan)
-            $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera, produktu_berria_datuak) VALUES (:sid, NULL, :qty, 'Bidean', :data)");
+            $stmtLine = $konexioa->prepare("INSERT INTO sarrera_lerroak (sarrera_id, produktua_id, kantitatea, sarrera_lerro_egoera, produktu_berria_datuak) VALUES (?, NULL, ?, 'Bidean', ?)");
             $stmtLine->execute([
-                ':sid' => $sarrera_id,
-                ':qty' => $kantitatea,
-                ':data' => $json_datuak
+                $sarrera_id,
+                $kantitatea,
+                $json_datuak
             ]);
 
             $konexioa->commit();

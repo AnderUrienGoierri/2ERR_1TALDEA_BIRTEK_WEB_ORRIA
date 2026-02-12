@@ -9,9 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pasahitza = trim($_POST['pasahitza']);
 
     try {
-        $stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE emaila = :emaila");
-        $stmt->bindParam(':emaila', $emaila);
-        $stmt->execute();
+        $stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE emaila = ?");
+        $stmt->execute([$emaila]);
         $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($hornitzailea && $pasahitza === $hornitzailea['pasahitza']) {

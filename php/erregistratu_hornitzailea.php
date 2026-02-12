@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // egiaztatau emaila existitzen den
-        $check = $konexioa->prepare("SELECT id_hornitzailea FROM hornitzaileak WHERE emaila = :emaila");
-        $check->execute([':emaila' => $emaila]);
+        $check = $konexioa->prepare("SELECT id_hornitzailea FROM hornitzaileak WHERE emaila = ?");
+        $check->execute([$emaila]);
         if ($check->rowCount() > 0) {
             header("Location: hornitzaile_saioa_hasi.php?error=exists");
             exit();
@@ -36,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Begiratu ea existitzen den jada (izena berbera)
-        $checkHerria = $konexioa->prepare("SELECT id_herria FROM herriak WHERE izena = :izena LIMIT 1");
-        $checkHerria->execute([':izena' => $herria_izena]);
+        $checkHerria = $konexioa->prepare("SELECT id_herria FROM herriak WHERE izena = ? LIMIT 1");
+        $checkHerria->execute([$herria_izena]);
         $existing = $checkHerria->fetch(PDO::FETCH_ASSOC);
 
         if ($existing) {

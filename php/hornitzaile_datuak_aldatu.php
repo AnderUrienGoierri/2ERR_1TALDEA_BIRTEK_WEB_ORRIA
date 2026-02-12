@@ -98,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Uneko datuak lortu
-$stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE id_hornitzailea = :id");
-$stmt->execute([':id' => $id_hornitzailea]);
+$stmt = $konexioa->prepare("SELECT * FROM hornitzaileak WHERE id_hornitzailea = ?");
+$stmt->execute([$id_hornitzailea]);
 $hornitzailea = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>

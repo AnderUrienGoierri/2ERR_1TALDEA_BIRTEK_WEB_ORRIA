@@ -20,24 +20,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($_POST['action'] === 'delete_order' && isset($_POST['id_eskaera'])) {
                 // Egiaztatu eskaera erabiltzailearena dela eta 'Prestatzen' egoeran dagoela
-                $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = :id AND bezeroa_id = :uid");
-                $stmt->execute([':id' => $_POST['id_eskaera'], ':uid' => $id_bezeroa]);
+                $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = ? AND bezeroa_id = ?");
+                $stmt->execute([$_POST['id_eskaera'], $id_bezeroa]);
                 $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($order && strpos($order['eskaera_egoera'], 'Prestatzen') !== false) {
                     // 1. Stock-a berreskuratu eskaerako artikulu guztientzat
-                    $linesStmt = $konexioa->prepare("SELECT produktua_id, kantitatea FROM eskaera_lerroak WHERE eskaera_id = :id");
-                    $linesStmt->execute([':id' => $_POST['id_eskaera']]);
+                    $linesStmt = $konexioa->prepare("SELECT produktua_id, kantitatea FROM eskaera_lerroak WHERE eskaera_id = ?");
+                    $linesStmt->execute([$_POST['id_eskaera']]);
                     $lines = $linesStmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($lines as $line) {
-                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
-                        $updateStock->execute([':qty' => $line['kantitatea'], ':pid' => $line['produktua_id']]);
+                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + ? WHERE id_produktua = ?");
+                        $updateStock->execute([$line['kantitatea'], $line['produktua_id']]);
                     }
 
                     // 2. Markatu eskaera 'Ezabatua' gisa
-                    $updateStmt = $konexioa->prepare("UPDATE eskaerak SET eskaera_egoera = 'Ezabatua' WHERE id_eskaera = :id");
-                    $updateStmt->execute([':id' => $_POST['id_eskaera']]);
+                    $updateStmt = $konexioa->prepare("UPDATE eskaerak SET eskaera_egoera = 'Ezabatua' WHERE id_eskaera = ?");
+                    $updateStmt->execute([$_POST['id_eskaera']]);
 
                     $konexioa->commit();
                     $mezua = "Eskaera ezabatu da eta stock-a berreskuratu da.";
@@ -46,29 +46,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } elseif ($_POST['action'] === 'delete_line' && isset($_POST['id_eskaera_lerroa']) && isset($_POST['id_eskaera'])) {
                 // Lehenik eskaeraren egoera egiaztatu
-                $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = :id AND bezeroa_id = :uid");
-                $stmt->execute([':id' => $_POST['id_eskaera'], ':uid' => $id_bezeroa]);
+                $stmt = $konexioa->prepare("SELECT eskaera_egoera FROM eskaerak WHERE id_eskaera = ? AND bezeroa_id = ?");
+                $stmt->execute([$_POST['id_eskaera'], $id_bezeroa]);
                 $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($order && strpos($order['eskaera_egoera'], 'Prestatzen') !== false) {
                     // 1. Lerroaren informazioa lortu stock-a berreskuratzeko eta guztira eguneratzeko
-                    $lineStmt = $konexioa->prepare("SELECT produktua_id, unitate_prezioa, kantitatea FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
-                    $lineStmt->execute([':id' => $_POST['id_eskaera_lerroa']]);
+                    $lineStmt = $konexioa->prepare("SELECT produktua_id, unitate_prezioa, kantitatea FROM eskaera_lerroak WHERE id_eskaera_lerroa = ?");
+                    $lineStmt->execute([$_POST['id_eskaera_lerroa']]);
                     $line = $lineStmt->fetch(PDO::FETCH_ASSOC);
 
                     if ($line) {
                         // 2. Stock-a berreskuratu
-                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + :qty WHERE id_produktua = :pid");
-                        $updateStock->execute([':qty' => $line['kantitatea'], ':pid' => $line['produktua_id']]);
+                        $updateStock = $konexioa->prepare("UPDATE produktuak SET stock = stock + ? WHERE id_produktua = ?");
+                        $updateStock->execute([$line['kantitatea'], $line['produktua_id']]);
 
                         // 3. Lerroa ezabatu
-                        $deleteStmt = $konexioa->prepare("DELETE FROM eskaera_lerroak WHERE id_eskaera_lerroa = :id");
-                        $deleteStmt->execute([':id' => $_POST['id_eskaera_lerroa']]);
+                        $deleteStmt = $konexioa->prepare("DELETE FROM eskaera_lerroak WHERE id_eskaera_lerroa = ?");
+                        $deleteStmt->execute([$_POST['id_eskaera_lerroa']]);
 
                         // 4. Eskaeraren guztira eguneratu
                         $deduction = $line['unitate_prezioa'] * $line['kantitatea'];
-                        $updateTotal = $konexioa->prepare("UPDATE eskaerak SET guztira_prezioa = guztira_prezioa - :val WHERE id_eskaera = :id");
-                        $updateTotal->execute([':val' => $deduction, ':id' => $_POST['id_eskaera']]);
+                        $updateTotal = $konexioa->prepare("UPDATE eskaerak SET guztira_prezioa = guztira_prezioa - ? WHERE id_eskaera = ?");
+                        $updateTotal->execute([$deduction, $_POST['id_eskaera']]);
 
                         $konexioa->commit();
                         $mezua = "Produktua ezabatu da eta stock-a berreskuratu da.";
@@ -93,10 +93,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Eskaerak ekarri
 $stmt = $konexioa->prepare("
     SELECT * FROM eskaerak
-    WHERE bezeroa_id = :id
+    WHERE bezeroa_id = ?
     ORDER BY data DESC
 ");
-$stmt->execute([':id' => $id_bezeroa]);
+$stmt->execute([$id_bezeroa]);
 $eskaerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Eskaera lerroak lortzeko laguntza-funtzioa
