@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+//include_once edo require_once erabili
 require_once 'DB_konexioa.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
