@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefonoa = '000000000';
 
     try {
+        // egiaztatau emaila existitzen den
         $check = $konexioa->prepare("SELECT id_bezeroa FROM bezeroak WHERE emaila = ?");
         $check->execute([$emaila]);
         if ($check->rowCount() > 0) {
@@ -48,9 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die("Herria berria bada, Lurraldea (probintzia) zehaztea beharrezkoa da.");
             }
             // Txertatu berria
-            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) VALUES (:izena, :lurraldea, :nazioa)";
+            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) 
+                          VALUES (:izena, :lurraldea, :nazioa)";
             $stmtHerria = $konexioa->prepare($sqlHerria);
-            $stmtHerria->execute([':izena' => $herria_izena, ':lurraldea' => $lurraldea, ':nazioa' => $nazioa]);
+            $stmtHerria->execute([':izena' => $herria_izena, 
+                                  ':lurraldea' => $lurraldea, 
+                                  ':nazioa' => $nazioa]);
             $herria_id = $konexioa->lastInsertId();
         }
 
