@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  renderErosketaSaskia();
+  erakutsiErosketaSaskia();
 
   // Saskia hutsik badago inprimakia bidaltzea ekidin
   $("#bidalketa-form").on("submit", function (e) {
@@ -23,14 +23,14 @@ $(document).ready(function () {
     aldatuKantitatea(id, -1);
   });
 
-  $(document).on("click", ".item-ezabatu", function (e) {
+  $(document).on("click", ".eskaera-lerroa-ezabatu", function (e) {
     e.preventDefault();
     const id = $(this).data("id");
-    ezabatuItem(id);
+    eskaera_lerroa_ezabatu(id);
   });
 });
 
-function renderErosketaSaskia() {
+function erakutsiErosketaSaskia() {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
   const $container = $("#erosketa-saski-container");
   let totala = 0;
@@ -52,7 +52,7 @@ function renderErosketaSaskia() {
       .removeClass("botoi-desgaitua");
   }
 
-  /* Taularen egitura */
+  /* Erosketa Saski Taularen egitura */
   let tableHtml = `
     <div class="taula-edukiontzia-scroll">
     <table class="lerro-taula">
@@ -68,26 +68,25 @@ function renderErosketaSaskia() {
         <tbody>
   `;
 
-  /* forEach erabili $.each-en ordez */
-  saskia.forEach((item) => {
-    const subtotala = item.prezioa * item.kantitatea;
+  saskia.forEach((eskaera_lerroa) => {
+    const subtotala = eskaera_lerroa.prezioa * eskaera_lerroa.kantitatea;
     totala += subtotala;
     tableHtml += `
         <tr>
             <td>
-                <strong>${item.izena}</strong>
+                <strong>${eskaera_lerroa.izena}</strong>
             </td>
             <td class="testua-zentratuta">
                 <div class="kopuru-kontrola-lerroa">
-                    <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>
-                    <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>
-                    <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>
+                    <button class="kopuru-btn kopuru-minus" data-id="${eskaera_lerroa.id}">-</button>
+                    <span class="kopuru-kontrola-balioa">${eskaera_lerroa.kantitatea}</span>
+                    <button class="kopuru-btn kopuru-plus" data-id="${eskaera_lerroa.id}">+</button>
                 </div>
             </td>
-            <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>
+            <td class="testua-eskuinera">${eskaera_lerroa.prezioa.toFixed(2)} €</td>
             <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>
             <td class="testua-zentratuta">
-                <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">
+                <button class="ezabatu-btn-gorria eskaera-lerroa-ezabatu" data-id="${eskaera_lerroa.id}" title="Ezabatu">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -105,34 +104,34 @@ function renderErosketaSaskia() {
   $("#erosketa-guztira").text(totala.toFixed(2) + " €");
 }
 
-function aldatuKantitatea(id, change) {
+function aldatuKantitatea(id, aldaketa) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
-  const item = saskia.find((i) => i.id == id);
+  const eskaera_lerroa = saskia.find((i) => i.id == id);
 
-  if (item) {
-    const newQty = item.kantitatea + change;
+  if (eskaera_lerroa) {
+    const kantitateBerria = eskaera_lerroa.kantitatea + aldaketa;
 
     // Stock egiaztapena
-    if (newQty > item.stock) {
+    if (kantitateBerria > eskaera_lerroa.stock) {
       alert("Ez dago stock nahikorik gehiago gehitzeko.");
       return;
     }
 
-    if (newQty > 0) {
-      item.kantitatea = newQty;
+    if (kantitateBerria > 0) {
+      eskaera_lerroa.kantitatea = kantitateBerria;
       window.saskiaGorde(saskia); // LocalStorage + Goiburuko Kontagailua eguneratu
-      renderErosketaSaskia();
+      erakutsiErosketaSaskia();
     } else {
-      ezabatuItem(id);
+      eskaera_lerroa_ezabatu(id);
     }
   }
 }
 
-function ezabatuItem(id) {
+function eskaera_lerroa_ezabatu(id) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
-  const filtered = saskia.filter((i) => i.id != id);
-  window.saskiaGorde(filtered);
-  renderErosketaSaskia();
+  const eskaera_lerro_filtratua = saskia.filter((i) => i.id != id);
+  window.saskiaGorde(eskaera_lerro_filtratua);
+  erakutsiErosketaSaskia();
 }

@@ -9,10 +9,9 @@ $pasahitza = "1MG32025";
 */
 
 $zerbitzaria = "192.168.115.155";     // zerbitzaria
-$datu_basea = "birtek_db";      // gure datu-basearen izena
+$datu_basea = "birtek_db";      // datu-basearen izena
 $erabiltzailea = "admin";
 $pasahitza = "1234";
-
 
 $dsn = "mysql:host=$zerbitzaria;port=3306;dbname=$datu_basea;charset=utf8";
 

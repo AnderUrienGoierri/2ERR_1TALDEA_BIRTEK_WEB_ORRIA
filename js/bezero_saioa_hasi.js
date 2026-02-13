@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+
   // --- ERREGISTRO FORMULARIOAREN BALIDAZIOA ---
   $(document).on("submit", "#bezero-erregistro-form, #hornitzaile-erregistro-form", function (e) {
     var pasahitza = $(this).find('input[name="pasahitza_erregistroa"]').val();

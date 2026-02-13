@@ -4,9 +4,9 @@ require_once 'DB_konexioa.php';
 
 // Herriak lortu
 try {
-  $stmt_h = $konexioa->prepare("SELECT id_herria, izena FROM herriak ORDER BY izena");
-  $stmt_h->execute();
-  $herriak = $stmt_h->fetchAll(PDO::FETCH_ASSOC);
+  $stmt_herriak = $konexioa->prepare("SELECT id_herria, izena FROM herriak ORDER BY izena");
+  $stmt_herriak->execute();
+  $herriak = $stmt_herriak->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   $herriak = [];
 }
