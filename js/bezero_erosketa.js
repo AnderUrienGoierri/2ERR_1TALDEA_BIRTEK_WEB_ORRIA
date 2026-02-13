@@ -67,7 +67,7 @@ function erakutsiErosketaSaskia() {
         </thead>
         <tbody>
   `;
-  
+
   saskia.forEach((eskaera_lerroa) => {
     const subtotala = eskaera_lerroa.prezioa * eskaera_lerroa.kantitatea;
     totala += subtotala;
