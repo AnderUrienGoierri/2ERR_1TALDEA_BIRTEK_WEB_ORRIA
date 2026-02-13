@@ -32,13 +32,13 @@ $(document).ready(function () {
 
 function erakutsiErosketaSaskia() {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
-  const $container = $("#erosketa-saski-container");
+  const $saskiModala = $("#erosketa-saski-container");
   let totala = 0;
 
-  $container.empty();
+  $saskiModala.empty();
 
   if (saskia.length === 0) {
-    $container.html(
+    $saskiModala.html(
       '<p class="saskia-hutsik-mezua">Ez duzu produkturik aukeratu.</p>'
     );
     $("#erosketa-guztira").text("0.00 €");
@@ -52,8 +52,8 @@ function erakutsiErosketaSaskia() {
       .removeClass("botoi-desgaitua");
   }
 
-  /* Erosketa Saski Taularen egitura */
-  let tableHtml = `
+  /* Erosketa Saski modala Taularen egitura */
+  let saskiaTaula = `
     <div class="taula-edukiontzia-scroll">
     <table class="lerro-taula">
         <thead>
@@ -67,11 +67,11 @@ function erakutsiErosketaSaskia() {
         </thead>
         <tbody>
   `;
-
+  
   saskia.forEach((eskaera_lerroa) => {
     const subtotala = eskaera_lerroa.prezioa * eskaera_lerroa.kantitatea;
     totala += subtotala;
-    tableHtml += `
+    saskiaTaula += `
         <tr>
             <td>
                 <strong>${eskaera_lerroa.izena}</strong>
@@ -94,16 +94,17 @@ function erakutsiErosketaSaskia() {
     `;
   });
 
-  tableHtml += `
+  saskiaTaula += `
         </tbody>
     </table>
     </div>
   `;
 
-  $container.html(tableHtml);
+  $saskiModala.html(saskiaTaula);
   $("#erosketa-guztira").text(totala.toFixed(2) + " €");
 }
 
+// eskaera lerro bateko kantitatea aldatu
 function aldatuKantitatea(id, aldaketa) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
@@ -128,6 +129,7 @@ function aldatuKantitatea(id, aldaketa) {
   }
 }
 
+// eskaera lerro bat ezabatu
 function eskaera_lerroa_ezabatu(id) {
   const saskia = JSON.parse(localStorage.getItem("birtek_saskia")) || [];
 
