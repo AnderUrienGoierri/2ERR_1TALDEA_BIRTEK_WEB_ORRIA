@@ -1,9 +1,8 @@
 <?php
 session_start();
-
-// include_once ere balio du
 require_once 'DB_konexioa.php';
 
+// Egiaztatu bezeroa saioa hasita dagoen, ez badago exit()
 if (!isset($_SESSION['id_bezeroa'])) {
     header("Location: bezero_saioa_hasi.php");
     exit();
@@ -102,12 +101,10 @@ $eskaerak = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Eskaera lerroak lortzeko laguntza-funtzioa
 function lortuEskeraLerroak($konexioa, $id_eskaera)
 {
-    $sql = "
-        SELECT el.*, p.izena, p.deskribapena
-        FROM eskaera_lerroak el
-        JOIN produktuak p ON el.produktua_id = p.id_produktua
-        WHERE el.eskaera_id = :id
-    ";
+    $sql = "SELECT el.*, p.izena, p.deskribapena
+            FROM eskaera_lerroak el
+            JOIN produktuak p ON el.produktua_id = p.id_produktua
+            WHERE el.eskaera_id = :id";
     $stmt = $konexioa->prepare($sql);
     $stmt->execute([':id' => $id_eskaera]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

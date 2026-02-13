@@ -2,7 +2,7 @@
 session_start();
 require_once 'DB_konexioa.php';
 
-// Egiaztatu bezeroa saioa hasita dagoen
+// Egiaztatu bezeroa saioa hasita dagoen, ez badago exit()
 if (!isset($_SESSION['id_bezeroa'])) {
     header("Location: bezero_saioa_hasi.php");
     exit();
