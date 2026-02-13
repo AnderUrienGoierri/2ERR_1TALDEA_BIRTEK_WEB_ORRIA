@@ -9,10 +9,8 @@ $(document).ready(function () {
 
   // Begiratu ea zerbitzaritik (PHP) datuak jada badatozen (hasierakoProduktuak)
   if (
-    typeof hasierakoProduktuak !== "undefined" &&
-    Array.isArray(hasierakoProduktuak)
+    typeof hasierakoProduktuak !== "undefined" &&Array.isArray(hasierakoProduktuak)
   ) {
-    // Datuak jada hemen daude: ez egin ajax deirik.
     // Gorde aldagai globalean iragazkientzat
     produktuGuztiak = hasierakoProduktuak;
     console.log("Produktuak PHPtik kargatuta.", produktuGuztiak.length);
@@ -74,7 +72,7 @@ function produktuakBistaratu(produktuak) {
     return;
   }
 
-  $.each(produktuak, function (index, produktua) {
+  produktuak.forEach(produktua => {
     var stockKlasea =
       produktua.stock > 0 ? "txartel-stock" : "txartel-stock-agortuta";
 
@@ -102,9 +100,7 @@ function produktuakBistaratu(produktuak) {
           </p>
 
           <div class="txartel-oina">
-            <span class="txartel-prezioa">${produktua.prezioa.toFixed(
-              2,
-            )} €</span>
+            <span class="txartel-prezioa">${produktua.prezioa.toFixed(2)} €</span>
             <button class="produktua-saskiratu-botoia" data-stock="${
               produktua.stock
             }" ${produktua.stock === 0 ? "disabled" : ""}>
