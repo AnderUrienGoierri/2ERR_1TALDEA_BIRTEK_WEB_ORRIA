@@ -3562,7 +3562,7 @@ function renderErosketaSaskia() {
                 </div>
             </td>
             <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>
-            <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>
+            <td class="testua-eskuinera">${subtotala.toFixed(2)} €</td>
             <td class="testua-zentratuta">
                 <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">
                     <i class="fas fa-trash"></i>
@@ -4890,7 +4890,7 @@ try {
                 </div>
                 <!-- Guztira lerroa txartelaren barruan edo azpian -->
                 <div class="saski-oina-guztira">
-                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €</span>
+                    Guztira: <span id="erosketa-guztira">0.00 €</span>
                 </div>
             </div>
 

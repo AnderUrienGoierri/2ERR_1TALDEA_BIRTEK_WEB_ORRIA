@@ -84,7 +84,7 @@ function erakutsiErosketaSaskia() {
                 </div>
             </td>
             <td class="testua-eskuinera">${eskaera_lerroa.prezioa.toFixed(2)} €</td>
-            <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>
+            <td class="testua-eskuinera">${subtotala.toFixed(2)} €</td>
             <td class="testua-zentratuta">
                 <button class="ezabatu-btn-gorria eskaera-lerroa-ezabatu" data-id="${eskaera_lerroa.id}" title="Ezabatu">
                     <i class="fas fa-trash"></i>

@@ -5,7 +5,7 @@ require_once 'DB_konexioa.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $izena = trim($_POST['izena']);
     $emaila = trim($_POST['emaila_erregistroa']);
-    $helbidea = trim($_POST['helbidea']); // Oharra: Inprimakiak hau pasa dezake, edo agian gehitu egin behar dugu HTML-n falta bada
+    $helbidea = trim($_POST['helbidea']);
     $pasahitza = trim($_POST['pasahitza_erregistroa']);
 
     // Balio lehenetsiak
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Oharra: 'izena_edo_soziala' da DBko zutabearen izena 'izena'-rentzat
         $sql = "INSERT INTO bezeroak (izena_edo_soziala, emaila, pasahitza, helbidea, ifz_nan, herria_id, posta_kodea, telefonoa, aktibo)
-                VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)";
+                VALUES (:izena, :emaila, :pasahitza, :helbidea, :ifz, :herria, :pk, :tel, 1)"; // bezero bat aktibo sortzen da erosketak egiten hasteko jarraian
 
         // Herria kudeatu (Izena bidez bilatu edo sortu)
         $herria_izena = trim($_POST['herria_izena'] ?? '');
@@ -49,12 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die("Herria berria bada, Lurraldea (probintzia) zehaztea beharrezkoa da.");
             }
             // Txertatu berria
-            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa) 
-                          VALUES (:izena, :lurraldea, :nazioa)";
+            $sqlHerria = "INSERT INTO herriak (izena, lurraldea, nazioa)
+                            VALUES (:izena, :lurraldea, :nazioa)";
             $stmtHerria = $konexioa->prepare($sqlHerria);
-            $stmtHerria->execute([':izena' => $herria_izena, 
-                                  ':lurraldea' => $lurraldea, 
-                                  ':nazioa' => $nazioa]);
+            $stmtHerria->execute([':izena' => $herria_izena,
+                                ':lurraldea' => $lurraldea,
+                                ':nazioa' => $nazioa]);
             $herria_id = $konexioa->lastInsertId();
         }
 

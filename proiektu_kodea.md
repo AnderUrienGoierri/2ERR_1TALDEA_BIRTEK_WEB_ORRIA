@@ -456,7 +456,7 @@ try {
                 </div>
                 <!-- Guztira lerroa txartelaren barruan edo azpian -->
                 <div class="saski-oina-guztira">
-                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €
+                    Guztira: <span id="erosketa-guztira">0.00 €
                 </div>
             </div>
 
@@ -7627,7 +7627,7 @@ function renderErosketaSaskia() {
     const subtotala = item.prezioa * item.kantitatea;
     totala += subtotala;
 
-    tableHtml +=        <tr>             <td>                 <strong>${item.izena}</strong>             </td>             <td class="testua-zentratuta">                 <div class="kopuru-kontrola-lerroa">                     <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>                     <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>                     <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>                 </div>             </td>             <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>             <td class="testua-eskuinera prezio-nabarmena">${subtotala.toFixed(2)} €</td>             <td class="testua-zentratuta">                 <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">                     <i class="fas fa-trash"></i>                 </button>             </td>         </tr>    `;
+    tableHtml += `        <tr>             <td>                 <strong>${item.izena}</strong>             </td>             <td class="testua-zentratuta">                 <div class="kopuru-kontrola-lerroa">                     <button class="kopuru-btn kopuru-minus" data-id="${item.id}">-</button>                     <span class="kopuru-kontrola-balioa">${item.kantitatea}</span>                     <button class="kopuru-btn kopuru-plus" data-id="${item.id}">+</button>                 </div>             </td>             <td class="testua-eskuinera">${item.prezioa.toFixed(2)} €</td>             <td class="testua-eskuinera">${subtotala.toFixed(2)} €</td>             <td class="testua-zentratuta">                 <button class="ezabatu-btn-gorria item-ezabatu" data-id="${item.id}" title="Ezabatu">                     <i class="fas fa-trash"></i>                 </button>             </td>         </tr>    `;
   });
 
   tableHtml += `        </tbody>     </table>     </div>  `;

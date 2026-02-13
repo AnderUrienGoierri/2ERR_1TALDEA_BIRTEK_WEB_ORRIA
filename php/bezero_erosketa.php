@@ -64,7 +64,7 @@ try {
                 </div>
                 <!-- Guztira lerroa txartelaren barruan edo azpian -->
                 <div class="saski-oina-guztira">
-                    Guztira: <span id="erosketa-guztira" class="prezio-nabarmena">0.00 €</span>
+                    Guztira: <span id="erosketa-guztira">0.00 €</span>
                 </div>
             </div>
 
@@ -106,12 +106,12 @@ try {
                             <input type="text" id="posta_kodea" name="posta_kodea" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['posta_kodea']) ?>" required>
                         </div>
 
-                        <div class="inprimaki-taldea extra-behean-2">
+                        <div class="inprimaki-taldea">
                             <label for="telefonoa">Telefonoa</label>
                             <input type="tel" id="telefonoa" name="telefonoa" class="inprimaki-sarrera" value="<?= htmlspecialchars($bezeroa['telefonoa']) ?>" required>
                         </div>
 
-                        <button type="submit" class="botoia botoi-nagusia zabalera-osoa handia">
+                        <button type="submit" class="botoia botoi-nagusia zabalera-osoa">
                             Ordainketara Joan <i class="fas fa-arrow-right"></i>
                         </button>
                     </form>
