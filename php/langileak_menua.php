@@ -28,6 +28,9 @@ session_start();
         <a href="birtek://ireki" class="birtek-java-ap-botoia link-botoi">
           <i class="fas fa-users-cog"></i> BirtekAp
         </a>
+        <a href="bista_langileak_sailak.php" class="birtek-nabigazio-botoia link-botoi">
+          <i class="fas fa-table"></i> Langileak eta Sailak
+        </a>
         <a href="../../birtek_app_exekutablea.zip" class="birtek-java-ap-botoia link-botoi" download>
           <i class="fas fa-download"></i> App deskargatu
         </a>

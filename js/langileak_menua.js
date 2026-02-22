@@ -68,7 +68,7 @@ $(document).ready(function () {
       },
       error: function (xhr, status, error) {
         console.error("Errorea:", error);
-        alert("Errorea gertatu da eskaera bidaltzean. Mesedez, saiatu berriro.");
+        alert("Errorea gertatu da eskaera bidaltzean. Mesedez, saiatu berriro. Langile hori sortuta dago iada");
         $submitBtn.prop("disabled", false).text("Eskaera Bidali");
       },
     });

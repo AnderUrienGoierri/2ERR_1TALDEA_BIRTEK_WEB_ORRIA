@@ -8,7 +8,7 @@ if (!isset($_SESSION['id_bezeroa']) || !isset($_GET['id'])) {
 $id_eskaera = $_GET['id'];
 
 // Bideak definitu
-$base_url = "http://192.168.115.155/fakturak/fakturak/";
+$base_url = "http://192.168.115.155/fakturak/";
 
 // Fitxategiaren izena eraiki
 $filename = "faktura_" . $id_eskaera . ".pdf";

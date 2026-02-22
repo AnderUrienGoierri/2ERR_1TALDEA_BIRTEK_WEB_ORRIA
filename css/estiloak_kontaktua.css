@@ -10,7 +10,10 @@
 
 .kontaktu-sareta {
   display: grid;
-  grid-template-columns: minmax(0,1fr); /* GARRANTZITSUA: Grid pistak edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
+  grid-template-columns: minmax(
+    0,
+    1fr
+  ); /* GARRANTZITSUA: Grid pistak edukiaren tamainaren azpitik txikitzea ahalbidetzen du */
   gap: 3rem;
   align-items: start;
 }
@@ -189,7 +192,8 @@ Langileak Orriko Estiloak
   margin-bottom: 3rem;
 }
 
-.birtek-java-ap-botoia {
+.birtek-java-ap-botoia,
+.birtek-nabigazio-botoia {
   background-color: #2563eb; /* Urdina */
   color: white;
   font-size: 1rem;
@@ -207,7 +211,8 @@ Langileak Orriko Estiloak
   gap: 1rem;
 }
 
-.birtek-java-ap-botoia:hover {
+.birtek-java-ap-botoia:hover,
+.birtek-nabigazio-botoia:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
   background-color: #1d4ed8;
